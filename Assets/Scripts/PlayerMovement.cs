@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             if (echoSpawns <= 0) {
                 GameObject echoInstance = Instantiate(echo, transform.position, Quaternion.identity);
                 echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
-                Destroy(echoInstance, 1f);
+                //Destroy(echoInstance, 1f);
                 echoSpawns = 0.01f;
             } else {
                 echoSpawns -= Time.deltaTime*2;
