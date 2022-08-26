@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public float moveSpeed = 7f;
 
@@ -23,11 +23,15 @@ public class PlayerMovement : MonoBehaviour
     public GameObject echo;
     private float echoSpawns;
     private bool isDashing;
+
+    private bool isAttacking;
+
     void Start() {
         dashSpeed = 30f;
         echoSpawns = 0.01f;
         activeMoveSpeed = moveSpeed;
         isDashing = false;
+        isAttacking = false;
     }
 
 
@@ -37,10 +41,36 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.X)) {
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && isAttacking)
+            isAttacking = false;
+
+        Dash();
+        Attack();
+
+        if (movement != Vector2.zero) {
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+        }
+
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+
+        animator.SetBool("IsAttacking", isAttacking);
+    }
+
+    void FixedUpdate()
+    {
+        if (!isAttacking)
+            rb.MovePosition(rb.position + movement * activeMoveSpeed * Time.fixedDeltaTime);
+        if (isDashing) {
+            DashEffect();
+        }
+    }
+
+    void Dash() {
+        if (Input.GetKeyDown(KeyCode.X) && movement.sqrMagnitude > 0) {
             if (dashCoolCounter <= 0 && dashCounter <= 0) {
                 isDashing = true;
-                Instantiate(echo, transform.position, Quaternion.identity);
+                isAttacking = false;
                 activeMoveSpeed = dashSpeed;
                 dashCounter = dashLength;
             }
@@ -58,27 +88,22 @@ public class PlayerMovement : MonoBehaviour
         if (dashCoolCounter > 0) {
             dashCoolCounter -= Time.deltaTime;
         }
-
-        if (movement != Vector2.zero) {
-            animator.SetFloat("Horizontal", movement.x);
-            animator.SetFloat("Vertical", movement.y);
-        }
-
-        animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
-    void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + movement * activeMoveSpeed * Time.fixedDeltaTime);
-        if (isDashing) {
-            if (echoSpawns <= 0) {
-                GameObject echoInstance = Instantiate(echo, transform.position, Quaternion.identity);
-                echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
-                //Destroy(echoInstance, 1f);
-                echoSpawns = 0.01f;
-            } else {
-                echoSpawns -= Time.deltaTime*2;
-            }
+    void DashEffect() {
+        if (echoSpawns <= 0) {
+            GameObject echoInstance = Instantiate(echo, transform.position, Quaternion.identity);
+            echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
+            echoSpawns = 0.01f;
+        } else {
+            echoSpawns -= Time.deltaTime*2;
+        }
+    }
+
+    void Attack() {
+        if (Input.GetKeyDown(KeyCode.Z)) {
+            isAttacking = true;
+            isDashing = false;
         }
     }
 }
