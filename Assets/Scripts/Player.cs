@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public enum State {
+        Idle,
+        Attack,
+        Dash
+    }
+
     public float moveSpeed = 7f;
 
     public Rigidbody2D rb;
@@ -26,67 +32,75 @@ public class Player : MonoBehaviour
 
     private bool isAttacking;
 
+    private State playerState;
+
     void Start() {
         dashSpeed = 30f;
         echoSpawns = 0.01f;
         activeMoveSpeed = moveSpeed;
         isDashing = false;
         isAttacking = false;
+        playerState = State.Idle;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        switch (playerState) {
+            case State.Idle:
+                if (movement != Vector2.zero) {
+                    animator.SetFloat("Horizontal", movement.x);
+                    animator.SetFloat("Vertical", movement.y);
+                }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && isAttacking)
-            isAttacking = false;
+                animator.SetFloat("Speed", movement.sqrMagnitude);
+                break;
+            case State.Dash:
+                activeMoveSpeed = dashSpeed;
+                dashCounter = dashLength;
+                if (dashCounter > 0) {
+                    dashCounter -= Time.deltaTime;
+                    if (dashCounter <= 0) { 
+                        playerState = State.Idle;
+                        activeMoveSpeed = moveSpeed;
+                        dashCoolCounter = dashCooldown;
+                    }
+                }
 
-        Dash();
-        Attack();
-
-        if (movement != Vector2.zero) {
-            animator.SetFloat("Horizontal", movement.x);
-            animator.SetFloat("Vertical", movement.y);
+                if (dashCoolCounter > 0) {
+                    dashCoolCounter -= Time.deltaTime;
+                }
+                break;
+            case State.Attack:
+                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                    playerState = State.Idle;
+                    isAttacking = false;
+                break;
         }
-
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-
+        GetInput();
         animator.SetBool("IsAttacking", isAttacking);
     }
 
     void FixedUpdate()
     {
-        if (!isAttacking)
+        if (playerState == State.Idle)
             rb.MovePosition(rb.position + movement * activeMoveSpeed * Time.fixedDeltaTime);
-        if (isDashing) {
+        else if (playerState == State.Dash) {
             DashEffect();
         }
     }
 
-    void Dash() {
-        if (Input.GetKeyDown(KeyCode.X) && movement.sqrMagnitude > 0) {
-            if (dashCoolCounter <= 0 && dashCounter <= 0) {
-                isDashing = true;
-                isAttacking = false;
-                activeMoveSpeed = dashSpeed;
-                dashCounter = dashLength;
-            }
-        }
+    void GetInput() {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
-        if (dashCounter > 0) {
-            dashCounter -= Time.deltaTime;
-            if (dashCounter <= 0) { 
-                isDashing = false;
-                activeMoveSpeed = moveSpeed;
-                dashCoolCounter = dashCooldown;
-            }
-        }
-
-        if (dashCoolCounter > 0) {
-            dashCoolCounter -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.X)) {
+            if (dashCoolCounter <= 0 && dashCounter <= 0 && movement.sqrMagnitude > 0 && playerState != State.Dash)
+                playerState = State.Dash;
+        } else if (Input.GetKeyDown(KeyCode.Z) && playerState != State.Attack) {
+            playerState = State.Attack;
+            isAttacking = true;
         }
     }
 
@@ -97,13 +111,6 @@ public class Player : MonoBehaviour
             echoSpawns = 0.01f;
         } else {
             echoSpawns -= Time.deltaTime*2;
-        }
-    }
-
-    void Attack() {
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            isAttacking = true;
-            isDashing = false;
         }
     }
 }
