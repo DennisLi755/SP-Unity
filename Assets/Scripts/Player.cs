@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -47,8 +48,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetInput();
         switch (playerState) {
             case State.Idle:
+                Move();
                 if (movement != Vector2.zero) {
                     animator.SetFloat("Horizontal", movement.x);
                     animator.SetFloat("Vertical", movement.y);
@@ -57,19 +60,15 @@ public class Player : MonoBehaviour
                 animator.SetFloat("Speed", movement.sqrMagnitude);
                 break;
             case State.Dash:
-                activeMoveSpeed = dashSpeed;
-                dashCounter = dashLength;
+                Move();
                 if (dashCounter > 0) {
+                    activeMoveSpeed = dashSpeed;
                     dashCounter -= Time.deltaTime;
                     if (dashCounter <= 0) { 
                         playerState = State.Idle;
                         activeMoveSpeed = moveSpeed;
                         dashCoolCounter = dashCooldown;
                     }
-                }
-
-                if (dashCoolCounter > 0) {
-                    dashCoolCounter -= Time.deltaTime;
                 }
                 break;
             case State.Attack:
@@ -78,26 +77,33 @@ public class Player : MonoBehaviour
                     isAttacking = false;
                 break;
         }
-        GetInput();
+        if (dashCoolCounter > 0) {
+            dashCoolCounter -= Time.deltaTime;
+        }
         animator.SetBool("IsAttacking", isAttacking);
+        Debug.Log(playerState);
     }
 
     void FixedUpdate()
     {
-        if (playerState == State.Idle)
+        if (playerState != State.Attack)
             rb.MovePosition(rb.position + movement * activeMoveSpeed * Time.fixedDeltaTime);
-        else if (playerState == State.Dash) {
+        if (playerState == State.Dash) {
             DashEffect();
         }
     }
 
-    void GetInput() {
+    void Move() {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+    }
 
+    void GetInput() {
         if (Input.GetKeyDown(KeyCode.X)) {
-            if (dashCoolCounter <= 0 && dashCounter <= 0 && movement.sqrMagnitude > 0 && playerState != State.Dash)
+            if (dashCoolCounter <= 0 && dashCounter <= 0 && movement.sqrMagnitude > 0 && playerState != State.Dash) { 
                 playerState = State.Dash;
+                dashCounter = dashLength;
+            }
         } else if (Input.GetKeyDown(KeyCode.Z) && playerState != State.Attack) {
             playerState = State.Attack;
             isAttacking = true;
