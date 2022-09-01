@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     }
     const float MAX_STAMINA = 10f;
 
-    public float moveSpeed = 7f;
+    private float moveSpeed = 5f;
 
     public Rigidbody2D rb;
     private Animator animator;
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     private State playerState;
 
     void Start() {
-        dashSpeed = 30f;
+        dashSpeed = 20f;
         echoSpawns = 0.01f;
         activeMoveSpeed = moveSpeed;
         playerState = State.Idle;
