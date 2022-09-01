@@ -10,16 +10,19 @@ public class Player : MonoBehaviour
         Attack,
         Dash
     }
+    const float MAX_STAMINA = 10f;
 
     public float moveSpeed = 7f;
 
     public Rigidbody2D rb;
-    public Animator animator;
+    private Animator animator;
 
     Vector2 movement;
 
     private float activeMoveSpeed;
     public float dashSpeed;
+    private float stamina;
+    private float staminaCounter;
 
     private float dashLength = 0.15f;
     private float dashCooldown = 0.2f;
@@ -31,17 +34,16 @@ public class Player : MonoBehaviour
     private float echoSpawns;
     private bool isDashing;
 
-    private bool isAttacking;
-
     private State playerState;
 
     void Start() {
         dashSpeed = 30f;
         echoSpawns = 0.01f;
         activeMoveSpeed = moveSpeed;
-        isDashing = false;
-        isAttacking = false;
         playerState = State.Idle;
+        animator = GetComponent<Animator>();
+        stamina = MAX_STAMINA;
+        staminaCounter = 0f;
     }
 
 
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         GetInput();
+        animator.SetBool("IsAttacking", (playerState == State.Attack)? true : false);
         switch (playerState) {
             case State.Idle:
                 Move();
@@ -56,7 +59,6 @@ public class Player : MonoBehaviour
                     animator.SetFloat("Horizontal", movement.x);
                     animator.SetFloat("Vertical", movement.y);
                 }
-
                 animator.SetFloat("Speed", movement.sqrMagnitude);
                 break;
             case State.Dash:
@@ -67,20 +69,16 @@ public class Player : MonoBehaviour
                     if (dashCounter <= 0) { 
                         playerState = State.Idle;
                         activeMoveSpeed = moveSpeed;
-                        dashCoolCounter = dashCooldown;
                     }
                 }
                 break;
             case State.Attack:
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 &&
+                    animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
                     playerState = State.Idle;
-                    isAttacking = false;
+                }
                 break;
         }
-        if (dashCoolCounter > 0) {
-            dashCoolCounter -= Time.deltaTime;
-        }
-        animator.SetBool("IsAttacking", isAttacking);
         Debug.Log(playerState);
     }
 
@@ -91,6 +89,15 @@ public class Player : MonoBehaviour
         if (playerState == State.Dash) {
             DashEffect();
         }
+
+        if (stamina < MAX_STAMINA) {
+            staminaCounter++;
+            if (staminaCounter >= 100) {
+                stamina += 0.5f;
+            }
+        } else {
+            staminaCounter = 0;
+        }
     }
 
     void Move() {
@@ -99,14 +106,15 @@ public class Player : MonoBehaviour
     }
 
     void GetInput() {
-        if (Input.GetKeyDown(KeyCode.X)) {
-            if (dashCoolCounter <= 0 && dashCounter <= 0 && movement.sqrMagnitude > 0 && playerState != State.Dash) { 
+        if (Input.GetKeyDown(KeyCode.X) && stamina > 0) {
+            if (dashCoolCounter <= 0 && dashCounter <= 0 && playerState != State.Dash) { 
                 playerState = State.Dash;
                 dashCounter = dashLength;
+                stamina -= 5;
             }
         } else if (Input.GetKeyDown(KeyCode.Z) && playerState != State.Attack) {
             playerState = State.Attack;
-            isAttacking = true;
+            activeMoveSpeed = moveSpeed;
         }
     }
 
