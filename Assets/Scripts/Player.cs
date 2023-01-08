@@ -25,16 +25,17 @@ public class Player : MonoBehaviour
     private float staminaCounter;
 
     private float dashLength = 0.15f;
-    private float dashCooldown = 0.2f;
 
-    private float dashCounter;
-    private float dashCoolCounter;
+    private bool isDashing;
+    private bool isAttacking;
 
     public GameObject echo;
     private float echoSpawns;
-    private bool isDashing;
 
     private State playerState;
+    int totalAttackFrames;
+    public int damageFrame;
+    public AnimationClip attackAnimation;
 
     void Start() {
         dashSpeed = 20f;
@@ -44,6 +45,9 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         stamina = MAX_STAMINA;
         staminaCounter = 0f;
+        isDashing = false;
+        totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
+        isAttacking = false;
     }
 
 
@@ -51,7 +55,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         GetInput();
-        animator.SetBool("IsAttacking", (playerState == State.Attack)? true : false);
+        animator.SetBool("IsAttacking", playerState == State.Attack);
         switch (playerState) {
             case State.Idle:
                 Move();
@@ -62,24 +66,39 @@ public class Player : MonoBehaviour
                 animator.SetFloat("Speed", movement.sqrMagnitude);
                 break;
             case State.Dash:
+                if (isAttacking)
+                    isAttacking = false;
                 Move();
-                if (dashCounter > 0) {
+                if (!isDashing) {
                     activeMoveSpeed = dashSpeed;
-                    dashCounter -= Time.deltaTime;
-                    if (dashCounter <= 0) { 
-                        playerState = State.Idle;
-                        activeMoveSpeed = moveSpeed;
-                    }
+                    StartCoroutine(DisableDash());
+                    isDashing = true;
                 }
                 break;
             case State.Attack:
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 &&
-                    animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) {
-                    playerState = State.Idle;
+                if (!isAttacking) {
+                    DisableAttack();
+                    isAttacking = true;
                 }
                 break;
         }
         Debug.Log(playerState);
+    }
+
+    IEnumerator DisableDash() {
+        yield return new WaitForSeconds(0.12f);
+        playerState = State.Idle;
+        activeMoveSpeed = moveSpeed;
+        isDashing = false;
+    }
+
+    IEnumerator DisableAttack() {
+        //yield return new WaitForSeconds((float)damageFrame / totalAttackFrames * attackAnimation.length);
+        //attack code
+
+        yield return new WaitForSeconds((1.0f - (float)damageFrame / totalAttackFrames) * attackAnimation.length);
+        playerState = State.Idle;
+        isAttacking = false;
     }
 
     void FixedUpdate()
@@ -107,9 +126,8 @@ public class Player : MonoBehaviour
 
     void GetInput() {
         if (Input.GetKeyDown(KeyCode.X) && stamina > 0) {
-            if (dashCoolCounter <= 0 && dashCounter <= 0 && playerState != State.Dash) { 
+            if (!isDashing && playerState != State.Dash) { 
                 playerState = State.Dash;
-                dashCounter = dashLength;
                 stamina -= 5;
             }
         } else if (Input.GetKeyDown(KeyCode.Z) && playerState != State.Attack) {
