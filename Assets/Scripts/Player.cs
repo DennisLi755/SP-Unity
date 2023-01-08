@@ -77,12 +77,12 @@ public class Player : MonoBehaviour
                 break;
             case State.Attack:
                 if (!isAttacking) {
-                    DisableAttack();
+                    StartCoroutine(DisableAttack());
                     isAttacking = true;
                 }
                 break;
         }
-        Debug.Log(playerState);
+        //Debug.Log(playerState);
     }
 
     IEnumerator DisableDash() {
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
     }
 
     IEnumerator DisableAttack() {
-        //yield return new WaitForSeconds((float)damageFrame / totalAttackFrames * attackAnimation.length);
+        yield return new WaitForSeconds((float)damageFrame / totalAttackFrames * attackAnimation.length);
         //attack code
 
         yield return new WaitForSeconds((1.0f - (float)damageFrame / totalAttackFrames) * attackAnimation.length);
