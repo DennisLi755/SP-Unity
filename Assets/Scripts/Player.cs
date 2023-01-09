@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -54,7 +55,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetInput();
         animator.SetBool("IsAttacking", playerState == State.Attack);
         switch (playerState) {
             case State.Idle:
@@ -109,6 +109,10 @@ public class Player : MonoBehaviour
             DashEffect();
         }
 
+        StaminaRegeneration();
+    }
+
+    void StaminaRegeneration() {
         if (stamina < MAX_STAMINA) {
             staminaCounter++;
             if (staminaCounter >= 100) {
@@ -118,21 +122,23 @@ public class Player : MonoBehaviour
             staminaCounter = 0;
         }
     }
-
     void Move() {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
     }
+    public void Attack(InputAction.CallbackContext context) {
+        if (context.performed && playerState != State.Attack) {
+            playerState = State.Attack;
+            activeMoveSpeed = moveSpeed;
+        }
+    }
 
-    void GetInput() {
-        if (Input.GetKeyDown(KeyCode.X) && stamina > 0) {
-            if (!isDashing && playerState != State.Dash) { 
+    public void Dash(InputAction.CallbackContext context) {
+        if (context.performed && stamina > 0) {
+            if (!isDashing && playerState != State.Dash) {
                 playerState = State.Dash;
                 stamina -= 5;
             }
-        } else if (Input.GetKeyDown(KeyCode.Z) && playerState != State.Attack) {
-            playerState = State.Attack;
-            activeMoveSpeed = moveSpeed;
         }
     }
 
