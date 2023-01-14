@@ -25,8 +25,6 @@ public class Player : MonoBehaviour
     private float stamina;
     private float staminaCounter;
 
-    private float dashLength = 0.15f;
-
     private bool isDashing;
     private bool isAttacking;
 
