@@ -1,26 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControl : MonoBehaviour {
-    public enum State {
-        Idle,
-        Attack,
-        Dash
-    }
-    const float MAX_STAMINA = 10f;
+public struct RayCastOrigins {
+    public Vector2 topLeft, topRight, bottomLeft, bottomRight;
+}
 
-    private float moveSpeed = 5f;
+public struct CollisionDirections {
+    public bool up, down, right, left;
+    public void Reset() {
+        up = down = right = left = false;
+    }
+}
+
+public struct FacingDirection {
+    bool up, down, left, right;
+}
+
+public enum PlayerState {
+    Idle,
+    Attack,
+    Dash
+}
+
+public class PlayerControl : MonoBehaviour {
 
     private Animator animator;
 
-    Vector2 movement;
+    #region Movement
+    //movement
+    [SerializeField]
+    private const float walkSpeed = 5f;
+    private Vector2 velocity;
 
-    private float activeMoveSpeed;
-    public float dashSpeed;
-    private float stamina;
-    private float staminaCounter;
+    //dashing
+    private int maxDashCharges = 2;
+    private int currentDashCharges = 0;
+    private const float dashSpeed = 20f;
+
+    //active move speed is changed between the value of walkSpeed and dashSpeed when the player starts or ends a dash
+    //by default is is equal to walkSpeed
+    private float activeMoveSpeed = walkSpeed;
+    #endregion
+
+
+
+
+
+
 
     private bool isDashing;
     private bool isAttacking;
@@ -28,37 +57,38 @@ public class PlayerControl : MonoBehaviour {
     public GameObject echo;
     private float echoSpawns;
 
-    private State playerState;
+    private PlayerState playerState = PlayerState.Idle;
     int totalAttackFrames;
     public int damageFrame;
     public AnimationClip attackAnimation;
 
-    void Start() {
-        dashSpeed = 20f;
-        echoSpawns = 0.01f;
-        activeMoveSpeed = moveSpeed;
-        playerState = State.Idle;
+    private void OnGUI() {
+        GUI.Label(
+            new Rect(5, 50, 300, 150),
+            $"activeMoveSpeed: {activeMoveSpeed}");
+    }
+
+    void Start() { 
         animator = GetComponent<Animator>();
-        stamina = MAX_STAMINA;
-        staminaCounter = 0f;
+
+        echoSpawns = 0.01f;
         isDashing = false;
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
         isAttacking = false;
     }
 
-
     // Update is called once per frame
     void Update() {
-        animator.SetBool("IsAttacking", playerState == State.Attack);
+        animator.SetBool("IsAttacking", playerState == PlayerState.Attack);
         switch (playerState) {
-            case State.Idle:
-                if (movement != Vector2.zero) {
-                    animator.SetFloat("Horizontal", movement.x);
-                    animator.SetFloat("Vertical", movement.y);
+            case PlayerState.Idle:
+                if (velocity != Vector2.zero) {
+                    animator.SetFloat("Horizontal", velocity.x);
+                    animator.SetFloat("Vertical", velocity.y);
                 }
-                animator.SetFloat("Speed", movement.sqrMagnitude);
+                animator.SetFloat("Speed", velocity.sqrMagnitude);
                 break;
-            case State.Dash:
+            case PlayerState.Dash:
                 if (isAttacking)
                     isAttacking = false;
                 if (!isDashing) {
@@ -67,7 +97,7 @@ public class PlayerControl : MonoBehaviour {
                     isDashing = true;
                 }
                 break;
-            case State.Attack:
+            case PlayerState.Attack:
                 if (!isAttacking) {
                     StartCoroutine(DisableAttack());
                     isAttacking = true;
@@ -78,18 +108,18 @@ public class PlayerControl : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        transform.Translate(movement * activeMoveSpeed * Time.fixedDeltaTime);
-        if (playerState == State.Dash) {
+        transform.Translate(velocity * activeMoveSpeed * Time.fixedDeltaTime);
+        if (playerState == PlayerState.Dash) {
             DashEffect();
         }
 
-        StaminaRegeneration();
+        DashRecharge();
     }
 
     IEnumerator DisableDash() {
         yield return new WaitForSeconds(0.12f);
-        playerState = State.Idle;
-        activeMoveSpeed = moveSpeed;
+        playerState = PlayerState.Idle;
+        activeMoveSpeed = walkSpeed;
         isDashing = false;
     }
 
@@ -98,42 +128,30 @@ public class PlayerControl : MonoBehaviour {
         //attack code
 
         yield return new WaitForSeconds((1.0f - (float)damageFrame / totalAttackFrames) * attackAnimation.length);
-        playerState = State.Idle;
+        playerState = PlayerState.Idle;
         isAttacking = false;
     }
 
-    void StaminaRegeneration() {
-        if (stamina < MAX_STAMINA) {
-            staminaCounter++;
-            if (staminaCounter >= 100) {
-                stamina += 0.5f;
-            }
-        }
-        else {
-            staminaCounter = 0;
-        }
+    void DashRecharge() {
+        //after 2 seconds give back dash charge
     }
 
     public void Move(InputAction.CallbackContext context) {
-        movement = context.ReadValue<Vector2>().normalized;
+        velocity = context.ReadValue<Vector2>().normalized;
     }
-
-    void OldMove() {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-    }
+    
     public void Attack(InputAction.CallbackContext context) {
-        if (context.performed && playerState != State.Attack) {
-            playerState = State.Attack;
-            activeMoveSpeed = moveSpeed;
+        if (context.performed && playerState != PlayerState.Attack) {
+            playerState = PlayerState.Attack;
+            activeMoveSpeed = walkSpeed;
         }
     }
 
     public void Dash(InputAction.CallbackContext context) {
-        if (context.performed && stamina > 0) {
-            if (!isDashing && playerState != State.Dash) {
-                playerState = State.Dash;
-                stamina -= 5;
+        if (context.performed && currentDashCharges > 0) {
+            if (!isDashing && playerState != PlayerState.Dash) {
+                playerState = PlayerState.Dash;
+                currentDashCharges--;
             }
         }
     }
