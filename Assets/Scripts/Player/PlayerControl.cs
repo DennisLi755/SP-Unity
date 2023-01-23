@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
-{
+public class PlayerControl : MonoBehaviour {
     public enum State {
         Idle,
         Attack,
@@ -15,7 +13,6 @@ public class Player : MonoBehaviour
 
     private float moveSpeed = 5f;
 
-    public Rigidbody2D rb;
     private Animator animator;
 
     Vector2 movement;
@@ -51,12 +48,10 @@ public class Player : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         animator.SetBool("IsAttacking", playerState == State.Attack);
         switch (playerState) {
             case State.Idle:
-                Move();
                 if (movement != Vector2.zero) {
                     animator.SetFloat("Horizontal", movement.x);
                     animator.SetFloat("Vertical", movement.y);
@@ -66,7 +61,6 @@ public class Player : MonoBehaviour
             case State.Dash:
                 if (isAttacking)
                     isAttacking = false;
-                Move();
                 if (!isDashing) {
                     activeMoveSpeed = dashSpeed;
                     StartCoroutine(DisableDash());
@@ -81,6 +75,15 @@ public class Player : MonoBehaviour
                 break;
         }
         //Debug.Log(playerState);
+    }
+
+    void FixedUpdate() {
+        transform.Translate(movement * activeMoveSpeed * Time.fixedDeltaTime);
+        if (playerState == State.Dash) {
+            DashEffect();
+        }
+
+        StaminaRegeneration();
     }
 
     IEnumerator DisableDash() {
@@ -99,28 +102,23 @@ public class Player : MonoBehaviour
         isAttacking = false;
     }
 
-    void FixedUpdate()
-    {
-        if (playerState != State.Attack)
-            rb.MovePosition(rb.position + movement * activeMoveSpeed * Time.fixedDeltaTime);
-        if (playerState == State.Dash) {
-            DashEffect();
-        }
-
-        StaminaRegeneration();
-    }
-
     void StaminaRegeneration() {
         if (stamina < MAX_STAMINA) {
             staminaCounter++;
             if (staminaCounter >= 100) {
                 stamina += 0.5f;
             }
-        } else {
+        }
+        else {
             staminaCounter = 0;
         }
     }
-    void Move() {
+
+    public void Move(InputAction.CallbackContext context) {
+        movement = context.ReadValue<Vector2>().normalized;
+    }
+
+    void OldMove() {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
     }
@@ -145,8 +143,9 @@ public class Player : MonoBehaviour
             GameObject echoInstance = Instantiate(echo, transform.position, Quaternion.identity);
             echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
             echoSpawns = 0.01f;
-        } else {
-            echoSpawns -= Time.deltaTime*2;
+        }
+        else {
+            echoSpawns -= Time.deltaTime * 2;
         }
     }
 }

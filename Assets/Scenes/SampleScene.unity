@@ -133,11 +133,10 @@ GameObject:
   m_Component:
   - component: {fileID: 59945752}
   - component: {fileID: 59945751}
-  - component: {fileID: 59945754}
-  - component: {fileID: 59945753}
   - component: {fileID: 59945755}
-  - component: {fileID: 59945756}
   - component: {fileID: 59945757}
+  - component: {fileID: 59945756}
+  - component: {fileID: 59945753}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -224,32 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc9c10219c8de84c9425b48607d0fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 59945754}
   dashSpeed: 0
   echo: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   damageFrame: 1
   attackAnimation: {fileID: 7400000, guid: 7212d4dcd5a266544a5f6f456c14f1a7, type: 2}
---- !u!50 &59945754
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59945750}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!95 &59945755
 Animator:
   serializedVersion: 4
@@ -296,7 +273,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 59945753}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 93e3a197-f217-496c-801f-287d83cf47d0
     m_ActionName: Player/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
