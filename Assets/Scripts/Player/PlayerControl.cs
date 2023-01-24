@@ -22,7 +22,7 @@ public struct FacingDirection {
 public enum PlayerState {
     Idle,
     Attack,
-    Dash
+    Dashing
 }
 
 public class PlayerControl : MonoBehaviour {
@@ -31,14 +31,15 @@ public class PlayerControl : MonoBehaviour {
 
     #region Movement
     //movement
-    [SerializeField]
     private const float walkSpeed = 5f;
     private Vector2 velocity;
 
     //dashing
-    private int maxDashCharges = 2;
-    private int currentDashCharges = 0;
+    private const int maxDashCharges = 2;
     private const float dashSpeed = 20f;
+    private int currentDashCharges = maxDashCharges;
+    private float dashLength = 0.12f;
+    private float dashRechargeTime = 2f;
 
     //active move speed is changed between the value of walkSpeed and dashSpeed when the player starts or ends a dash
     //by default is is equal to walkSpeed
@@ -64,8 +65,10 @@ public class PlayerControl : MonoBehaviour {
 
     private void OnGUI() {
         GUI.Label(
-            new Rect(5, 50, 300, 150),
+            new Rect(5, 5, 300, 150),
             $"activeMoveSpeed: {activeMoveSpeed}");
+        GUI.Label(new Rect(5, 20, 300, 150), $"dashCharges: {currentDashCharges}");
+        GUI.Label(new Rect(5, 35, 300, 150), $"playerState: {playerState}");
     }
 
     void Start() { 
@@ -88,14 +91,9 @@ public class PlayerControl : MonoBehaviour {
                 }
                 animator.SetFloat("Speed", velocity.sqrMagnitude);
                 break;
-            case PlayerState.Dash:
+            case PlayerState.Dashing:
                 if (isAttacking)
                     isAttacking = false;
-                if (!isDashing) {
-                    activeMoveSpeed = dashSpeed;
-                    StartCoroutine(DisableDash());
-                    isDashing = true;
-                }
                 break;
             case PlayerState.Attack:
                 if (!isAttacking) {
@@ -109,18 +107,6 @@ public class PlayerControl : MonoBehaviour {
 
     void FixedUpdate() {
         transform.Translate(velocity * activeMoveSpeed * Time.fixedDeltaTime);
-        if (playerState == PlayerState.Dash) {
-            DashEffect();
-        }
-
-        DashRecharge();
-    }
-
-    IEnumerator DisableDash() {
-        yield return new WaitForSeconds(0.12f);
-        playerState = PlayerState.Idle;
-        activeMoveSpeed = walkSpeed;
-        isDashing = false;
     }
 
     IEnumerator DisableAttack() {
@@ -132,10 +118,7 @@ public class PlayerControl : MonoBehaviour {
         isAttacking = false;
     }
 
-    void DashRecharge() {
-        //after 2 seconds give back dash charge
-    }
-
+    #region Input
     public void Move(InputAction.CallbackContext context) {
         velocity = context.ReadValue<Vector2>().normalized;
     }
@@ -147,23 +130,36 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
+    #region Dash
     public void Dash(InputAction.CallbackContext context) {
-        if (context.performed && currentDashCharges > 0) {
-            if (!isDashing && playerState != PlayerState.Dash) {
-                playerState = PlayerState.Dash;
-                currentDashCharges--;
-            }
+        if (context.performed && currentDashCharges > 0 && playerState != PlayerState.Dashing) {
+            playerState = PlayerState.Dashing;
+            activeMoveSpeed = dashSpeed;
+            currentDashCharges--;
+            StartCoroutine(EndDash());
+            StartCoroutine(CreateAfterImages());
         }
     }
 
-    void DashEffect() {
-        if (echoSpawns <= 0) {
-            GameObject echoInstance = Instantiate(echo, transform.position, Quaternion.identity);
-            echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
-            echoSpawns = 0.01f;
-        }
-        else {
-            echoSpawns -= Time.deltaTime * 2;
+    IEnumerator EndDash() {
+        yield return new WaitForSeconds(0.12f);
+        playerState = PlayerState.Idle;
+        activeMoveSpeed = walkSpeed;
+
+        yield return new WaitForSeconds(dashRechargeTime);
+        currentDashCharges++;
+    }
+
+    IEnumerator CreateAfterImages() {
+        bool shouldSpawnAfterImage = false;
+        while (playerState == PlayerState.Dashing) {
+            if (shouldSpawnAfterImage = !shouldSpawnAfterImage) {
+                GameObject echoInstance = Instantiate(echo, transform.position, Quaternion.identity);
+                echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
+            }
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
     }
+    #endregion
+    #endregion
 }
