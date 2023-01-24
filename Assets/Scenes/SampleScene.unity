@@ -224,9 +224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc9c10219c8de84c9425b48607d0fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  echo: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
-  damageFrame: 1
+  showDebug: 1
+  afterImage: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   attackAnimation: {fileID: 7400000, guid: 7212d4dcd5a266544a5f6f456c14f1a7, type: 2}
+  damageFrame: 1
 --- !u!95 &59945755
 Animator:
   serializedVersion: 4
