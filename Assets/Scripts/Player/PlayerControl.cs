@@ -74,6 +74,7 @@ public class PlayerControl : MonoBehaviour {
     [SerializeField]
     private int damageFrame;
     private int totalAttackFrames;
+    private float attackSpeed = 3f;
     #endregion
 
     /// <summary>
@@ -137,7 +138,7 @@ public class PlayerControl : MonoBehaviour {
         if (context.performed && playerState != PlayerState.Attack) {
             playerState = PlayerState.Attack;
             //ensures the player is set to walking speed if they attack cancel a dash
-            activeMoveSpeed = walkSpeed;
+            activeMoveSpeed = attackSpeed;
             //disables dashing so the player cannot dash cancel until the attack boxcast has been done
             canDash = false;
             StartCoroutine(EndAttack());
@@ -157,6 +158,7 @@ public class PlayerControl : MonoBehaviour {
 
         yield return new WaitForSeconds((1.0f - (float)damageFrame / totalAttackFrames) * attackAnimation.length);
         playerState = PlayerState.Idle;
+        activeMoveSpeed = walkSpeed;
     }
     #endregion
 

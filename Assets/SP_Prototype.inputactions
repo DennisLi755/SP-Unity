@@ -236,7 +236,7 @@
                 {
                     "name": "",
                     "id": "e8d610c0-26ab-47a8-b349-6fb776d8ab30",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -247,7 +247,7 @@
                 {
                     "name": "",
                     "id": "54af1f02-bed0-4260-bbbe-6963f160b27e",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
