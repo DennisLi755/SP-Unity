@@ -77,6 +77,24 @@ public class PlayerControl : MonoBehaviour {
     private float attackSpeed = 3f;
     #endregion
 
+    #region Raycasting & Collisions
+    [SerializeField]
+    private LayerMask collisionLayers;
+    private BoxCollider2D collider;
+    private Bounds bounds => collider.bounds;
+    private CollisionDirections collisionDirs;
+    private RayCastOrigins rayOrigins;
+    const float skinWidth = 0.015f;
+    const int horizontalRayCount = 3;
+    const int veritcalRayCount = 3;
+    private float horizontalRaySpacing;
+    private float verticalRaySpacing;
+    #endregion
+
+    private void OnDrawGizmos() {
+        //Gizmos.DrawWireCube(bounds.center, bounds.size);
+    }
+
     /// <summary>
     /// Draws debug info to the screen
     /// </summary>
@@ -93,6 +111,10 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     void Start() { 
         animator = GetComponent<Animator>();
+
+        collisionDirs = new CollisionDirections();
+        rayOrigins = new RayCastOrigins();
+        CalculateRaySpacing();
 
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
     }
@@ -119,6 +141,16 @@ public class PlayerControl : MonoBehaviour {
     void FixedUpdate() {
         transform.Translate(velocity * activeMoveSpeed * Time.fixedDeltaTime);
     }
+
+    #region Collisions & Raycasts
+    private void CalculateRaySpacing() {
+        Bounds tempBounds = bounds;
+        tempBounds.Expand(skinWidth * 2);
+
+        horizontalRaySpacing = tempBounds.size.y / (horizontalRayCount - 1);
+        verticalRaySpacing = tempBounds.size.y / (verticalRaySpacing - 1);
+    }
+    #endregion
 
     #region Input
     /// <summary>
