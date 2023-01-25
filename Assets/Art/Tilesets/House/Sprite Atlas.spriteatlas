@@ -115,11 +115,8 @@ SpriteAtlas:
   - {fileID: 1998021781, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 113137158, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -702859912, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
-  - {fileID: -163441962, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -2143752757, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
-  - {fileID: -1942659919, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -2049649539, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
-  - {fileID: -1846533234, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -1986414359, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 2144015847, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -1807566061, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
@@ -161,6 +158,7 @@ SpriteAtlas:
   - {fileID: 1908238163, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -594347143, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 295483606, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
+  - {fileID: -163441962, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 1390584359, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -425184962, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 928536876, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
@@ -282,11 +280,8 @@ SpriteAtlas:
   - kitchen top cabinet (1)
   - room_assets_238
   - fireplace (inside)
-  - room_assets_212
   - painting (5)
-  - room_assets_213
   - large destroyed couch (down)
-  - room_assets_211
   - bathroom counter
   - shower (2)
   - painting (2)
@@ -328,6 +323,7 @@ SpriteAtlas:
   - clock
   - painting (1)
   - light switch (on)
+  - bed covers bottom
   - small couch (up)
   - towel rack (full)
   - door
