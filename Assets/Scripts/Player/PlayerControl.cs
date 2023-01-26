@@ -51,6 +51,8 @@ public class PlayerControl : MonoBehaviour {
     //movement
     private bool canMove = true;
     private const float walkSpeed = 5f;
+    //We use a separate input vector to be able to continously collect the player's input, even if movement is disabled
+    private Vector2 input;
     private Vector2 velocity;
 
     //dashing
@@ -126,10 +128,13 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     /// <param name="context"></param>
     public void Move(InputAction.CallbackContext context) {
-        velocity = context.ReadValue<Vector2>().normalized;
+        input = context.ReadValue<Vector2>().normalized;
+        if (canMove) {
+            velocity = input;
+        }
     }
 
-    #region
+    #region Attacking
     /// <summary>
     /// Interprets the player's input for attacking
     /// </summary>
@@ -141,6 +146,7 @@ public class PlayerControl : MonoBehaviour {
             activeMoveSpeed = attackSpeed;
             //disables dashing so the player cannot dash cancel until the attack boxcast has been done
             canDash = false;
+            canMove = false;
             StartCoroutine(EndAttack());
         }
     }
@@ -159,6 +165,9 @@ public class PlayerControl : MonoBehaviour {
         yield return new WaitForSeconds((1.0f - (float)damageFrame / totalAttackFrames) * attackAnimation.length);
         playerState = PlayerState.Idle;
         activeMoveSpeed = walkSpeed;
+        canMove = true;
+        velocity = input;
+
     }
     #endregion
 
