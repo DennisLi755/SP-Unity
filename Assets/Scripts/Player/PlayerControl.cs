@@ -184,8 +184,14 @@ public class PlayerControl : MonoBehaviour {
     /// <returns></returns>
     IEnumerator EndDash() {
         yield return new WaitForSeconds(dashLength);
-        playerState = PlayerState.Idle;
-        activeMoveSpeed = walkSpeed;
+        //if the player ends dashing in the dash state, change back to idle state
+        if (playerState == PlayerState.Dashing) {
+            playerState = PlayerState.Idle;
+            activeMoveSpeed = walkSpeed;
+        //if the player ends dashing in the attack state, keep the reduced attack speed
+        } else if (playerState == PlayerState.Attack) {
+            activeMoveSpeed = attackSpeed;
+        }
 
         yield return new WaitForSeconds(dashRechargeTime);
         currentDashCharges++;
