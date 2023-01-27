@@ -26,6 +26,6 @@ public class TextboxInteraction : InteractableObject
     public override void OnInteract()
     {
         if (PlayerInfo.Instance.PlayerControl.FacingDirection == direction)
-        Debug.Log("Textbox interaction triggered");
+            Debug.Log("Textbox interaction triggered");
     }
 }

@@ -60,8 +60,8 @@ public class PlayerControl : MonoBehaviour {
     private Vector2 velocity;
     private float focusScalar = 1f;
     private FacingDirection facingDirection;
-    private float facingX = 0.0f;
-    private float facingY = 0.0f;
+    public float facingX = 0.0f;
+    public float facingY = 0.0f;
 
     //dashing
     private bool canDash = true;
@@ -160,13 +160,17 @@ public class PlayerControl : MonoBehaviour {
                 }
                 animator.SetFloat("Speed", velocity.sqrMagnitude);
 
-                facingX = animator.GetFloat("horizontal");
-                facingY = animator.GetFloat("vertical");
+                facingX = animator.GetFloat("Horizontal");
+                facingY = animator.GetFloat("Vertical");
 
                 if (facingY > 0)
                     facingDirection = FacingDirection.up;
                 else if (facingY < 0)
                     facingDirection = FacingDirection.down;
+                else if (facingX > 0)
+                    facingDirection = FacingDirection.right;
+                else if (facingX < 0)
+                    facingDirection = FacingDirection.left;
                 break;
         }
     }
