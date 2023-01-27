@@ -226,7 +226,10 @@ public class PlayerControl : MonoBehaviour {
     #endregion
 
     #region Focus
-
+    /// <summary>
+    /// Interprets the player's input for focus mode
+    /// </summary>
+    /// <param name="context"></param>
     public void Focus(InputAction.CallbackContext context) {
         if (context.performed) {
             focusScalar = 0.7f;
@@ -234,7 +237,6 @@ public class PlayerControl : MonoBehaviour {
             focusScalar = 1f;
         }
     }
-
     #endregion
     #endregion
 }
