@@ -6,6 +6,16 @@ public class PlayerInfo : MonoBehaviour {
 
     private static PlayerInfo instance;
 
+    #region Stats
+    public float health;
+    public float startingHealth;
+    public float invincibilityLength;
+    public bool damagable;
+
+    public bool canInteract;
+    public InteractableObject interactable;
+    #endregion
+
     public static PlayerInfo Instance {
         get {
             if (instance == null) {

@@ -26,8 +26,8 @@ public struct CollisionDirections {
 /// <summary>
 /// Which direction the player is facing; used to determine if they can interact with an object
 /// </summary>
-public struct FacingDirection {
-    bool up, down, left, right;
+public enum FacingDirection {
+    up, down, left, right
 }
 
 /// <summary>
@@ -59,6 +59,9 @@ public class PlayerControl : MonoBehaviour {
     private Vector2 input;
     private Vector2 velocity;
     private float focusScalar = 1f;
+    private FacingDirection facingDirection;
+    private float facingX = 0.0f;
+    private float facingY = 0.0f;
 
     //dashing
     private bool canDash = true;
@@ -98,6 +101,11 @@ public class PlayerControl : MonoBehaviour {
     const int verticalRayCount = 3;
     private float horizontalRaySpacing;
     private float verticalRaySpacing;
+
+    public FacingDirection FacingDirection {
+        get {return facingDirection;}
+    }
+
     #endregion
 
     private void OnDrawGizmos() {
@@ -151,6 +159,14 @@ public class PlayerControl : MonoBehaviour {
                     animator.SetFloat("Vertical", velocity.y);
                 }
                 animator.SetFloat("Speed", velocity.sqrMagnitude);
+
+                facingX = animator.GetFloat("horizontal");
+                facingY = animator.GetFloat("vertical");
+
+                if (facingY > 0)
+                    facingDirection = FacingDirection.up;
+                else if (facingY < 0)
+                    facingDirection = FacingDirection.down;
                 break;
         }
     }
@@ -283,6 +299,16 @@ public class PlayerControl : MonoBehaviour {
             velocity = input;
         }
     }
+
+    #region Interact
+
+    public void Interact(InputAction.CallbackContext context) {
+        if (context.performed && PlayerInfo.Instance.canInteract) {
+            PlayerInfo.Instance.interactable.OnInteract();
+        }
+    }
+
+    #endregion
 
     #region Attack
     /// <summary>
