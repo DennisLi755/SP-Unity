@@ -1,7 +1,10 @@
 using System.Collections;
+using System.Net.Sockets;
+using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// The position origins of the raycasts used to keep the player in bounds
@@ -90,13 +93,16 @@ public class PlayerControl : MonoBehaviour {
     private RayCastOrigins rayOrigins;
     const float skinWidth = 0.015f;
     const int horizontalRayCount = 3;
-    const int veritcalRayCount = 3;
+    const int verticalRayCount = 3;
     private float horizontalRaySpacing;
     private float verticalRaySpacing;
     #endregion
 
     private void OnDrawGizmos() {
         //Gizmos.DrawWireCube(bounds.center, bounds.size);
+        #region Raycasts
+
+        #endregion
     }
 
     /// <summary>
@@ -104,9 +110,15 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     private void OnGUI() {
         if (showDebug) {
-            GUI.Label(new Rect(5, 5, 300, 150), $"activeMoveSpeed: {activeMoveSpeed}");
-            GUI.Label(new Rect(5, 20, 300, 150), $"dashCharges: {currentDashCharges}");
-            GUI.Label(new Rect(5, 35, 300, 150), $"playerState: {playerState}");
+            int yStart = 5;
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"activeMoveSpeed: {activeMoveSpeed}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"dashCharges: {currentDashCharges}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"playerState: {playerState}");
+
+            GUI.Label(new Rect(5, yStart += 30, 300, 150), $"up collision: {collisionDirs.up}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"right collision: {collisionDirs.right}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"down collision: {collisionDirs.down}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"left collision: {collisionDirs.left}");
         }
     }
 
@@ -115,10 +127,12 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     void Start() { 
         animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
 
         collisionDirs = new CollisionDirections();
         rayOrigins = new RayCastOrigins();
         CalculateRaySpacing();
+        UpdateRayCastOrigins();
 
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
     }
@@ -143,16 +157,100 @@ public class PlayerControl : MonoBehaviour {
     /// Runs every physics frame (default is 50 times a second)
     /// </summary>
     void FixedUpdate() {
-        transform.Translate(velocity * activeMoveSpeed * Time.fixedDeltaTime * focusScalar);
+        //colision handling
+        /*if (collisionDirs.down || collisionDirs.up) {
+            velocity.y = 0;
+        }
+        if (collisionDirs.left || collisionDirs.right) {
+            velocity.x = 0;
+        }*/
+
+        UpdateRayCastOrigins();
+        collisionDirs.Reset();
+
+        //put any scalar values before velocity for better performance
+        Vector2 newVel = activeMoveSpeed * focusScalar * Time.fixedDeltaTime * velocity;
+
+        //if the player is moving vertically or horizontally, check for collisions in those directions
+        if (velocity.x != 0) {
+            HorizontalCollisions(ref newVel);
+        }
+        if (velocity.y != 0) {
+            VerticalCollisions(ref newVel);
+        }
+
+        //move the player by the (possibly) corrected velocity
+        transform.Translate(newVel);
     }
 
     #region Collisions & Raycasts
+    /// <summary>
+    /// Calculates the spacing of the raycasts used for player collision
+    /// This is only run once: at startup
+    /// </summary>
     private void CalculateRaySpacing() {
         Bounds tempBounds = bounds;
-        tempBounds.Expand(skinWidth * 2);
+        tempBounds.Expand(skinWidth * -2);
 
         horizontalRaySpacing = tempBounds.size.y / (horizontalRayCount - 1);
-        verticalRaySpacing = tempBounds.size.y / (verticalRaySpacing - 1);
+        verticalRaySpacing = tempBounds.size.x / (verticalRayCount - 1);
+    }
+
+    /// <summary>
+    /// Updates the world position of the raycasts in the 
+    /// </summary>
+    private void UpdateRayCastOrigins() {
+        Bounds tempBounds = bounds;
+        tempBounds.Expand(skinWidth * -2);
+
+        rayOrigins.bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
+        rayOrigins.bottomRight = new Vector2(bounds.max.x, bounds.min.y);
+        rayOrigins.topLeft = new Vector2(bounds.min.x, bounds.max.y);
+        rayOrigins.topRight = new Vector2(bounds.max.x, bounds.max.y);
+    }
+
+    private void HorizontalCollisions(ref Vector2 velocity) {
+        float directionX = Mathf.Sign(velocity.x);
+        float rayLength = Mathf.Abs(velocity.x) + skinWidth;
+
+        for (int i = 0; i < verticalRayCount; i++) {
+            Vector2 rayOrigin = (directionX == -1) ? rayOrigins.bottomLeft : rayOrigins.bottomRight;
+            rayOrigin += Vector2.up * (verticalRaySpacing * i);
+            RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionLayers);
+
+            Debug.DrawRay(rayOrigin, directionX * rayLength * Vector2.right, Color.blue);
+
+            if (rayHit) {
+                velocity.x = (rayHit.distance - skinWidth) * directionX;
+                //prevents rays past the first one from override the velocity adjustment if they would hit
+                rayLength = rayHit.distance;
+
+                //set collision direction based on movement direction
+                collisionDirs.right = !(collisionDirs.left = directionX == -1);
+            }
+        }
+    }
+
+    private void VerticalCollisions(ref Vector2 velocity) {
+        float directionY = Mathf.Sign(velocity.y);
+        float rayLength = Mathf.Abs(velocity.y) + skinWidth;
+
+        for (int i = 0; i < verticalRayCount; i++) {
+            Vector2 rayOrigin = (directionY == -1) ? rayOrigins.bottomLeft : rayOrigins.topLeft;
+            rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
+            RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionLayers);
+
+            Debug.DrawRay(rayOrigin, directionY * rayLength * Vector2.up, Color.blue);
+
+            if (rayHit) {
+                velocity.y = (rayHit.distance - skinWidth) * directionY;
+                //prevents rays past the first one from override the velocity adjustment if they would hit
+                rayLength = rayHit.distance;
+
+                //set collision direction based on movement direction
+                collisionDirs.up = !(collisionDirs.down = directionY == -1);
+            }
+        }
     }
     #endregion
 
@@ -201,7 +299,6 @@ public class PlayerControl : MonoBehaviour {
         activeMoveSpeed = walkSpeed;
         canMove = true;
         velocity = input;
-
     }
     #endregion
 
