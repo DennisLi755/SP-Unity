@@ -19,6 +19,9 @@ public class Room : MonoBehaviour {
         if (staticCamera) {
             CameraManager.Instance.MoveTo(cameraPosition);
         }
+        else {
+            CameraManager.Instance.MoveTo(PlayerInfo.Instance.transform.position);
+        }
         UIManager.Instance.FadeFromBlack();
         PlayerInfo.Instance.PlayerControl.CanMove = true;
     }
