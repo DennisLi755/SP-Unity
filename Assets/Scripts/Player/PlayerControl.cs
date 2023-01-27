@@ -54,6 +54,8 @@ public class PlayerControl : MonoBehaviour {
     //We use a separate input vector to be able to continously collect the player's input, even if movement is disabled
     private Vector2 input;
     private Vector2 velocity;
+    private bool isFocused = false;
+    private float focusScalar = 1f;
 
     //dashing
     private bool canDash = true;
@@ -119,7 +121,7 @@ public class PlayerControl : MonoBehaviour {
     /// Runs every physics frame (default is 50 times a second)
     /// </summary>
     void FixedUpdate() {
-        transform.Translate(velocity * activeMoveSpeed * Time.fixedDeltaTime);
+        transform.Translate(velocity * activeMoveSpeed * Time.fixedDeltaTime * focusScalar);
     }
 
     #region Input
@@ -134,7 +136,7 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    #region Attacking
+    #region Attack
     /// <summary>
     /// Interprets the player's input for attacking
     /// </summary>
@@ -221,6 +223,18 @@ public class PlayerControl : MonoBehaviour {
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
     }
+    #endregion
+
+    #region Focus
+
+    public void Focus(InputAction.CallbackContext context) {
+        if (context.performed) {
+            focusScalar = 0.7f;
+        } else if (context.canceled) {
+            focusScalar = 1f;
+        }
+    }
+
     #endregion
     #endregion
 }
