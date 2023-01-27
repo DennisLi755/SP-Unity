@@ -991,7 +991,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8770423923455185668, guid: 3d6a8a91adc0f7b42a819de557b1ef67, type: 3}
       propertyPath: m_Name
-      value: Room Transition
+      value: Room Transition - 2
       objectReference: {fileID: 0}
     - target: {fileID: 8770423923455185668, guid: 3d6a8a91adc0f7b42a819de557b1ef67, type: 3}
       propertyPath: m_IsActive
@@ -55719,7 +55719,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8770423923455185668, guid: 3d6a8a91adc0f7b42a819de557b1ef67, type: 3}
       propertyPath: m_Name
-      value: Room Transition
+      value: Room Transition - 1
       objectReference: {fileID: 0}
     - target: {fileID: 8770423923455185669, guid: 3d6a8a91adc0f7b42a819de557b1ef67, type: 3}
       propertyPath: m_RootOrder
