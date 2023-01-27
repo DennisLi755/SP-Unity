@@ -53,6 +53,7 @@ public class PlayerControl : MonoBehaviour {
     #region Movement
     //movement
     private bool canMove = true;
+    public bool CanMove { get => canMove; set { canMove = value; } }
     private const float walkSpeed = 5f;
     //We use a separate input vector to be able to continously collect the player's input, even if movement is disabled
     private Vector2 input;
@@ -383,4 +384,9 @@ public class PlayerControl : MonoBehaviour {
     }
     #endregion
     #endregion
+
+    public void Freeze() {
+        canMove = false;
+        velocity = Vector2.zero;
+    }
 }

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
-    private UIManager instance;
-    public UIManager Instance {
+    private static UIManager instance;
+    public static UIManager Instance {
         get {
             if (instance == null) {
                 instance = new UIManager();

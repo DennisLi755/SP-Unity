@@ -15,6 +15,9 @@ public class PlayerInfo : MonoBehaviour {
         }
     }
 
+    private PlayerControl playerControl;
+    public PlayerControl PlayerControl { get => playerControl; }
+
     private void Awake() {
        if (instance == null) {
             instance = this;
@@ -26,6 +29,6 @@ public class PlayerInfo : MonoBehaviour {
     }
 
     private void Start() {
-        
+        playerControl = GetComponent<PlayerControl>();
     }
 }
