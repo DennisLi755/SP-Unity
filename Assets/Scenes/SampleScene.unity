@@ -802,7 +802,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1064,7 +1064,7 @@ PrefabInstance:
     - target: {fileID: 8770423923455185670, guid: 3d6a8a91adc0f7b42a819de557b1ef67, type: 3}
       propertyPath: transitionPartner
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1652864031}
     - target: {fileID: 8770423923455185670, guid: 3d6a8a91adc0f7b42a819de557b1ef67, type: 3}
       propertyPath: transitionToLocation.y
       value: 1.16
@@ -8373,6 +8373,22 @@ PrefabInstance:
     - target: {fileID: 1969761066980178822, guid: 4b586072df540d044865462ab8def2b9, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: staticCamera
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: cameraPosition.x
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: cameraPosition.y
+      value: -24.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: cameraPosition.z
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2714072859535441562, guid: 4b586072df540d044865462ab8def2b9, type: 3}
       propertyPath: m_Size.x
@@ -34620,7 +34636,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1652864030}
   - component: {fileID: 1652864032}
-  - component: {fileID: 1652864031}
   m_Layer: 0
   m_Name: Drawer
   m_TagString: Untagged
@@ -34643,23 +34658,17 @@ Transform:
   m_Father: {fileID: 1277085764}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1652864031
+--- !u!114 &1652864031 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8770423923455185670, guid: 3d6a8a91adc0f7b42a819de557b1ef67, type: 3}
   m_PrefabInstance: {fileID: 8770423924156067776}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1652864029}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72f88637ad048974c83f90303166c5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  message: []
-  direction: 0
 --- !u!61 &1652864032
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -41829,6 +41838,22 @@ PrefabInstance:
     - target: {fileID: 1969761066980178822, guid: 4b586072df540d044865462ab8def2b9, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: staticCamera
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: cameraPosition.x
+      value: 32.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: cameraPosition.y
+      value: -24.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275359702681369683, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: cameraPosition.z
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 2714072859535441562, guid: 4b586072df540d044865462ab8def2b9, type: 3}
       propertyPath: m_Size.x

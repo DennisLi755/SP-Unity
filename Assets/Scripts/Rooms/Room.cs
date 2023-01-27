@@ -22,4 +22,8 @@ public class Room : MonoBehaviour {
         UIManager.Instance.FadeFromBlack();
         PlayerInfo.Instance.PlayerControl.CanMove = true;
     }
+
+    public void MoveCameraHere() {
+
+    }
 }
