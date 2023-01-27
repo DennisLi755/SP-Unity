@@ -129,6 +129,8 @@ public class PlayerControl : MonoBehaviour {
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"right collision: {collisionDirs.right}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"down collision: {collisionDirs.down}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"left collision: {collisionDirs.left}");
+
+            GUI.Label(new Rect(5, yStart += 30, 300, 150), $"facing direction: {facingDirection}");
         }
     }
 
