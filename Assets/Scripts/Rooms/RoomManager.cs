@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour {
 
-    private RoomManager instance;
-    public RoomManager Instance {
+    private static RoomManager instance;
+    public static RoomManager Instance {
         get {
             if (instance == null) {
                 instance = new RoomManager();

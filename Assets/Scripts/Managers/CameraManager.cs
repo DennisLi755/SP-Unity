@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour {
 
-    private CameraManager instance;
-    public CameraManager Instance {
+    private static CameraManager instance;
+    public static CameraManager Instance {
         get {
             if (instance == null) {
                 instance = new CameraManager();
