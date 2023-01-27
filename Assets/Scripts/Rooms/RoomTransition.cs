@@ -48,6 +48,8 @@ public class RoomTransition : MonoBehaviour {
             yield return new WaitForSecondsRealtime(1.0f);
             PlayerInfo.Instance.transform.position = transitionPartner.TransitionToLocation;
             transitionPartner.GetComponentInParent<Room>().MoveTo();
+
+            yield return new WaitForSeconds(0.5f);
             transitioning = false;
         }
     }
