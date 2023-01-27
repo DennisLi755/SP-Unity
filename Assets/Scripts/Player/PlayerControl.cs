@@ -57,7 +57,6 @@ public class PlayerControl : MonoBehaviour {
     //We use a separate input vector to be able to continously collect the player's input, even if movement is disabled
     private Vector2 input;
     private Vector2 velocity;
-    private bool isFocused = false;
     private float focusScalar = 1f;
 
     //dashing
@@ -86,10 +85,12 @@ public class PlayerControl : MonoBehaviour {
 
     #region Raycasting & Collisions
     [SerializeField]
-    private LayerMask collisionLayers;
-    private BoxCollider2D collider;
+    //the layers that the player will collide with the environment
+    private LayerMask environmentLayers;
+    private new BoxCollider2D collider;
     private Bounds bounds => collider.bounds;
     private CollisionDirections collisionDirs;
+    //The inner corners of the player's hitbox that raycasts start from
     private RayCastOrigins rayOrigins;
     const float skinWidth = 0.015f;
     const int horizontalRayCount = 3;
@@ -189,6 +190,7 @@ public class PlayerControl : MonoBehaviour {
     /// This is only run once: at startup
     /// </summary>
     private void CalculateRaySpacing() {
+        //We make a copy of the bounds so that we can expand it without affect the player's actual hitbox
         Bounds tempBounds = bounds;
         tempBounds.Expand(skinWidth * -2);
 
@@ -209,17 +211,27 @@ public class PlayerControl : MonoBehaviour {
         rayOrigins.topRight = new Vector2(bounds.max.x, bounds.max.y);
     }
 
+    /// <summary>
+    /// Determines if the player will collide with an object in the upleft/right direction
+    /// If a collision were to take place, adjusts the player's velocity so that they will not
+    /// </summary>
+    /// <param name="velocity">reference to the player's current velocity</param>
     private void HorizontalCollisions(ref Vector2 velocity) {
+        //left is negative, right is positive
         float directionX = Mathf.Sign(velocity.x);
+        //length of the ray is scaled by the player's velocity plus the skinWidth
         float rayLength = Mathf.Abs(velocity.x) + skinWidth;
 
         for (int i = 0; i < verticalRayCount; i++) {
+            //depending on which way the player is moving, change the starting corner to raycast from
             Vector2 rayOrigin = (directionX == -1) ? rayOrigins.bottomLeft : rayOrigins.bottomRight;
-            rayOrigin += Vector2.up * (verticalRaySpacing * i);
-            RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionLayers);
+            //adjust the starting position based on iteration
+            rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+            RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, environmentLayers);
 
-            Debug.DrawRay(rayOrigin, directionX * rayLength * Vector2.right, Color.blue);
+            //Debug.DrawRay(rayOrigin, directionX * rayLength * Vector2.right, Color.blue);
 
+            //if the ray cast hits, change the velocity so the player will not end up in the object and set the collision direction
             if (rayHit) {
                 velocity.x = (rayHit.distance - skinWidth) * directionX;
                 //prevents rays past the first one from override the velocity adjustment if they would hit
@@ -231,6 +243,11 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Determines if the player will collide with an object in the up/down direction
+    /// If a collision were to take place, adjusts the player's velocity so that they will not
+    /// </summary>
+    /// <param name="velocity">reference to the player's current velocity</param>
     private void VerticalCollisions(ref Vector2 velocity) {
         float directionY = Mathf.Sign(velocity.y);
         float rayLength = Mathf.Abs(velocity.y) + skinWidth;
@@ -238,7 +255,7 @@ public class PlayerControl : MonoBehaviour {
         for (int i = 0; i < verticalRayCount; i++) {
             Vector2 rayOrigin = (directionY == -1) ? rayOrigins.bottomLeft : rayOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
-            RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionLayers);
+            RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, environmentLayers);
 
             Debug.DrawRay(rayOrigin, directionY * rayLength * Vector2.up, Color.blue);
 
@@ -277,6 +294,7 @@ public class PlayerControl : MonoBehaviour {
             //ensures the player is set to walking speed if they attack cancel a dash
             activeMoveSpeed = attackSpeed;
             //disables dashing so the player cannot dash cancel until the attack boxcast has been done
+            //and disables movement so the player cannot change their direction
             canDash = false;
             canMove = false;
             StartCoroutine(EndAttack());
@@ -343,13 +361,10 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     IEnumerator CreateAfterImages() {
-        bool shouldSpawnAfterImage = false;
         while (playerState == PlayerState.Dashing) {
-            if (shouldSpawnAfterImage = !shouldSpawnAfterImage) {
-                GameObject echoInstance = Instantiate(afterImage, transform.position, Quaternion.identity);
-                echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
-            }
-            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+            GameObject echoInstance = Instantiate(afterImage, transform.position, Quaternion.identity);
+            echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime * 2);
         }
     }
     #endregion
