@@ -283,6 +283,16 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
+    #region Interact
+
+    public void Interact(InputAction.CallbackContext context) {
+        if (context.performed && PlayerInfo.Instance.canInteract) {
+            Debug.Log("Interact Triggered");
+        }
+    }
+
+    #endregion
+
     #region Attack
     /// <summary>
     /// Interprets the player's input for attacking
