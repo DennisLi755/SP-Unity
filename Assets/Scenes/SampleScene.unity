@@ -34636,6 +34636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1652864030}
   - component: {fileID: 1652864032}
+  - component: {fileID: 1652864033}
   m_Layer: 0
   m_Name: Drawer
   m_TagString: Untagged
@@ -34695,6 +34696,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9852042, y: 1.4232216}
   m_EdgeRadius: 0
+--- !u!114 &1652864033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  message: []
+  direction: 0
 --- !u!1001 &1907942137
 PrefabInstance:
   m_ObjectHideFlags: 0
