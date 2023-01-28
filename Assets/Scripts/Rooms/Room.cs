@@ -26,7 +26,8 @@ public class Room : MonoBehaviour {
         PlayerInfo.Instance.PlayerControl.CanMove = true;
     }
 
+    [ContextMenu("Move Camera to This Room")]
     public void MoveCameraHere() {
-
+        Camera.main.transform.position = cameraPosition;
     }
 }
