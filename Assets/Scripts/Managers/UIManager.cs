@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour {
         interactTexts = message;
         currentTextIndex = 0;
 
-        interactText.SetText(interactTexts[currentTextIndex++]);
+        interactText.SetText(interactTexts[currentTextIndex]);
 
         interactText.transform.parent.gameObject.SetActive(true);
 
