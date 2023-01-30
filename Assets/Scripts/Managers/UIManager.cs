@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
     private static UIManager instance;
+    public TMP_Text interactText;
+    TMP_Text interactTextContinue;
+    List<string> interactTexts;
+    int currentTextIndex;
     public static UIManager Instance {
         get {
             if (instance == null) {
@@ -53,5 +57,29 @@ public class UIManager : MonoBehaviour {
         else {
             fadeToBlackPanel.GetComponent<Animation>().Play("FadeFromBlack");
         }
+    }
+
+    public void ActivateInteractText(List<string> message) {
+        interactTexts = message;
+        currentTextindex = 0;
+
+        interactText.SetText(interactTexts[currentTextindex++]);
+
+        interactText.transform.parent.gameObject.SetActive(true);
+
+        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+    }
+
+    public void ContinueInteractText() {
+        if (currentTextIndex == interactTexts.Length) {
+            DeactivateInteractText();
+        } else {
+            interactText.SetText(interactTexts[currentTextIndex++]);
+        }
+    }
+
+    public void DeactivateInteractText() {
+        interactText.transform.parent.gameObject.SetActive(false);
+        PlayerInfo.Instance.GetComponent<PlayerInfo>().SwitchCurrentActionMap("Player");
     }
 }
