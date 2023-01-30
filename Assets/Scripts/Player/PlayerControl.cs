@@ -62,7 +62,7 @@ public class PlayerControl : MonoBehaviour {
     private Vector2 input;
     private Vector2 velocity;
     private float focusScalar = 1f;
-    private FacingDirection facingDirection;
+    private FacingDirection facingDirection = FacingDirection.Down;
 
     //dashing
     private bool canDash = true;
@@ -132,6 +132,8 @@ public class PlayerControl : MonoBehaviour {
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"left collision: {collisionDirs.left}");
 
             GUI.Label(new Rect(5, yStart += 30, 300, 150), $"facing direction: {facingDirection}");
+
+            GUI.Label(new Rect(5, yStart += 30, 300, 150), $"health: {PlayerInfo.Instance.Health}");
         }
     }
 
@@ -308,8 +310,8 @@ public class PlayerControl : MonoBehaviour {
     #region Interact
 
     public void Interact(InputAction.CallbackContext context) {
-        if (context.performed && PlayerInfo.Instance.canInteract) {
-            PlayerInfo.Instance.interactable.OnInteract();
+        if (context.performed && PlayerInfo.Instance.CanInteract) {
+            PlayerInfo.Instance.Interactable.OnInteract();
         }
     }
 

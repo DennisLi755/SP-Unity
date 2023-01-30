@@ -7,13 +7,16 @@ public class PlayerInfo : MonoBehaviour {
     private static PlayerInfo instance;
 
     #region Stats
-    public float health;
-    public float startingHealth;
-    public float invincibilityLength;
-    public bool damagable;
+    private float health;
+    public float Health => health;
+    private const float startingHealth = 5;
+    private const float invincibilityLength = 1;
+    private bool damagable;
 
-    public bool canInteract;
-    public InteractableObject interactable;
+    private bool canInteract;
+    public bool CanInteract => canInteract;
+    private InteractableObject interactable;
+    public InteractableObject Interactable { get => interactable; set { interactable = value; } }
     #endregion
 
     public static PlayerInfo Instance {
@@ -40,5 +43,25 @@ public class PlayerInfo : MonoBehaviour {
 
     private void Start() {
         playerControl = GetComponent<PlayerControl>();
+        health = startingHealth;
+    }
+
+    public void Hurt(int amount) {
+        if (!damagable) {
+            return;
+        }
+        damagable = false;
+        health -= amount;
+        if (health <= 0) {
+            //do death stuff
+        }
+        else {
+            StartCoroutine(WaitForIFrames());
+        }
+
+        IEnumerator WaitForIFrames() {
+            yield return new WaitForSeconds(invincibilityLength);
+            damagable = true;
+        }
     }
 }
