@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class InteractableObject : MonoBehaviour
 {
-    public BoxCollider2D trigger;
+    private BoxCollider2D trigger;
     public LayerMask playerLayer;
     bool isActive;
     // Start is called before the first frame update
@@ -24,13 +24,11 @@ public class InteractableObject : MonoBehaviour
         if (hit && !isActive) {
             isActive = true;
             //display prompt? depends on if we do it
-            PlayerInfo.Instance.canInteract = true;
-            PlayerInfo.Instance.interactable = this;
+            PlayerInfo.Instance.EnterInteractable(this);
         } else if (!hit && isActive) {
             isActive = false;
             //display prompt?
-            PlayerInfo.Instance.canInteract = false;
-            PlayerInfo.Instance.interactable = this;
+            PlayerInfo.Instance.ExitInteractable(this);
         }
     }
 

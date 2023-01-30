@@ -8,13 +8,11 @@ public class TextboxInteraction : InteractableObject
     //text box sprite
     public List<string> message;
     public FacingDirection direction;
-    private bool isActivated;
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
         spawn = transform.position;
-        isActivated = false;
     }
 
     // Update is called once per frame

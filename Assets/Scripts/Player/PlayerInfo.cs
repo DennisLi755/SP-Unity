@@ -41,4 +41,16 @@ public class PlayerInfo : MonoBehaviour {
     private void Start() {
         playerControl = GetComponent<PlayerControl>();
     }
+
+    public void EnterInteractable(InteractableObject sender) {
+        canInteract = true;
+        interactable = sender;
+    }
+
+    public void ExitInteractable(InteractableObject sender) {
+        if (interactable == sender) {
+            canInteract = false;
+            interactable = null;
+        }
+    }
 }
