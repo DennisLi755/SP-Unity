@@ -27,7 +27,10 @@ public struct CollisionDirections {
 /// Which direction the player is facing; used to determine if they can interact with an object
 /// </summary>
 public enum FacingDirection {
-    up, down, left, right
+    Up, 
+    Down, 
+    Left, 
+    Right
 }
 
 /// <summary>
@@ -60,8 +63,6 @@ public class PlayerControl : MonoBehaviour {
     private Vector2 velocity;
     private float focusScalar = 1f;
     private FacingDirection facingDirection;
-    public float facingX = 0.0f;
-    public float facingY = 0.0f;
 
     //dashing
     private bool canDash = true;
@@ -162,17 +163,15 @@ public class PlayerControl : MonoBehaviour {
                 }
                 animator.SetFloat("Speed", velocity.sqrMagnitude);
 
-                facingX = animator.GetFloat("Horizontal");
-                facingY = animator.GetFloat("Vertical");
-
-                if (facingY > 0)
-                    facingDirection = FacingDirection.up;
-                else if (facingY < 0)
-                    facingDirection = FacingDirection.down;
-                else if (facingX > 0)
-                    facingDirection = FacingDirection.right;
-                else if (facingX < 0)
-                    facingDirection = FacingDirection.left;
+                //sets the player's facing direction based on their velocity
+                if (velocity.y > 0)
+                    facingDirection = FacingDirection.Up;
+                else if (velocity.y < 0)
+                    facingDirection = FacingDirection.Down;
+                else if (velocity.x > 0)
+                    facingDirection = FacingDirection.Right;
+                else if (velocity.x < 0)
+                    facingDirection = FacingDirection.Left;
                 break;
         }
     }
@@ -181,7 +180,7 @@ public class PlayerControl : MonoBehaviour {
     /// Runs every physics frame (default is 50 times a second)
     /// </summary>
     void FixedUpdate() {
-        //colision handling
+        //stops the player when they run into a wall, leave commented if you want the player to continue their run animation against a wall
         /*if (collisionDirs.down || collisionDirs.up) {
             velocity.y = 0;
         }
@@ -417,6 +416,9 @@ public class PlayerControl : MonoBehaviour {
     #endregion
     #endregion
 
+    /// <summary>
+    /// Zeros the player's current velocity and disables their movement
+    /// </summary>
     public void Freeze() {
         canMove = false;
         velocity = Vector2.zero;

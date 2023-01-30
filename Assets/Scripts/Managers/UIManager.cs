@@ -42,16 +42,26 @@ public class UIManager : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Fades the screen to black
+    /// </summary>
     [ContextMenu("FadeToBlack")]
     public void FadeToBlack() {
         FadeToBlack(true);
     }
 
+    /// <summary>
+    /// Fades the screen from black
+    /// </summary>
     [ContextMenu("Fade From Black")]
     public void FadeFromBlack() {
         FadeToBlack(false);
     }
 
+    /// <summary>
+    /// Controls whether the screen fades to or from black based on the paramter
+    /// </summary>
+    /// <param name="fade">true causes the screen to fade to black; false causes the screen to from from black</param>
     private void FadeToBlack(bool fade) {
         if (fade) {
             fadeToBlackPanel.GetComponent<Animation>().Play("FadeToBlack");

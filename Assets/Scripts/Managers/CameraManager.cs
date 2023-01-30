@@ -42,10 +42,18 @@ public class CameraManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Moves the camera to the specified position in the world
+    /// </summary>
+    /// <param name="position"></param>
     public void MoveTo(Vector3 position) {
         transform.position = position;
     }
 
+    /// <summary>
+    /// Enables player following behavior
+    /// </summary>
+    /// <param name="follow"></param>
     public void FollowPlayer(bool follow) {
         shouldFollowPlayer = follow;
     }

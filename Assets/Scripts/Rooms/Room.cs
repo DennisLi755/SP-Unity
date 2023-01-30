@@ -14,6 +14,9 @@ public class Room : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Called when the player is moved to the room; tells the camera whether it should follow the character and pre-positions the camera
+    /// </summary>
     public void MoveTo() {
         CameraManager.Instance.FollowPlayer(!staticCamera);
         if (staticCamera) {
@@ -26,8 +29,13 @@ public class Room : MonoBehaviour {
         PlayerInfo.Instance.PlayerControl.CanMove = true;
     }
 
+    /// <summary>
+    /// Moves the camera to this room
+    /// </summary>
     [ContextMenu("Move Camera to This Room")]
     public void MoveCameraHere() {
         Camera.main.transform.position = cameraPosition;
+
+        Camera.main.GetComponent<CameraManager>().FollowPlayer(!staticCamera);
     }
 }
