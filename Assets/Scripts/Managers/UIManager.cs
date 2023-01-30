@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using TMPro;
 
 public class UIManager : MonoBehaviour {
 
@@ -61,9 +63,9 @@ public class UIManager : MonoBehaviour {
 
     public void ActivateInteractText(List<string> message) {
         interactTexts = message;
-        currentTextindex = 0;
+        currentTextIndex = 0;
 
-        interactText.SetText(interactTexts[currentTextindex++]);
+        interactText.SetText(interactTexts[currentTextIndex++]);
 
         interactText.transform.parent.gameObject.SetActive(true);
 
@@ -71,7 +73,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ContinueInteractText() {
-        if (currentTextIndex == interactTexts.Length) {
+        if (currentTextIndex == interactTexts.Count) {
             DeactivateInteractText();
         } else {
             interactText.SetText(interactTexts[currentTextIndex++]);
@@ -80,6 +82,6 @@ public class UIManager : MonoBehaviour {
 
     public void DeactivateInteractText() {
         interactText.transform.parent.gameObject.SetActive(false);
-        PlayerInfo.Instance.GetComponent<PlayerInfo>().SwitchCurrentActionMap("Player");
+        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
     }
 }
