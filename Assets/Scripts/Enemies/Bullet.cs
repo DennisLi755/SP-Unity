@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bullet : MonoBehaviour {
 
@@ -9,17 +10,17 @@ public class Bullet : MonoBehaviour {
     [SerializeField]
     private LayerMask playerLayer;
     private new CircleCollider2D collider;
+    private new SpriteRenderer renderer;
     
     void Start() {
         collider = GetComponent<CircleCollider2D>();
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     void Update() {
-        //transform.Rotate(0.0f, 0.0f, 0.5f);
         RaycastHit2D hit = Physics2D.CircleCast(collider.bounds.center, collider.radius, Vector2.zero, 0.0f, playerLayer);
         if (hit) {
             PlayerInfo.Instance.Hurt(1);
-            Destroy(gameObject);
         }
     }
 
