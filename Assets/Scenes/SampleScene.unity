@@ -392,6 +392,7 @@ MonoBehaviour:
   afterImage: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   attackAnimation: {fileID: 7400000, guid: 7212d4dcd5a266544a5f6f456c14f1a7, type: 2}
   damageFrame: 1
+  hitbox: {fileID: 1199931636}
   environmentLayers:
     serializedVersion: 2
     m_Bits: 256
@@ -50258,9 +50259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 2664022264175935265, guid: 6c091820dfe218a4389009e7128edbe8, type: 3}
   unityEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-  - m_PersistentCalls:
+    m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &1979464607
 PrefabInstance:
