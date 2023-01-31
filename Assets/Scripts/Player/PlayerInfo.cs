@@ -11,7 +11,7 @@ public class PlayerInfo : MonoBehaviour {
     public float Health => health;
     private const float startingHealth = 5;
     private const float invincibilityLength = 1;
-    private bool damagable;
+    private bool damagable = true;
 
     private bool canInteract;
     public bool CanInteract => canInteract;
