@@ -1559,22 +1559,18 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: house plant
+      name: house plant 1
       rect:
         serializedVersion: 2
         x: 32
-        y: 288
+        y: 328
         width: 32
-        height: 64
+        height: 24
       alignment: 9
-      pivot: {x: 0.5, y: 0.75}
+      pivot: {x: 0.5, y: 0.33333334}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -10, y: -29}
-        - {x: 12, y: -29}
-        - {x: 12, y: 18}
-        - {x: -10, y: 18}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 219bcc5c0ac25fd4bb458859fd456336
@@ -2397,6 +2393,31 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: house plant 2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 288
+        width: 32
+        height: 40
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -10, y: -17}
+        - {x: 11, y: -17}
+        - {x: 11, y: 20}
+        - {x: -10, y: 20}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21d95db686ca2084fa055e1334f2b9e7
+      internalID: 1460288628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2537,6 +2558,7 @@ TextureImporter:
       room_assets_157: 1021574669
       room_assets_36: 996210725
       room_assets_129: 500506109
+      house plant 1: 100153722
       room_assets_82: -1220107976
       room_assets_127: -1424138980
       room_assets_202: 1462714406
@@ -2549,20 +2571,21 @@ TextureImporter:
       room_assets_1: -2101895774
       room_assets_155: 274041865
       room_assets_134: 1959321627
+      house plant 2: 1460288628
       down couch (right piece): -1582561821
       room_assets_253: -1130427921
-      down couch (left piece): -964671194
+      painting (2): 1027472290
       room_assets_136: -1275164117
       room_assets_250: -1455530740
-      painting (2): 1027472290
       room_assets_99: -2112750138
       room_assets_133: -1807566061
-      table: 731030086
+      down couch (left piece): -964671194
       room_assets_139: -1220439365
+      table: 731030086
+      coffee table (small): -590730549
       salted pork: 1149879180
       room_assets_207: -1371500433
       room_assets_147: -2112878724
-      coffee table (small): -590730549
       kitchen sink: -682434040
       room_assets_91: -513128856
       rug: 1807390774
@@ -2583,7 +2606,6 @@ TextureImporter:
       coffee table (big): 745194157
       room_assets_48: -1670192109
       flower (2): 100153722
-      house plant: -1827889826
       room_assets_128: -1846533234
       room_assets_211: 600782408
       small destroyed couch (up): 1831694828

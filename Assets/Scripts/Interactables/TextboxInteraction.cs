@@ -8,11 +8,15 @@ public class TextboxInteraction : InteractableObject
     //text box sprite
     public List<string> message;
     public FacingDirection direction;
+    public bool isChild = false;
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
         spawn = transform.position;
+        if (isChild) {
+            message = transform.parent.gameObject.GetComponent<TextboxInteraction>().message;
+        }
     }
 
     // Update is called once per frame

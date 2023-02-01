@@ -148,7 +148,6 @@ SpriteAtlas:
   - {fileID: 1436154722, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 450794466, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -1393130171, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
-  - {fileID: 100153722, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -1993317012, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 1715696642, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -1026859959, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
@@ -199,6 +198,8 @@ SpriteAtlas:
   - {fileID: -1898484654, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -600929971, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 1657175576, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
+  - {fileID: 1460288628, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
+  - {fileID: 100153722, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: 346738368, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -1670192109, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
   - {fileID: -255459756, guid: bc7b830ab6265064f8707a304be1d741, type: 3}
@@ -425,7 +426,6 @@ SpriteAtlas:
   - room_assets_98
   - kitchen cabinet (1)
   - big chair (left)
-  - house plant
   - drawer (double)
   - medium couch (left)
   - flower(1)
@@ -476,6 +476,8 @@ SpriteAtlas:
   - down couch (right piece)
   - side toilet (lid)
   - kitchen counter wall (2)
+  - house plant 2
+  - house plant 1
   - big chair (down)
   - flower (2)
   - medium destroyed couch (right)

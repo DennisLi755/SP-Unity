@@ -86,6 +86,7 @@ public class PlayerControl : MonoBehaviour {
     private int damageFrame;
     private int totalAttackFrames;
     private float attackSpeed = 3f;
+    public GameObject hitbox;
     #endregion
 
     #region Raycasting & Collisions
@@ -175,6 +176,12 @@ public class PlayerControl : MonoBehaviour {
                 else if (velocity.x < 0)
                     facingDirection = FacingDirection.Left;
                 break;
+        }
+
+        if (GameObject.FindGameObjectWithTag("Bullet") != null) {
+            hitbox.SetActive(true);
+        } else {
+            hitbox.SetActive(false);
         }
     }
 
