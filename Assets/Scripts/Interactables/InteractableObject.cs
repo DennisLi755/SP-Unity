@@ -8,8 +8,9 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     private BoxCollider2D trigger;
-    public LayerMask playerLayer;
-    bool isActive;
+    [SerializeField]
+    private LayerMask playerLayer;
+    private bool isActive;
     // Start is called before the first frame update
     protected void Start()
     {
