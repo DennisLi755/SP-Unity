@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7841b2b38a51a5c4790162c5c46a1aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: {x: 1, y: 0}
+  velocity: {x: 0, y: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024

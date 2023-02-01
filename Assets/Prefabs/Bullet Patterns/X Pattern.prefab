@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5205563389783877728}
   m_Layer: 0
-  m_Name: Cross Pattern
+  m_Name: X Pattern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,11 +92,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
       propertyPath: velocity.x
-      value: 0
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
       propertyPath: velocity.y
-      value: 1
+      value: -0.70710677
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
@@ -162,7 +162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
       propertyPath: velocity.x
-      value: -1
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
+      propertyPath: velocity.y
+      value: -0.70710677
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
@@ -228,11 +232,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
       propertyPath: velocity.x
-      value: 0
+      value: -0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
       propertyPath: velocity.y
-      value: -1
+      value: 0.70710677
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
@@ -295,6 +299,14 @@ PrefabInstance:
     - target: {fileID: 6667369788057125289, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
       propertyPath: m_Name
       value: Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
+      propertyPath: velocity.x
+      value: 0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667369788057125290, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
+      propertyPath: velocity.y
+      value: 0.70710677
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
