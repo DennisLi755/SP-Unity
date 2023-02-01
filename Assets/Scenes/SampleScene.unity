@@ -1332,7 +1332,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.6, y: -24.6, z: -10}
+  m_LocalPosition: {x: 104.2, y: -32.1, z: -10}
   m_LocalScale: {x: 0.21750002, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfba386f99df0543990cd71fc58f1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldFollowPlayer: 0
+  shouldFollowPlayer: 1
 --- !u!1 &520797311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1814,7 +1814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &774145394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2080,7 +2080,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  lightObject: {fileID: 774145395}
+  lightObject: {fileID: 774145393}
 --- !u!61 &817733469
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2384,7 +2384,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  lightObject: {fileID: 774145395}
+  lightObject: {fileID: 774145393}
 --- !u!61 &1021695806
 BoxCollider2D:
   m_ObjectHideFlags: 0

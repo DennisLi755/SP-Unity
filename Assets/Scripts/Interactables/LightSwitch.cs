@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class LightSwitch : InteractableObject {
 
-    private bool lightOn = false;
+    private bool lightOn;
     [SerializeField]
-    private Image lightObject;
+    private GameObject lightObject;
+
+    private void Start() {
+        base.Start();
+        lightOn = lightObject.activeSelf;
+    }
 
     public override void OnInteract() {
         lightOn = !lightOn;
-        Color color = lightObject.color;
-        color.a = lightOn ? 0.0f : 0.5f;
-        lightObject.color = color;
+        lightObject.SetActive(lightOn);
     }
 }
