@@ -9,14 +9,6 @@ public class LightSwitch : InteractableObject {
     [SerializeField]
     private Image lightObject;
 
-    private void Start() {
-        base.Start();
-    }
-
-    private void Update() {
-        base.Update();
-    }
-
     public override void OnInteract() {
         lightOn = !lightOn;
         Color color = lightObject.color;
