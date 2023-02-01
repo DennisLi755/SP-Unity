@@ -8,6 +8,7 @@ public class Room : MonoBehaviour {
     [SerializeField]
     private bool staticCamera = false;
     [SerializeField]
+    [DraggablePoint]
     private Vector3 cameraPosition;
 
     void Start() {

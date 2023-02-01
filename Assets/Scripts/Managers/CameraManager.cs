@@ -17,6 +17,7 @@ public class CameraManager : MonoBehaviour {
     private Transform target;
     private Vector3 offset = new Vector3(0, 0, -10);
     private const float damping = 0.1f;
+    [SerializeField]
     private bool shouldFollowPlayer = true;
 
     private Vector3 velocity = Vector3.zero;
