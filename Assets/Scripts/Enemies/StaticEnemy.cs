@@ -7,17 +7,17 @@ using UnityEngine.Events;
 public class StaticEnemy : MonoBehaviour {
 
     [SerializeField]
-    private bool useTargetingCircle;
-    private CircleCollider2D targetingCircle;
+    protected bool useTargetingCircle;
+    protected CircleCollider2D targetingCircle;
     [SerializeField]
     LayerMask playerLayer;
     [SerializeField]
-    private UnityEvent[] attackCycle;
-    private bool canAttack = false;
-    private bool canContinueAttack = false;
-    private int attackCycleIndex = 0;
+    protected UnityEvent[] attackCycle;
+    protected bool canAttack = false;
+    protected bool canContinueAttack = false;
+    protected int attackCycleIndex = 0;
 
-    void Start() {
+    protected void Start() {
         if (useTargetingCircle) {
             targetingCircle = GetComponent<CircleCollider2D>();
         }
@@ -28,7 +28,7 @@ public class StaticEnemy : MonoBehaviour {
         }
     }
 
-    void Update() {
+    protected void Update() {
         if (useTargetingCircle) {
             RaycastHit2D hit = Physics2D.CircleCast(targetingCircle.bounds.center, targetingCircle.radius, Vector2.zero, 0.0f, playerLayer);
             if (hit && !canAttack) {
@@ -49,7 +49,7 @@ public class StaticEnemy : MonoBehaviour {
             }
         }
 
-        if (canContinueAttack) {
+        if (canContinueAttack && attackCycle.Length > 0) {
             attackCycle[attackCycleIndex]?.Invoke();
             attackCycleIndex++;
             if (attackCycleIndex >= attackCycle.Length) {
@@ -59,12 +59,12 @@ public class StaticEnemy : MonoBehaviour {
     }
 
     [ContextMenu("Start Attacking")]
-    private void StartAttackCycle() {
+    protected void StartAttackCycle() {
         canContinueAttack = true;
     }
 
     public void ShootPatternBullet(GameObject pattern) {
-        Instantiate(pattern, transform);
+        Instantiate(pattern, transform.position, Quaternion.identity, BulletHolder.Instance.transform);
     }
 
     public void Wait(float time) {

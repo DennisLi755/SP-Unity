@@ -11,7 +11,7 @@ public class StaticEnemyEditor : Editor {
 
     GameObject gb;
 
-    private void OnEnable() {
+    protected void OnEnable() {
         useTargetingCircle = serializedObject.FindProperty("useTargetingCircle");
         attackCycle = serializedObject.FindProperty("attackCycle");
         playerLayer = serializedObject.FindProperty("playerLayer");

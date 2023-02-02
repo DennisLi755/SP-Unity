@@ -12,7 +12,9 @@ public class Room : MonoBehaviour {
     private Vector3 cameraPosition;
 
     void Start() {
-
+        if (cameraPosition == Vector3.zero) {
+            Debug.LogWarning($"{gameObject.name} has no camera position");
+        }
     }
 
     /// <summary>
