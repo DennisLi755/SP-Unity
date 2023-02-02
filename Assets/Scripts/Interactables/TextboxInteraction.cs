@@ -5,7 +5,9 @@ using UnityEngine;
 public class TextboxInteraction : InteractableObject {
     [SerializeField]
     private List<string> message;
+    [SerializeField]
     private FacingDirection direction;
+    [SerializeField]
     private bool isChild = false;
 
     void Start() {
@@ -17,7 +19,6 @@ public class TextboxInteraction : InteractableObject {
 
     public override void OnInteract() {
         if (PlayerInfo.Instance.PlayerControl.FacingDirection == direction) {
-            //Debug.Log("Textbox interaction triggered");
             UIManager.Instance.ActivateInteractText(message);
         }
     }
