@@ -6,6 +6,8 @@ using UnityEngine;
 public class RailEnemy : StaticEnemy {
 
     [SerializeField]
+    protected bool moveBulletsWithEnemy;
+    [SerializeField]
     private Vector3[] nodes;
     private int currentNodeIndex = 0;
     private Vector3 Target => nodes[(currentNodeIndex + 1) % nodes.Length];
@@ -52,6 +54,15 @@ public class RailEnemy : StaticEnemy {
 
     private void FixedUpdate() {
         transform.position = Vector3.MoveTowards(transform.position, Target, speed * Time.fixedDeltaTime);
+    }
+
+    public override void ShootPatternBullet(GameObject pattern) {
+        if (moveBulletsWithEnemy) {
+            Instantiate(pattern, transform);
+        }
+        else {
+            base.ShootPatternBullet(pattern);
+        }
     }
 
     [ContextMenu("Move to next node")]

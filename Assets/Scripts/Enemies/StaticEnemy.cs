@@ -63,7 +63,7 @@ public class StaticEnemy : MonoBehaviour {
         canContinueAttack = true;
     }
 
-    public void ShootPatternBullet(GameObject pattern) {
+    public virtual void ShootPatternBullet(GameObject pattern) {
         Instantiate(pattern, transform.position, Quaternion.identity, BulletHolder.Instance.transform);
     }
 

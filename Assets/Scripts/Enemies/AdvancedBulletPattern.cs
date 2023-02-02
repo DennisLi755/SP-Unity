@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletPattern : MonoBehaviour {
+public class AdvancedBulletPattern : MonoBehaviour {
 
     void Start() {
 
