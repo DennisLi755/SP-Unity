@@ -30,6 +30,7 @@ public class PlayerInfo : MonoBehaviour {
 
     private PlayerControl playerControl;
     public PlayerControl PlayerControl { get => playerControl; }
+    public bool Damagable {get => damagable; set {damagable = value;} }
 
     private void Awake() {
        if (instance == null) {

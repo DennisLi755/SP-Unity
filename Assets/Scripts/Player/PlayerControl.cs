@@ -87,6 +87,7 @@ public class PlayerControl : MonoBehaviour {
     private int totalAttackFrames;
     private float attackSpeed = 3f;
     public GameObject hitbox;
+    private float dashIFrames = 0.3f;
     #endregion
 
     #region Raycasting & Collisions
@@ -369,6 +370,7 @@ public class PlayerControl : MonoBehaviour {
     public void Dash(InputAction.CallbackContext context) {
         if (context.performed && currentDashCharges > 0 && playerState != PlayerState.Dashing && canDash) {
             playerState = PlayerState.Dashing;
+            PlayerInfo.Instance.Damagable = false;
             activeMoveSpeed = dashSpeed;
             currentDashCharges--;
             StartCoroutine(EndDash());
@@ -392,7 +394,10 @@ public class PlayerControl : MonoBehaviour {
             activeMoveSpeed = attackSpeed;
         }
 
-        yield return new WaitForSeconds(dashRechargeTime);
+        yield return new WaitForSeconds(dashIFrames);
+        PlayerInfo.Instance.Damagable = true;
+
+        yield return new WaitForSeconds(dashRechargeTime - dashIFrames);
         currentDashCharges++;
     }
 
