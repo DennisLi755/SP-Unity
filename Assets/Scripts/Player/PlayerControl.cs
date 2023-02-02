@@ -437,4 +437,9 @@ public class PlayerControl : MonoBehaviour {
         canMove = false;
         velocity = Vector2.zero;
     }
+
+    public void UnFreeze() {
+        canMove = true;
+        velocity = input;
+    }
 }

@@ -29,7 +29,7 @@ public class Room : MonoBehaviour {
             CameraManager.Instance.MoveTo(PlayerInfo.Instance.transform.position);
         }
         UIManager.Instance.FadeFromBlack();
-        PlayerInfo.Instance.PlayerControl.CanMove = true;
+        PlayerInfo.Instance.PlayerControl.UnFreeze();
     }
 
     /// <summary>

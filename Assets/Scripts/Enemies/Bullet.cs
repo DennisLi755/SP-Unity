@@ -5,16 +5,29 @@ using UnityEngine.Events;
 
 public class Bullet : MonoBehaviour {
 
+    [Range(0, 359)]
     [SerializeField]
-    private Vector2 velocity;
+    private float angle;
+    [SerializeField]
+    private float speed;
+    private Vector2 direction;
     [SerializeField]
     private LayerMask playerLayer;
     private new CircleCollider2D collider;
     private new SpriteRenderer renderer;
-    
+    private bool hasRendered = false;
+
     void Start() {
         collider = GetComponent<CircleCollider2D>();
         renderer = GetComponent<SpriteRenderer>();
+
+        direction = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle));
+        StartCoroutine(WaitForRender());
+
+        IEnumerator WaitForRender() {
+            yield return new WaitForSeconds(0.5f);
+            hasRendered = true;
+        }
     }
 
     void Update() {
@@ -22,9 +35,13 @@ public class Bullet : MonoBehaviour {
         if (hit) {
             PlayerInfo.Instance.Hurt(1);
         }
+
+        if (hasRendered && !renderer.isVisible) {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate() {
-        transform.Translate(velocity * Time.fixedDeltaTime);
+        transform.Translate(speed * Time.fixedDeltaTime * direction);
     }
 }
