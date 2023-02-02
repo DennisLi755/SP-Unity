@@ -14,7 +14,9 @@ public class RailEnemyEditor : StaticEnemyEditor {
     }
 
     public override void OnInspectorGUI() {
+        EditorGUI.BeginDisabledGroup(EditorApplication.isPlaying);
         EditorGUILayout.PropertyField(nodes);
+        EditorGUI.EndDisabledGroup();
         EditorGUILayout.PropertyField(speed);
         EditorGUILayout.Space();
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class RailEnemy : StaticEnemy {
@@ -14,16 +15,31 @@ public class RailEnemy : StaticEnemy {
     private void OnDrawGizmos() {
         UnityEditor.Handles.color = Color.grey;
         Gizmos.color = Color.grey;
-        for (int i = 0; i < nodes.Length; i++) {
-            UnityEditor.Handles.DrawSolidDisc(nodes[i], Vector3.back, 0.2f); ;
-            if (nodes.Length > 1) {
-                Gizmos.DrawLine(nodes[i], (i < nodes.Length - 1) ? nodes[i + 1] : nodes[0]);
+        if (EditorApplication.isPlaying) {
+            for (int i = 0; i < nodes.Length; i++) {
+                UnityEditor.Handles.DrawSolidDisc(nodes[i], Vector3.back, 0.2f); ;
+                if (nodes.Length > 1) {
+                    Gizmos.DrawLine(nodes[i], (i < nodes.Length - 1) ? nodes[i + 1] : nodes[0]);
+                }
+            }
+        }
+        else {
+            for (int i = 0; i < nodes.Length; i++) {
+                UnityEditor.Handles.DrawSolidDisc(nodes[i] + transform.position, Vector3.back, 0.2f); ;
+                if (nodes.Length > 1) {
+                    Gizmos.DrawLine(nodes[i] + transform.position, ((i < nodes.Length - 1) ? nodes[i + 1] : nodes[0]) + transform.position);
+                }
             }
         }
     }
 
     private new void Start() {
         base.Start();
+
+        //transcribe nodes to world position
+        for (int i = 0; i < nodes.Length; i++) {
+            nodes[i] += transform.position;
+        }
     }
 
     private new void Update() {

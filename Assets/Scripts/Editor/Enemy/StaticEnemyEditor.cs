@@ -5,11 +5,11 @@ using Unity.Collections;
 [CustomEditor(typeof(StaticEnemy))]
 [CanEditMultipleObjects]
 public class StaticEnemyEditor : Editor {
-    SerializedProperty useTargetingCircle;
-    SerializedProperty attackCycle;
-    SerializedProperty playerLayer;
+    protected SerializedProperty useTargetingCircle;
+    protected SerializedProperty attackCycle;
+    protected SerializedProperty playerLayer;
 
-    GameObject gb;
+    protected GameObject gb;
 
     protected void OnEnable() {
         useTargetingCircle = serializedObject.FindProperty("useTargetingCircle");
