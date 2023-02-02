@@ -15,7 +15,9 @@ public class LightSwitch : InteractableObject {
     }
 
     public override void OnInteract() {
-        lightOn = !lightOn;
-        lightObject.SetActive(lightOn);
+        if (PlayerInfo.Instance.PlayerControl.FacingDirection == FacingDirection.Up) {
+            lightOn = !lightOn;
+            lightObject.SetActive(lightOn);
+        }
     }
 }
