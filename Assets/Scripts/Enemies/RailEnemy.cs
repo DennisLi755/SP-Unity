@@ -14,7 +14,8 @@ public class RailEnemy : StaticEnemy {
     [SerializeField]
     private float speed;
 
-    private void OnDrawGizmos() {
+    private new void OnDrawGizmos() {
+        base.OnDrawGizmos();
         UnityEditor.Handles.color = Color.grey;
         Gizmos.color = Color.grey;
         if (EditorApplication.isPlaying) {

@@ -25,7 +25,7 @@ public class StaticEnemy : MonoBehaviour {
     protected bool overridePatternSpeed = false;
     protected float newPatternSpeed;
 
-    private void OnDrawGizmos() {
+    protected void OnDrawGizmos() {
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
         Handles.Label(new Vector3(transform.position.x - 0.5f, transform.position.y + 1.0f, transform.position.z), $"Health: {currentHealth}", style);
