@@ -9,7 +9,7 @@ public class LightSwitch : InteractableObject {
     [SerializeField]
     private GameObject lightObject;
 
-    private void Start() {
+    private new void Start() {
         base.Start();
         lightOn = lightObject.activeSelf;
     }

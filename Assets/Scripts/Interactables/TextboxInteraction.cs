@@ -12,7 +12,7 @@ public class TextboxInteraction : InteractableObject {
 
     public List<string> Message { get => message; }
 
-    void Start() {
+    new void Start() {
         base.Start();
         if (isChild) {
             message = transform.parent.gameObject.GetComponent<TextboxInteraction>().message;
