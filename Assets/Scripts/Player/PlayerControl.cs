@@ -1,10 +1,8 @@
+using System;
 using System.Collections;
-using System.Net.Sockets;
-using System.Security.Cryptography;
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// The position origins of the raycasts used to keep the player in bounds
@@ -23,14 +21,21 @@ public struct CollisionDirections {
     }
 }
 
+[Serializable]
+public struct AttackHitbox {
+    public bool showBounds;
+    public FacingDirection direction;
+    public Bounds bounds;
+}
+
 /// <summary>
 /// Which direction the player is facing; used to determine if they can interact with an object
 /// </summary>
 public enum FacingDirection {
-    Up, 
-    Down, 
-    Left, 
-    Right
+    Up = 0,
+    Down = 1,
+    Left = 2,
+    Right = 3
 }
 
 /// <summary>
@@ -69,6 +74,7 @@ public class PlayerControl : MonoBehaviour {
     private const int maxDashCharges = 2;
     private const float dashSpeed = 20f;
     private int currentDashCharges = maxDashCharges;
+    private float dashImmunityLength = 0.3f;
     //how long the player is dashing for in seconds
     private float dashLength = 0.12f;
     //how long it takes for a dash charge to come back, starting when the dash ends
@@ -90,6 +96,10 @@ public class PlayerControl : MonoBehaviour {
     public GameObject hitbox;
     private bool unlockAttack = true;
     public bool UnlockAttack {get => unlockAttack; set {unlockAttack = value;}}
+    private float attackMoveSpeed = 3f;
+    [SerializeField]
+    private AttackHitbox[] inspectorAttackHixboxes = new AttackHitbox[4];
+    private Dictionary<FacingDirection, Bounds> attackHitboxes = new Dictionary<FacingDirection, Bounds>();
     #endregion
 
     #region Raycasting & Collisions
@@ -107,23 +117,25 @@ public class PlayerControl : MonoBehaviour {
     private float horizontalRaySpacing;
     private float verticalRaySpacing;
 
-    public FacingDirection FacingDirection {
-        get {return facingDirection;}
-    }
+    public FacingDirection FacingDirection => facingDirection;
 
     #endregion
 
     private void OnDrawGizmos() {
-        //Gizmos.DrawWireCube(bounds.center, bounds.size);
-        #region Raycasts
-
-        #endregion
+        //draw the player's attack boxes
+        Gizmos.color = Color.red;
+        foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {
+            if (hitbox.showBounds) {
+                Gizmos.DrawWireCube(hitbox.bounds.center + transform.position, hitbox.bounds.size);
+            }
+        }
     }
 
     /// <summary>
     /// Draws debug info to the screen
     /// </summary>
     private void OnGUI() {
+        GUI.color = Color.black;
         if (showDebug) {
             int yStart = 5;
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"activeMoveSpeed: {activeMoveSpeed}");
@@ -144,7 +156,7 @@ public class PlayerControl : MonoBehaviour {
     /// <summary>
     /// Runs when the object is enabled for the first time
     /// </summary>
-    void Start() { 
+    void Start() {
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
 
@@ -183,7 +195,8 @@ public class PlayerControl : MonoBehaviour {
 
         if (GameObject.FindGameObjectWithTag("Bullet") != null) {
             hitbox.SetActive(true);
-        } else {
+        }
+        else {
             hitbox.SetActive(false);
         }
     }
@@ -336,7 +349,7 @@ public class PlayerControl : MonoBehaviour {
         if (context.performed && playerState != PlayerState.Attack && unlockAttack) {
             playerState = PlayerState.Attack;
             //ensures the player is set to walking speed if they attack cancel a dash
-            activeMoveSpeed = attackSpeed;
+            activeMoveSpeed = attackMoveSpeed;
             //disables dashing so the player cannot dash cancel until the attack boxcast has been done
             //and disables movement so the player cannot change their direction
             canDash = false;
@@ -352,10 +365,14 @@ public class PlayerControl : MonoBehaviour {
     /// <returns></returns>
     IEnumerator EndAttack() {
         yield return new WaitForSeconds((float)damageFrame / totalAttackFrames * attackAnimation.length);
-        canDash = true;
-
         //boxcast for enemies
+        switch (facingDirection) {
 
+        }
+
+
+        //enable dashing 
+        canDash = true;
 
         //end the attack state
         yield return new WaitForSeconds((1.0f - (float)damageFrame / totalAttackFrames) * attackAnimation.length);
@@ -395,15 +412,16 @@ public class PlayerControl : MonoBehaviour {
         if (playerState == PlayerState.Dashing) {
             playerState = PlayerState.Idle;
             activeMoveSpeed = walkSpeed;
-        //if the player ends dashing in the attack state, keep the reduced attack speed
-        } else if (playerState == PlayerState.Attack) {
-            activeMoveSpeed = attackSpeed;
+            //if the player ends dashing in the attack state, keep the reduced attack speed
+        }
+        else if (playerState == PlayerState.Attack) {
+            activeMoveSpeed = attackMoveSpeed;
         }
 
-        yield return new WaitForSeconds(dashIFrames);
+        yield return new WaitForSeconds(dashImmunityLength);
         PlayerInfo.Instance.Damagable = true;
 
-        yield return new WaitForSeconds(dashRechargeTime - dashIFrames);
+        yield return new WaitForSeconds(dashRechargeTime - dashImmunityLength);
         currentDashCharges++;
     }
 
@@ -429,7 +447,8 @@ public class PlayerControl : MonoBehaviour {
     public void Focus(InputAction.CallbackContext context) {
         if (context.performed) {
             focusScalar = 0.7f;
-        } else if (context.canceled) {
+        }
+        else if (context.canceled) {
             focusScalar = 1f;
         }
     }
