@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour {
     private float angle;
     [SerializeField]
     private float speed;
+    public float Speed { get => speed; set { speed = value; } }
     private Vector2 direction;
     [SerializeField]
     private LayerMask playerLayer;

@@ -174,6 +174,8 @@ MonoBehaviour:
   message:
   - ...
   - ...Nah, too tired to play right now
+  direction: 0
+  isChild: 0
 --- !u!61 &14858629
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -372,7 +374,7 @@ Transform:
   m_Children:
   - {fileID: 1199931637}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &59945753
 MonoBehaviour:
@@ -962,6 +964,8 @@ MonoBehaviour:
     m_Bits: 128
   message:
   - You open the oven and it's...filled with pans...?
+  direction: 0
+  isChild: 0
 --- !u!61 &236433537
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1369,6 +1373,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   message: []
+  direction: 0
+  isChild: 0
 --- !u!61 &492322922
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1643,6 +1649,8 @@ MonoBehaviour:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
+  direction: 0
+  isChild: 0
 --- !u!61 &581567649
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1720,6 +1728,8 @@ MonoBehaviour:
     m_Bits: 128
   message:
   - Wow! This salted pork sure looks yummy!
+  direction: 0
+  isChild: 0
 --- !u!61 &669121859
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1793,7 +1803,7 @@ Transform:
   - {fileID: 806476603}
   - {fileID: 1915230272}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &720721721
 GameObject:
@@ -1972,6 +1982,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   message: []
+  direction: 0
+  isChild: 0
 --- !u!61 &721575757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2051,6 +2063,8 @@ MonoBehaviour:
   - You know how to play all of them already.
   - Although..
   - You don't remember practicing any of them.
+  direction: 0
+  isChild: 0
 --- !u!61 &722426615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2129,6 +2143,8 @@ MonoBehaviour:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
+  direction: 0
+  isChild: 0
 --- !u!61 &779050805
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2362,6 +2378,8 @@ MonoBehaviour:
   message:
   - Your bed.
   - You resist the urge to go back to bed immediately...
+  direction: 0
+  isChild: 0
 --- !u!61 &907367893
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2649,6 +2667,8 @@ MonoBehaviour:
   message:
   - Ah yes...
   - The obligartory house plant near the door.
+  direction: 0
+  isChild: 0
 --- !u!61 &1006361296
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13986,6 +14006,8 @@ MonoBehaviour:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
+  direction: 0
+  isChild: 0
 --- !u!61 &1154895450
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14643,6 +14665,8 @@ MonoBehaviour:
     m_Bits: 128
   message:
   - Careful! This knife is kind of sharp..
+  direction: 0
+  isChild: 0
 --- !u!61 &1450522197
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14721,6 +14745,8 @@ MonoBehaviour:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
+  direction: 0
+  isChild: 0
 --- !u!61 &1451680117
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38462,7 +38488,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1519647638
 PrefabInstance:
@@ -38595,6 +38621,8 @@ MonoBehaviour:
   message:
   - You open the fridge see a single bottle of water, celery, seltzer cans, tomatoes,
     pork, and...salt?
+  direction: 0
+  isChild: 0
 --- !u!61 &1532620535
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38653,7 +38681,7 @@ Transform:
   - {fileID: 553025147}
   - {fileID: 2093013615}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644872997
 GameObject:
@@ -38704,6 +38732,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   message: []
+  direction: 0
+  isChild: 0
 --- !u!61 &1644873000
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38927,6 +38957,8 @@ MonoBehaviour:
   message:
   - This plant is really dehydrated!
   - You guess it's because water near the piano isn't good...
+  direction: 0
+  isChild: 0
 --- !u!61 &1663025879
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39005,6 +39037,8 @@ MonoBehaviour:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
+  direction: 0
+  isChild: 0
 --- !u!61 &1712600064
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39082,6 +39116,8 @@ MonoBehaviour:
   message:
   - After picking up a plate, you realize it's just a paper plate that's painted
     to LOOK like a ceramic plate.
+  direction: 0
+  isChild: 0
 --- !u!61 &1733335503
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39278,7 +39314,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &1804347427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39340,7 +39376,7 @@ RectTransform:
   - {fileID: 1023632911}
   - {fileID: 1450107564}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -39396,6 +39432,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   message: []
+  direction: 0
+  isChild: 0
 --- !u!61 &1865889975
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -51536,6 +51574,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1948960058}
         m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
+        m_MethodName: SetPatternSpeed
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 10
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1948960058}
+        m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
         m_MethodName: ShootPatternBullet
         m_Mode: 2
         m_Arguments:
@@ -61605,6 +61655,8 @@ MonoBehaviour:
   message:
   - You open the drawer to...shards of broken glass.
   - That...is definitely a safety hazard.
+  direction: 0
+  isChild: 0
 --- !u!61 &1994934585
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -61664,7 +61716,7 @@ Transform:
   - {fileID: 172255324}
   - {fileID: 957725118}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2007346330
 GameObject:
@@ -61716,6 +61768,8 @@ MonoBehaviour:
     m_Bits: 128
   message:
   - It's locked.
+  direction: 0
+  isChild: 0
 --- !u!61 &2007346333
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -61794,6 +61848,8 @@ MonoBehaviour:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
+  direction: 0
+  isChild: 0
 --- !u!61 &2037433398
 BoxCollider2D:
   m_ObjectHideFlags: 0
