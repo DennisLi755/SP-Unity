@@ -51604,6 +51604,44 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1948960058}
+        m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
+        m_MethodName: SetPatternSpeed
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1948960058}
+        m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
+        m_MethodName: ShootPatternBullet
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 9122611743284908735, guid: b9589c44e9df5064088ebcb020b3de0c, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1948960058}
+        m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
+        m_MethodName: Wait
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 2
           m_StringArgument: 
           m_BoolArgument: 0
