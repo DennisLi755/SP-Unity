@@ -352,11 +352,15 @@ public class PlayerControl : MonoBehaviour {
         yield return new WaitForSeconds((float)damageFrame / totalAttackFrames * attackAnimation.length);
         canDash = true;
 
-        //TODO: boxcast for attacking
+        //boxcast for enemies
 
+
+        //end the attack state
         yield return new WaitForSeconds((1.0f - (float)damageFrame / totalAttackFrames) * attackAnimation.length);
-        playerState = PlayerState.Idle;
-        activeMoveSpeed = walkSpeed;
+        if (playerState != PlayerState.Dashing) {
+            playerState = PlayerState.Idle;
+            activeMoveSpeed = walkSpeed;
+        }
         canMove = true;
         velocity = input;
     }
