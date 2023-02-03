@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class UIManager : MonoBehaviour {
 
     private static UIManager instance;
     public TMP_Text interactText;
-    TMP_Text interactTextContinue;
     List<string> interactTexts;
     int currentTextIndex;
+    [SerializeField]
+    Button promptedInteractionYesButton;
+    [SerializeField]
+    Button textInteractionButton;
+    [SerializeField]
+    EventSystem eventSystem;
+    [SerializeField]
+    GameObject prompt;
     public static UIManager Instance {
         get {
             if (instance == null) {
@@ -72,6 +80,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ActivateInteractText(List<string> message) {
+        eventSystem.firstSelectedGameObject = textInteractionButton.gameObject;
         interactTexts = message;
         currentTextIndex = 0;
 
@@ -92,6 +101,27 @@ public class UIManager : MonoBehaviour {
 
     public void DeactivateInteractText() {
         interactText.transform.parent.gameObject.SetActive(false);
+        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+    }
+
+    public void ActivatePromptedInteraction(PromptedInteraction sender, List<string> message) {
+        eventSystem.firstSelectedGameObject = promptedInteractionYesButton.gameObject;
+        promptedInteractionYesButton.onClick.AddListener(sender.OnYes);
+        interactTexts = message;
+        currentTextIndex = 0;
+
+        interactText.SetText(interactTexts[currentTextIndex]);
+
+        interactText.transform.parent.gameObject.SetActive(true);
+        prompt.SetActive(true);
+
+        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+    }
+
+    public void ResetPromptedInteraction() {
+        promptedInteractionYesButton.onClick.RemoveAllListeners();
+        interactText.transform.parent.gameObject.SetActive(false);
+        prompt.SetActive(false);
         PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
     }
 }

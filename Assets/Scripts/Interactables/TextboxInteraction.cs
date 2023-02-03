@@ -10,6 +10,8 @@ public class TextboxInteraction : InteractableObject {
     [SerializeField]
     private bool isChild = false;
 
+    public List<string> Message { get => message; }
+
     void Start() {
         base.Start();
         if (isChild) {
