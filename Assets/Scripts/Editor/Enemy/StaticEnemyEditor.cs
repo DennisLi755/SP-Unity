@@ -5,6 +5,7 @@ using Unity.Collections;
 [CustomEditor(typeof(StaticEnemy))]
 [CanEditMultipleObjects]
 public class StaticEnemyEditor : Editor {
+    protected SerializedProperty maxHealth;
     protected SerializedProperty useTargetingCircle;
     protected SerializedProperty attackCycle;
     protected SerializedProperty playerLayer;
@@ -12,6 +13,7 @@ public class StaticEnemyEditor : Editor {
     protected GameObject gb;
 
     protected void OnEnable() {
+        maxHealth = serializedObject.FindProperty("maxHealth");
         useTargetingCircle = serializedObject.FindProperty("useTargetingCircle");
         attackCycle = serializedObject.FindProperty("attackCycle");
         playerLayer = serializedObject.FindProperty("playerLayer");
@@ -20,6 +22,7 @@ public class StaticEnemyEditor : Editor {
     }
 
     public override void OnInspectorGUI() {
+        EditorGUILayout.PropertyField(maxHealth);
         EditorGUILayout.PropertyField(attackCycle);
         EditorGUILayout.PropertyField(useTargetingCircle);
         if (useTargetingCircle.boolValue) {

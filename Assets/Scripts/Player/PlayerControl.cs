@@ -88,6 +88,8 @@ public class PlayerControl : MonoBehaviour {
 
     #region Attack Info
     [SerializeField]
+    LayerMask attackableLayers;
+    [SerializeField]
     private AnimationClip attackAnimation;
     [SerializeField]
     private int damageFrame;
@@ -166,6 +168,10 @@ public class PlayerControl : MonoBehaviour {
         UpdateRayCastOrigins();
 
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
+
+        foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {
+            attackHitboxes.Add(hitbox.direction, hitbox.bounds);
+        }
     }
 
     /// <summary>
@@ -365,11 +371,28 @@ public class PlayerControl : MonoBehaviour {
     /// <returns></returns>
     IEnumerator EndAttack() {
         yield return new WaitForSeconds((float)damageFrame / totalAttackFrames * attackAnimation.length);
-        //boxcast for enemies
-        switch (facingDirection) {
-
+        #region Boxcasting for attackables
+        Bounds hitBoxBounds = attackHitboxes[facingDirection];
+        //get every hit object
+        RaycastHit2D[] attackHits = Physics2D.BoxCastAll(hitBoxBounds.center + transform.position, hitBoxBounds.size, 0.0f, Vector2.zero, 0.0f, attackableLayers);
+        //if there were any hits, resolve them
+        if (attackHits.Length > 0) {
+            foreach (RaycastHit2D hit in attackHits) {
+                GameObject hitObject = hit.transform.gameObject;
+                //resolving depends on layer (or further on tag)
+                switch (LayerMask.LayerToName(hitObject.layer)) {
+                    case "Enemy":
+                        hitObject.GetComponent<StaticEnemy>().Hurt(1);
+                        break;
+                    default:
+                        Debug.LogError($"Player attack has not been setup for layer: {LayerMask.LayerToName(hit.transform.gameObject.layer)}" +
+                            $"\nThis was actived by hitting {hitObject} at {hitObject.transform.position}" +
+                            $"\nThis layer might have been added to the player's attackable layers by mistake.");
+                        break;
+                }
+            }
         }
-
+        #endregion
 
         //enable dashing 
         canDash = true;

@@ -7,7 +7,7 @@ public class BulletPattern : MonoBehaviour {
 
     Bullet[] bullets;
     [SerializeField]
-    private bool overrideSpeed;
+    private bool overrideSpeed = false;
     [SerializeField]
     private float speed;
 
