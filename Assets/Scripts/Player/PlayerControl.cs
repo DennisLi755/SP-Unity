@@ -73,6 +73,7 @@ public class PlayerControl : MonoBehaviour {
     private float dashLength = 0.12f;
     //how long it takes for a dash charge to come back, starting when the dash ends
     private float dashRechargeTime = 2f;
+    private float dashIFrames = 0.3f;
 
     //active move speed is changed between the value of walkSpeed and dashSpeed when the player starts or ends a dash
     //by default is is equal to walkSpeed
@@ -87,7 +88,8 @@ public class PlayerControl : MonoBehaviour {
     private int totalAttackFrames;
     private float attackSpeed = 3f;
     public GameObject hitbox;
-    private float dashIFrames = 0.3f;
+    private bool unlockAttack = true;
+    public bool UnlockAttack {get => unlockAttack; set {unlockAttack = value;}}
     #endregion
 
     #region Raycasting & Collisions
@@ -331,7 +333,7 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     /// <param name="context"></param>
     public void Attack(InputAction.CallbackContext context) {
-        if (context.performed && playerState != PlayerState.Attack) {
+        if (context.performed && playerState != PlayerState.Attack && unlockAttack) {
             playerState = PlayerState.Attack;
             //ensures the player is set to walking speed if they attack cancel a dash
             activeMoveSpeed = attackSpeed;

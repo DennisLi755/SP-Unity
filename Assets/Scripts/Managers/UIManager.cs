@@ -81,10 +81,12 @@ public class UIManager : MonoBehaviour {
 
     public void ActivateInteractText(List<string> message) {
         eventSystem.firstSelectedGameObject = textInteractionButton.gameObject;
+        eventSystem.SetSelectedGameObject(textInteractionButton.gameObject);
+        //textInteractionButton.onClick.AddListener(ContinueInteractText);
         interactTexts = message;
         currentTextIndex = 0;
 
-        interactText.SetText(interactTexts[currentTextIndex]);
+        interactText.SetText(interactTexts[currentTextIndex++]);
 
         interactText.transform.parent.gameObject.SetActive(true);
 
@@ -106,6 +108,7 @@ public class UIManager : MonoBehaviour {
 
     public void ActivatePromptedInteraction(PromptedInteraction sender, List<string> message) {
         eventSystem.firstSelectedGameObject = promptedInteractionYesButton.gameObject;
+        eventSystem.SetSelectedGameObject(promptedInteractionYesButton.gameObject);
         promptedInteractionYesButton.onClick.AddListener(sender.OnYes);
         interactTexts = message;
         currentTextIndex = 0;
@@ -119,8 +122,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ResetPromptedInteraction() {
-        promptedInteractionYesButton.onClick.RemoveAllListeners();
         interactText.transform.parent.gameObject.SetActive(false);
+        promptedInteractionYesButton.onClick.RemoveAllListeners();
         prompt.SetActive(false);
         PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
     }
