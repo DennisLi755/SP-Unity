@@ -17,7 +17,11 @@ public class SwordInteraction : PromptedInteraction
 
     public override void OnInteract()
     {
-        base.OnInteract();
+        if (PlayerInfo.Instance.PlayerControl.UnlockAttack == false) {
+            base.OnInteract();
+        } else {
+            UIManager.Instance.ActivateInteractText(new List<string>{"Just a regular coffee table."});
+        }
     }
 
     public override void OnYes()
