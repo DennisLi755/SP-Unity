@@ -26,9 +26,10 @@ public class StaticEnemy : MonoBehaviour {
     protected float newPatternSpeed;
 
     protected void OnDrawGizmos() {
+        GUIContent content = new GUIContent($"Health: {currentHealth}");
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
-        Handles.Label(new Vector3(transform.position.x - 0.5f, transform.position.y + 1.0f, transform.position.z), $"Health: {currentHealth}", style);
+        Handles.Label(new Vector3(transform.position.x - 0.75f, transform.position.y + 1.0f, transform.position.z), content, style);
     }
 
     protected void Start() {
