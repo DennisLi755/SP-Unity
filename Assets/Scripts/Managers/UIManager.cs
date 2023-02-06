@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 public class UIManager : MonoBehaviour {
-
+    #region field declaration
     private static UIManager instance;
     public TMP_Text interactText;
     List<string> interactTexts;
@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject prompt;
     public GameObject Prompt {get => prompt; set {prompt = value;}}
+    #endregion
     public static UIManager Instance {
         get {
             if (instance == null) {
@@ -41,14 +42,6 @@ public class UIManager : MonoBehaviour {
         else {
             Destroy(gameObject);
         }
-    }
-
-    void Start() {
-
-    }
-
-    void Update() {
-
     }
 
     /// <summary>
@@ -80,6 +73,10 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Opens and populates basic object interaction text box
+    /// </summary>
+    /// <param name="message">list of strings to show</param>
     public void ActivateInteractText(List<string> message) {
         eventSystem.firstSelectedGameObject = textInteractionButton.gameObject;
         eventSystem.SetSelectedGameObject(textInteractionButton.gameObject);
@@ -93,7 +90,9 @@ public class UIManager : MonoBehaviour {
 
         PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
     }
-
+    /// <summary>
+    /// When the current messages finish either continue or end the interaction
+    /// </summary>
     public void ContinueInteractText() {
         if (currentTextIndex == interactTexts.Count) {
             DeactivateInteractText();
@@ -101,12 +100,19 @@ public class UIManager : MonoBehaviour {
             interactText.SetText(interactTexts[currentTextIndex++]);
         }
     }
-
+    /// <summary>
+    /// End the current object interaction
+    /// </summary>
     public void DeactivateInteractText() {
         interactText.transform.parent.gameObject.SetActive(false);
         PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
     }
-
+    /// <summary>
+    /// Opens and populates text box for a basic prompted object interaction
+    /// Links yes button with the sender object's OnYes function
+    /// </summary>
+    /// <param name="sender">object that started the prompted interaction</param>
+    /// <param name="message">list of strings to show</param>
     public void ActivatePromptedInteraction(PromptedInteraction sender, List<string> message) {
         eventSystem.firstSelectedGameObject = promptedInteractionYesButton.gameObject;
         eventSystem.SetSelectedGameObject(promptedInteractionYesButton.gameObject);
@@ -121,7 +127,9 @@ public class UIManager : MonoBehaviour {
 
         PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
     }
-
+    /// <summary>
+    /// Ends the current prompted object interaction
+    /// </summary>
     public void ResetPromptedInteraction() {
         interactText.transform.parent.gameObject.SetActive(false);
         promptedInteractionYesButton.onClick.RemoveAllListeners();

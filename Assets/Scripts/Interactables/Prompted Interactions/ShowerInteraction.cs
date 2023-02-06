@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ShowerInteraction : PromptedInteraction
 {
+    /// <summary>
+    /// OnYes() for interacting with the shower
+    /// FadeToBlack, play the noise
+    /// After some time, fade back and show text after yes
+    /// </summary>
     public override void OnYes()
     {
         UIManager.Instance.FadeToBlack();
