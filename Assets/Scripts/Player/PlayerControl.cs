@@ -66,6 +66,7 @@ public class PlayerControl : MonoBehaviour {
     //We use a separate input vector to be able to continously collect the player's input, even if movement is disabled
     private Vector2 input;
     private Vector2 velocity;
+    public Vector2 Velocity {get => velocity; set => velocity = value;}
     private float focusScalar = 1f;
     private FacingDirection facingDirection = FacingDirection.Down;
 

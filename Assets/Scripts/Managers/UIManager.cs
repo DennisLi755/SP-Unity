@@ -19,7 +19,8 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     EventSystem eventSystem;
     [SerializeField]
-    GameObject prompt;
+    private GameObject prompt;
+    public GameObject Prompt {get => prompt; set {prompt = value;}}
     public static UIManager Instance {
         get {
             if (instance == null) {
