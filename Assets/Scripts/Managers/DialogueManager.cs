@@ -6,11 +6,11 @@ using Yarn.Unity;
 public class DialogueManager : MonoBehaviour {
 
     DialogueRunner dialogueRunner;
-    [SerializeField]
-    Canvas dialogueCanvas;
+    GameObject dialogueCanvas;
 
     void Start() {
         dialogueRunner = GetComponent<DialogueRunner>();
+        dialogueCanvas = transform.GetChild(0).gameObject;
     }
 
     void Update() {
@@ -26,6 +26,6 @@ public class DialogueManager : MonoBehaviour {
     }
 
     private void EnableDialogueCanvas(bool value) {
-        dialogueCanvas.gameObject.SetActive(value);
+        dialogueCanvas.SetActive(value);
     }
 }

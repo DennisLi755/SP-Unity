@@ -14,7 +14,6 @@ public class SelectContinueButtonOnActive : MonoBehaviour {
 
     private void Start() {
         cg = GetComponent<CanvasGroup>();
-        GetComponent<DialogueAdvanceInput>().Action.Enable();
     }
 
     private void Update() {

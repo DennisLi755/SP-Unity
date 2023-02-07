@@ -6,7 +6,7 @@ position: 12,-102
 <<declare $test = "Hello there" as string>>
 
 Somni: This is test dialogue.
-Guide: Why do <color=black><i>we</i></color> have to do this?
+Guide: Why do <color=red><i>we</i></color> have to do this?
 Somni: To make sure Yarn Spinner is working correctly.
 Guide: Whatever, just pick an option.
 -> Somni: Option A.
