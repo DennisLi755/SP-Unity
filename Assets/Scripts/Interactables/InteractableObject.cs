@@ -11,7 +11,9 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     private LayerMask playerLayer;
     private bool isActive;
-
+    /// <summary>
+    /// Draws debug info to the screen
+    /// </summary>
     private void OnDrawGizmos() {
         if (!EditorApplication.isPlaying && trigger == null) {
             trigger = GetComponent<BoxCollider2D>();
@@ -20,12 +22,16 @@ public class InteractableObject : MonoBehaviour {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(trigger.bounds.center, trigger.bounds.size);
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     protected void Start() {
         trigger = GetComponent<BoxCollider2D>();
         isActive = false;
     }
-
+    /// <summary>
+    /// Detects whether or not the player interacts with the object
+    /// </summary>
     protected void Update() {
         RaycastHit2D hit = Physics2D.BoxCast(trigger.bounds.center, trigger.bounds.size, 0, Vector2.zero, 0, playerLayer);
         if (hit && !isActive) {
@@ -39,6 +45,8 @@ public class InteractableObject : MonoBehaviour {
             PlayerInfo.Instance.ExitInteractable(this);
         }
     }
-
+    /// <summary>
+    /// Base OnInteract() for InteractableObject
+    /// </summary>
     public virtual void OnInteract() { }
 }

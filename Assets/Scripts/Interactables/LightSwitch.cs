@@ -13,7 +13,10 @@ public class LightSwitch : InteractableObject {
         base.Start();
         lightOn = lightObject.activeSelf;
     }
-
+    /// <summary>
+    /// OnInteract() for light switch
+    /// Change the state of the lights
+    /// </summary>
     public override void OnInteract() {
         if (PlayerInfo.Instance.PlayerControl.FacingDirection == FacingDirection.Up) {
             lightOn = !lightOn;

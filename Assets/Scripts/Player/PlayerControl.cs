@@ -66,6 +66,7 @@ public class PlayerControl : MonoBehaviour {
     //We use a separate input vector to be able to continously collect the player's input, even if movement is disabled
     private Vector2 input;
     private Vector2 velocity;
+    public Vector2 Velocity {get => velocity; set => velocity = value;}
     private float focusScalar = 1f;
     private FacingDirection facingDirection = FacingDirection.Down;
 
@@ -379,8 +380,8 @@ public class PlayerControl : MonoBehaviour {
                 GameObject hitObject = hit.transform.gameObject;
                 //resolving depends on layer (or further on tag)
                 switch (LayerMask.LayerToName(hitObject.layer)) {
-                    case "Enemy":
-                        hitObject.GetComponent<StaticEnemy>().Hurt(1);
+                    case "Enemy Body":
+                        hitObject.transform.parent.GetComponent<StaticEnemy>().Hurt(1);
                         break;
                     default:
                         Debug.LogError($"Player attack has not been setup for layer: {LayerMask.LayerToName(hit.transform.gameObject.layer)}" +
@@ -413,6 +414,9 @@ public class PlayerControl : MonoBehaviour {
     /// <param name="context"></param>
     public void Dash(InputAction.CallbackContext context) {
         if (context.performed && currentDashCharges > 0 && playerState != PlayerState.Dashing && canDash) {
+            //setting canMove to true so that they can change dash directions if they dash cancel an attack
+            canMove = true;
+            velocity = input;
             playerState = PlayerState.Dashing;
             PlayerInfo.Instance.Damagable = false;
             activeMoveSpeed = dashSpeed;
