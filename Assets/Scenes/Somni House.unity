@@ -61597,10 +61597,18 @@ PrefabInstance:
     - target: {fileID: 1987083661913734334, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
       propertyPath: dialogueViews.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7778558434502719082}
     - target: {fileID: 4741413982962906315, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 7778558434502719082}
+    - target: {fileID: 4741413982962906315, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UserRequestedViewAdvancement
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741413982962906315, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CustomLineView, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
@@ -61609,6 +61617,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 437732240005449405, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
   m_PrefabInstance: {fileID: 3043904801955724938}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7778558434502719082 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+  m_PrefabInstance: {fileID: 3043904801955724938}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e1e132054805a24993eea14474819a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8770423924156067776
 PrefabInstance:
   m_ObjectHideFlags: 0

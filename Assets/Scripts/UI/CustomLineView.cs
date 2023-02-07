@@ -9,7 +9,7 @@ using Yarn.Unity;
 /// A Dialogue View that presents lines of dialogue, using Unity UI
 /// elements.
 /// </summary>
-public class CustomLineView : LineView {
+public class CustomLineView : DialogueViewBase {
     /// <summary>
     /// The canvas group that contains the UI elements used by this Line
     /// View.
@@ -21,7 +21,7 @@ public class CustomLineView : LineView {
     /// </remarks>
     /// <seealso cref="useFadeEffect"/>
     [SerializeField]
-    internal CanvasGroup canvasGroup;
+    private CanvasGroup canvasGroup;
 
     /// <summary>
     /// Controls whether the line view should fade in when lines appear, and
@@ -39,7 +39,7 @@ public class CustomLineView : LineView {
     /// <seealso cref="fadeInTime"/>
     /// <seealso cref="fadeOutTime"/>
     [SerializeField]
-    internal bool useFadeEffect = true;
+    private bool useFadeEffect = true;
 
     /// <summary>
     /// The time that the fade effect will take to fade lines in.
@@ -49,7 +49,7 @@ public class CustomLineView : LineView {
     /// <seealso cref="useFadeEffect"/>
     [SerializeField]
     [Min(0)]
-    internal float fadeInTime = 0.25f;
+    private float fadeInTime = 0.25f;
 
     /// <summary>
     /// The time that the fade effect will take to fade lines out.
@@ -59,14 +59,14 @@ public class CustomLineView : LineView {
     /// <seealso cref="useFadeEffect"/>
     [SerializeField]
     [Min(0)]
-    internal float fadeOutTime = 0.05f;
+    private float fadeOutTime = 0.05f;
 
     /// <summary>
     /// The <see cref="TextMeshProUGUI"/> object that displays the text of
     /// dialogue lines.
     /// </summary>
     [SerializeField]
-    internal TextMeshProUGUI lineText = null;
+    private TextMeshProUGUI lineText = null;
 
     /// <summary>
     /// Controls whether the <see cref="lineText"/> object will show the
@@ -83,7 +83,7 @@ public class CustomLineView : LineView {
     /// </remarks>
     [SerializeField]
     [UnityEngine.Serialization.FormerlySerializedAs("showCharacterName")]
-    internal bool showCharacterNameInLineView = true;
+    private bool showCharacterNameInLineView = true;
 
     /// <summary>
     /// The <see cref="TextMeshProUGUI"/> object that displays the character
@@ -94,7 +94,7 @@ public class CustomLineView : LineView {
     /// a character name, this object will be left blank.
     /// </remarks>
     [SerializeField]
-    internal TextMeshProUGUI characterNameText = null;
+    private TextMeshProUGUI characterNameText = null;
 
     /// <summary>
     /// Controls whether the text of <see cref="lineText"/> should be
@@ -117,7 +117,7 @@ public class CustomLineView : LineView {
     /// <seealso cref="onCharacterTyped"/>
     /// <seealso cref="typewriterEffectSpeed"/>
     [SerializeField]
-    internal bool useTypewriterEffect = false;
+    private bool useTypewriterEffect = false;
 
     /// <summary>
     /// A Unity Event that is called each time a character is revealed
@@ -129,7 +129,7 @@ public class CustomLineView : LineView {
     /// </remarks>
     /// <seealso cref="useTypewriterEffect"/>
     [SerializeField]
-    internal UnityEngine.Events.UnityEvent onCharacterTyped;
+    private UnityEngine.Events.UnityEvent onCharacterTyped;
 
     /// <summary>
     /// The number of characters per second that should appear during a
@@ -138,7 +138,7 @@ public class CustomLineView : LineView {
     /// <seealso cref="useTypewriterEffect"/>
     [SerializeField]
     [Min(0)]
-    internal float typewriterEffectSpeed = 0f;
+    private float typewriterEffectSpeed = 0f;
 
     /// <summary>
     /// The game object that represents an on-screen button that the user
@@ -155,14 +155,14 @@ public class CustomLineView : LineView {
     /// </remarks>
     /// <seealso cref="autoAdvance"/>
     [SerializeField]
-    internal GameObject continueButton = null;
+    private GameObject continueButton = null;
 
     /// <summary>
     /// The amount of time to wait after any line
     /// </summary>
     [SerializeField]
     [Min(0)]
-    internal float holdTime = 1f;
+    private float holdTime = 1f;
 
     /// <summary>
     /// Controls whether this Line View will wait for user input before
@@ -186,7 +186,7 @@ public class CustomLineView : LineView {
     /// when to advance to the next line.</para></para>
     /// </remarks>
     [SerializeField]
-    internal bool autoAdvance = false;
+    private bool autoAdvance = false;
 
     /// <summary>
     /// The current <see cref="LocalizedLine"/> that this line view is
@@ -212,10 +212,10 @@ public class CustomLineView : LineView {
     public override void DismissLine(Action onDismissalComplete) {
         currentLine = null;
 
-        StartCoroutine(DismissLineInternal(onDismissalComplete));
+        StartCoroutine(DismissLineprivate(onDismissalComplete));
     }
 
-    private IEnumerator DismissLineInternal(Action onDismissalComplete) {
+    private IEnumerator DismissLineprivate(Action onDismissalComplete) {
         // disabling interaction temporarily while dismissing the line
         // we don't want people to interrupt a dismissal
         var interactable = canvasGroup.interactable;
@@ -239,7 +239,7 @@ public class CustomLineView : LineView {
         currentLine = dialogueLine;
 
         // Cancel all coroutines that we're currently running. This will
-        // stop the RunLineInternal coroutine, if it's running.
+        // stop the RunLineprivate coroutine, if it's running.
         StopAllCoroutines();
 
         // for now we are going to just immediately show everything
@@ -284,10 +284,10 @@ public class CustomLineView : LineView {
         StopAllCoroutines();
 
         // Begin running the line as a coroutine.
-        StartCoroutine(RunLineInternal(dialogueLine, onDialogueLineFinished));
+        StartCoroutine(RunLineprivate(dialogueLine, onDialogueLineFinished));
     }
 
-    private IEnumerator RunLineInternal(LocalizedLine dialogueLine, Action onDialogueLineFinished) {
+    private IEnumerator RunLineprivate(LocalizedLine dialogueLine, Action onDialogueLineFinished) {
         IEnumerator PresentLine() {
             lineText.gameObject.SetActive(true);
             canvasGroup.gameObject.SetActive(true);
