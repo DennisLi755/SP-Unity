@@ -1,0 +1,34 @@
+﻿title: Test_Script
+tags:
+position: 12,-102
+---
+<<declare $choice = "" as string>>
+<<declare $test = "Hello there" as string>>
+
+Somni: This is test dialogue.
+Guide: Why do <color=black><i>we</i></color> have to do this?
+Somni: To make sure Yarn Spinner is working correctly.
+Guide: Whatever, just pick an option.
+-> Somni: Option A.
+    <<set $choice to "A">>
+-> Somni: Option B.
+    <<set $choice to "B">>
+
+<<if $choice == "A">>
+    Guide: You chose Option A.
+<<elseif $choice == "B">>
+    <<jump ChoiceBResult>>
+<<endif>>
+
+Guide: Wonder what would hapen if you chose Option B.
+Somni: Guess we'll never know.
+===
+
+title: ChoiceBResult
+tags:
+position: 11,211
+---
+Guide: We're in a new node but you still chose Option B.
+Guide: Here's a test of some [wave]wavy text[/wave].
+Guide: What does [bounce]this text[/bounce]look like.
+===
