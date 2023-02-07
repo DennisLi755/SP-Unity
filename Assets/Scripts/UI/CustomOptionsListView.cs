@@ -5,6 +5,10 @@ using TMPro;
 using UnityEngine;
 
 namespace Yarn.Unity {
+    /// <summary>
+    /// A custom implementation of Yarn's OptionListView
+    /// Any changes or additions in functionality will be marked with comments prepended with 'changed:' and a description of what was changed
+    /// </summary>
     public class CustomOptionsListView : DialogueViewBase {
         [SerializeField] CanvasGroup canvasGroup;
 
@@ -83,6 +87,7 @@ namespace Yarn.Unity {
             if (lastLineText != null) {
                 if (lastSeenLine != null) {
                     lastLineText.gameObject.SetActive(true);
+                    //changed: last line does not include the character's name at the beginning of the line
                     lastLineText.text = lastSeenLine.TextWithoutCharacterName.Text;
                 }
                 else {
