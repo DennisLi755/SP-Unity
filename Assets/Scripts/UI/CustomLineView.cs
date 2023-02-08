@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Yarn.Unity;
+using Yarn;
 
 /// <summary>
 /// A Dialogue View that presents lines of dialogue, using Unity UI
@@ -291,6 +292,23 @@ public class CustomLineView : DialogueViewBase {
         IEnumerator PresentLine() {
             lineText.gameObject.SetActive(true);
             canvasGroup.gameObject.SetActive(true);
+
+            //changed: update the active speaker based on the character name
+            DialogueManager.Instance.UpdateActiveSpeaker(dialogueLine.CharacterName);
+            //changed: update the active character's expression based on any line tags
+            if (dialogueLine.Metadata != null && dialogueLine.Metadata.Length > 0) {
+                foreach (string data in dialogueLine.Metadata) {
+                    //if the tag is an expression
+                    if (data.Contains("expression-")) {
+                        DialogueManager.Instance.UpdateExpression(data.Substring(data.IndexOf('-') + 1));
+                    }
+                    //if the tag is not recognized and not the auto-implemented #lastline tag, show a warning
+                    else if (data != "lastline") {
+                        Debug.LogWarning($"Warning: tag {data} was not processed correctly for the current line of dialogue.\n" +
+                            $"Did you forget to append 'expression-' to an expression?");
+                    }
+                }
+            }
 
             // Hide the continue button until presentation is complete (if
             // we have one).

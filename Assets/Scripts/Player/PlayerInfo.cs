@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInfo : MonoBehaviour {
 
@@ -76,5 +77,9 @@ public class PlayerInfo : MonoBehaviour {
             canInteract = false;
             interactable = null;
         }
+    }
+
+    public void ChangeInputMap(string map) {
+        GetComponent<PlayerInput>().SwitchCurrentActionMap(map);
     }
 }

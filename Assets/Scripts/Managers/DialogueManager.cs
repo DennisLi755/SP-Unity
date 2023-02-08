@@ -7,8 +7,8 @@ using Yarn.Unity;
 
 public class DialogueManager : MonoBehaviour {
 
-    private DialogueManager instance;
-    public DialogueManager Instance => instance;
+    private static DialogueManager instance;
+    public static DialogueManager Instance => instance;
 
     private DialogueRunner dialogueRunner;
     private GameObject dialogueCanvas;
@@ -17,10 +17,11 @@ public class DialogueManager : MonoBehaviour {
     private Color activeSpeakerColor;
     [SerializeField]
     private Color inActiveSpeakerColor;
+    private Color disabledColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
 
     [SerializeField]
     private CharacterTalkPortraits[] charactersList;
-    private Dictionary<string, TalkPortrait[]> characters = new Dictionary<string, TalkPortrait[]>();
+    private Dictionary<string, Dictionary<string, Sprite>> characters = new Dictionary<string, Dictionary<string, Sprite>>();
     private Image leftCharacterImage;
     private string leftCharacterKey;
     private Image rightCharacterImage;
@@ -31,7 +32,7 @@ public class DialogueManager : MonoBehaviour {
     /// <remarks>
     /// False means the left character spoke last and true means the right character spoke last
     /// </remarks>
-    private bool lastActiveSpeaker = false;
+    private bool lastActiveSpeaker = true;
 
     private void Awake() {
         if (instance == null) {
@@ -46,13 +47,20 @@ public class DialogueManager : MonoBehaviour {
     void Start() {
         dialogueRunner = GetComponent<DialogueRunner>();
         dialogueCanvas = transform.GetChild(0).gameObject;
+
         leftCharacterImage = dialogueCanvas.transform.GetChild(0).GetComponent<Image>();
+        leftCharacterImage.color = disabledColor;
         leftCharacterKey = null;
         rightCharacterImage = dialogueCanvas.transform.GetChild(1).GetComponent<Image>();
+        rightCharacterImage.color = disabledColor;
         rightCharacterKey = null;
 
         foreach (CharacterTalkPortraits cbt in charactersList) {
-            characters.Add(string.Join(", ", cbt.aliases), cbt.portraits);
+            Dictionary<string, Sprite> expressions = new Dictionary<string, Sprite>();
+            foreach (TalkPortrait dp in cbt.portraits) {
+                expressions.Add(dp.name, dp.expression);
+            }
+            characters.Add(string.Join(", ", cbt.aliases), expressions);
         }
     }
 
@@ -74,46 +82,96 @@ public class DialogueManager : MonoBehaviour {
 
     public void UpdateActiveSpeaker(string characterName) {
         //the character has already spoken and is the left character
-        if (leftCharacterKey.Contains(characterName)) {
+        if (leftCharacterKey != null && leftCharacterKey.Contains(characterName)) {
             lastActiveSpeaker = false;
             leftCharacterImage.color = activeSpeakerColor;
-            rightCharacterImage.color = inActiveSpeakerColor;
+            if (rightCharacterKey != null) {
+                rightCharacterImage.color = inActiveSpeakerColor;
+            }
         }
         //the character has already spoken and is the right character
-        else if (rightCharacterKey.Contains(characterName)) {
+        else if (rightCharacterKey != null && rightCharacterKey.Contains(characterName)) {
             lastActiveSpeaker = true;
             rightCharacterImage.color = activeSpeakerColor;
-            leftCharacterImage.color = inActiveSpeakerColor;
+            if (leftCharacterKey != null) {
+                leftCharacterImage.color = inActiveSpeakerColor;
+            }
         }
         //the character has not already spoken so check what the last character to speak was
         else {
             //right was the last to talk to replace left image with new character
             if (lastActiveSpeaker) {
+                leftCharacterKey = null;
                 foreach (string aliases in characters.Keys) {
                     if (aliases.Contains(characterName)) {
                         leftCharacterKey = aliases;
+                        break;
                     }
                 }
-                leftCharacterImage.sprite = characters[leftCharacterKey][0].expression;
+                //if there was no coresponding character found, throw error 
+                if (leftCharacterKey == null) {
+                    Debug.LogError($"Error: there is no character with a known alias of {characterName}");
+                    leftCharacterImage.color = disabledColor;
+                    return;
+                }
+                leftCharacterImage.sprite = characters[leftCharacterKey]["neutral"];
                 leftCharacterImage.color = activeSpeakerColor;
-                rightCharacterImage.color = inActiveSpeakerColor;
+                if (rightCharacterKey != null) {
+                    rightCharacterImage.color = inActiveSpeakerColor;
+                }
             }
             //left was the last to talk so replace right image with new character
             else {
+                rightCharacterKey = null;
                 foreach (string aliases in characters.Keys) {
                     if (aliases.Contains(characterName)) {
                         rightCharacterKey = aliases;
+                        break;
                     }
                 }
-                rightCharacterImage.sprite = characters[leftCharacterKey][0].expression;
+                if (rightCharacterKey == null) {
+                    Debug.LogError($"Error: there is no character with a known alias of {characterName}");
+                    rightCharacterImage.color = disabledColor;
+                    return;
+                }
+                rightCharacterImage.sprite = characters[rightCharacterKey]["neutral"];
                 rightCharacterImage.color = activeSpeakerColor;
-                leftCharacterImage.color = inActiveSpeakerColor;
+                if (leftCharacterKey != null) {
+                    leftCharacterImage.color = inActiveSpeakerColor;
+                }
             }
+            //regardless of who gets replaced, flip the last active speaker
             lastActiveSpeaker = !lastActiveSpeaker;
         }
     }
 
-    public void UpdateExpression(string characterName, string expression) {
+    public void UpdateExpression(string expression) {
+        //updating the left character expression
+        try {
+            if (!lastActiveSpeaker) {
+                leftCharacterImage.sprite = characters[leftCharacterKey][expression];
+            }
+            else {
+                rightCharacterImage.sprite = characters[rightCharacterKey][expression];
+            }
+        } catch (KeyNotFoundException ex) {
+            Debug.LogError($"Error: there is no expression: ${expression} for character with the following aliases: {(lastActiveSpeaker? rightCharacterKey : leftCharacterKey)}");
+        }
+    }
+
+    public void StartDialogue(YarnProject project, string startNode) {
+        leftCharacterKey = null;
+        rightCharacterKey = null;
+        dialogueRunner.SetProject(project);
+        dialogueRunner.startNode = startNode;
+        PlayerInfo.Instance.ChangeInputMap("UI");
+    }
+
+    public void StartDialogue() {
+
+    }
+
+    public void ToggleAutoAdvance() {
 
     }
 }
