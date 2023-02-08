@@ -28,6 +28,8 @@ public class Boss : MonoBehaviour
     protected float newPatternSpeed;
     protected int currentPhase = 0;
     protected GameObject pat;
+    protected int numberOfRepeats = 0;
+    protected int indexToRepeat = 0;
 
     protected void OnDrawGizmos() {
         GUIContent content = new GUIContent($"Health: {currentHealth}");
@@ -59,7 +61,11 @@ public class Boss : MonoBehaviour
         if (canContinueAttack && phasesList[currentPhase].Length > 0) {
             overridePatternSpeed = false;
             phasesList[currentPhase][attackCycleIndex]?.Invoke();
-            attackCycleIndex++;
+            if (numberOfRepeats == 1 || indexToRepeat != attackCycleIndex) {
+                attackCycleIndex++;
+            } else {
+                numberOfRepeats--;
+            }
             if (attackCycleIndex >= phasesList[currentPhase].Length) {
                 attackCycleIndex = 0;
             }
@@ -105,6 +111,23 @@ public class Boss : MonoBehaviour
         if (currentHealth <= 0) {
             gameObject.SetActive(false);
         }
+    }
+    /// <summary>
+    /// Make a specific event fire an amount of times
+    /// </summary>
+    /// <param name="rand">"lower number,higher number, index of event to repeat"</param>
+    public void RepeatEventRandomTimes(string rand) {
+        string[] numString = rand.Split(",");
+        int lower = int.Parse(numString[0]);
+        int higher = int.Parse(numString[1]);
+        indexToRepeat = int.Parse(numString[2]);
+        System.Random rng = new System.Random();
+        numberOfRepeats = rng.Next(lower, higher+1);
+        Debug.Log(numberOfRepeats);
+    }
+
+    public void Print() {
+        Debug.Log("HIHIIHII");
     }
 
     public virtual void ChangePhase() {}

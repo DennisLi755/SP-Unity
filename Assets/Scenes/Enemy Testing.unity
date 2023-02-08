@@ -13778,11 +13778,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106780011}
   m_CullTransparentMesh: 1
---- !u!1 &1109244843 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4047285249303267165, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
-  m_PrefabInstance: {fileID: 4047285249329394763}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1154895447
 GameObject:
   m_ObjectHideFlags: 0
@@ -39279,6 +39274,20 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
+          m_MethodName: RepeatEventRandomTimes
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 5
+            m_StringArgument: 1,4,1
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1827583926}
           m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
           m_MethodName: ShootPatternBullet
           m_Mode: 2
@@ -39302,7 +39311,73 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  player: {fileID: 1109244843}
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
+          m_MethodName: Print
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 5
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - attackCycle:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
+          m_MethodName: ShootPatternBullet
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2664022264175935265, guid: 0e996ec677168b442b5316a6f2c0b706, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
+          m_MethodName: Wait
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 5
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
+          m_MethodName: ShootPatternBullet
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 2664022264175935265, guid: 0e996ec677168b442b5316a6f2c0b706, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
+          m_MethodName: Wait
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 5
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!61 &1827583927
 BoxCollider2D:
   m_ObjectHideFlags: 0
