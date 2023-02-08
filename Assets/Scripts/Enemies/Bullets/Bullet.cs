@@ -8,10 +8,12 @@ public class Bullet : MonoBehaviour {
     [Range(0, 359)]
     [SerializeField]
     private float angle;
+    public float Angle {get => angle;}
     [SerializeField]
     private float speed;
     public float Speed { get => speed; set { speed = value; } }
     private Vector2 direction;
+    public Vector2 Direction {get => direction; set => direction = value; }
     [SerializeField]
     private LayerMask playerLayer;
     private new CircleCollider2D collider;
@@ -44,13 +46,5 @@ public class Bullet : MonoBehaviour {
 
     private void FixedUpdate() {
         transform.Translate(speed * Time.fixedDeltaTime * direction);
-    }
-
-    public void SetSpeed(float _speed) {
-        speed = _speed;
-    }
-
-    public void SetDirection(Vector2 _direction) {
-        direction = _direction;
     }
 }

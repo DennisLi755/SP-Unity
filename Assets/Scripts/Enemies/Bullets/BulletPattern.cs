@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class BulletPattern : MonoBehaviour {
 
-    Bullet[] bullets;
+    protected Bullet[] bullets;
     [SerializeField]
-    private bool overrideSpeed = false;
+    protected bool overrideSpeed = false;
     [SerializeField]
-    private float speed;
+    protected float speed;
+    protected GameObject player;
 
-    void Start() {
+    protected void Start() {
+        bullets = transform.GetComponentsInChildren<Bullet>();
+        player = PlayerInfo.Instance.gameObject;
         if (overrideSpeed) {
-            bullets = transform.GetComponentsInChildren<Bullet>();
             for (int i = 0; i < bullets.Length; i++) {
                 bullets[i].Speed = speed;
             }
@@ -21,7 +23,7 @@ public class BulletPattern : MonoBehaviour {
         }
     }
 
-    void Update() {
+    protected void Update() {
         if (transform.childCount == 0) {
             Destroy(gameObject);
         }
