@@ -45,4 +45,12 @@ public class Bullet : MonoBehaviour {
     private void FixedUpdate() {
         transform.Translate(speed * Time.fixedDeltaTime * direction);
     }
+
+    public void SetSpeed(float _speed) {
+        speed = _speed;
+    }
+
+    public void SetDirection(Vector2 _direction) {
+        direction = _direction;
+    }
 }
