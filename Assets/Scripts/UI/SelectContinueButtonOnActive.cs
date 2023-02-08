@@ -6,6 +6,7 @@ using Yarn.Unity;
 public class SelectContinueButtonOnActive : MonoBehaviour {
 
     private CanvasGroup cg;
+    private bool isActive;
     private bool wasActive;
     [SerializeField]
     private Button continueButton;
@@ -17,7 +18,7 @@ public class SelectContinueButtonOnActive : MonoBehaviour {
     }
 
     private void Update() {
-        bool isActive = cg.blocksRaycasts;
+        isActive = cg.blocksRaycasts;
         if (!wasActive && isActive) {
             es.SetSelectedGameObject(continueButton.gameObject);
         }

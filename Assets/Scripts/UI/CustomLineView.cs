@@ -284,10 +284,10 @@ public class CustomLineView : DialogueViewBase {
         StopAllCoroutines();
 
         // Begin running the line as a coroutine.
-        StartCoroutine(RunLineprivate(dialogueLine, onDialogueLineFinished));
+        StartCoroutine(RunLinePrivate(dialogueLine, onDialogueLineFinished));
     }
 
-    private IEnumerator RunLineprivate(LocalizedLine dialogueLine, Action onDialogueLineFinished) {
+    private IEnumerator RunLinePrivate(LocalizedLine dialogueLine, Action onDialogueLineFinished) {
         IEnumerator PresentLine() {
             lineText.gameObject.SetActive(true);
             canvasGroup.gameObject.SetActive(true);

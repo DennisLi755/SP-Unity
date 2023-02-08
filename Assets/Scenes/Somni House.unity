@@ -1136,8 +1136,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: NO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5438f34513022340aba62e625428fa9, type: 2}
-  m_sharedMaterial: {fileID: -1658550913831446312, guid: 304649c5fea03134a8b685caa80ecb82, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 121.08843, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &477845534
@@ -39150,8 +39150,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: YES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e5438f34513022340aba62e625428fa9, type: 2}
-  m_sharedMaterial: {fileID: -1658550913831446312, guid: 304649c5fea03134a8b685caa80ecb82, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -39214,7 +39214,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 82.60477, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1879673453
@@ -61598,6 +61598,18 @@ PrefabInstance:
       propertyPath: dialogueViews.Array.data[0]
       value: 
       objectReference: {fileID: 7778558434502719082}
+    - target: {fileID: 2239633610328587439, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: charactersList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239633610328587439, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: charactersList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4382ba7ea6e50ea4e9fb90712d7890b3, type: 2}
+    - target: {fileID: 3043904800974399493, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4741413982962906315, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
