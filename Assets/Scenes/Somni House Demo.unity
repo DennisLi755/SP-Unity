@@ -2202,7 +2202,7 @@ MonoBehaviour:
   message:
   - Your bed.
   - You resist the urge to go back to bed immediately...
-  direction: 0
+  direction: 2
   isChild: 0
 --- !u!61 &907367893
 BoxCollider2D:
@@ -9789,7 +9789,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2290472077347413624, guid: 4b586072df540d044865462ab8def2b9, type: 3}
       propertyPath: message.Array.size
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290472077347413624, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: message.Array.data[0]
+      value: You open the drawer to see only white t-shirts and joggers.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290472077347413624, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: message.Array.data[1]
+      value: After digging some more you find a single...hair tie?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290472077347413624, guid: 4b586072df540d044865462ab8def2b9, type: 3}
+      propertyPath: message.Array.data[2]
+      value: Your hair isn't even long enough to tie up...
       objectReference: {fileID: 0}
     - target: {fileID: 2714072859535441562, guid: 4b586072df540d044865462ab8def2b9, type: 3}
       propertyPath: m_Size.x

@@ -20,8 +20,9 @@ Guide: Whatever, just pick an option. #expression-neutral
     <<jump ChoiceBResult>>
 <<endif>>
 
-Guide: Wonder what would hapen if you chose Option B.
+Guide: Wonder what would happen if you chose Option B.
 Somni: Guess we'll never know.
+Guide: If you wanna fight some enemies you should go outside.
 ===
 
 title: ChoiceBResult
@@ -31,4 +32,5 @@ position: 11,211
 Guide: We're in a new node but you still chose Option B.
 Guide: Here's a test of some [wave]wavy text[/wave].
 Guide: What does [bounce]this text[/bounce]look like.
+Guide: If you wanna fight some enemies you should go outside.
 ===
