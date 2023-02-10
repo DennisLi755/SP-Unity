@@ -52,7 +52,9 @@ public class RoomTransition : MonoBehaviour {
         IEnumerator WaitForFade() {
             yield return new WaitForSecondsRealtime(1.0f);
             PlayerInfo.Instance.transform.position = transitionPartner.TransitionToLocation;
-            transitionPartner.GetComponentInParent<Room>().MoveTo();
+            transitionPartner.GetComponentInParent<Room>().UpdateCameraFollow();
+            UIManager.Instance.FadeFromBlack();
+            PlayerInfo.Instance.PlayerControl.UnFreeze();
 
             yield return new WaitForSeconds(0.5f);
             transitioning = false;

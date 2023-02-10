@@ -77,11 +77,6 @@ public class StaticEnemy : MonoBehaviour {
         }
     }
 
-    [ContextMenu("Start Attacking")]
-    protected void StartAttackCycle() {
-        canContinueAttack = true;
-    }
-
     public virtual void ShootPatternBullet(GameObject pattern) {
         GameObject pat = Instantiate(pattern, transform.position, Quaternion.identity, BulletHolder.Instance.transform);
         BulletPattern bulPat;

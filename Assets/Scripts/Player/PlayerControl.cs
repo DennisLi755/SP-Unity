@@ -94,8 +94,9 @@ public class PlayerControl : MonoBehaviour {
     [SerializeField]
     private int damageFrame;
     private int totalAttackFrames;
-    public GameObject hitbox;
-    private bool unlockAttack = true;
+    [SerializeField]
+    private GameObject hitbox;
+    private bool unlockAttack = false;
     public bool UnlockAttack {get => unlockAttack; set {unlockAttack = value;}}
     private float attackMoveSpeed = 3f;
     [SerializeField]
@@ -136,9 +137,11 @@ public class PlayerControl : MonoBehaviour {
     /// Draws debug info to the screen
     /// </summary>
     private void OnGUI() {
-        GUI.color = Color.black;
         if (showDebug) {
-            int yStart = 5;
+            GUI.color = Color.black;
+            int yStart = -10;
+            GUI.Box(new Rect(0, 0, 150, 200), "");
+            GUI.color = Color.white;
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"activeMoveSpeed: {activeMoveSpeed}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"dashCharges: {currentDashCharges}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"playerState: {playerState}");
@@ -488,6 +491,9 @@ public class PlayerControl : MonoBehaviour {
         velocity = Vector2.zero;
     }
 
+    /// <summary>
+    /// Enables the player's movement and sets velocity to the current input vector
+    /// </summary>
     public void UnFreeze() {
         canMove = true;
         velocity = input;

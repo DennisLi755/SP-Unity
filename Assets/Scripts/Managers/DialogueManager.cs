@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour {
     private Color inActiveSpeakerColor;
     private Color disabledColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
 
+    #region Talking Character Info
     [SerializeField]
     private CharacterTalkPortraits[] charactersList;
     private Dictionary<string, Dictionary<string, Sprite>> characters = new Dictionary<string, Dictionary<string, Sprite>>();
@@ -33,6 +34,7 @@ public class DialogueManager : MonoBehaviour {
     /// False means the left character spoke last and true means the right character spoke last
     /// </remarks>
     private bool lastActiveSpeaker = true;
+    #endregion
 
     private void Awake() {
         if (instance == null) {
@@ -154,16 +156,18 @@ public class DialogueManager : MonoBehaviour {
             else {
                 rightCharacterImage.sprite = characters[rightCharacterKey][expression];
             }
-        } catch (KeyNotFoundException ex) {
+        } catch (KeyNotFoundException) {
             Debug.LogError($"Error: there is no expression: ${expression} for character with the following aliases: {(lastActiveSpeaker? rightCharacterKey : leftCharacterKey)}");
         }
     }
 
     public void StartDialogue(YarnProject project, string startNode) {
+        lastActiveSpeaker = true;
         leftCharacterKey = null;
         rightCharacterKey = null;
+        dialogueCanvas.SetActive(true);
         dialogueRunner.SetProject(project);
-        dialogueRunner.startNode = startNode;
+        dialogueRunner.StartDialogue(startNode);
         PlayerInfo.Instance.ChangeInputMap("UI");
     }
 

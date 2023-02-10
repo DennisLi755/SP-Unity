@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour {
         collider = GetComponent<CircleCollider2D>();
         renderer = GetComponent<SpriteRenderer>();
 
-        direction = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle));
+        direction = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle)).normalized;
         StartCoroutine(WaitForRender());
 
         IEnumerator WaitForRender() {

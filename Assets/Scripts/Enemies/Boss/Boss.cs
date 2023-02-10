@@ -127,7 +127,7 @@ public class Boss : MonoBehaviour
     }
 
     public void Print() {
-        Debug.Log("HIHIIHII");
+        Debug.Log("Finished Cycle");
     }
 
     public virtual void ChangePhase() {}

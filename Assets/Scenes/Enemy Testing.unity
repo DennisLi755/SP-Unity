@@ -62379,10 +62379,6 @@ PrefabInstance:
       propertyPath: attackableLayers.m_Bits
       value: 4096
       objectReference: {fileID: 0}
-    - target: {fileID: 4047285249303267154, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
-      propertyPath: environmentLayers.m_Bits
-      value: 4352
-      objectReference: {fileID: 0}
     - target: {fileID: 4047285249303267155, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
       propertyPath: m_RootOrder
       value: 3

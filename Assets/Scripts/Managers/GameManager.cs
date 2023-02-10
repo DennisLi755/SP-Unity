@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+/// <summary>
+/// Manages overall Game information such as SP value, important player progression flags, etc.
+/// Manages the persistent information of these variables upon save and load
+/// </summary>
+public class GameManager : MonoBehaviour {
+    
+    void Start() {
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+
     }
 }

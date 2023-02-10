@@ -78,17 +78,18 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     /// <param name="message">list of strings to show</param>
     public void ActivateInteractText(List<string> message) {
+        //update selected button in event system
         eventSystem.firstSelectedGameObject = textInteractionButton.gameObject;
         eventSystem.SetSelectedGameObject(textInteractionButton.gameObject);
-        //textInteractionButton.onClick.AddListener(ContinueInteractText);
+        
+        //set the texts to be used for the interaction and enable the text UI object
         interactTexts = message;
         currentTextIndex = 0;
-
         interactText.SetText(interactTexts[currentTextIndex++]);
-
         interactText.transform.parent.gameObject.SetActive(true);
 
-        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        //disable the player's movement
+        PlayerInfo.Instance.ChangeInputMap("UI");
     }
     /// <summary>
     /// When the current messages finish either continue or end the interaction
@@ -105,7 +106,7 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void DeactivateInteractText() {
         interactText.transform.parent.gameObject.SetActive(false);
-        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+        PlayerInfo.Instance.ChangeInputMap("Player");
     }
     /// <summary>
     /// Opens and populates text box for a basic prompted object interaction
@@ -125,7 +126,7 @@ public class UIManager : MonoBehaviour {
         interactText.transform.parent.gameObject.SetActive(true);
         prompt.SetActive(true);
 
-        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        PlayerInfo.Instance.ChangeInputMap("UI");
     }
     /// <summary>
     /// Ends the current prompted object interaction
@@ -134,6 +135,6 @@ public class UIManager : MonoBehaviour {
         interactText.transform.parent.gameObject.SetActive(false);
         promptedInteractionYesButton.onClick.RemoveAllListeners();
         prompt.SetActive(false);
-        PlayerInfo.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+        PlayerInfo.Instance.ChangeInputMap("Player");
     }
 }
