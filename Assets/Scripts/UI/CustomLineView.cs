@@ -232,6 +232,8 @@ public class CustomLineView : DialogueViewBase {
         canvasGroup.blocksRaycasts = false;
         // turning interaction back on, if it needs it
         canvasGroup.interactable = interactable;
+        //changed: disables the continue button when finishing the line so if the next line is options, the button does not show
+        continueButton.SetActive(false);
         onDismissalComplete();
     }
 
@@ -292,6 +294,8 @@ public class CustomLineView : DialogueViewBase {
         IEnumerator PresentLine() {
             lineText.gameObject.SetActive(true);
             canvasGroup.gameObject.SetActive(true);
+            //changed: ensures the continue button is enabled because of the change in DismissLine
+            continueButton.SetActive(true);
 
             //changed: update the active speaker based on the character name
             DialogueManager.Instance.UpdateActiveSpeaker(dialogueLine.CharacterName);

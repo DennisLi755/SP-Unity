@@ -79,6 +79,7 @@ public class UIManager : MonoBehaviour {
     /// <param name="message">list of strings to show</param>
     public void ActivateInteractText(List<string> message) {
         //update selected button in event system
+        textInteractionButton.gameObject.SetActive(true);
         eventSystem.firstSelectedGameObject = textInteractionButton.gameObject;
         eventSystem.SetSelectedGameObject(textInteractionButton.gameObject);
         
@@ -115,6 +116,7 @@ public class UIManager : MonoBehaviour {
     /// <param name="sender">object that started the prompted interaction</param>
     /// <param name="message">list of strings to show</param>
     public void ActivatePromptedInteraction(PromptedInteraction sender, List<string> message) {
+        textInteractionButton.gameObject.SetActive(false);
         eventSystem.firstSelectedGameObject = promptedInteractionYesButton.gameObject;
         eventSystem.SetSelectedGameObject(promptedInteractionYesButton.gameObject);
         promptedInteractionYesButton.onClick.AddListener(sender.OnYes);

@@ -68,6 +68,7 @@ public class RoomTransition : MonoBehaviour {
     public void MovePlayerToTransitionLocation() {
         GameObject player = FindObjectOfType<PlayerInfo>().gameObject;
         Vector3 offset = player.GetComponent<BoxCollider2D>().offset;
-        player.transform.position = transitionToLocation - offset;
+        player.transform.position = transitionToLocation - offset + transform.position;
+        GetComponentInParent<Room>().MoveCameraHere();
     }
 }
