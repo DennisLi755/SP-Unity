@@ -14,13 +14,14 @@ public class RailEnemy : StaticEnemy {
     [SerializeField]
     private float speed;
 
+#if UNITY_EDITOR
     private new void OnDrawGizmos() {
         base.OnDrawGizmos();
-        UnityEditor.Handles.color = Color.grey;
+        Handles.color = Color.grey;
         Gizmos.color = Color.grey;
         if (EditorApplication.isPlaying) {
             for (int i = 0; i < nodes.Length; i++) {
-                UnityEditor.Handles.DrawSolidDisc(nodes[i], Vector3.back, 0.2f); ;
+                Handles.DrawSolidDisc(nodes[i], Vector3.back, 0.2f); ;
                 if (nodes.Length > 1) {
                     Gizmos.DrawLine(nodes[i], (i < nodes.Length - 1) ? nodes[i + 1] : nodes[0]);
                 }
@@ -35,6 +36,7 @@ public class RailEnemy : StaticEnemy {
             }
         }
     }
+#endif
 
     private new void Start() {
         base.Start();

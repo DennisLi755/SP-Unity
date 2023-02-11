@@ -31,12 +31,14 @@ public class Boss : MonoBehaviour
     protected int numberOfRepeats = 0;
     protected int indexToRepeat = 0;
 
+#if UNITY_EDITOR
     protected void OnDrawGizmos() {
         GUIContent content = new GUIContent($"Health: {currentHealth}");
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
         Handles.Label(new Vector3(transform.position.x - 0.75f, transform.position.y + 1.0f, transform.position.z), content, style);
     }
+#endif
 
     protected void Start() {
         if (GetComponent<SpriteRenderer>().isVisible) {

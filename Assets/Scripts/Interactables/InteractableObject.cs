@@ -11,6 +11,8 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     private LayerMask playerLayer;
     private bool isActive;
+
+#if UNITY_EDITOR
     /// <summary>
     /// Draws debug info to the screen
     /// </summary>
@@ -22,6 +24,8 @@ public class InteractableObject : MonoBehaviour {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(trigger.bounds.center, trigger.bounds.size);
     }
+#endif
+
     /// <summary>
     /// 
     /// </summary>
