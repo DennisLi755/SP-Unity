@@ -14,7 +14,7 @@ public class Boss : MonoBehaviour
     #region Health
     [SerializeField]
     private int maxHealth;
-    private int currentHealth;
+    protected int currentHealth;
     #endregion
     [SerializeField]
     protected Phases[] phasesStruct;
