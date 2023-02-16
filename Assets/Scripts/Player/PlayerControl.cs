@@ -384,7 +384,7 @@ public class PlayerControl : MonoBehaviour {
                 //resolving depends on layer (or further on tag)
                 switch (LayerMask.LayerToName(hitObject.layer)) {
                     case "Enemy Body":
-                        hitObject.transform.parent.GetComponent<StaticEnemy>().Hurt(1);
+                        hitObject.transform.parent.GetComponent<IDamageable>().Hurt(1);
                         break;
                     default:
                         Debug.LogError($"Player attack has not been setup for layer: {LayerMask.LayerToName(hit.transform.gameObject.layer)}" +
