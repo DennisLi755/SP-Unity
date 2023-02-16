@@ -9,8 +9,7 @@ public struct Phases {
     public UnityEvent[] attackCycle;
 }
 
-public class Boss : MonoBehaviour
-{
+public class Boss : MonoBehaviour, IDamageable {
     #region Health
     [SerializeField]
     private int maxHealth;

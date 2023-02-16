@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class StaticEnemy : MonoBehaviour {
+public class StaticEnemy : MonoBehaviour, IDamageable {
 
     [SerializeField]
     private int maxHealth;
