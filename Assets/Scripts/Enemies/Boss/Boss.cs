@@ -9,7 +9,7 @@ public struct Phases {
     public UnityEvent[] attackCycle;
 }
 
-public class Boss : MonoBehaviour, IDamageable {
+public abstract class Boss : MonoBehaviour, IDamageable {
     #region Health
     [SerializeField]
     private int maxHealth;
@@ -156,9 +156,16 @@ public class Boss : MonoBehaviour, IDamageable {
     }
 
     public void Hurt(int amount) {
-        currentHealth -= amount;
-        if (currentHealth <= 0) {
-            gameObject.SetActive(false);
+        if (isDamageable) {
+            currentHealth -= amount;
+            if (currentHealth <= 0) {
+                gameObject.SetActive(false);
+            }
+            if(ChangePhase()) {
+                attackCycleIndex = 0;
+                attackCycleRoutine = null;
+                //numberOfRepeats = 1;
+            }
         }
     }
     /// <summary>
@@ -215,6 +222,5 @@ public class Boss : MonoBehaviour, IDamageable {
         return newNodeIndex;
     }
 
-    public virtual void ChangePhase() {}
-    //movement?
+    public abstract bool ChangePhase();
 }

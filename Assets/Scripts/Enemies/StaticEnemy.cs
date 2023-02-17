@@ -10,6 +10,8 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     [SerializeField]
     private int maxHealth;
     private int currentHealth;
+    private bool isDamageable = true;
+    public bool IsDamageable {get => isDamageable; set => isDamageable = value; }
 
     [SerializeField]
     protected bool useTargetingCircle;
@@ -110,9 +112,11 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     }
 
     public void Hurt(int amount) {
-        currentHealth -= amount;
-        if (currentHealth <= 0) {
-            gameObject.SetActive(false);
+        if (isDamageable) {
+            currentHealth -= amount;
+            if (currentHealth <= 0) {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
