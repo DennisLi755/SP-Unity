@@ -212,6 +212,10 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     /// </summary>
     /// <returns></returns>
     protected int GetRandomNodeIndex() {
+        if(blacklistNodeIndices.Count == movementNodes.Count) {
+            Debug.LogError($"Boss {gameObject.name} has filled their movement blacklist! Make sure to remove indicies from the blacklist when they are not needed.");
+            return 0;
+        }
         int newNodeIndex = UnityEngine.Random.Range(0, movementNodes.Count - blacklistNodeIndices.Count);
         while (blacklistNodeIndices.Contains(newNodeIndex)) {
             newNodeIndex++;
