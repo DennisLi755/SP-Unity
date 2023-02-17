@@ -76,10 +76,8 @@ public class Boss : MonoBehaviour, IDamageable {
 
     protected void Start() {
         startPos = transform.position;
-        if (GetComponent<SpriteRenderer>().isVisible) {
-            canAttack = true;
-            canContinueAttack = true;
-        }
+        canAttack = true;
+        canContinueAttack = true;
         phasesList = new List<UnityEvent[]>();
         foreach (Phases phase in phasesStruct) {
             phasesList.Add(phase.attackCycle);
@@ -94,14 +92,6 @@ public class Boss : MonoBehaviour, IDamageable {
     }
 
     protected void Update() {
-        if (!canAttack && GetComponent<SpriteRenderer>().isVisible && attackCycleRoutine != null) {
-            canAttack = true;
-            canContinueAttack = true;
-        }
-        else if (canAttack && !GetComponent<SpriteRenderer>().isVisible) {
-            canAttack = false;
-        }
-
         if (canContinueAttack && phasesList[currentPhase].Length > 0) {
             overridePatternSpeed = false;
             phasesList[currentPhase][attackCycleIndex]?.Invoke();
