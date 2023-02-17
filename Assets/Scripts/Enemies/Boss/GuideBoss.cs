@@ -9,7 +9,7 @@ public class GuideBoss : Boss
 {
     private List<GameObject> ads = new List<GameObject>();
     [SerializeField]
-    private GameObject enemy;
+    private GameObject ad;
     private int totalAds = 2;
     private Coroutine spawnEnemyCoroutine;
     private System.Random rng = new System.Random();
@@ -33,9 +33,9 @@ public class GuideBoss : Boss
 
     IEnumerator SpawnEnemy() {
         yield return new WaitForSeconds((float)rng.Next(1, 3));
-        GameObject ad = Instantiate(enemy, transform.position, Quaternion.identity, transform);
-        ads.Add(ad);
-        Debug.Log("Created Generator");
+        GameObject newAd = Instantiate(ad, transform.position, Quaternion.identity, transform);
+        ads.Add(newAd);
+        Debug.Log("Created Ad");
         if (ads.Count < totalAds) {
             StartCoroutine(SpawnEnemy());
         } else {

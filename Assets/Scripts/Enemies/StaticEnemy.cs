@@ -41,6 +41,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         else {
             if (GetComponent<SpriteRenderer>().isVisible) {
                 canAttack = true;
+                canContinueAttack = true;
             }
         }
         currentHealth = maxHealth;

@@ -47129,6 +47129,20 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
+          m_MethodName: MoveToNewNode
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 5
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1827583926}
           m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
           m_MethodName: ChangePhase
           m_Mode: 1
@@ -47276,7 +47290,14 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  enemy: {fileID: 7503953173959933805, guid: 8484648acdd1bb040abca524ac409b2a, type: 3}
+  usesNodeMovement: 1
+  movementNodes: []
+  nodeColumnCount: 5
+  nodeRowCount: 2
+  nodeBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 7.89, y: 3.32, z: 0}
+  ad: {fileID: 7503953173959933805, guid: 8484648acdd1bb040abca524ac409b2a, type: 3}
 --- !u!212 &1827583928
 SpriteRenderer:
   m_ObjectHideFlags: 0
