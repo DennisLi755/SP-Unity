@@ -47097,7 +47097,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 5
-            m_StringArgument: 2,4,1
+            m_StringArgument: 1,2,1
             m_BoolArgument: 0
           m_CallState: 2
     - m_PersistentCalls:
@@ -47122,7 +47122,7 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 5
+            m_FloatArgument: 3
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -47151,6 +47151,21 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 5
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - attackCycle:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1827583926}
+          m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
+          m_MethodName: ChangePhase
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -47166,13 +47181,13 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 1,3,1
+            m_StringArgument: 1,2,1
             m_BoolArgument: 0
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1827583926}
-          m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
+          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
           m_MethodName: ShootPatternBullet
           m_Mode: 2
           m_Arguments:
@@ -47191,21 +47206,7 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 5
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1827583926}
-          m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
-          m_MethodName: ChangePhase
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
+            m_FloatArgument: 3
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -47220,59 +47221,6 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - attackCycle:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1827583926}
-          m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
-          m_MethodName: ShootPatternBullet
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 2664022264175935265, guid: 0e996ec677168b442b5316a6f2c0b706, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1827583926}
-          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
-          m_MethodName: Wait
-          m_Mode: 4
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 5
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1827583926}
-          m_TargetAssemblyTypeName: GuideBoss, Assembly-CSharp
-          m_MethodName: ShootPatternBullet
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 2664022264175935265, guid: 0e996ec677168b442b5316a6f2c0b706, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1827583926}
-          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
-          m_MethodName: Wait
-          m_Mode: 4
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 5
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -71209,10 +71157,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4047285249303267154, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
-      propertyPath: attackableLayers.m_Bits
-      value: 4096
-      objectReference: {fileID: 0}
     - target: {fileID: 4047285249303267155, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
       propertyPath: m_RootOrder
       value: 3

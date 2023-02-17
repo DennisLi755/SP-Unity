@@ -12,7 +12,6 @@ public class GuideBoss : Boss
     private GameObject enemy;
     private int totalAds = 2;
     private Coroutine spawnEnemyCoroutine;
-    private System.Random rng = new System.Random();
 
     private new void Update() {
         base.Update();
@@ -32,7 +31,7 @@ public class GuideBoss : Boss
     }
 
     IEnumerator SpawnEnemy() {
-        yield return new WaitForSeconds((float)rng.Next(1, 3));
+        yield return new WaitForSeconds(UnityEngine.Random.Range(1.0f, 2.0f));
         GameObject ad = Instantiate(enemy, transform.position, Quaternion.identity, transform);
         ads.Add(ad);
         Debug.Log("Created Generator");
