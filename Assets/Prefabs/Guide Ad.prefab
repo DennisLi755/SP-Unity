@@ -87,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7503953173959933794}
   - component: {fileID: 7503953173959933792}
-  - component: {fileID: 7503953173959933795}
+  - component: {fileID: 1734801950123705171}
   m_Layer: 9
   m_Name: Guide Ad
   m_TagString: Untagged
@@ -109,7 +109,7 @@ Transform:
   m_Children:
   - {fileID: 7503953172966823702}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7503953173959933792
 SpriteRenderer:
@@ -163,7 +163,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7503953173959933795
+--- !u!114 &1734801950123705171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7503953173959933805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e48b2a71d57dd843b38b8075bde7c78, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cedafb04bb470f4d98baea165575ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
@@ -183,7 +183,7 @@ MonoBehaviour:
   attackCycle:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7503953173959933795}
+      - m_Target: {fileID: 1734801950123705171}
         m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
         m_MethodName: SetPatternSpeed
         m_Mode: 4
@@ -195,7 +195,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7503953173959933795}
+      - m_Target: {fileID: 1734801950123705171}
         m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
         m_MethodName: ShootPatternBullet
         m_Mode: 2
@@ -203,11 +203,11 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 2664022264175935265, guid: 6c091820dfe218a4389009e7128edbe8, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 2
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7503953173959933795}
+      - m_Target: {fileID: 1734801950123705171}
         m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
         m_MethodName: Wait
         m_Mode: 4
@@ -221,7 +221,7 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7503953173959933795}
+      - m_Target: {fileID: 1734801950123705171}
         m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
         m_MethodName: SetPatternSpeed
         m_Mode: 4
@@ -233,7 +233,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7503953173959933795}
+      - m_Target: {fileID: 1734801950123705171}
         m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
         m_MethodName: ShootPatternBullet
         m_Mode: 2
@@ -241,11 +241,11 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 2664022264175935265, guid: b72ff29f3d02d7b4684855adf628a527, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 2
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7503953173959933795}
+      - m_Target: {fileID: 1734801950123705171}
         m_TargetAssemblyTypeName: StaticEnemy, Assembly-CSharp
         m_MethodName: Wait
         m_Mode: 4

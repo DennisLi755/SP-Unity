@@ -47319,6 +47319,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  currentPhase: 0
   usesNodeMovement: 1
   movementNodes: []
   nodeColumnCount: 5

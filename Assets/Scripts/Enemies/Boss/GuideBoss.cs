@@ -48,6 +48,7 @@ public class GuideBoss : Boss
     }
 
     public void MoveAd(GameObject ad) {
+        ad.GetComponent<GuideAd>().HasArrived = false;
         int targetIndex = GetRandomNodeIndex();
         ad.GetComponent<StaticEnemy>().IsDamageable = false;
         blacklistNodeIndices.Add(targetIndex);
@@ -60,6 +61,7 @@ public class GuideBoss : Boss
             }
             ad.GetComponent<StaticEnemy>().IsDamageable = true;
             adNodeIndicies[ad] = targetIndex;
+            ad.GetComponent<GuideAd>().HasArrived = true;
         }
     }
 

@@ -21,7 +21,9 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     [SerializeField]
     protected UnityEvent[] attackCycle;
     protected bool canAttack = false;
+    public bool CanAttack {get => canAttack; set => canAttack = value; }
     protected bool canContinueAttack = false;
+    public bool CanContinueAttack {get => canContinueAttack; set => canContinueAttack = value; }
     protected int attackCycleIndex = 0;
     protected Coroutine attackCycleRoutine;
     protected bool overridePatternSpeed = false;

@@ -27,6 +27,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     protected Coroutine attackCycleRoutine;
     protected bool overridePatternSpeed = false;
     protected float newPatternSpeed;
+    [SerializeField]
     protected int currentPhase = 0;
     protected GameObject pattern;
     protected int numberOfRepeats = 0;
