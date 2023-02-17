@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,14 @@ public class RailEnemy : StaticEnemy {
     [SerializeField]
     private List<Vector3> nodes;
     private int currentNodeIndex = 0;
-    private Vector3 Target => nodes[(currentNodeIndex + 1) % nodes.Count];
+    private Vector3 Target {
+        get {
+            if (nodes.Count == 0) {
+                return transform.position ;
+            }
+            return nodes[(currentNodeIndex + 1) % nodes.Count];
+        }
+    }
     [SerializeField]
     private float speed;
 
@@ -50,13 +58,15 @@ public class RailEnemy : StaticEnemy {
     private new void Update() {
         base.Update();
         
-        if (transform.position == Target) {
+        if (nodes.Count > 1 && transform.position == Target) {
             currentNodeIndex = (currentNodeIndex + 1) % nodes.Count;
         }
     }
 
     private void FixedUpdate() {
-        transform.position = Vector3.MoveTowards(transform.position, Target, speed * Time.fixedDeltaTime);
+        if (!(transform.position == Target)) {
+            transform.position = Vector3.MoveTowards(transform.position, Target, speed * Time.fixedDeltaTime);
+        }
     }
 
     public override void ShootPatternBullet(GameObject pattern) {
@@ -81,5 +91,9 @@ public class RailEnemy : StaticEnemy {
     [ContextMenu("Reset to start node")]
     public void ResetToNode() {
         transform.position = nodes[currentNodeIndex];
+    }
+
+    public void AddNode(Vector3 newNode) {
+        nodes.Add(newNode);
     }
 }

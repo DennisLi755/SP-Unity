@@ -217,6 +217,49 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             Debug.LogError($"Boss {gameObject.name} has filled their movement blacklist! Make sure to remove indicies from the blacklist when they are not needed.");
             return 0;
         }
+
+        List<int> closeNodes = new List<int>();
+        int cni = currentNodeIndex;
+        //node to the right if there is one
+        if (cni % nodeColumnCount != 0) {
+            closeNodes.Add(cni - 1);
+        }
+        //node to the right if there is one
+        if (cni + 1 % nodeColumnCount != 0) {
+            closeNodes.Add(cni + 1);
+        }
+        //if there are more than 1 rows, get the nodes above/below 
+        if (nodeRowCount > 1) {
+            //nodes above if the current is on a row above the first
+            if (cni >= nodeColumnCount) {
+                closeNodes.Add(cni - nodeColumnCount);
+                //nodes to the left and right of the node above
+                if (cni % nodeColumnCount != 0) {
+                    closeNodes.Add(cni - nodeColumnCount - 1);
+                }
+                if (cni + 1 % nodeColumnCount != 0) {
+                    closeNodes.Add(cni - nodeColumnCount + 1);
+                }
+            }
+            //nodes below if the current is on a row less than the last
+            if (cni < movementNodes.Count - nodeColumnCount) {
+                closeNodes.Add(cni + nodeColumnCount);
+                //nodes to the left and right of the node above
+                if (cni % nodeColumnCount != 0) {
+                    closeNodes.Add(cni - nodeColumnCount - 1);
+                }
+                if (cni + 1 % nodeColumnCount != 0) {
+                    closeNodes.Add(cni - nodeColumnCount + 1);
+                }
+            }
+        }
+
+        float percentForEachNode = movementNodes.Count - closeNodes.Count;
+        Dictionary<float, int> nodePercents = new Dictionary<float, int>();
+        for (int i = 0; i < movementNodes.Count; i++) {
+            nodePercents.Add(closeNodes.Contains(i) ? percentForEachNode / closeNodes.Count : percentForEachNode, i);
+        }
+
         int newNodeIndex = UnityEngine.Random.Range(0, movementNodes.Count - blacklistNodeIndices.Count);
         while (blacklistNodeIndices.Contains(newNodeIndex)) {
             newNodeIndex++;
