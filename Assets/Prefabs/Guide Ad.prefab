@@ -87,7 +87,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7503953173959933794}
   - component: {fileID: 7503953173959933792}
-  - component: {fileID: 1734801950123705171}
+  - component: {fileID: 7503953173959933795}
+  - component: {fileID: -5237329151344617557}
   m_Layer: 9
   m_Name: Guide Ad
   m_TagString: Untagged
@@ -257,3 +258,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!111 &-5237329151344617557
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7503953173959933805}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 5662433cbdd5f4492a17cbb551ca298c, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 5662433cbdd5f4492a17cbb551ca298c, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
