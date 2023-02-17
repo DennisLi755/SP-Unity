@@ -96,6 +96,7 @@ public class PlayerControl : MonoBehaviour {
     private int totalAttackFrames;
     [SerializeField]
     private GameObject hitbox;
+    [SerializeField]
     private bool unlockAttack = true;
     public bool UnlockAttack {get => unlockAttack; set {unlockAttack = value;}}
     private float attackMoveSpeed = 3f;
