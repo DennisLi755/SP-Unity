@@ -29,7 +29,7 @@ public class RailEnemy : StaticEnemy {
         }
         else {
             for (int i = 0; i < nodes.Length; i++) {
-                UnityEditor.Handles.DrawSolidDisc(nodes[i] + transform.position, Vector3.back, 0.2f); ;
+                UnityEditor.Handles.DrawSolidDisc(nodes[i] + transform.position, Vector3.back, 0.2f);
                 if (nodes.Length > 1) {
                     Gizmos.DrawLine(nodes[i] + transform.position, ((i < nodes.Length - 1) ? nodes[i + 1] : nodes[0]) + transform.position);
                 }

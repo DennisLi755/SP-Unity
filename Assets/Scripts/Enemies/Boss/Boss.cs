@@ -29,6 +29,12 @@ public class Boss : MonoBehaviour, IDamageable {
     protected GameObject pat;
     protected int numberOfRepeats = 0;
     protected int indexToRepeat = 0;
+    protected bool usesNodeMovement = false;
+    protected List<Vector3> movementNodes;
+    protected List<int> blacklistNodeIndices;
+    protected int nodeColumnCount = 1;
+    protected int nodeRowCount = 1;
+    protected Bounds nodeBounds;
 
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
@@ -36,6 +42,12 @@ public class Boss : MonoBehaviour, IDamageable {
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
         Handles.Label(new Vector3(transform.position.x - 0.75f, transform.position.y + 1.0f, transform.position.z), content, style);
+
+        if (usesNodeMovement && movementNodes.Count > 0) {
+            for (int i = 0; i < movementNodes.Count; i++) {
+                Handles.DrawSolidDisc(movementNodes[i] + transform.position, Vector3.back, 0.2f);
+            }
+        }
     }
 #endif
 
@@ -48,6 +60,14 @@ public class Boss : MonoBehaviour, IDamageable {
             phasesList.Add(phase.attackCycle);
         }
         currentHealth = maxHealth;
+        //if the boss uses node movement, populate the list of nodes based on the bounds defined in the inspector
+        if (usesNodeMovement) {
+            movementNodes = new List<Vector3>();
+            blacklistNodeIndices = new List<int>();
+            for (int i = 0; i < movementNodes.Count; i++) {
+
+            }
+        }
     }
 
     protected void Update() {
