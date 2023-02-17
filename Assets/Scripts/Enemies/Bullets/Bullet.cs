@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +20,8 @@ public class Bullet : MonoBehaviour {
     private new CircleCollider2D collider;
     private new SpriteRenderer renderer;
     private bool hasRendered = false;
+    private float timeOffScreen = 0.0f;
+    private float maxTimeOffScreen = 5.0f;
 
     void Start() {
         collider = GetComponent<CircleCollider2D>();
@@ -40,7 +43,10 @@ public class Bullet : MonoBehaviour {
         }
 
         if (hasRendered && !renderer.isVisible) {
-            Destroy(gameObject);
+            timeOffScreen += Time.deltaTime;
+            if (timeOffScreen > 5.0f) {
+                Destroy(gameObject);
+            }
         }
     }
 
