@@ -24,10 +24,6 @@ public class GuideBoss : Boss
         if (currentPhase == 2) {
             totalAds += 2;
         }
-        if (currentHealth == 20 && currentPhase != 1)
-            currentPhase++;
-        else if (currentHealth == 15 && currentPhase != 2)
-            currentPhase++;
 
         foreach (GameObject a in ads) {
             if (!a.active)
@@ -45,5 +41,13 @@ public class GuideBoss : Boss
         } else {
             spawnEnemyCoroutine = null;
         }
+    }
+
+    public override void ChangePhase()
+    {
+        if (currentHealth <= 20 && currentPhase != 1)
+            currentPhase++;
+        else if (currentHealth <= 15 && currentPhase != 2)
+            currentPhase++;
     }
 }
