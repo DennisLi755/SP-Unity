@@ -67,8 +67,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             else {
                 Gizmos.DrawWireCube(nodeBounds.center + transform.position, nodeBounds.size);
             }
-            Handles.color = Color.black;
             for (int i = 0; i < movementNodes.Count; i++) {
+                Handles.color = new Color((float)i / movementNodes.Count, 0, 0);
                 Handles.DrawSolidDisc(movementNodes[i], Vector3.back, 0.2f);
             }
         }
@@ -98,7 +98,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             phasesList[currentPhase][attackCycleIndex]?.Invoke();
             if (numberOfRepeats == 1 || indexToRepeat != attackCycleIndex) {
                 attackCycleIndex++;
-            } else {
+            }
+            else {
                 numberOfRepeats--;
             }
             if (attackCycleIndex >= phasesList[currentPhase].Length) {
@@ -112,11 +113,11 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         nodeOffsets = new Vector2(nodeBounds.size.x / (nodeColumnCount - 1), nodeBounds.size.y / (nodeRowCount - 1));
         movementNodes = new List<Vector3>();
         blacklistNodeIndices = new List<int>();
-        for (int x = 0; x < nodeColumnCount; x++) {
-            for (int y = 0; y < nodeRowCount; y++) {
+        for (int y = nodeRowCount - 1; y >= 0; y--) {
+            for (int x = 0; x < nodeColumnCount; x++) {
                 //x/y times the nodeOffset givess the location within the bounds the node should be and all the other stuff is used to calculaute the starting position
                 movementNodes.Add(new Vector3(x * nodeOffsets.x + transform.position.x - nodeBounds.extents.x + nodeBounds.center.x,
-                    y * nodeOffsets.y + transform.position.y - nodeBounds.extents.y + nodeBounds.center.y, 
+                    y * nodeOffsets.y + transform.position.y - nodeBounds.extents.y + nodeBounds.center.y,
                     1));
             }
         }
@@ -162,7 +163,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
             }
-            if(ChangePhase()) {
+            if (ChangePhase()) {
                 attackCycleIndex = 0;
                 attackCycleRoutine = null;
                 //numberOfRepeats = 1;
@@ -178,7 +179,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         int lower = int.Parse(numString[0]);
         int higher = int.Parse(numString[1]);
         indexToRepeat = int.Parse(numString[2]);
-        numberOfRepeats = UnityEngine.Random.Range(lower, higher+1);
+        numberOfRepeats = UnityEngine.Random.Range(lower, higher + 1);
         Debug.Log($"Repeating the next attack {numberOfRepeats} number of times");
     }
 
@@ -213,61 +214,74 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     /// </summary>
     /// <returns></returns>
     protected int GetRandomNodeIndex() {
-        if(blacklistNodeIndices.Count == movementNodes.Count) {
+        //the blacklist is filled with every indices, meaning there would be no valid node to go to, return 0 so the it does not crash and warn the dev
+        if (blacklistNodeIndices.Count == movementNodes.Count) {
             Debug.LogError($"Boss {gameObject.name} has filled their movement blacklist! Make sure to remove indicies from the blacklist when they are not needed.");
             return 0;
         }
 
+        //go through the relevant nodes to figure out which node indices are close nodes which have a lower chance of being chosen
         List<int> closeNodes = new List<int>();
         int cni = currentNodeIndex;
         //node to the right if there is one
-        if (cni % nodeColumnCount != 0) {
+        if (cni % nodeColumnCount != 0 && !blacklistNodeIndices.Contains(cni - 1)) {
             closeNodes.Add(cni - 1);
         }
         //node to the right if there is one
-        if (cni + 1 % nodeColumnCount != 0) {
+        if (cni + 1 % nodeColumnCount != 0 && !blacklistNodeIndices.Contains(cni + 1)) {
             closeNodes.Add(cni + 1);
         }
         //if there are more than 1 rows, get the nodes above/below 
         if (nodeRowCount > 1) {
             //nodes above if the current is on a row above the first
             if (cni >= nodeColumnCount) {
-                closeNodes.Add(cni - nodeColumnCount);
+                if (!blacklistNodeIndices.Contains(cni - nodeColumnCount)) {
+                    closeNodes.Add(cni - nodeColumnCount);
+                }
                 //nodes to the left and right of the node above
-                if (cni % nodeColumnCount != 0) {
+                if (cni % nodeColumnCount != 0 && !blacklistNodeIndices.Contains(cni - nodeColumnCount - 1)) {
                     closeNodes.Add(cni - nodeColumnCount - 1);
                 }
-                if (cni + 1 % nodeColumnCount != 0) {
+                if (cni + 1 % nodeColumnCount != 0 && !blacklistNodeIndices.Contains(cni - nodeColumnCount + 1)) {
                     closeNodes.Add(cni - nodeColumnCount + 1);
                 }
             }
             //nodes below if the current is on a row less than the last
             if (cni < movementNodes.Count - nodeColumnCount) {
-                closeNodes.Add(cni + nodeColumnCount);
+                if (!blacklistNodeIndices.Contains(cni + nodeColumnCount)) {
+                    closeNodes.Add(cni + nodeColumnCount);
+                }
                 //nodes to the left and right of the node above
-                if (cni % nodeColumnCount != 0) {
-                    closeNodes.Add(cni - nodeColumnCount - 1);
+                if (cni % nodeColumnCount != 0 && !blacklistNodeIndices.Contains(cni + nodeColumnCount - 1)) {
+                    closeNodes.Add(cni + nodeColumnCount - 1);
                 }
-                if (cni + 1 % nodeColumnCount != 0) {
-                    closeNodes.Add(cni - nodeColumnCount + 1);
+                if (cni + 1 % nodeColumnCount != 0 && !blacklistNodeIndices.Contains(cni + nodeColumnCount - 1)) {
+                    closeNodes.Add(cni + nodeColumnCount + 1);
                 }
             }
         }
 
-        float percentForEachNode = movementNodes.Count - closeNodes.Count;
-        Dictionary<float, int> nodePercents = new Dictionary<float, int>();
+        //effective nodes to the number of far nodes + 1 which consolidates every close node, because the current node is not considered a close node,
+        //we can do the simple subtraction as the cni acts at the +1
+        int effectiveNodes = movementNodes.Count - closeNodes.Count - blacklistNodeIndices.Count;
+        //percent for each effective node
+        float percentForEachNode = 1.0f / (effectiveNodes);
+        float totalP = 0.0f;
+        float ran = UnityEngine.Random.Range(0.0f, 1.0f);
+        //go through all movement nodes, skipping blacklisted nodes, and add their percent to the total,
+        //then check if the random number is below that total, if it is then that is the node to return
         for (int i = 0; i < movementNodes.Count; i++) {
-            nodePercents.Add(closeNodes.Contains(i) ? percentForEachNode / closeNodes.Count : percentForEachNode, i);
-        }
-
-        int newNodeIndex = UnityEngine.Random.Range(0, movementNodes.Count - blacklistNodeIndices.Count);
-        while (blacklistNodeIndices.Contains(newNodeIndex)) {
-            newNodeIndex++;
-            if (newNodeIndex > movementNodes.Count) {
-                newNodeIndex = 0;
+            if (blacklistNodeIndices.Contains(i)) {
+                continue;
+            }
+            totalP += closeNodes.Contains(i) ? percentForEachNode / closeNodes.Count : percentForEachNode;
+            if (ran <= totalP) {
+                return i;
             }
         }
-        return newNodeIndex;
+
+        Debug.LogError($"The percent {ran} did not fall into any node's percent. Returning 0.");
+        return 0;
     }
 
     public abstract bool ChangePhase();

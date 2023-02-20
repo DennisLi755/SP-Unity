@@ -16,20 +16,17 @@ public class GuideBoss : Boss
 
     private new void Update() {
         base.Update();
-        if (currentPhase >= 1) {
+        if (currentPhase >= 1 && totalAds > 0) {
             if (spawnEnemyCoroutine == null && ads.Count < totalAds) {
                 spawnEnemyCoroutine = StartCoroutine(SpawnEnemy());
             }
         }
-        if (currentPhase == 2) {
-            totalAds = 4;
-        }
 
-        foreach (GameObject a in ads) {
-            if (!a.active) {
-                blacklistNodeIndices.Remove(adNodeIndicies[a]);
-                adNodeIndicies.Remove(a);
-                ads.Remove(a);
+        for (int i = 0; i < ads.Count; i++) {
+            if (!ads[i].activeInHierarchy) {
+                blacklistNodeIndices.Remove(adNodeIndicies[ads[i]]);
+                adNodeIndicies.Remove(ads[i]);
+                ads.Remove(ads[i]);
             }
         }
     }
@@ -69,9 +66,11 @@ public class GuideBoss : Boss
     {
         if (currentHealth <= 20 && currentPhase != 1) {
             currentPhase = 1;
+            totalAds = 2;
             return true;
         } else if (currentHealth <= 15 && currentPhase != 2) {
             currentPhase = 2;
+            totalAds = 4;
             return true;
         }
         return false;
