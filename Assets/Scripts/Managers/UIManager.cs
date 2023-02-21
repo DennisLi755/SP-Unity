@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     EventSystem eventSystem;
     [SerializeField]
-    Slider health;
+    Image health;
     [SerializeField]
     private GameObject prompt;
     public GameObject Prompt {get => prompt; set {prompt = value;}}
@@ -140,5 +140,13 @@ public class UIManager : MonoBehaviour {
         promptedInteractionYesButton.onClick.RemoveAllListeners();
         prompt.SetActive(false);
         PlayerInfo.Instance.ChangeInputMap("Player");
+    }
+
+    public void UpdateHealth(float healthPercent) {
+
+    }
+
+    public void EnableHealthBar(bool isEnabled) {
+
     }
 }

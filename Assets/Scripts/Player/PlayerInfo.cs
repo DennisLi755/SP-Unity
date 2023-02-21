@@ -61,6 +61,7 @@ public class PlayerInfo : MonoBehaviour {
         else {
             StartCoroutine(WaitForIFrames());
         }
+        UIManager.Instance.UpdateHealth(health / startingHealth);
 
         IEnumerator WaitForIFrames() {
             const int flashCount = 7;
