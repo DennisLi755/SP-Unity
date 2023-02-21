@@ -12,6 +12,10 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     private int currentHealth;
     private bool isDamageable = true;
     public bool IsDamageable {get => isDamageable; set => isDamageable = value; }
+    [SerializeField]
+    private GameObject healthDrop;
+    [SerializeField]
+    private float healthDropChance;
 
     [SerializeField]
     protected bool useTargetingCircle;
@@ -118,7 +122,16 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
             currentHealth -= amount;
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
+                SpawnPickup(healthDropChance);
             }
+        }
+    }
+
+    public void SpawnPickup(float chance) {
+        float randomNum = UnityEngine.Random.Range(0, 100);
+        Debug.Log(randomNum);
+        if (randomNum <= chance) {
+            GameObject drop = Instantiate(healthDrop, transform.position, Quaternion.identity);
         }
     }
 }

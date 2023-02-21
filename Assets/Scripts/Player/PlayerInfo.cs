@@ -67,6 +67,10 @@ public class PlayerInfo : MonoBehaviour {
         }
     }
 
+    public void Heal(int amount) {
+        health += amount;
+    }
+
     public void EnterInteractable(InteractableObject sender) {
         canInteract = true;
         interactable = sender;
