@@ -10,6 +10,7 @@ public struct Phases {
 }
 
 public abstract class Boss : MonoBehaviour, IDamageable {
+    BoxCollider2D hitbox;
     #region Health
     [SerializeField]
     private int maxHealth;
@@ -76,6 +77,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
 #endif
 
     protected void Start() {
+        hitbox = transform.GetChild(0).GetComponent<BoxCollider2D>();
         startPos = transform.position;
         canAttack = true;
         canContinueAttack = true;
@@ -194,7 +196,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         blacklistNodeIndices.Add(targetNodeIndex);
         canContinueAttack = false;
         attackCycleRoutine = StartCoroutine(MoveToTargetNode());
-
+        hitbox.enabled = false;
         IEnumerator MoveToTargetNode() {
             while (transform.position != movementNodes[targetNodeIndex]) {
                 transform.position = Vector3.MoveTowards(transform.position, movementNodes[targetNodeIndex], moveSpeed * Time.deltaTime);
@@ -206,6 +208,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             isDamageable = true;
             attackCycleRoutine = null;
             canContinueAttack = true;
+            hitbox.enabled = true;
         }
     }
 
