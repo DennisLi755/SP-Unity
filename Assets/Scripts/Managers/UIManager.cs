@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     EventSystem eventSystem;
     [SerializeField]
+    Slider health;
+    [SerializeField]
     private GameObject prompt;
     public GameObject Prompt {get => prompt; set {prompt = value;}}
     #endregion
