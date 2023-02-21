@@ -6,6 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerInfo : MonoBehaviour {
 
     private static PlayerInfo instance;
+    public static PlayerInfo Instance {
+        get {
+            if (instance == null) {
+                instance = new PlayerInfo();
+            }
+            return instance;
+        }
+    }
 
     #region Stats
     private float health;
@@ -20,15 +28,7 @@ public class PlayerInfo : MonoBehaviour {
     public InteractableObject Interactable { get => interactable; set { interactable = value; } }
     #endregion
 
-    public static PlayerInfo Instance {
-        get {
-            if (instance == null) {
-                instance = new PlayerInfo();
-            }
-            return instance;
-        }
-    }
-
+    private SpriteRenderer sr;
     private PlayerControl playerControl;
     public PlayerControl PlayerControl { get => playerControl; }
     public bool Damagable {get => damagable; set {damagable = value;} }
@@ -45,6 +45,7 @@ public class PlayerInfo : MonoBehaviour {
 
     private void Start() {
         playerControl = GetComponent<PlayerControl>();
+        sr = GetComponent<SpriteRenderer>();
         health = startingHealth;
     }
 
@@ -55,16 +56,30 @@ public class PlayerInfo : MonoBehaviour {
         damagable = false;
         health -= amount;
         if (health <= 0) {
-            //do death stuff
+            sr.color = Color.red;
         }
         else {
             StartCoroutine(WaitForIFrames());
         }
 
         IEnumerator WaitForIFrames() {
-            yield return new WaitForSeconds(invincibilityLength);
+            const int flashCount = 7;
+            bool fullOpacity = true;
+            for (int i = 0; i < flashCount; i++, fullOpacity = !fullOpacity) {
+                Color newColor = sr.color;
+                newColor.a = fullOpacity ? 1.0f : 0.5f;
+                sr.color = newColor;
+                yield return new WaitForSeconds(invincibilityLength / flashCount);
+            }
+            Color fullOpa = sr.color;
+            fullOpa.a = 1.0f;
+            sr.color = fullOpa;
             damagable = true;
         }
+    }
+
+    public void Heal(int amount) {
+        health += amount;
     }
 
     public void EnterInteractable(InteractableObject sender) {
