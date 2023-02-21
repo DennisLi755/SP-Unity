@@ -205,9 +205,12 @@ public class PlayerControl : MonoBehaviour {
         if (GameObject.FindGameObjectWithTag("Bullet") != null) {
             hitbox.SetActive(true);
             //TODO: ENABLE HEALTHBAR
+            UIManager.Instance.EnableHealthBar(true);
         }
         else {
             hitbox.SetActive(false);
+            //TODO: DISABLE HEALTHBAR
+            UIManager.Instance.EnableHealthBar(false);
         }
     }
 

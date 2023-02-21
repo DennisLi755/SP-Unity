@@ -3909,6 +3909,10 @@ PrefabInstance:
       propertyPath: health
       value: 
       objectReference: {fileID: 852996588}
+    - target: {fileID: 3695494056827148183, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 2046652099}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5494,7 +5498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -71379,7 +71383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -246.5, y: 135.93248}
+  m_AnchoredPosition: {x: -246.5, y: 217.2}
   m_SizeDelta: {x: 65.6644, y: 13.9379}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2081302818
