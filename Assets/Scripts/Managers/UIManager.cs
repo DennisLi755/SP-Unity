@@ -7,8 +7,17 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 public class UIManager : MonoBehaviour {
-    #region field declaration
     private static UIManager instance;
+    public static UIManager Instance {
+        get {
+            if (instance == null) {
+                instance = new UIManager();
+            }
+            return instance;
+        }
+    }
+
+    #region Object Interaction
     public TMP_Text interactText;
     List<string> interactTexts;
     int currentTextIndex;
@@ -19,6 +28,11 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     EventSystem eventSystem;
     [SerializeField]
+    private GameObject prompt;
+    public GameObject Prompt {get => prompt; set {prompt = value;}}
+    #endregion
+
+    #region Health Bars
     Image standardHealth;
     [SerializeField]
     GameObject standardHealthBar;
@@ -27,17 +41,10 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     GameObject pentagonHealthBar;
     [SerializeField]
-    private GameObject prompt;
-    public GameObject Prompt {get => prompt; set {prompt = value;}}
+    private GameObject bossHealthBar;
+    private Image bossHealthFill;
+    private Image bossHealthBorder;
     #endregion
-    public static UIManager Instance {
-        get {
-            if (instance == null) {
-                instance = new UIManager();
-            }
-            return instance;
-        }
-    }
 
     [SerializeField]
     Image fadeToBlackPanel;
@@ -50,6 +57,11 @@ public class UIManager : MonoBehaviour {
         else {
             Destroy(gameObject);
         }
+    }
+
+    private void Start() {
+        bossHealthFill = bossHealthBar.transform.GetChild(0).GetComponent<Image>();
+        bossHealthBorder = bossHealthBar.transform.GetChild(1).GetComponent<Image>();
     }
 
     /// <summary>
@@ -162,5 +174,17 @@ public class UIManager : MonoBehaviour {
         }
         standardHealthBar.SetActive(false);
         pentagonHealthBar.SetActive(false);
+    }
+
+    public void UpdateBossHealthBar(float healthPercent) {
+        bossHealthFill.fillAmount = healthPercent;
+    }
+
+    public void SetBossHealthBarBorder(Sprite asset) {
+        bossHealthBorder.sprite = asset;
+    }
+
+    public void EnableBossHealthBar(bool isEnabled) {
+        bossHealthBar.SetActive(isEnabled);
     }
 }

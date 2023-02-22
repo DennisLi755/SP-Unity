@@ -10,7 +10,9 @@ public struct Phases {
 }
 
 public abstract class Boss : MonoBehaviour, IDamageable {
-    BoxCollider2D hitbox;
+    [SerializeField]
+    private Sprite healthBarBorder;
+    private BoxCollider2D hitbox;
     #region Health
     [SerializeField]
     private int maxHealth;
@@ -80,6 +82,9 @@ public abstract class Boss : MonoBehaviour, IDamageable {
 #endif
 
     protected void Start() {
+        UIManager.Instance.SetBossHealthBarBorder(healthBarBorder);
+        UIManager.Instance.UpdateBossHealthBar(1.0f);
+        UIManager.Instance.EnableBossHealthBar(true);
         hitbox = transform.GetChild(0).GetComponent<BoxCollider2D>();
         startPos = transform.position;
         canAttack = true;
@@ -167,12 +172,13 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             currentHealth -= amount;
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
+                UIManager.Instance.EnableBossHealthBar(false);
             }
             if (ChangePhase()) {
                 attackCycleIndex = 0;
                 attackCycleRoutine = null;
-                //numberOfRepeats = 1;
             }
+            UIManager.Instance.UpdateBossHealthBar((float)currentHealth / maxHealth);
         }
     }
     /// <summary>
