@@ -19,9 +19,13 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     EventSystem eventSystem;
     [SerializeField]
-    Image health;
+    Image standardHealth;
     [SerializeField]
-    GameObject healthBar;
+    GameObject standardHealthBar;
+    [SerializeField]
+    Image pentagonHealth;
+    [SerializeField]
+    GameObject pentagonHealthBar;
     [SerializeField]
     private GameObject prompt;
     public GameObject Prompt {get => prompt; set {prompt = value;}}
@@ -145,15 +149,18 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateHealth(float healthPercent) {
-        health.fillAmount = healthPercent;
+        standardHealth.fillAmount = healthPercent;
+        pentagonHealth.fillAmount = healthPercent;
     }
 
     public void EnableHealthBar(bool isEnabled) {
         if(isEnabled)
         {
-            healthBar.SetActive(true);
+            standardHealthBar.SetActive(true);
+            pentagonHealthBar.SetActive(true);
             return;
         }
-        healthBar.SetActive(false);
+        standardHealthBar.SetActive(false);
+        pentagonHealthBar.SetActive(false);
     }
 }
