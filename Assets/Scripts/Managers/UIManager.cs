@@ -20,26 +20,27 @@ public class UIManager : MonoBehaviour {
     #region Object Interaction
     public TMP_Text interactText;
     List<string> interactTexts;
-    int currentTextIndex;
+    private int currentTextIndex;
     [SerializeField]
-    Button promptedInteractionYesButton;
+    private Button promptedInteractionYesButton;
     [SerializeField]
-    Button textInteractionButton;
+    private Button textInteractionButton;
     [SerializeField]
-    EventSystem eventSystem;
+    private EventSystem eventSystem;
     [SerializeField]
     private GameObject prompt;
     public GameObject Prompt {get => prompt; set {prompt = value;}}
     #endregion
 
     #region Health Bars
-    Image standardHealth;
     [SerializeField]
-    GameObject standardHealthBar;
+    private Image standardHealth;
     [SerializeField]
-    Image pentagonHealth;
+    private GameObject standardHealthBar;
     [SerializeField]
-    GameObject pentagonHealthBar;
+    private Image pentagonHealth;
+    [SerializeField]
+    private GameObject pentagonHealthBar;
     [SerializeField]
     private GameObject bossHealthBar;
     private Image bossHealthFill;

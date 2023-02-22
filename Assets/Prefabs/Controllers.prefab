@@ -1576,8 +1576,11 @@ MonoBehaviour:
   textInteractionButton: {fileID: 3695494056802814782}
   eventSystem: {fileID: 3695494056197164029}
   prompt: {fileID: 3695494057110364235}
-  health: {fileID: 0}
-  BossHealthBar: {fileID: 0}
+  standardHealth: {fileID: 0}
+  standardHealthBar: {fileID: 0}
+  pentagonHealth: {fileID: 0}
+  pentagonHealthBar: {fileID: 0}
+  bossHealthBar: {fileID: 5123104025104685245}
   fadeToBlackPanel: {fileID: 3695494056508443257}
 --- !u!1 &3695494056955007877
 GameObject:
@@ -1903,7 +1906,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3271771024427376768
 RectTransform:
   m_ObjectHideFlags: 0

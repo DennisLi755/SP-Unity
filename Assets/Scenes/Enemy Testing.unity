@@ -47092,6 +47092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2067f2f761a0964183e01fe5c2aa2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarBorder: {fileID: 21300000, guid: 3de227437c6d81746a897d6e895844ef, type: 3}
   maxHealth: 25
   phasesStruct:
   - attackCycle:

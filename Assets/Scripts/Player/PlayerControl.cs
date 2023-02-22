@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// The position origins of the raycasts used to keep the player in bounds
@@ -204,13 +205,15 @@ public class PlayerControl : MonoBehaviour {
 
         if (GameObject.FindGameObjectWithTag("Bullet") != null) {
             hitbox.SetActive(true);
-            //TODO: ENABLE HEALTHBAR
-            UIManager.Instance.EnableHealthBar(true);
+            if (SceneManager.GetActiveScene().name == "UI Testing") {
+                UIManager.Instance.EnableHealthBar(true);
+            }
         }
         else {
             hitbox.SetActive(false);
-            //TODO: DISABLE HEALTHBAR
-            UIManager.Instance.EnableHealthBar(false);
+            if (SceneManager.GetActiveScene().name == "UI Testing") {
+                UIManager.Instance.EnableHealthBar(false);
+            }
         }
     }
 

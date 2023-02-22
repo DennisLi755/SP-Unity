@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInfo : MonoBehaviour {
 
@@ -61,7 +62,9 @@ public class PlayerInfo : MonoBehaviour {
         else {
             StartCoroutine(WaitForIFrames());
         }
-        UIManager.Instance.UpdateHealth(health / startingHealth);
+        if (SceneManager.GetActiveScene().name == "UI Testing") {
+            UIManager.Instance.UpdateHealth(health / startingHealth);
+        }
 
         IEnumerator WaitForIFrames() {
             const int flashCount = 7;
