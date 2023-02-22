@@ -3925,6 +3925,22 @@ PrefabInstance:
       propertyPath: standardHealthBar
       value: 
       objectReference: {fileID: 2046652099}
+    - target: {fileID: 3695494056827148183, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: playerPentagonHealthBar
+      value: 
+      objectReference: {fileID: 1355692796}
+    - target: {fileID: 3695494056827148183, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: playerStandardHealthBar
+      value: 
+      objectReference: {fileID: 2046652099}
+    - target: {fileID: 3695494056827148183, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: playerPentagonHealthFill
+      value: 
+      objectReference: {fileID: 2106013819}
+    - target: {fileID: 3695494056827148183, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: playerStandardHealthFill
+      value: 
+      objectReference: {fileID: 852996588}
     - target: {fileID: 5123104025104685245, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
       propertyPath: m_IsActive
       value: 0
