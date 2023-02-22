@@ -305,7 +305,7 @@ MonoBehaviour:
   afterImage: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   attackableLayers:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 512
   attackAnimation: {fileID: 7400000, guid: 7212d4dcd5a266544a5f6f456c14f1a7, type: 2}
   damageFrame: 1
   hitbox: {fileID: 4047285250310632639}

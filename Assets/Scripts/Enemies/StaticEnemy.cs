@@ -5,6 +5,12 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
+[Serializable]
+public struct TargetingCircle {
+    public Vector2 center;
+    public float radius;
+}
+
 public class StaticEnemy : MonoBehaviour, IDamageable {
 
     [SerializeField]
@@ -19,10 +25,11 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
 
     [SerializeField]
     protected bool useTargetingCircle;
-    protected CircleCollider2D targetingCircle;
+    [SerializeField]
+    protected TargetingCircle targetingCircle;
     protected BoxCollider2D bodyCollider;
     [SerializeField]
-    LayerMask playerLayer;
+    private LayerMask playerLayer;
     [SerializeField]
     protected UnityEvent[] attackCycle;
     protected bool canAttack = false;
@@ -33,10 +40,6 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     protected Coroutine attackCycleRoutine;
     protected bool overridePatternSpeed = false;
     protected float newPatternSpeed;
-    
-    protected Coroutine afterImageCoroutine;
-    [SerializeField]
-    protected GameObject afterImage;
 
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
@@ -44,26 +47,25 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
         Handles.Label(new Vector3(transform.position.x - 0.75f, transform.position.y + 1.0f, transform.position.z), content, style);
+        if (useTargetingCircle) {
+            Handles.color = new Color(0, 1, 0);
+            Handles.DrawWireDisc(transform.position + new Vector3(targetingCircle.center.x, targetingCircle.center.y), Vector3.forward, targetingCircle.radius);
+        }
     }
 #endif
 
     protected void Start() {
-        if (useTargetingCircle) {
-            targetingCircle = GetComponent<CircleCollider2D>();
+        if (!useTargetingCircle && GetComponent<SpriteRenderer>().isVisible) {
+            canAttack = true;
+            canContinueAttack = true;
         }
-        else {
-            if (GetComponent<SpriteRenderer>().isVisible) {
-                canAttack = true;
-                canContinueAttack = true;
-            }
-        }
-        bodyCollider = GetComponentInChildren<BoxCollider2D>();
+        bodyCollider = GetComponent<BoxCollider2D>();
         currentHealth = maxHealth;
     }
 
     protected void Update() {
         if (useTargetingCircle) {
-            RaycastHit2D hit = Physics2D.CircleCast(targetingCircle.bounds.center, targetingCircle.radius, Vector2.zero, 0.0f, playerLayer);
+            RaycastHit2D hit = Physics2D.CircleCast(targetingCircle.center + (Vector2)transform.position, targetingCircle.radius, Vector2.zero, 0.0f, playerLayer);
             if (hit && !canAttack) {
                 canAttack = true;
                 if (attackCycleRoutine == null) {
@@ -136,7 +138,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     public void SpawnPickup(float chance) {
         float randomNum = UnityEngine.Random.Range(0, 100);
         if (randomNum <= chance) {
-            GameObject drop = Instantiate(healthDrop, transform.position, Quaternion.identity);
+            Instantiate(healthDrop, transform.position, Quaternion.identity);
         }
     }
 }

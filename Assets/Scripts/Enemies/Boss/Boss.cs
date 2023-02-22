@@ -54,7 +54,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     protected int currentNodeIndex = -1;
     protected float moveSpeed = 10.0f;
     #endregion
-    protected Coroutine afterImageCoroutine;
     [SerializeField]
     private GameObject afterImage;
 
@@ -85,7 +84,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         UIManager.Instance.SetBossHealthBarBorder(healthBarBorder);
         UIManager.Instance.UpdateBossHealthBar(1.0f);
         UIManager.Instance.EnableBossHealthBar(true);
-        hitbox = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        hitbox = transform.GetComponent<BoxCollider2D>();
         startPos = transform.position;
         canAttack = true;
         canContinueAttack = true;
@@ -131,11 +130,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
                     1));
             }
         }
-    }
-
-    [ContextMenu("Start Attacking")]
-    protected void StartAttackCycle() {
-        canContinueAttack = true;
     }
 
     public virtual void ShootPatternBullet(GameObject pattern) {
@@ -192,10 +186,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         indexToRepeat = int.Parse(numString[2]);
         numberOfRepeats = UnityEngine.Random.Range(lower, higher + 1);
         Debug.Log($"Repeating the next attack {numberOfRepeats} number of times");
-    }
-
-    public void Print() {
-        Debug.Log("Finished Cycle");
     }
 
     [ContextMenu("Move to new Node")]
@@ -300,10 +290,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     public IEnumerator CreateAfterImages() {
         while (targetNodeIndex != -1) {
             GameObject echoInstance = Instantiate(afterImage, transform.position, Quaternion.identity);
-            echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
+            echoInstance.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime * 3);
         }
-
-        afterImageCoroutine = null;
     }
 }

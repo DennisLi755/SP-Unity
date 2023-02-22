@@ -391,8 +391,8 @@ public class PlayerControl : MonoBehaviour {
                 GameObject hitObject = hit.transform.gameObject;
                 //resolving depends on layer (or further on tag)
                 switch (LayerMask.LayerToName(hitObject.layer)) {
-                    case "Enemy Body":
-                        hitObject.transform.parent.GetComponent<IDamageable>().Hurt(1);
+                    case "Enemy":
+                        hitObject.GetComponent<IDamageable>().Hurt(1);
                         break;
                     default:
                         Debug.LogError($"Player attack has not been setup for layer: {LayerMask.LayerToName(hit.transform.gameObject.layer)}" +
@@ -469,7 +469,7 @@ public class PlayerControl : MonoBehaviour {
     IEnumerator CreateAfterImages() {
         while (playerState == PlayerState.Dashing) {
             GameObject echoInstance = Instantiate(afterImage, transform.position, Quaternion.identity);
-            echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
+            echoInstance.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime * 2);
         }
     }

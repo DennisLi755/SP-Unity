@@ -9,9 +9,9 @@ public class RailEnemy : StaticEnemy {
     [SerializeField]
     protected bool moveBulletsWithEnemy;
     [SerializeField]
-    private List<Vector3> nodes;
-    private int currentNodeIndex = 0;
-    private Vector3 Target {
+    protected List<Vector3> nodes;
+    protected int currentNodeIndex = 0;
+    protected Vector3 Target {
         get {
             if (nodes.Count == 0) {
                 return transform.position ;
@@ -20,7 +20,7 @@ public class RailEnemy : StaticEnemy {
         }
     }
     [SerializeField]
-    private float speed;
+    protected float speed;
 
 #if UNITY_EDITOR
     private new void OnDrawGizmos() {
@@ -37,7 +37,7 @@ public class RailEnemy : StaticEnemy {
         }
         else {
             for (int i = 0; i < nodes.Count; i++) {
-                UnityEditor.Handles.DrawSolidDisc(nodes[i] + transform.position, Vector3.back, 0.2f);
+                Handles.DrawSolidDisc(nodes[i] + transform.position, Vector3.back, 0.2f);
                 if (nodes.Count > 1) {
                     Gizmos.DrawLine(nodes[i] + transform.position, ((i < nodes.Count - 1) ? nodes[i + 1] : nodes[0]) + transform.position);
                 }
@@ -76,21 +76,6 @@ public class RailEnemy : StaticEnemy {
         else {
             base.ShootPatternBullet(pattern);
         }
-    }
-
-    [ContextMenu("Move to next node")]
-    public void MoveToNextNode() {
-        currentNodeIndex = (currentNodeIndex + 1) % nodes.Count;
-        transform.position = nodes[currentNodeIndex];
-        if (useTargetingCircle) {
-            targetingCircle.enabled = false;
-            targetingCircle.enabled = true;
-        }
-    }
-
-    [ContextMenu("Reset to start node")]
-    public void ResetToNode() {
-        transform.position = nodes[currentNodeIndex];
     }
 
     public void AddNode(Vector3 newNode) {

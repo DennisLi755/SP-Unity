@@ -34,31 +34,15 @@ public class GuideBoss : Boss
     IEnumerator SpawnEnemy() {
         yield return new WaitForSeconds(UnityEngine.Random.Range(1.0f, 2.0f));
         GameObject newAd = Instantiate(ad, transform.position, Quaternion.identity);
-        MoveAd(newAd);
+        int targetIndex = GetRandomNodeIndex();
+        blacklistNodeIndices.Add(targetIndex);
+        newAd.GetComponent<RailEnemy>().AddNode(movementNodes[targetIndex]);
+        newAd.GetComponent<BoxCollider2D>().enabled = false;
         ads.Add(newAd);
-        Debug.Log("Created Ad");
         if (ads.Count < totalAds) {
             StartCoroutine(SpawnEnemy());
         } else {
             spawnEnemyCoroutine = null;
-        }
-    }
-
-    public void MoveAd(GameObject ad) {
-        ad.GetComponent<GuideAd>().HasArrived = false;
-        int targetIndex = GetRandomNodeIndex();
-        ad.GetComponent<StaticEnemy>().IsDamageable = false;
-        blacklistNodeIndices.Add(targetIndex);
-        StartCoroutine(MoveAdToTargetNode());
-
-        IEnumerator MoveAdToTargetNode() {
-            while (ad.transform.position != movementNodes[targetIndex]) {
-                ad.transform.position = Vector3.MoveTowards(ad.transform.position, movementNodes[targetIndex], moveSpeed * Time.deltaTime);
-                yield return null;
-            }
-            ad.GetComponent<StaticEnemy>().IsDamageable = true;
-            adNodeIndicies[ad] = targetIndex;
-            ad.GetComponent<GuideAd>().HasArrived = true;
         }
     }
 
@@ -78,6 +62,6 @@ public class GuideBoss : Boss
 
     public override void MoveToNewNode() {
         base.MoveToNewNode();
-            afterImageCoroutine = StartCoroutine(CreateAfterImages());
+        StartCoroutine(CreateAfterImages());
     }
 }

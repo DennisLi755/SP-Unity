@@ -9,16 +9,16 @@ public class StaticEnemyEditor : Editor {
     protected SerializedProperty useTargetingCircle;
     protected SerializedProperty attackCycle;
     protected SerializedProperty playerLayer;
-
-    protected GameObject gb;
+    protected SerializedProperty targetingCircle;
+    protected SerializedProperty healthDrop;
 
     protected void OnEnable() {
         maxHealth = serializedObject.FindProperty("maxHealth");
         useTargetingCircle = serializedObject.FindProperty("useTargetingCircle");
         attackCycle = serializedObject.FindProperty("attackCycle");
         playerLayer = serializedObject.FindProperty("playerLayer");
-
-        gb = ((StaticEnemy)target).gameObject;
+        targetingCircle = serializedObject.FindProperty("targetingCircle");
+        healthDrop = serializedObject.FindProperty("healthDrop");
     }
 
     public override void OnInspectorGUI() {
@@ -27,13 +27,9 @@ public class StaticEnemyEditor : Editor {
         EditorGUILayout.PropertyField(useTargetingCircle);
         if (useTargetingCircle.boolValue) {
             EditorGUILayout.PropertyField(playerLayer);
-            if (gb.GetComponent<CircleCollider2D>() == null) {
-                gb.AddComponent<CircleCollider2D>();
-            }
+            EditorGUILayout.PropertyField(targetingCircle);
         }
-        else if (gb.GetComponent<CircleCollider2D>() != null) {
-            DestroyImmediate(gb.GetComponent<CircleCollider2D>());
-        }
+        EditorGUILayout.PropertyField(healthDrop);
 
         serializedObject.ApplyModifiedProperties();
     }
