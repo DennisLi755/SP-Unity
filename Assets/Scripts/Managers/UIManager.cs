@@ -34,13 +34,13 @@ public class UIManager : MonoBehaviour {
 
     #region Health Bars
     [SerializeField]
-    private Image standardHealth;
+    private Image playerStandardHealthFill;
     [SerializeField]
-    private GameObject standardHealthBar;
+    private GameObject playerStandardHealthBar;
     [SerializeField]
-    private Image pentagonHealth;
+    private Image playerPentagonHealthFill;
     [SerializeField]
-    private GameObject pentagonHealthBar;
+    private GameObject playerPentagonHealthBar;
     [SerializeField]
     private GameObject bossHealthBar;
     private Image bossHealthFill;
@@ -162,19 +162,13 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateHealth(float healthPercent) {
-        standardHealth.fillAmount = healthPercent;
-        pentagonHealth.fillAmount = healthPercent;
+        playerStandardHealthFill.fillAmount = healthPercent;
+        playerPentagonHealthFill.fillAmount = healthPercent;
     }
 
     public void EnableHealthBar(bool isEnabled) {
-        if(isEnabled)
-        {
-            standardHealthBar.SetActive(true);
-            pentagonHealthBar.SetActive(true);
-            return;
-        }
-        standardHealthBar.SetActive(false);
-        pentagonHealthBar.SetActive(false);
+        playerStandardHealthBar.SetActive(isEnabled);
+        playerPentagonHealthBar.SetActive(isEnabled);
     }
 
     public void UpdateBossHealthBar(float healthPercent) {
