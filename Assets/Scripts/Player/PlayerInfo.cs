@@ -80,7 +80,8 @@ public class PlayerInfo : MonoBehaviour {
     }
 
     public void Heal(int amount) {
-        health += amount;
+        if (health < startingHealth)
+            health += amount;
     }
 
     public void EnterInteractable(InteractableObject sender) {

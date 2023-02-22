@@ -75,4 +75,9 @@ public class GuideBoss : Boss
         }
         return false;
     }
+
+    public override void MoveToNewNode() {
+        base.MoveToNewNode();
+            afterImageCoroutine = StartCoroutine(CreateAfterImages());
+    }
 }

@@ -52,6 +52,9 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     protected int currentNodeIndex = -1;
     protected float moveSpeed = 10.0f;
     #endregion
+    protected Coroutine afterImageCoroutine;
+    [SerializeField]
+    private GameObject afterImage;
 
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
@@ -190,7 +193,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     }
 
     [ContextMenu("Move to new Node")]
-    public void MoveToNewNode() {
+    public virtual void MoveToNewNode() {
         targetNodeIndex = GetRandomNodeIndex();
         isDamageable = false;
         blacklistNodeIndices.Add(targetNodeIndex);
@@ -288,4 +291,13 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     }
 
     public abstract bool ChangePhase();
+    public IEnumerator CreateAfterImages() {
+        while (targetNodeIndex != -1) {
+            GameObject echoInstance = Instantiate(afterImage, transform.position, Quaternion.identity);
+            echoInstance.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime * 3);
+        }
+
+        afterImageCoroutine = null;
+    }
 }

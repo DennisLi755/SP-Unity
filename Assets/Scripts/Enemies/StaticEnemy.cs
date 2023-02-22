@@ -20,6 +20,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     [SerializeField]
     protected bool useTargetingCircle;
     protected CircleCollider2D targetingCircle;
+    protected BoxCollider2D bodyCollider;
     [SerializeField]
     LayerMask playerLayer;
     [SerializeField]
@@ -32,6 +33,10 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     protected Coroutine attackCycleRoutine;
     protected bool overridePatternSpeed = false;
     protected float newPatternSpeed;
+    
+    protected Coroutine afterImageCoroutine;
+    [SerializeField]
+    protected GameObject afterImage;
 
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
@@ -52,6 +57,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
                 canContinueAttack = true;
             }
         }
+        bodyCollider = GetComponentInChildren<BoxCollider2D>();
         currentHealth = maxHealth;
     }
 
@@ -129,7 +135,6 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
 
     public void SpawnPickup(float chance) {
         float randomNum = UnityEngine.Random.Range(0, 100);
-        Debug.Log(randomNum);
         if (randomNum <= chance) {
             GameObject drop = Instantiate(healthDrop, transform.position, Quaternion.identity);
         }
