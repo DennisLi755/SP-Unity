@@ -99,9 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cedafb04bb470f4d98baea165575ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  startingHealth: 0
+  healthDropChance: 70
   healthDrop: {fileID: 6975054099003363484, guid: 242c098b272cb6c4b867ec31290c893f, type: 3}
-  healthDropChance: 0
   useTargetingCircle: 0
   targetingCircle:
     center: {x: 0, y: 0}
@@ -186,6 +186,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  losesAggro: 0
+  aggroLossTime: 5
   moveBulletsWithEnemy: 0
   nodes: []
   speed: 10

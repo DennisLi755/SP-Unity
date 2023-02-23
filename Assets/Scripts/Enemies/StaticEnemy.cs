@@ -18,11 +18,12 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     private int startingHealth;
     private int currentHealth;
     private bool isDamageable = true;
-    public bool IsDamageable { get => isDamageable; set => isDamageable = value; }
-    [SerializeField]
-    private GameObject healthDrop;
+
+    [Range(0,100)]
     [SerializeField]
     private float healthDropChance;
+    [SerializeField]
+    private GameObject healthDrop;
     #endregion
 
     #region Attacking
@@ -41,6 +42,12 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     protected bool canContinueAttack = false;
     protected int attackCycleIndex = 0;
     protected Coroutine attackCycleRoutine;
+
+    [SerializeField]
+    protected bool losesAggro = true;
+    [SerializeField]
+    protected float aggroLossTime = 5.0f;
+    protected Coroutine aggroLossRoutine;
 
     protected bool overridePatternSpeed = false;
     protected float newPatternSpeed;
@@ -80,20 +87,42 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
                 if (attackCycleRoutine == null) {
                     canContinueAttack = true;
                 }
+                //disable the enemy losing aggro
+                if (aggroLossRoutine != null) {
+                    StopCoroutine(aggroLossRoutine);
+                    aggroLossRoutine = null;
+                }
             }
             //player is no longer in the targeting range
             if (!hit && canAttack) {
                 canAttack = false;
+                canContinueAttack = false;
+                if (losesAggro) {
+                    aggroLossRoutine = StartCoroutine(ResetAttackCycle());
+                }
             }
         }
         //enemies that shoot whenever on the screen
         else {
+            //enemy is now on screen and can start attacking
             if (!canAttack && GetComponent<SpriteRenderer>().isVisible) {
                 canAttack = true;
+                if (attackCycleRoutine == null) {
                 canContinueAttack = true;
+                }
+                //disable the enemy losing aggro
+                if (aggroLossRoutine != null) {
+                    StopCoroutine(aggroLossRoutine);
+                    aggroLossRoutine = null;
+                }
             }
+            //enemy is no longer visible and should stop shooting
             else if (canAttack && !GetComponent<SpriteRenderer>().isVisible) {
                 canAttack = false;
+                canContinueAttack = false;
+                if (losesAggro) {
+                    aggroLossRoutine = StartCoroutine(ResetAttackCycle());
+                }
             }
         }
 
@@ -109,6 +138,19 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
                 attackCycleIndex = 0;
             }
         }
+    }
+
+    /// <summary>
+    /// Resets the enemy's attack information after the set amount of time has passed
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator ResetAttackCycle() {
+        yield return new WaitForSeconds(aggroLossTime);
+        attackCycleIndex = 0;
+        attackCycleRoutine = null;
+        aggroLossRoutine = null;
+        canAttack = false;
+        canContinueAttack = false;
     }
 
     /// <summary>
