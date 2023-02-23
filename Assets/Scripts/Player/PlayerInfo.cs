@@ -23,6 +23,7 @@ public class PlayerInfo : MonoBehaviour {
 
     #region Combat Control
     private bool inCombat = false;
+    public bool InCombat => inCombat;
     private bool combatLock = false;
     public bool CombatLock { 
         get => combatLock; 

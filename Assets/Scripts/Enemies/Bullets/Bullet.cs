@@ -39,10 +39,10 @@ public class Bullet : MonoBehaviour {
     }
 
     void Update() {
-        RaycastHit2D hit = Physics2D.CircleCast(collider.bounds.center, collider.radius, Vector2.zero, 0.0f, playerLayer);
+        /*RaycastHit2D hit = Physics2D.CircleCast(collider.bounds.center, collider.radius, Vector2.zero, 0.0f, playerLayer);
         if (hit) {
             PlayerInfo.Instance.Hurt(1);
-        }
+        }*/
 
         if (hasRendered && !renderer.isVisible) {
             timeOffScreen += Time.deltaTime;

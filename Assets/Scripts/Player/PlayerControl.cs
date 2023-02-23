@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -112,6 +113,8 @@ public class PlayerControl : MonoBehaviour {
     //the layers that the player will collide with the environment
     private LayerMask environmentLayers;
     private new BoxCollider2D collider;
+    private LayerMask bulletLayer;
+    private CircleCollider2D hitboxCollider;
     private Bounds bounds => collider.bounds;
     private CollisionDirections collisionDirs;
     //The inner corners of the player's hitbox that raycasts start from
@@ -177,13 +180,15 @@ public class PlayerControl : MonoBehaviour {
         pInfo = GetComponent<PlayerInfo>();
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
+        hitbox = transform.GetChild(0).gameObject;
+        hitboxCollider = hitbox.GetComponent<CircleCollider2D>();
 
         collisionDirs = new CollisionDirections();
         rayOrigins = new RayCastOrigins();
         CalculateRaySpacing();
         UpdateRayCastOrigins();
+        bulletLayer = LayerMask.GetMask("Bullet");
 
-        hitbox = transform.GetChild(0).gameObject;
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
         foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {
             attackHitboxes.Add(hitbox.direction, hitbox.bounds);
@@ -196,6 +201,8 @@ public class PlayerControl : MonoBehaviour {
             Skill3
         };
         SetupSkills();
+
+        Debug.Log(bulletLayer.value);
     }
 
     /// <summary>
@@ -251,6 +258,14 @@ public class PlayerControl : MonoBehaviour {
 
         //move the player by the (possibly) corrected velocity
         transform.Translate(newVel);
+
+        //check the player's hitbox for any bullets
+        if (pInfo.InCombat) {
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position + hitboxCollider.bounds.center, hitboxCollider.radius, Vector2.zero, 0.0f, bulletLayer);
+            if (hit) {
+                pInfo.Hurt(1);
+            }
+        }
     }
 
     #region Collisions & Raycasts
