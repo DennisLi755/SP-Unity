@@ -7,7 +7,7 @@ public class GuideAd : RailEnemy {
     [SerializeField]
     protected GameObject afterImage;
 
-    void Start() {
+    new void Start() {
         base.Start();
         StartCoroutine(WaitForArrive());
         canContinueAttack = false;

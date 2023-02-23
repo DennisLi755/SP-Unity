@@ -9,9 +9,7 @@ public class GuideTutorialPattern : BulletPattern
     [SerializeField]
     private float shootSpeed;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    new void Start() {
         base.Start();
         for (int i = 0; i < bullets.Length; i++) {
             bullets[i].Speed = 2/Mathf.Cos((bullets[i].Angle - 90) * Mathf.Deg2Rad);
@@ -37,7 +35,7 @@ public class GuideTutorialPattern : BulletPattern
         }
     }
 
-    void Update() {
+    new void Update() {
         base.Update();
     }
 

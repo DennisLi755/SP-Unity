@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour {
 
         if (hasRendered && !renderer.isVisible) {
             timeOffScreen += Time.deltaTime;
-            if (timeOffScreen > 5.0f) {
+            if (timeOffScreen > maxTimeOffScreen) {
                 Destroy(gameObject);
             }
         }
