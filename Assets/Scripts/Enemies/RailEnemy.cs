@@ -69,6 +69,7 @@ public class RailEnemy : StaticEnemy {
         }
     }
 
+    /// <inheritdoc/>
     public override void ShootPatternBullet(GameObject pattern) {
         if (moveBulletsWithEnemy) {
             Instantiate(pattern, transform);
@@ -78,6 +79,10 @@ public class RailEnemy : StaticEnemy {
         }
     }
 
+    /// <summary>
+    /// Adds a node to the enemy's node list
+    /// </summary>
+    /// <param name="newNode"></param>
     public void AddNode(Vector3 newNode) {
         nodes.Add(newNode);
     }

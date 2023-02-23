@@ -56,6 +56,7 @@ public class PlayerControl : MonoBehaviour {
     private Animator animator;
     [SerializeField]
     private GameObject afterImage;
+    private PlayerInfo pInfo;
 
     private PlayerState playerState = PlayerState.Idle;
 
@@ -97,9 +98,8 @@ public class PlayerControl : MonoBehaviour {
     private int totalAttackFrames;
     [SerializeField]
     private GameObject hitbox;
-    [SerializeField]
-    private bool unlockAttack = true;
-    public bool UnlockAttack {get => unlockAttack; set {unlockAttack = value;}}
+
+    public bool AttackUnlocked => pInfo.AttackUnlocked;
     private float attackMoveSpeed = 3f;
     [SerializeField]
     private AttackHitbox[] inspectorAttackHixboxes = new AttackHitbox[4];
@@ -163,6 +163,7 @@ public class PlayerControl : MonoBehaviour {
     /// Runs when the object is enabled for the first time
     /// </summary>
     void Start() {
+        pInfo = GetComponent<PlayerInfo>();
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
 
@@ -203,7 +204,8 @@ public class PlayerControl : MonoBehaviour {
                 break;
         }
 
-        if (GameObject.FindGameObjectWithTag("Bullet") != null) {
+        //check to see if there are any bullets in scene
+        if (BulletHolder.HasChildren()) {
             hitbox.SetActive(true);
             if (SceneManager.GetActiveScene().name == "UI Testing") {
                 UIManager.Instance.EnableHealthBar(true);
@@ -362,7 +364,7 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     /// <param name="context"></param>
     public void Attack(InputAction.CallbackContext context) {
-        if (context.performed && playerState != PlayerState.Attack && unlockAttack) {
+        if (context.performed && playerState != PlayerState.Attack && AttackUnlocked) {
             SoundManager.Instance.PlaySoundEffect("PlayerAttack", SoundSource.player);
             playerState = PlayerState.Attack;
             //ensures the player is set to walking speed if they attack cancel a dash
