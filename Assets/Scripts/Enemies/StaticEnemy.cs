@@ -178,7 +178,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     /// <param name="chance"></param>
     public void SpawnPickup(float chance) {
         float randomNum = UnityEngine.Random.Range(0, 100);
-        if (randomNum <= chance) {
+        if (randomNum < chance) {
             Instantiate(healthDrop, transform.position, Quaternion.identity);
         }
     }

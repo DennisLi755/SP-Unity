@@ -11,6 +11,7 @@ public class StaticEnemyEditor : Editor {
     protected SerializedProperty playerLayer;
     protected SerializedProperty targetingCircle;
     protected SerializedProperty healthDrop;
+    protected SerializedProperty healthDropChance;
 
     protected void OnEnable() {
         maxHealth = serializedObject.FindProperty("maxHealth");
@@ -19,6 +20,7 @@ public class StaticEnemyEditor : Editor {
         playerLayer = serializedObject.FindProperty("playerLayer");
         targetingCircle = serializedObject.FindProperty("targetingCircle");
         healthDrop = serializedObject.FindProperty("healthDrop");
+        healthDropChance = serializedObject.FindProperty("healthDropChance");
     }
 
     public override void OnInspectorGUI() {
@@ -30,6 +32,7 @@ public class StaticEnemyEditor : Editor {
             EditorGUILayout.PropertyField(targetingCircle);
         }
         EditorGUILayout.PropertyField(healthDrop);
+        EditorGUILayout.PropertyField(healthDropChance);
 
         serializedObject.ApplyModifiedProperties();
     }
