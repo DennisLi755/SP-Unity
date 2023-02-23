@@ -34,6 +34,10 @@ public class PlayerInfo : MonoBehaviour {
     public PlayerControl PlayerControl { get => playerControl; }
     public bool Damagable {get => damagable; set {damagable = value;} }
 
+    [SerializeField]
+    private bool attackUnlocked = true;
+    public bool AttackUnlocked { get => attackUnlocked; set => attackUnlocked = value; }
+
     private void Awake() {
        if (instance == null) {
             instance = this;

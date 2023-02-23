@@ -15,4 +15,8 @@ public class BulletHolder : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+    public static bool HasChildren() {
+        return instance.transform.childCount > 0;
+    }
 }

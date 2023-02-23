@@ -16,7 +16,7 @@ public class SwordInteraction : PromptedInteraction
     /// </summary>
     public override void OnInteract()
     {
-        if (PlayerInfo.Instance.PlayerControl.UnlockAttack == false) {
+        if (PlayerInfo.Instance.PlayerControl.AttackUnlocked == false) {
             base.OnInteract();
         } else {
             UIManager.Instance.ActivateInteractText(new List<string>{"Just a regular coffee table."});
@@ -29,7 +29,7 @@ public class SwordInteraction : PromptedInteraction
     /// </summary>
     public override void OnYes()
     {
-        PlayerInfo.Instance.PlayerControl.UnlockAttack = true;
+        PlayerInfo.Instance.AttackUnlocked = true;
         //code to remove sword sprite from world
         tileMap.SetTile(position, null);
         base.OnYes();
