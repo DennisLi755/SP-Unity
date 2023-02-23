@@ -24,6 +24,8 @@ public class Bullet : MonoBehaviour {
     private float maxTimeOffScreen = 5.0f;
 
     void Start() {
+        BulletHolder.Instance.AddBullet();
+
         collider = GetComponent<CircleCollider2D>();
         renderer = GetComponent<SpriteRenderer>();
 
@@ -45,6 +47,7 @@ public class Bullet : MonoBehaviour {
         if (hasRendered && !renderer.isVisible) {
             timeOffScreen += Time.deltaTime;
             if (timeOffScreen > maxTimeOffScreen) {
+                BulletHolder.Instance.RemoveBullet();
                 Destroy(gameObject);
             }
         }

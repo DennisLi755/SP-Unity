@@ -86,6 +86,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         UIManager.Instance.UpdateBossHealthBar(1.0f);
         UIManager.Instance.EnableBossHealthBar(true);
 
+        PlayerInfo.Instance.CombatLock = true;
+
         hitbox = transform.GetComponent<BoxCollider2D>();
         startPos = transform.position;
         canAttack = true;
@@ -183,6 +185,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
                 UIManager.Instance.EnableBossHealthBar(false);
+                PlayerInfo.Instance.CombatLock = false;
             }
             if (ChangePhase()) {
                 attackCycleIndex = 0;

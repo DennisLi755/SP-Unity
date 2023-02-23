@@ -332,7 +332,6 @@ MonoBehaviour:
     m_Bits: 512
   attackAnimation: {fileID: 7400000, guid: 7212d4dcd5a266544a5f6f456c14f1a7, type: 2}
   damageFrame: 1
-  hitbox: {fileID: 4047285250310632639}
   inspectorAttackHixboxes:
   - showBounds: 0
     direction: 0
@@ -387,7 +386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4047285250310632638
 Transform:
   m_ObjectHideFlags: 0

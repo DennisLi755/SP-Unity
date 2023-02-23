@@ -97,8 +97,8 @@ public class PlayerControl : MonoBehaviour {
     [SerializeField]
     private int damageFrame;
     private int totalAttackFrames;
-    [SerializeField]
     private GameObject hitbox;
+    public GameObject Hitbox => hitbox;
 
     public bool AttackUnlocked => pInfo.AttackUnlocked;
     private float attackMoveSpeed = 3f;
@@ -183,6 +183,7 @@ public class PlayerControl : MonoBehaviour {
         CalculateRaySpacing();
         UpdateRayCastOrigins();
 
+        hitbox = transform.GetChild(0).gameObject;
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
         foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {
             attackHitboxes.Add(hitbox.direction, hitbox.bounds);
@@ -219,20 +220,6 @@ public class PlayerControl : MonoBehaviour {
                 else if (velocity.x < 0)
                     facingDirection = FacingDirection.Left;
                 break;
-        }
-
-        //check to see if there are any bullets in scene
-        if (BulletHolder.HasChildren()) {
-            hitbox.SetActive(true);
-            if (SceneManager.GetActiveScene().name == "UI Testing") {
-                UIManager.Instance.EnablePlayerHealthBar(true);
-            }
-        }
-        else {
-            hitbox.SetActive(false);
-            if (SceneManager.GetActiveScene().name == "UI Testing") {
-                UIManager.Instance.EnablePlayerHealthBar(false);
-            }
         }
     }
 
@@ -454,7 +441,7 @@ public class PlayerControl : MonoBehaviour {
             canMove = true;
             velocity = input;
             playerState = PlayerState.Dashing;
-            PlayerInfo.Instance.Damagable = false;
+            PlayerInfo.Instance.Damageable = false;
             activeMoveSpeed = dashSpeed;
             currentDashCharges--;
             StartCoroutine(EndDash());
@@ -480,7 +467,7 @@ public class PlayerControl : MonoBehaviour {
         }
 
         yield return new WaitForSeconds(dashImmunityLength);
-        PlayerInfo.Instance.Damagable = true;
+        PlayerInfo.Instance.Damageable = true;
 
         yield return new WaitForSeconds(dashRechargeTime - dashImmunityLength);
         currentDashCharges++;
