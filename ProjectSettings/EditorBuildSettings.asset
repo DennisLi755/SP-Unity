@@ -11,4 +11,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Old Demo Scenes/Somni House Demo.unity
     guid: 26b47dec6ed41024cb75bc713589d587
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 02fe676af8c3a61428d280af9c913f9f, type: 2}
