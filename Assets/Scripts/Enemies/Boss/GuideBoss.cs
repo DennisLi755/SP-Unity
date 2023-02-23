@@ -27,6 +27,7 @@ public class GuideBoss : Boss
                 blacklistNodeIndices.Remove(adNodeIndicies[ads[i]]);
                 adNodeIndicies.Remove(ads[i]);
                 ads.Remove(ads[i]);
+                i--;
             }
         }
     }
@@ -36,6 +37,7 @@ public class GuideBoss : Boss
         GameObject newAd = Instantiate(ad, transform.position, Quaternion.identity);
         int targetIndex = GetRandomNodeIndex();
         blacklistNodeIndices.Add(targetIndex);
+        adNodeIndicies.Add(newAd, targetIndex);
         newAd.GetComponent<RailEnemy>().AddNode(movementNodes[targetIndex]);
         newAd.GetComponent<BoxCollider2D>().enabled = false;
         ads.Add(newAd);

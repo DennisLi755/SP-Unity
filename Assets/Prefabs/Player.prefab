@@ -333,7 +333,7 @@ MonoBehaviour:
       m_Extent: {x: 0.52, y: 1.36, z: 0}
   environmentLayers:
     serializedVersion: 2
-    m_Bits: 4352
+    m_Bits: 768
 --- !u!114 &4047285249303267157
 MonoBehaviour:
   m_ObjectHideFlags: 0

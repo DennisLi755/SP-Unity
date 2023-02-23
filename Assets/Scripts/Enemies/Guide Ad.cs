@@ -10,6 +10,8 @@ public class GuideAd : RailEnemy {
     void Start() {
         base.Start();
         StartCoroutine(WaitForArrive());
+        canContinueAttack = false;
+        canAttack = true;
     }
 
     public IEnumerator WaitForArrive() {
@@ -20,5 +22,6 @@ public class GuideAd : RailEnemy {
         }
 
         GetComponent<BoxCollider2D>().enabled = true;
+        canContinueAttack = true;
     }
 }
