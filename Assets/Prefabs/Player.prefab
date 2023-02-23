@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 4047285250310632638}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4047285249303267164
 SpriteRenderer:
@@ -277,11 +277,35 @@ MonoBehaviour:
     m_ActionId: 33fff523-cc57-4421-920f-608a2287c2c5
     m_ActionName: Player/Open Menu[/XInputControllerWindows/buttonNorth,/Keyboard/c]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4047285249303267154}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: ActivateSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2812f0b7-239d-46e6-96e2-b3974c3cfbbd
     m_ActionName: Player/Skill 1[/XInputControllerWindows/leftShoulder,/Keyboard/a]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4047285249303267154}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: ActivateSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7f809dae-1f26-4120-8bfa-139307709a9c
     m_ActionName: Player/Skill 2[/XInputControllerWindows/rightShoulder,/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
@@ -309,7 +333,6 @@ MonoBehaviour:
   attackAnimation: {fileID: 7400000, guid: 7212d4dcd5a266544a5f6f456c14f1a7, type: 2}
   damageFrame: 1
   hitbox: {fileID: 4047285250310632639}
-  unlockAttack: 1
   inspectorAttackHixboxes:
   - showBounds: 0
     direction: 0
@@ -346,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8221220f024c1e94b9a1c5021a4a3691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackUnlocked: 1
 --- !u!1 &4047285250310632639
 GameObject:
   m_ObjectHideFlags: 0

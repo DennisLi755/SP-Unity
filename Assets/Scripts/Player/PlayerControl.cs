@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -125,6 +126,14 @@ public class PlayerControl : MonoBehaviour {
 
     #endregion
 
+    #region Skills
+    private int[] equippedSkills = new int[2] { -1, -1 };
+    private List<int> unlockedSkills = new List<int>();
+    private List<Action> allSkills;
+    #endregion
+
+#if UNITY_EDITOR
+    #region Editor UI
     private void OnDrawGizmos() {
         //draw the player's attack boxes
         Gizmos.color = Color.red;
@@ -158,6 +167,8 @@ public class PlayerControl : MonoBehaviour {
             GUI.Label(new Rect(5, yStart += 30, 300, 150), $"health: {PlayerInfo.Instance.Health}");
         }
     }
+    #endregion
+#endif
 
     /// <summary>
     /// Runs when the object is enabled for the first time
@@ -173,10 +184,17 @@ public class PlayerControl : MonoBehaviour {
         UpdateRayCastOrigins();
 
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
-
         foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {
             attackHitboxes.Add(hitbox.direction, hitbox.bounds);
         }
+
+        allSkills = new List<Action>() {
+            Skill0,
+            Skill1,
+            Skill2,
+            Skill3
+        };
+        SetupSkills();
     }
 
     /// <summary>
@@ -336,6 +354,7 @@ public class PlayerControl : MonoBehaviour {
     #endregion
 
     #region Input
+    #region Movement
     /// <summary>
     /// Interprets the player's input for movement
     /// </summary>
@@ -346,6 +365,7 @@ public class PlayerControl : MonoBehaviour {
             velocity = input;
         }
     }
+    #endregion
 
     #region Interact
 
@@ -494,8 +514,80 @@ public class PlayerControl : MonoBehaviour {
         }
     }
     #endregion
+
+    #region Skill Input
+    public void ActivateSkill(InputAction.CallbackContext context) {
+        if (context.performed) {
+            //parse the input action to determine which skill to activate
+            //we subtract '1' instead of '0' because we want it be 0 based for indexing the array
+            int skillSlot = context.action.name[^1] - '1';
+            int skillIndex = equippedSkills[skillSlot];
+            //if the skill in the used slot is not been set, then doing nothing
+            if (skillIndex == -1) {
+                Debug.LogWarning($"There is no skill equipped in slot {skillSlot}");
+                return;
+            }
+
+            allSkills[skillIndex]();
+        }
+    }
+    #endregion
     #endregion
 
+    #region Skills Logic
+    private bool EquipSkill(int skillID, int skillSlot) {
+        if (!unlockedSkills.Contains(skillID)) {
+            Debug.LogWarning($"Could not equip skill {skillID}, the player does not have that skill Unlocked");
+            return false;
+        }
+        equippedSkills[skillSlot] = skillID;
+        Debug.Log($"Skill {skillID} was equipped in slot {skillSlot}");
+        return true;
+    }
+
+    /// <summary>
+    /// Adds a skill to the list of the player's unlocked skills
+    /// </summary>
+    /// <param name="skillID">The ID number of the skill to unlock</param>
+    public void UnlockSkill(int skillID) {
+        //only add the skillID if it has already not been unlocked
+        if (!unlockedSkills.Contains(skillID)) {
+            unlockedSkills.Add(skillID);
+        }
+    }
+
+    private void Skill0() {
+        Debug.Log("This is Skill0");
+    }
+
+    private void Skill1() {
+        Debug.Log("This is Skill1");
+    }
+
+    private void Skill2() {
+        Debug.Log("This is Skill2");
+    }
+
+    private void Skill3() {
+        Debug.Log("This is Skill3");
+    }
+
+    ///Skill Testing Helpers
+
+    [ContextMenu("Equip Skill 2")]
+    public void EquipSkill2() {
+        EquipSkill(2, 0);
+    }
+
+    private void SetupSkills() {
+        UnlockSkill(0);
+        UnlockSkill(2);
+        EquipSkill(0, 0);
+        EquipSkill(1, 1);
+    }
+    #endregion
+
+    #region External Controls
     /// <summary>
     /// Zeros the player's current velocity and disables their movement
     /// </summary>
@@ -512,6 +604,10 @@ public class PlayerControl : MonoBehaviour {
         velocity = input;
     }
 
+    /// <summary>
+    /// Forces the player to face a certain direction; used for scripted events when you want the player to change directions without moving
+    /// </summary>
+    /// <param name="direction"></param>
     public void ForceDirection(FacingDirection direction) {
         facingDirection = direction;
         Vector2 dir = new Vector2();
@@ -532,4 +628,5 @@ public class PlayerControl : MonoBehaviour {
         animator.SetFloat("Horizontal", dir.x);
         animator.SetFloat("Vertical", dir.y);
     }
+    #endregion
 }
