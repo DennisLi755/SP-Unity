@@ -63,8 +63,6 @@ public class PlayerInfo : MonoBehaviour {
         health -= amount;
         if (health <= 0) {
             sr.color = Color.red;
-            instance.PlayerControl.Velocity = Vector3.zero;
-            instance.PlayerControl.CanMove = false;
         }
         else {
             StartCoroutine(WaitForIFrames());
