@@ -57,31 +57,44 @@ public class DialogueManager : MonoBehaviour {
         rightCharacterImage.color = disabledColor;
         rightCharacterKey = null;
 
+        //populate the talk portrait dictionary with expressions for each character by gonig through the inspector list
         foreach (CharacterTalkPortraits cbt in charactersList) {
             Dictionary<string, Sprite> expressions = new Dictionary<string, Sprite>();
             foreach (TalkPortrait dp in cbt.portraits) {
                 expressions.Add(dp.name, dp.expression);
             }
+            //consolodate a character's alias to use as the key for their expressions
             characters.Add(string.Join(", ", cbt.aliases), expressions);
         }
     }
 
-    void Update() {
-
-    }
-
+    /// <summary>
+    /// Enables the dialogue canvas
+    /// </summary>
     public void DisableDialogueCanvas() {
         EnableDialogueCanvas(false);
     }
 
+    /// <summary>
+    /// Disables the dialogue canvas
+    /// </summary>
     public void EnableDialogueCanvas() {
         EnableDialogueCanvas(true);
     }
 
-    private void EnableDialogueCanvas(bool value) {
-        dialogueCanvas.SetActive(value);
+    /// <summary>
+    /// Enables or disables the dialogue canvas based on given bool
+    /// </summary>
+    /// <param name="isEnabled"></param>
+    private void EnableDialogueCanvas(bool isEnabled) {
+        dialogueCanvas.SetActive(isEnabled);
     }
 
+    /// <summary>
+    /// Changes the color of the coresponding character's sprite. If the character is not one of the last two characters to talk,
+    /// their sprite will replace the character who was not the most recent to talk
+    /// </summary>
+    /// <param name="characterName"></param>
     public void UpdateActiveSpeaker(string characterName) {
         //the character has already spoken and is the left character
         if (leftCharacterKey != null && leftCharacterKey.Contains(characterName)) {
@@ -147,6 +160,10 @@ public class DialogueManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Updates the currently speaking character's expression
+    /// </summary>
+    /// <param name="expression"></param>
     public void UpdateExpression(string expression) {
         //updating the left character expression
         try {
@@ -161,6 +178,11 @@ public class DialogueManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Starts the dialogue by setting up the DialogueRunner and enables the DialogueCanvas
+    /// </summary>
+    /// <param name="project"></param>
+    /// <param name="startNode"></param>
     public void StartDialogue(YarnProject project, string startNode) {
         lastActiveSpeaker = true;
         leftCharacterKey = null;
@@ -171,10 +193,9 @@ public class DialogueManager : MonoBehaviour {
         PlayerInfo.Instance.ChangeInputMap("UI");
     }
 
-    public void StartDialogue() {
-
-    }
-
+    /// <summary>
+    /// Toggles auto advance dialogue on and off. Used when characters cut each other and the player cannot control it
+    /// </summary>
     public void ToggleAutoAdvance() {
 
     }

@@ -68,7 +68,7 @@ public class PlayerControl : MonoBehaviour {
     //We use a separate input vector to be able to continously collect the player's input, even if movement is disabled
     private Vector2 input;
     private Vector2 velocity;
-    public Vector2 Velocity {get => velocity; set => velocity = value;}
+    public Vector2 Velocity { get => velocity; set => velocity = value; }
     private float focusScalar = 1f;
     private FacingDirection facingDirection = FacingDirection.Down;
 
@@ -183,7 +183,6 @@ public class PlayerControl : MonoBehaviour {
     /// Runs every frame (variable depending on hardware)
     /// </summary>
     void Update() {
-        animator.SetBool("IsAttacking", playerState == PlayerState.Attack);
         switch (playerState) {
             case PlayerState.Idle:
                 if (velocity != Vector2.zero) {
@@ -366,6 +365,7 @@ public class PlayerControl : MonoBehaviour {
     public void Attack(InputAction.CallbackContext context) {
         if (context.performed && playerState != PlayerState.Attack && AttackUnlocked) {
             SoundManager.Instance.PlaySoundEffect("PlayerAttack", SoundSource.player);
+            animator.SetBool("IsAttacking", true);
             playerState = PlayerState.Attack;
             //ensures the player is set to walking speed if they attack cancel a dash
             activeMoveSpeed = attackMoveSpeed;
@@ -416,6 +416,7 @@ public class PlayerControl : MonoBehaviour {
             playerState = PlayerState.Idle;
             activeMoveSpeed = walkSpeed;
         }
+        animator.SetBool("IsAttacking", false);
         canMove = true;
         velocity = input;
     }
@@ -509,5 +510,26 @@ public class PlayerControl : MonoBehaviour {
     public void UnFreeze() {
         canMove = true;
         velocity = input;
+    }
+
+    public void ForceDirection(FacingDirection direction) {
+        facingDirection = direction;
+        Vector2 dir = new Vector2();
+        switch (direction) {
+            case FacingDirection.Up:
+                dir = new Vector2(0, 1);
+                break;
+            case FacingDirection.Right:
+                dir = new Vector2(1, 0);
+                break;
+            case FacingDirection.Down:
+                dir = new Vector2(0, -1);
+                break;
+            case FacingDirection.Left:
+                dir = new Vector2(-1, 0);
+                break;
+        }
+        animator.SetFloat("Horizontal", dir.x);
+        animator.SetFloat("Vertical", dir.y);
     }
 }

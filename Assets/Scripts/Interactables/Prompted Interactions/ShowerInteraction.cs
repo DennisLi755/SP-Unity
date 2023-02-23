@@ -19,6 +19,7 @@ public class ShowerInteraction : PromptedInteraction
 
         IEnumerator EndShower() {
             yield return new WaitForSeconds(2f);
+            PlayerInfo.Instance.PlayerControl.ForceDirection(FacingDirection.Down);
             UIManager.Instance.FadeFromBlack();
             base.OnYes();
             UIManager.Instance.ActivateInteractText(base.AfterYesMessage);
