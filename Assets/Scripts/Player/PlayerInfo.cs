@@ -55,9 +55,12 @@ public class PlayerInfo : MonoBehaviour {
             return;
         }
         damagable = false;
+        SoundManager.Instance.PlaySoundEffect("PlayerHurt", SoundSource.player);
         health -= amount;
         if (health <= 0) {
             sr.color = Color.red;
+            instance.PlayerControl.Velocity = Vector3.zero;
+            instance.PlayerControl.CanMove = false;
         }
         else {
             StartCoroutine(WaitForIFrames());
