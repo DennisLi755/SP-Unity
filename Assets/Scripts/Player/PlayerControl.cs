@@ -363,6 +363,7 @@ public class PlayerControl : MonoBehaviour {
     /// <param name="context"></param>
     public void Attack(InputAction.CallbackContext context) {
         if (context.performed && playerState != PlayerState.Attack && unlockAttack) {
+            SoundManager.Instance.PlaySoundEffect("PlayerAttack", SoundSource.player);
             playerState = PlayerState.Attack;
             //ensures the player is set to walking speed if they attack cancel a dash
             activeMoveSpeed = attackMoveSpeed;
@@ -425,6 +426,7 @@ public class PlayerControl : MonoBehaviour {
     /// <param name="context"></param>
     public void Dash(InputAction.CallbackContext context) {
         if (context.performed && currentDashCharges > 0 && playerState != PlayerState.Dashing && canDash) {
+            SoundManager.Instance.PlaySoundEffect("PlayerDash", SoundSource.player);
             //setting canMove to true so that they can change dash directions if they dash cancel an attack
             canMove = true;
             velocity = input;
