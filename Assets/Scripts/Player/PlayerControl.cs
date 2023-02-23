@@ -207,13 +207,13 @@ public class PlayerControl : MonoBehaviour {
         if (BulletHolder.HasChildren()) {
             hitbox.SetActive(true);
             if (SceneManager.GetActiveScene().name == "UI Testing") {
-                UIManager.Instance.EnableHealthBar(true);
+                UIManager.Instance.EnablePlayerHealthBar(true);
             }
         }
         else {
             hitbox.SetActive(false);
             if (SceneManager.GetActiveScene().name == "UI Testing") {
-                UIManager.Instance.EnableHealthBar(false);
+                UIManager.Instance.EnablePlayerHealthBar(false);
             }
         }
     }

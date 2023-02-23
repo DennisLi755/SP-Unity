@@ -81,14 +81,17 @@ public abstract class Boss : MonoBehaviour, IDamageable {
 #endif
 
     protected void Start() {
+        //Set the health bar to its default state
         UIManager.Instance.SetBossHealthBarBorder(healthBarBorder);
         UIManager.Instance.UpdateBossHealthBar(1.0f);
         UIManager.Instance.EnableBossHealthBar(true);
+
         hitbox = transform.GetComponent<BoxCollider2D>();
         startPos = transform.position;
         canAttack = true;
         canContinueAttack = true;
         phasesList = new List<UnityEvent[]>();
+        //deconstruct the Phases struct into a list
         foreach (Phases phase in phasesStruct) {
             phasesList.Add(phase.attackCycle);
         }
@@ -105,9 +108,12 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         if (canContinueAttack && phasesList[currentPhase].Length > 0) {
             overridePatternSpeed = false;
             phasesList[currentPhase][attackCycleIndex]?.Invoke();
+            //check if the boss has already repeated the set index the number of times they need to,
+            //or they are on a cycle command after the one they are supposed to repeat
             if (numberOfRepeats == 1 || indexToRepeat != attackCycleIndex) {
                 attackCycleIndex++;
             }
+            //otherwise count this as a completed repeat cycle
             else {
                 numberOfRepeats--;
             }
@@ -117,9 +123,15 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         }
     }
 
+    /// <summary>
+    /// Recaculates the placement of the boss's movement nodes; called once in Boss.Start(), 
+    /// but could technically be called more if the row/colmn count or the size of the bounds gets changed during runtime (eg. phase change)
+    /// </summary>
     [ContextMenu("Update Nodes")]
     protected void UpdateMovementNodePositions() {
+        //the distance between each node
         nodeOffsets = new Vector2(nodeBounds.size.x / (nodeColumnCount - 1), nodeBounds.size.y / (nodeRowCount - 1));
+
         movementNodes = new List<Vector3>();
         blacklistNodeIndices = new List<int>();
         for (int y = nodeRowCount - 1; y >= 0; y--) {
@@ -132,6 +144,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         }
     }
 
+    /// <inheritdoc cref="StaticEnemy.ShootPatternBullet(GameObject)"/>
     public virtual void ShootPatternBullet(GameObject pattern) {
         this.pattern = Instantiate(pattern, transform.position, Quaternion.identity, BulletHolder.Instance.transform);
         BulletPattern bulPat;
@@ -140,6 +153,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         }
     }
 
+    /// <inheritdoc cref="StaticEnemy.Wait(float)"/>
     public void Wait(float time) {
         if (time == 0.0f) {
             return;
@@ -156,11 +170,13 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         }
     }
 
+    /// <inheritdoc cref="StaticEnemy.SetPatternSpeed(float)"/>
     public void SetPatternSpeed(float speed) {
         overridePatternSpeed = true;
         newPatternSpeed = speed;
     }
 
+    /// <inheritdoc cref="StaticEnemy.Hurt(int)"/>
     public void Hurt(int amount) {
         if (isDamageable) {
             currentHealth -= amount;
@@ -188,6 +204,9 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         Debug.Log($"Repeating the next attack {numberOfRepeats} number of times");
     }
 
+    /// <summary>
+    /// Moves the boss to a random node from its movementNodes list
+    /// </summary>
     [ContextMenu("Move to new Node")]
     public virtual void MoveToNewNode() {
         targetNodeIndex = GetRandomNodeIndex();
@@ -196,6 +215,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         canContinueAttack = false;
         attackCycleRoutine = StartCoroutine(MoveToTargetNode());
         hitbox.enabled = false;
+
+        ///Moves the boss to the target node and resets it relavent fields (eg. damageable, targetNodeIndex, etc) once it stops moving
         IEnumerator MoveToTargetNode() {
             while (transform.position != movementNodes[targetNodeIndex]) {
                 transform.position = Vector3.MoveTowards(transform.position, movementNodes[targetNodeIndex], moveSpeed * Time.deltaTime);
@@ -286,7 +307,16 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         return 0;
     }
 
+    /// <summary>
+    /// Checks if the boss should change phase
+    /// </summary>
+    /// <returns></returns>
     public abstract bool ChangePhase();
+
+    /// <summary>
+    /// Creates Echo/After Images of the boss while moving
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator CreateAfterImages() {
         while (targetNodeIndex != -1) {
             GameObject echoInstance = Instantiate(afterImage, transform.position, Quaternion.identity);

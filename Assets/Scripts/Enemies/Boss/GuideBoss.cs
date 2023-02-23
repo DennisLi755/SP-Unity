@@ -16,12 +16,15 @@ public class GuideBoss : Boss
 
     private new void Update() {
         base.Update();
+        //check if Guide should spawn any ads
         if (currentPhase >= 1 && totalAds > 0) {
             if (spawnEnemyCoroutine == null && ads.Count < totalAds) {
                 spawnEnemyCoroutine = StartCoroutine(SpawnEnemy());
             }
         }
 
+        //check if any of the ads have been killed; if they have,
+        //remove them from the ads list and remove the movementNode they were at from the blacklist
         for (int i = 0; i < ads.Count; i++) {
             if (!ads[i].activeInHierarchy) {
                 blacklistNodeIndices.Remove(adNodeIndicies[ads[i]]);
@@ -32,15 +35,21 @@ public class GuideBoss : Boss
         }
     }
 
+    /// <summary>
+    /// Spawns a new Ad
+    /// </summary>
+    /// <returns></returns>
     IEnumerator SpawnEnemy() {
         yield return new WaitForSeconds(UnityEngine.Random.Range(1.0f, 2.0f));
         GameObject newAd = Instantiate(ad, transform.position, Quaternion.identity);
         int targetIndex = GetRandomNodeIndex();
         blacklistNodeIndices.Add(targetIndex);
+        //used to keep track of what movementNode index an ad was at when it comes time to remove it when it dies
         adNodeIndicies.Add(newAd, targetIndex);
+        //tell the ad where to move to
         newAd.GetComponent<RailEnemy>().AddNode(movementNodes[targetIndex]);
-        newAd.GetComponent<BoxCollider2D>().enabled = false;
         ads.Add(newAd);
+        //if Guide can spawn more ads, call the routine again
         if (ads.Count < totalAds) {
             StartCoroutine(SpawnEnemy());
         } else {
@@ -48,8 +57,11 @@ public class GuideBoss : Boss
         }
     }
 
-    public override bool ChangePhase()
-    {
+    /// <inheritdoc/>
+    /// <summary>
+    /// Guide changes to phases 1 and 2 at <= 20 health and <= 15 health respectively
+    /// </summary>
+    public override bool ChangePhase() {
         if (currentHealth <= 20 && currentPhase != 1) {
             currentPhase = 1;
             totalAds = 2;
@@ -62,6 +74,7 @@ public class GuideBoss : Boss
         return false;
     }
 
+    ///
     public override void MoveToNewNode() {
         base.MoveToNewNode();
         StartCoroutine(CreateAfterImages());

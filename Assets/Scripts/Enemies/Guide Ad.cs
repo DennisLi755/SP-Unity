@@ -14,6 +14,10 @@ public class GuideAd : RailEnemy {
         canAttack = true;
     }
 
+    /// <summary>
+    /// Creates Echo/After Images of the ad until it reaches its target, also enables its attacking and hitbox when it reaches its target
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator WaitForArrive() {
         while (transform.position != Target) {
             GameObject echoInstance = Instantiate(afterImage, transform.position, Quaternion.identity);

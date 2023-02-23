@@ -68,7 +68,7 @@ public class PlayerInfo : MonoBehaviour {
             StartCoroutine(WaitForIFrames());
         }
         if (SceneManager.GetActiveScene().name == "UI Testing") {
-            UIManager.Instance.UpdateHealth(health / startingHealth);
+            UIManager.Instance.UpdatePlayerHealth(health / startingHealth);
         }
 
         IEnumerator WaitForIFrames() {

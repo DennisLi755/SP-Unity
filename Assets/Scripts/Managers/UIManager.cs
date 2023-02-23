@@ -137,9 +137,11 @@ public class UIManager : MonoBehaviour {
     /// <param name="sender">object that started the prompted interaction</param>
     /// <param name="message">list of strings to show</param>
     public void ActivatePromptedInteraction(PromptedInteraction sender, List<string> message) {
+        //disable the default interact text continue button and update the even system
         textInteractionButton.gameObject.SetActive(false);
         eventSystem.firstSelectedGameObject = promptedInteractionYesButton.gameObject;
         eventSystem.SetSelectedGameObject(promptedInteractionYesButton.gameObject);
+        //update the the yes button with the yes command from the interactable object
         promptedInteractionYesButton.onClick.AddListener(sender.OnYes);
         interactTexts = message;
         currentTextIndex = 0;
@@ -161,24 +163,44 @@ public class UIManager : MonoBehaviour {
         PlayerInfo.Instance.ChangeInputMap("Player");
     }
 
-    public void UpdateHealth(float healthPercent) {
+    /// <summary>
+    /// Updates the player's health bar fill to reflect their current health percent
+    /// </summary>
+    /// <param name="healthPercent"></param>
+    public void UpdatePlayerHealth(float healthPercent) {
         playerStandardHealthFill.fillAmount = healthPercent;
         playerPentagonHealthFill.fillAmount = healthPercent;
     }
 
-    public void EnableHealthBar(bool isEnabled) {
+    /// <summary>
+    /// Enables or disables the player health bar based on the given bool
+    /// </summary>
+    /// <param name="isEnabled"></param>
+    public void EnablePlayerHealthBar(bool isEnabled) {
         playerStandardHealthBar.SetActive(isEnabled);
         playerPentagonHealthBar.SetActive(isEnabled);
     }
 
+    /// <summary>
+    /// Updates the boss health bar to reflect their current health percent
+    /// </summary>
+    /// <param name="healthPercent"></param>
     public void UpdateBossHealthBar(float healthPercent) {
         bossHealthFill.fillAmount = healthPercent;
     }
 
+    /// <summary>
+    /// Sets the border sprite used for the boss health bar
+    /// </summary>
+    /// <param name="asset"></param>
     public void SetBossHealthBarBorder(Sprite asset) {
         bossHealthBorder.sprite = asset;
     }
 
+    /// <summary>
+    /// Enables or disables the boss health bar based on the given bool
+    /// </summary>
+    /// <param name="isEnabled"></param>
     public void EnableBossHealthBar(bool isEnabled) {
         bossHealthBar.SetActive(isEnabled);
     }
