@@ -186,6 +186,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
                 gameObject.SetActive(false);
                 UIManager.Instance.EnableBossHealthBar(false);
                 PlayerInfo.Instance.CombatLock = false;
+                SoundManager.Instance.ResetMusicLayers();
             }
             if (ChangePhase()) {
                 attackCycleIndex = 0;

@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioSource enemySource;
     [SerializeField]
-    private AudioSource[] musicSource;
+    private List<AudioSource> musicSources;
     [SerializeField]
     private AudioSource UISource;
     [SerializeField]
@@ -48,8 +48,9 @@ public class SoundManager : MonoBehaviour
     private float soundEffectVolume;
 
     [SerializeField]
-    SoundEffect[] soundEffectsArray;
-    Dictionary<string, AudioClip> soundEffects;
+    private SoundEffect[] soundEffectsArray;
+    private Dictionary<string, AudioClip> soundEffects;
+    private int currentLayer;
 
     private void Awake() {
         if (instance == null) {
@@ -75,9 +76,18 @@ public class SoundManager : MonoBehaviour
     public AudioSource FindSource(SoundSource source) {
         switch(source) {
             case SoundSource.player:
-                foreach (AudioSource se in playerSources) {
-                    if (!se.isPlaying) {
-                        return se;
+                if (playerSources.Count == 0) {
+                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                    audioSource.volume = soundEffectVolume;
+                    playerSources.Add(audioSource);
+                }
+                for (int i = 0; i < playerSources.Count; i++) {
+                    if (!playerSources[i].isPlaying) {
+                        return playerSources[i];
+                    } else if (i == playerSources.Count-1) {
+                        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+                        audioSource.volume = soundEffectVolume;
+                        playerSources.Add(audioSource);
                     }
                 }
                 Debug.LogError($"No Available Player SoundSource");
@@ -91,5 +101,64 @@ public class SoundManager : MonoBehaviour
         AudioSource audioSource = FindSource(source);
         audioSource.clip = soundEffects[effectName];
         audioSource.Play();
+        StartCoroutine(WaitForSoundToEnd());
+
+        IEnumerator WaitForSoundToEnd() {
+            while (audioSource.isPlaying) {
+                yield return null;
+            }
+
+            if (source == SoundSource.player) {
+                Destroy(audioSource);
+                playerSources.Remove(audioSource);
+            }
+        }
+    }
+
+    public void SetUpMusicLayers(string[] names) {
+        currentLayer = 0;
+        float volume = musicVolume;
+        for (int i = 0; i < names.Length; i++) {
+            musicSources.Add(gameObject.AddComponent<AudioSource>());
+            musicSources[i].clip = soundEffects[names[i]];
+            musicSources[i].volume = volume;
+            musicSources[i].Play();
+            volume = 0.0f;
+        }
+    }
+
+    public void ChangeMusicLayer(float fadeTime) {
+        StartCoroutine(FadeOut());
+        StartCoroutine(FadeIn());
+
+        IEnumerator FadeOut() {
+            AudioSource audioSource = musicSources[currentLayer];
+            float startVolume = audioSource.volume;
+
+            while (audioSource.volume >= 0) {
+                audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+                yield return null;
+            }
+            audioSource.volume = 0;
+        }
+
+        IEnumerator FadeIn() {
+            AudioSource audioSource = musicSources[currentLayer + 1];
+            float endVolume = musicVolume;
+            Debug.Log(musicVolume);
+            while (audioSource.volume < endVolume) {
+                audioSource.volume += endVolume * Time.deltaTime / fadeTime;
+                yield return null;
+            }
+            audioSource.volume = endVolume;
+            currentLayer++;
+        }
+    }
+
+    public void ResetMusicLayers() {
+        for (int i = 0; i < musicSources.Count;) {
+            Destroy(musicSources[i]);
+            musicSources.RemoveAt(i);
+        }
     }
 }
