@@ -10,7 +10,7 @@ public class PlayerInfo : MonoBehaviour {
     public static PlayerInfo Instance {
         get {
             if (instance == null) {
-                instance = new PlayerInfo();
+                instance = FindObjectOfType<PlayerInfo>();
             }
             return instance;
         }

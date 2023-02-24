@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.InputSystem.UI;
 
 public class UIManager : MonoBehaviour {
     private static UIManager instance;
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour {
     }
 
     #region Object Interaction
+    [Header("Object Interaction")]
     public TMP_Text interactText;
     List<string> interactTexts;
     private int currentTextIndex;
@@ -26,13 +28,14 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private Button textInteractionButton;
     [SerializeField]
-    private EventSystem eventSystem;
+    private EventSystem interactEventSystem;
     [SerializeField]
     private GameObject prompt;
     public GameObject Prompt {get => prompt; set {prompt = value;}}
     #endregion
 
     #region Health Bars
+    [Header("Health Bars")]
     [SerializeField]
     private Image playerStandardHealthFill;
     [SerializeField]
@@ -47,6 +50,18 @@ public class UIManager : MonoBehaviour {
     private Image bossHealthBorder;
     #endregion
 
+    #region Menu
+    [Header("Menu")]
+    [SerializeField]
+    GameObject menu;
+    [SerializeField]
+    GameObject defaultSubMenu;
+    GameObject currentSubMenu;
+    [SerializeField]
+    EventSystem menuEventSystem;
+    #endregion
+
+    [Header("Misc.")]
     [SerializeField]
     Image fadeToBlackPanel;
 
@@ -63,6 +78,8 @@ public class UIManager : MonoBehaviour {
     private void Start() {
         bossHealthFill = bossHealthBar.transform.GetChild(0).GetComponent<Image>();
         bossHealthBorder = bossHealthBar.transform.GetChild(1).GetComponent<Image>();
+
+        currentSubMenu = defaultSubMenu;
     }
 
     /// <summary>
@@ -101,8 +118,8 @@ public class UIManager : MonoBehaviour {
     public void ActivateInteractText(List<string> message) {
         //update selected button in event system
         textInteractionButton.gameObject.SetActive(true);
-        eventSystem.firstSelectedGameObject = textInteractionButton.gameObject;
-        eventSystem.SetSelectedGameObject(textInteractionButton.gameObject);
+        interactEventSystem.firstSelectedGameObject = textInteractionButton.gameObject;
+        interactEventSystem.SetSelectedGameObject(textInteractionButton.gameObject);
         
         //set the texts to be used for the interaction and enable the text UI object
         interactTexts = message;
@@ -139,8 +156,8 @@ public class UIManager : MonoBehaviour {
     public void ActivatePromptedInteraction(PromptedInteraction sender, List<string> message) {
         //disable the default interact text continue button and update the even system
         textInteractionButton.gameObject.SetActive(false);
-        eventSystem.firstSelectedGameObject = promptedInteractionYesButton.gameObject;
-        eventSystem.SetSelectedGameObject(promptedInteractionYesButton.gameObject);
+        interactEventSystem.firstSelectedGameObject = promptedInteractionYesButton.gameObject;
+        interactEventSystem.SetSelectedGameObject(promptedInteractionYesButton.gameObject);
         //update the the yes button with the yes command from the interactable object
         promptedInteractionYesButton.onClick.AddListener(sender.OnYes);
         interactTexts = message;
@@ -203,5 +220,22 @@ public class UIManager : MonoBehaviour {
     /// <param name="isEnabled"></param>
     public void EnableBossHealthBar(bool isEnabled) {
         bossHealthBar.SetActive(isEnabled);
+    }
+
+    public void ToggleMenu() {
+        menu.SetActive(!menu.activeInHierarchy);
+        if (menu.activeInHierarchy) {
+            menuEventSystem.SetSelectedGameObject(defaultSubMenu.transform.parent.gameObject);
+        }
+    }
+
+    public void EnableSubMenu(GameObject subMenu) {
+        currentSubMenu.SetActive(false);
+        currentSubMenu = subMenu;
+        currentSubMenu.SetActive(true);
+    }
+
+    public void FocusSubMenu() {
+        menuEventSystem.SetSelectedGameObject(currentSubMenu.transform.GetChild(2).gameObject);
     }
 }

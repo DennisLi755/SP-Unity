@@ -273,7 +273,19 @@ MonoBehaviour:
     m_ActionId: 01e8c07d-463e-4a9b-8b3a-02c8dba6823e
     m_ActionName: Player/Focus Shot[/Keyboard/leftShift,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4047285249303267154}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: ToggleMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 33fff523-cc57-4421-920f-608a2287c2c5
     m_ActionName: Player/Open Menu[/XInputControllerWindows/buttonNorth,/Keyboard/c]
   - m_PersistentCalls:
@@ -308,6 +320,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7f809dae-1f26-4120-8bfa-139307709a9c
     m_ActionName: Player/Skill 2[/XInputControllerWindows/rightShoulder,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4047285249303267154}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: ToggleMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6bc59f7e-fac8-48e7-a3bd-e27f7aed8215
+    m_ActionName: UI/Close Menu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player

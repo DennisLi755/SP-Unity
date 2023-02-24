@@ -201,8 +201,6 @@ public class PlayerControl : MonoBehaviour {
             Skill3
         };
         SetupSkills();
-
-        Debug.Log(bulletLayer.value);
     }
 
     /// <summary>
@@ -531,6 +529,15 @@ public class PlayerControl : MonoBehaviour {
             }
 
             allSkills[skillIndex]();
+        }
+    }
+    #endregion
+
+    #region Open Menu
+    public void ToggleMenu(InputAction.CallbackContext context) {
+        if (context.performed) {
+            UIManager.Instance.ToggleMenu();
+            pInfo.ChangeInputMap("UI");
         }
     }
     #endregion
