@@ -537,7 +537,6 @@ public class PlayerControl : MonoBehaviour {
     public void ToggleMenu(InputAction.CallbackContext context) {
         if (context.performed) {
             UIManager.Instance.ToggleMenu();
-            pInfo.ChangeInputMap("UI");
         }
     }
     #endregion

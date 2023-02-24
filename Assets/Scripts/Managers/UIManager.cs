@@ -226,6 +226,10 @@ public class UIManager : MonoBehaviour {
         menu.SetActive(!menu.activeInHierarchy);
         if (menu.activeInHierarchy) {
             menuEventSystem.SetSelectedGameObject(defaultSubMenu.transform.parent.gameObject);
+            PlayerInfo.Instance.ChangeInputMap("UI");
+        }
+        else {
+            PlayerInfo.Instance.ChangeInputMap("Player");
         }
     }
 
