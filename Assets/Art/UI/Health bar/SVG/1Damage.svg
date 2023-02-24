@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132.94 126.43">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 16px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke-width: 10px;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #231f20;
+      }
+    </style>
+  </defs>
+  <g id="White_Background" data-name="White Background">
+    <polygon class="cls-3" points="66.47 9.89 9.4 51.35 31.2 118.43 101.74 118.43 123.53 51.35 66.47 9.89"/>
+  </g>
+  <g id="Damage">
+    <polygon class="cls-4" points="73.98 21.07 69.18 66.66 111.07 48.01 73.98 21.07"/>
+  </g>
+  <g id="Top">
+    <polygon class="cls-1" points="66.47 9.89 9.4 51.35 31.2 118.43 101.74 118.43 123.53 51.35 66.47 9.89"/>
+    <line class="cls-2" x1="9.4" y1="51.35" x2="66.47" y2="68.61"/>
+    <line class="cls-2" x1="31.2" y1="118.43" x2="66.47" y2="68.61"/>
+    <line class="cls-2" x1="101.74" y1="118.43" x2="66.47" y2="68.61"/>
+    <line class="cls-2" x1="123.53" y1="51.35" x2="66.47" y2="68.61"/>
+    <line class="cls-2" x1="66.47" y1="9.89" x2="66.47" y2="68.61"/>
+  </g>
+</svg>
