@@ -19,6 +19,8 @@ public class PlayerInfo : MonoBehaviour {
     private PlayerControl pControl;
     public PlayerControl PlayerControl { get => pControl; }
 
+    public Sprite[] sprites;
+
     private SpriteRenderer sr;
 
     #region Combat Control
@@ -84,6 +86,24 @@ public class PlayerInfo : MonoBehaviour {
         damageable = false;
         SoundManager.Instance.PlaySoundEffect("PlayerHurt", SoundSource.player);
         health -= amount;
+        switch(health)
+        {
+            case 4:
+                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[1];
+                break;
+            case 3:
+                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[2];
+                break;
+            case 2:
+                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[3];
+                break;
+            case 1:
+                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[4];
+                break;
+            default:
+                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[0];
+                break;
+        }
         //Player is dead
         if (health <= 0) {
             sr.color = Color.red;

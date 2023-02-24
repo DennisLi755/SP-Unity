@@ -1425,10 +1425,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff97d3ba0bd9942b26d55e328b99c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  healthDrop: {fileID: 0}
+  startingHealth: 0
   healthDropChance: 0
+  healthDrop: {fileID: 0}
   useTargetingCircle: 1
+  targetingCircle:
+    center: {x: 0, y: 0}
+    radius: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -1459,7 +1462,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  afterImage: {fileID: 0}
+  losesAggro: 1
+  aggroLossTime: 5
   moveBulletsWithEnemy: 0
   nodes:
   - {x: 0, y: 0, z: 0}
@@ -4553,10 +4557,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e48b2a71d57dd843b38b8075bde7c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  healthDrop: {fileID: 0}
+  startingHealth: 0
   healthDropChance: 0
+  healthDrop: {fileID: 0}
   useTargetingCircle: 0
+  targetingCircle:
+    center: {x: 0, y: 0}
+    radius: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -4587,7 +4594,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  afterImage: {fileID: 0}
+  losesAggro: 1
+  aggroLossTime: 5
 --- !u!212 &720721723
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6321,10 +6329,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff97d3ba0bd9942b26d55e328b99c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  healthDrop: {fileID: 0}
+  startingHealth: 0
   healthDropChance: 0
+  healthDrop: {fileID: 0}
   useTargetingCircle: 0
+  targetingCircle:
+    center: {x: 0, y: 0}
+    radius: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -6355,7 +6366,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  afterImage: {fileID: 0}
+  losesAggro: 1
+  aggroLossTime: 5
   moveBulletsWithEnemy: 0
   nodes:
   - {x: 0, y: 0, z: 0}
@@ -60135,10 +60147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e48b2a71d57dd843b38b8075bde7c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  healthDrop: {fileID: 0}
+  startingHealth: 0
   healthDropChance: 0
+  healthDrop: {fileID: 0}
   useTargetingCircle: 1
+  targetingCircle:
+    center: {x: 0, y: 0}
+    radius: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -60219,7 +60234,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  afterImage: {fileID: 0}
+  losesAggro: 1
+  aggroLossTime: 5
 --- !u!58 &1948960059
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -70964,10 +70980,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e48b2a71d57dd843b38b8075bde7c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  healthDrop: {fileID: 0}
+  startingHealth: 0
   healthDropChance: 0
+  healthDrop: {fileID: 0}
   useTargetingCircle: 1
+  targetingCircle:
+    center: {x: 0, y: 0}
+    radius: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -71048,7 +71067,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  afterImage: {fileID: 0}
+  losesAggro: 1
+  aggroLossTime: 5
 --- !u!212 &2024180455
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -71487,9 +71507,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4047285249303267157, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: sprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047285249303267157, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: b803559f1505be548a6427906c18749f, type: 3}
+    - target: {fileID: 4047285249303267157, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: a3cc7ede9b5a99749a113161af18f64f, type: 3}
+    - target: {fileID: 4047285249303267157, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: ad57b8b12dc271340babdaa5cb5aa54e, type: 3}
+    - target: {fileID: 4047285249303267157, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: c7ba5d9e5956ad44dab83c494a2cf697, type: 3}
+    - target: {fileID: 4047285249303267157, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: sprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: 3e44c2594c5ac4f488d32992116d62ad, type: 3}
     - target: {fileID: 4047285249303267165, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047285250310632636, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: b803559f1505be548a6427906c18749f, type: 3}
+    - target: {fileID: 4047285250310632637, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: m_Radius
+      value: 0.1723111
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047285250310632637, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.02043605
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047285250310632639, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
