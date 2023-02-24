@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour {
     GameObject currentSubMenu;
     [SerializeField]
     EventSystem menuEventSystem;
+    GameObject lastSelectedObject;
     #endregion
 
     [Header("Misc.")]
@@ -241,5 +242,38 @@ public class UIManager : MonoBehaviour {
 
     public void FocusSubMenu() {
         menuEventSystem.SetSelectedGameObject(currentSubMenu.transform.GetChild(2).gameObject);
+    }
+
+    public void UnFocusSubMenu() {
+        menuEventSystem.SetSelectedGameObject(currentSubMenu.transform.parent.gameObject);
+    }
+
+    public void SetSelected(GameObject newSelected) {
+        menuEventSystem.SetSelectedGameObject(newSelected);
+    }
+
+    public void SetLastSelected(GameObject sender) {
+        lastSelectedObject = sender;
+    }
+
+    public void ReturnToLastSelected() {
+        SetSelected(lastSelectedObject);
+    }
+
+    public void TryEquipSkill(int skillID) {
+        SkillEquipStatus result = PlayerInfo.Instance.PlayerControl.EquipSkill(skillID, lastSelectedObject.name[^1] - '0');
+        switch (result) {
+            case SkillEquipStatus.Equipped:
+                lastSelectedObject.GetComponentInChildren<TMP_Text>().text = skillID.ToString();
+                ReturnToLastSelected();
+                break;
+            case SkillEquipStatus.NotUnlocked:
+                //indicate that skill is not unlocked
+                break;
+            case SkillEquipStatus.Unequipped:
+                lastSelectedObject.GetComponentInChildren<TMP_Text>().text = "";
+                ReturnToLastSelected();
+                break;
+        }
     }
 }

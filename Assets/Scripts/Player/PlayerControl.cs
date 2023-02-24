@@ -50,6 +50,12 @@ public enum PlayerState {
     Dashing
 }
 
+public enum SkillEquipStatus {
+    NotUnlocked = -1,
+    Unequipped = 0,
+    Equipped = 1
+}
+
 public class PlayerControl : MonoBehaviour {
 
     [SerializeField]
@@ -543,14 +549,25 @@ public class PlayerControl : MonoBehaviour {
     #endregion
 
     #region Skills Logic
-    private bool EquipSkill(int skillID, int skillSlot) {
+    /// <summary>
+    /// Tries to equip the skill with the given ID in the given slot 
+    /// </summary>
+    /// <param name="skillID"></param>
+    /// <param name="skillSlot"></param>
+    /// <returns></returns>
+    public SkillEquipStatus EquipSkill(int skillID, int skillSlot) {
+        if (skillID == equippedSkills[skillSlot]) {
+            Debug.Log($"Unequipped skill {skillID} from slot {skillSlot}");
+            equippedSkills[skillSlot] = -1;
+            return SkillEquipStatus.Unequipped;
+        }
         if (!unlockedSkills.Contains(skillID)) {
             Debug.LogWarning($"Could not equip skill {skillID}, the player does not have that skill Unlocked");
-            return false;
+            return SkillEquipStatus.NotUnlocked;
         }
         equippedSkills[skillSlot] = skillID;
         Debug.Log($"Skill {skillID} was equipped in slot {skillSlot}");
-        return true;
+        return SkillEquipStatus.Equipped;
     }
 
     /// <summary>
@@ -590,8 +607,8 @@ public class PlayerControl : MonoBehaviour {
     private void SetupSkills() {
         UnlockSkill(0);
         UnlockSkill(2);
-        EquipSkill(0, 0);
-        EquipSkill(1, 1);
+        //EquipSkill(0, 0);
+        //EquipSkill(1, 1);
     }
     #endregion
 
