@@ -174,7 +174,7 @@ public class PlayerInfo : MonoBehaviour {
     /// Enteres the player into combat, enabling their hitbox and any other combat related UI or restrictions
     /// </summary>
     public void EnterCombat() {
-        inCombat = false;
+        inCombat = true;
         Hitbox.SetActive(true);
         if (SceneManager.GetActiveScene().name == "UI Testing") {
             UIManager.Instance.EnablePlayerHealthBar(true);

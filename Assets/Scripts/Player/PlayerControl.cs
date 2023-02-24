@@ -259,7 +259,7 @@ public class PlayerControl : MonoBehaviour {
 
         //check the player's hitbox for any bullets
         if (pInfo.InCombat) {
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position + hitboxCollider.bounds.center, hitboxCollider.radius, Vector2.zero, 0.0f, bulletLayer);
+            RaycastHit2D hit = Physics2D.CircleCast(hitboxCollider.bounds.center, hitboxCollider.radius, Vector2.zero, 0.0f, bulletLayer);
             if (hit) {
                 pInfo.Hurt(1);
             }
