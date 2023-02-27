@@ -56,6 +56,10 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     #endregion
     [SerializeField]
     private GameObject afterImage;
+    [SerializeField]
+    protected Material whiteMaterial;
+    private Material spritesDefault;
+    protected SpriteRenderer sr;
 
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
@@ -93,6 +97,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         canAttack = true;
         canContinueAttack = true;
         phasesList = new List<UnityEvent[]>();
+        sr = GetComponent<SpriteRenderer>();
+        spritesDefault = sr.material;
         //deconstruct the Phases struct into a list
         foreach (Phases phase in phasesStruct) {
             phasesList.Add(phase.attackCycle);
@@ -182,6 +188,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     public void Hurt(int amount) {
         if (isDamageable) {
             currentHealth -= amount;
+            sr.material = whiteMaterial;
+            StartCoroutine(TurnColorBack());
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
                 UIManager.Instance.EnableBossHealthBar(false);
@@ -193,6 +201,11 @@ public abstract class Boss : MonoBehaviour, IDamageable {
                 attackCycleRoutine = null;
             }
             UIManager.Instance.UpdateBossHealthBar((float)currentHealth / maxHealth);
+        }
+
+        IEnumerator TurnColorBack() {
+            yield return new WaitForSeconds(0.2f);
+            sr.material = spritesDefault;
         }
     }
     /// <summary>

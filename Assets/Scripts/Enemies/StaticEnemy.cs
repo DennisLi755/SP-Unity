@@ -24,6 +24,11 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     private float healthDropChance;
     [SerializeField]
     private GameObject healthDrop;
+    [SerializeField]
+    private SpriteRenderer sr; 
+    [SerializeField]
+    private Material whiteMaterial;
+    private Material spriteDefault;
     #endregion
 
     #region Attacking
@@ -74,6 +79,8 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
             canContinueAttack = true;
         }
         bodyCollider = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+        spriteDefault = sr.material;
         currentHealth = startingHealth;
     }
 
@@ -205,12 +212,19 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     public void Hurt(int amount) {
         if (isDamageable) {
             currentHealth -= amount;
+            sr.material = whiteMaterial;
+            StartCoroutine(TurnColorBack());
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
                 if (healthDropChance > 0) {
                     SpawnPickup(healthDropChance);
                 }
             }
+        }
+
+        IEnumerator TurnColorBack() {
+            yield return new WaitForSeconds(0.2f);
+            sr.material = spriteDefault;
         }
     }
 
