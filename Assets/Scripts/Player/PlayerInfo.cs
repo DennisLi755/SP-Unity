@@ -86,24 +86,6 @@ public class PlayerInfo : MonoBehaviour {
         damageable = false;
         SoundManager.Instance.PlaySoundEffect("PlayerHurt", SoundSource.player);
         health -= amount;
-        switch(health)
-        {
-            case 4:
-                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[1];
-                break;
-            case 3:
-                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[2];
-                break;
-            case 2:
-                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[3];
-                break;
-            case 1:
-                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[4];
-                break;
-            default:
-                Hitbox.transform.GetComponent<SpriteRenderer>().sprite = sprites[0];
-                break;
-        }
         //Player is dead
         if (health <= 0) {
             sr.color = Color.red;
@@ -115,9 +97,8 @@ public class PlayerInfo : MonoBehaviour {
         else {
             StartCoroutine(WaitForIFrames());
         }
-        if (SceneManager.GetActiveScene().name == "UI Testing") {
-            UIManager.Instance.UpdatePlayerHealth(health / startingHealth);
-        }
+
+        UIManager.Instance.UpdatePlayerHealth(health / startingHealth);
 
         ///Wait for a total length of the player's invinicibility length, changing the opacity of the player's sprite a 
         ///number of times set inside the routine

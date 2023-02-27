@@ -41,10 +41,6 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject playerStandardHealthBar;
     [SerializeField]
-    private Image playerPentagonHealthFill;
-    [SerializeField]
-    private GameObject playerPentagonHealthBar;
-    [SerializeField]
     private GameObject bossHealthBar;
     private Image bossHealthFill;
     private Image bossHealthBorder;
@@ -187,7 +183,6 @@ public class UIManager : MonoBehaviour {
     /// <param name="healthPercent"></param>
     public void UpdatePlayerHealth(float healthPercent) {
         playerStandardHealthFill.fillAmount = healthPercent;
-        playerPentagonHealthFill.fillAmount = healthPercent;
     }
 
     /// <summary>
@@ -196,7 +191,6 @@ public class UIManager : MonoBehaviour {
     /// <param name="isEnabled"></param>
     public void EnablePlayerHealthBar(bool isEnabled) {
         playerStandardHealthBar.SetActive(isEnabled);
-        playerPentagonHealthBar.SetActive(isEnabled);
     }
 
     /// <summary>

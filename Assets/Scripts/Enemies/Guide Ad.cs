@@ -12,6 +12,7 @@ public class GuideAd : RailEnemy {
         StartCoroutine(WaitForArrive());
         canContinueAttack = false;
         canAttack = true;
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     /// <summary>
