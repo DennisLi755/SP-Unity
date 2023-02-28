@@ -454,7 +454,7 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     /// <param name="context"></param>
     public void Dash(InputAction.CallbackContext context) {
-        if (context.performed && currentDashCharges > 0 && playerState != PlayerState.Dashing && canDash) {
+        if (context.performed && currentDashCharges > 0 && playerState != PlayerState.Dashing && canDash && velocity != Vector2.zero) {
             SoundManager.Instance.PlaySoundEffect("PlayerDash", SoundSource.player);
             //setting canMove to true so that they can change dash directions if they dash cancel an attack
             canMove = true;
