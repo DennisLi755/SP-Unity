@@ -85,11 +85,11 @@ public class PlayerControl : MonoBehaviour {
     private const int maxDashCharges = 2;
     private const float dashSpeed = 20f;
     private int currentDashCharges = maxDashCharges;
-    private float dashImmunityLength = 0.3f;
+    private float dashImmunityLength = 0.24f;
     //how long the player is dashing for in seconds
     private float dashLength = 0.12f;
     //how long it takes for a dash charge to come back, starting when the dash ends
-    private float dashRechargeTime = 2f;
+    private float dashRechargeTime = 1.5f;
 
     //active move speed is changed between the value of walkSpeed and dashSpeed when the player starts or ends a dash
     //by default is is equal to walkSpeed
