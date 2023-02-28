@@ -128,31 +128,39 @@ public class SoundManager : MonoBehaviour
     }
 
     public void ChangeMusicLayer(float fadeTime) {
-        StartCoroutine(FadeOut());
-        StartCoroutine(FadeIn());
+        StartCoroutine(FadeOut(currentLayer, fadeTime, false));
+        StartCoroutine(FadeIn(currentLayer+1, fadeTime));
+    }
 
-        IEnumerator FadeOut() {
-            AudioSource audioSource = musicSources[currentLayer];
-            float startVolume = audioSource.volume;
+    public void FadeOutCurrentLayer(float fadeTime) {
+        StartCoroutine(FadeOut(currentLayer, fadeTime, true));
 
-            while (audioSource.volume >= 0) {
-                audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
-                yield return null;
-            }
-            audioSource.volume = 0;
+    }
+
+    IEnumerator FadeOut(int layer, float fadeTime, bool resetLayers) {
+        AudioSource audioSource = musicSources[currentLayer];
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume >= 0) {
+            audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
         }
-
-        IEnumerator FadeIn() {
-            AudioSource audioSource = musicSources[currentLayer + 1];
-            float endVolume = musicVolume;
-            Debug.Log(musicVolume);
-            while (audioSource.volume < endVolume) {
-                audioSource.volume += endVolume * Time.deltaTime / fadeTime;
-                yield return null;
-            }
-            audioSource.volume = endVolume;
-            currentLayer++;
+        audioSource.volume = 0;
+        if (resetLayers) {
+            ResetMusicLayers();
         }
+    }
+
+    IEnumerator FadeIn(int layer, float fadeTime) {
+        AudioSource audioSource = musicSources[currentLayer + 1];
+        float endVolume = musicVolume;
+        Debug.Log(musicVolume);
+        while (audioSource.volume < endVolume) {
+            audioSource.volume += endVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+        audioSource.volume = endVolume;
+        currentLayer++;
     }
 
     public void ResetMusicLayers() {
