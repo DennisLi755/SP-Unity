@@ -124,8 +124,10 @@ public class PlayerInfo : MonoBehaviour {
     /// </summary>
     /// <param name="amount"></param>
     public void Heal(int amount) {
-        if (health < startingHealth)
+        if (health < startingHealth) {
             health += amount;
+        }
+        UIManager.Instance.UpdatePlayerHealth(health/startingHealth);
     }
 
     /// <summary>
