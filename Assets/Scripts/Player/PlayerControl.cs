@@ -159,8 +159,8 @@ public class PlayerControl : MonoBehaviour {
     private void OnGUI() {
         if (showDebug) {
             GUI.color = Color.black;
-            int yStart = -10;
-            GUI.Box(new Rect(0, 0, 150, 200), "");
+            int yStart = Screen.height / 8;
+            GUI.Box(new Rect(0, yStart + 15, 150, 200), "");
             GUI.color = Color.white;
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"activeMoveSpeed: {activeMoveSpeed}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"dashCharges: {currentDashCharges}");
@@ -542,7 +542,7 @@ public class PlayerControl : MonoBehaviour {
     #region Open Menu
     public void ToggleMenu(InputAction.CallbackContext context) {
         if (context.performed) {
-            UIManager.Instance.ToggleMenu();
+            GameManager.Instance.PauseGame();
         }
     }
     #endregion

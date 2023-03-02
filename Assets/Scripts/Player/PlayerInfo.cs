@@ -19,7 +19,12 @@ public class PlayerInfo : MonoBehaviour {
     private PlayerControl pControl;
     public PlayerControl PlayerControl { get => pControl; }
 
-    public Sprite[] sprites;
+    [SerializeField]
+    private Sprite[] playerHitboxSprites;
+    /// <summary>
+    /// True for the standard health bar in the top left, false for the SP style 
+    /// </summary>
+    private bool healthBarStyle = true;
 
     private SpriteRenderer sr;
 
@@ -39,9 +44,9 @@ public class PlayerInfo : MonoBehaviour {
     }
     public GameObject Hitbox => pControl.Hitbox;
 
-    private float health;
-    public float Health => health;
-    private const float startingHealth = 5;
+    private int health;
+    public int Health => health;
+    private const int startingHealth = 5;
     private const float invincibilityLength = 1;
     private bool damageable = true;
     public bool Damageable { get => damageable; set { damageable = value; } }
@@ -74,6 +79,12 @@ public class PlayerInfo : MonoBehaviour {
         health = startingHealth;
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            FlipHealthBarStyle();
+        }
+    }
+
     /// <summary>
     /// Damages the player the given amount and starts their I-Frames
     /// </summary>
@@ -86,6 +97,12 @@ public class PlayerInfo : MonoBehaviour {
         damageable = false;
         SoundManager.Instance.PlaySoundEffect("PlayerHurt", SoundSource.player);
         health -= amount;
+        if (healthBarStyle) {
+            UIManager.Instance.UpdatePlayerHealth((float)health / startingHealth);
+        }
+        else {
+            UpdateHitboxHealth();
+        }
         //Player is dead
         if (health <= 0) {
             sr.color = Color.red;
@@ -97,8 +114,6 @@ public class PlayerInfo : MonoBehaviour {
         else {
             StartCoroutine(WaitForIFrames());
         }
-
-        UIManager.Instance.UpdatePlayerHealth(health / startingHealth);
 
         ///Wait for a total length of the player's invinicibility length, changing the opacity of the player's sprite a 
         ///number of times set inside the routine
@@ -168,9 +183,7 @@ public class PlayerInfo : MonoBehaviour {
         }
         inCombat = false;
         Hitbox.SetActive(false);
-        if (SceneManager.GetActiveScene().name == "UI Testing") {
-            UIManager.Instance.EnablePlayerHealthBar(false);
-        }
+        UIManager.Instance.EnablePlayerHealthBar(false);
     }
 
     /// <summary>
@@ -179,12 +192,25 @@ public class PlayerInfo : MonoBehaviour {
     public void EnterCombat() {
         inCombat = true;
         Hitbox.SetActive(true);
-        if (SceneManager.GetActiveScene().name == "UI Testing") {
-            UIManager.Instance.EnablePlayerHealthBar(true);
-        }
+        UIManager.Instance.EnablePlayerHealthBar(true);
     }
 
     public void UpdateHitboxHealth() {
+        Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[health];
+    }
 
+    public void FlipHealthBarStyle() {
+        //changing from standard type
+        if (healthBarStyle) {
+            Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[health];
+            UIManager.Instance.EnablePlayerHealthBar(false);
+        }
+        //changing from SP style
+        else {
+            Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[6];
+            UIManager.Instance.EnablePlayerHealthBar(true);
+            UIManager.Instance.UpdatePlayerHealth((float)health / startingHealth);
+        }
+        healthBarStyle = !healthBarStyle;
     }
 }

@@ -396,6 +396,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8221220f024c1e94b9a1c5021a4a3691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHitboxSprites:
+  - {fileID: 3286163911610860551, guid: 00a50e5361d0f3b4ea4e5a13f09bd95b, type: 3}
+  - {fileID: 3286163911610860551, guid: 63efc9d484bc14e49be7c9ad7b863ba4, type: 3}
+  - {fileID: 3286163911610860551, guid: f4b6bf37323f9bf4abb2e7a4ac2997af, type: 3}
+  - {fileID: 3286163911610860551, guid: 580aff8af405a5f4fb26cf76d41b8c85, type: 3}
+  - {fileID: 3286163911610860551, guid: e8c6b68406091aa4087a441112644d8b, type: 3}
+  - {fileID: 3286163911610860551, guid: b6f4db0b9367b8e4b880e892167d0d6d, type: 3}
+  - {fileID: 21300000, guid: 8dedfc82c28741548bdfd3ac6b2face0, type: 3}
   attackUnlocked: 1
 --- !u!1 &4047285250310632639
 GameObject:
@@ -514,6 +522,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
   m_Radius: 0.171875

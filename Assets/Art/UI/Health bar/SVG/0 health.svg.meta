@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c7ba5d9e5956ad44dab83c494a2cf697
+guid: 00a50e5361d0f3b4ea4e5a13f09bd95b
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -13,7 +13,7 @@ ScriptedImporter:
   svgPixelsPerUnit: 300
   gradientResolution: 64
   alignment: 0
-  customPivot: {x: 0, y: 0}
+  customPivot: {x: 0.5, y: 0.5}
   generatePhysicsShape: 0
   viewportOptions: 0
   preserveViewport: 0
@@ -39,16 +39,16 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: 
+      name: 0 healthSprite
       originalName: 
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       alignment: 0
       border: {x: 0, y: 0, z: 0, w: 0}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 0
-        height: 0
-      spriteID: 46bf7b9c882be014eb8663d81b43fcaf
+        width: 133
+        height: 126
+      spriteID: c9fdcd694d0d25946a83592d6c8c0c75
     PhysicsOutlines: []

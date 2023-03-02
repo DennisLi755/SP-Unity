@@ -222,11 +222,9 @@ public class UIManager : MonoBehaviour {
         if (menu.activeInHierarchy) {
             menuEventSystem.SetSelectedGameObject(defaultSubMenu.transform.parent.gameObject);
             PlayerInfo.Instance.ChangeInputMap("UI");
-            Time.timeScale = 0.0f;
         }
         else {
             PlayerInfo.Instance.ChangeInputMap("Player");
-            Time.timeScale = 1.0f;
         }
     }
 
