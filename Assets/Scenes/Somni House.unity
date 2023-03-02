@@ -43468,6 +43468,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3695494055531846383, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3695494055640446564, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -43515,6 +43519,22 @@ PrefabInstance:
     - target: {fileID: 3695494055640446571, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
       propertyPath: m_Name
       value: Controllers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695494056428844968, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: m_Colors.m_NormalColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695494056428844974, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695494056741310851, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3695494057110364235, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3923355344859702598, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
       propertyPath: m_AnchorMax.y
