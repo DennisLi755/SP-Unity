@@ -68,6 +68,8 @@ public class UIManager : MonoBehaviour {
     //Skills
     [SerializeField]
     GameObject[] skillSlots = new GameObject[2];
+    [SerializeField]
+    GameObject[] skillIcons = new GameObject[2];
     #endregion
 
     [Header("Misc.")]
@@ -284,6 +286,9 @@ public class UIManager : MonoBehaviour {
         switch (result) {
             case SkillEquipStatus.Equipped:
                 skillSlots[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
+
+                skillIcons[targetSlot].SetActive(true);
+                skillIcons[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
                 ReturnToLastSelected();
                 break;
             case SkillEquipStatus.NotUnlocked:
@@ -291,13 +296,23 @@ public class UIManager : MonoBehaviour {
                 break;
             case SkillEquipStatus.Unequipped:
                 skillSlots[targetSlot].GetComponentInChildren<TMP_Text>().text = "";
+
+                skillIcons[targetSlot].SetActive(false);
+                skillIcons[targetSlot].GetComponentInChildren<TMP_Text>().text = "";
                 ReturnToLastSelected();
                 break;
             case SkillEquipStatus.Swapped:
                 int otherSlot = Mathf.Abs(targetSlot - 1);
                 skillSlots[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
                 skillSlots[otherSlot].GetComponentInChildren<TMP_Text>().text = "";
+
+                skillIcons[targetSlot].SetActive(true);
+                skillIcons[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
                 break;
         }
+    }
+
+    public void UpdateSkillIconCooldown(int skillSlot, float cooldownPercent) {
+        skillIcons[skillSlot].transform.GetChild(1).GetComponent<Image>().fillAmount = cooldownPercent;
     }
 }

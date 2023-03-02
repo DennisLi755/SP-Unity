@@ -1897,6 +1897,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4047285249303267154, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
+      propertyPath: showDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047285249303267154, guid: f2711f32a4cef2344b61e0f22e5e2224, type: 3}
       propertyPath: unlockAttack
       value: 0
       objectReference: {fileID: 0}
@@ -43493,6 +43497,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1912217030260066963, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634716186011907756, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634716186011907756, guid: 97c896dfb52ad7243838cbb83524bd06, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}

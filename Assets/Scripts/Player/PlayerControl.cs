@@ -573,12 +573,16 @@ public class PlayerControl : MonoBehaviour {
     }
 
     IEnumerator CooldownSkill(int skillSlot) {
+        int skillID = equippedSkills[skillSlot];
+        float maxSkillCooldown = skillsCollection.skills[skillID].Cooldown;
         //do the cooldown overtime instead of just a WaitForSeconds in case we to have a visual indicator of how long the cooldown has left
         while (skillsCooldowns[skillSlot] > 0.0f) {
             skillsCooldowns[skillSlot] -= Time.deltaTime;
+            UIManager.Instance.UpdateSkillIconCooldown(skillSlot, skillsCooldowns[skillSlot] / maxSkillCooldown);
             yield return null;
         }
         skillsCooldowns[skillSlot] = 0.0f;
+        UIManager.Instance.UpdateSkillIconCooldown(skillSlot, 0.0f);
     }
     #endregion
 
@@ -683,8 +687,6 @@ public class PlayerControl : MonoBehaviour {
     private void SetupSkills() {
         UnlockSkill(0);
         UnlockSkill(2);
-        //EquipSkill(0, 0);
-        //EquipSkill(1, 1);
     }
     #endregion
 
