@@ -18,7 +18,7 @@ MonoBehaviour:
       damage.
     SkillHint: A gift given by a mysterious force.
     ManaCost: 30
-    Cooldown: 5
+    Cooldown: 10
   - Name: ???
     SkillDescription: A mass of limitless potential.
     SkillHint: 

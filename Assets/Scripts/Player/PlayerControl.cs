@@ -542,22 +542,19 @@ public class PlayerControl : MonoBehaviour {
             //parse the input action to determine which skill to activate
             //we subtract '1' instead of '0' because we want it be 0 based for indexing the array
             int skillSlot = context.action.name[^1] - '1';
-            int skillIndex = equippedSkills[skillSlot];
+            int skillID = equippedSkills[skillSlot];
             //if the skill in the used slot is not been set, then doing nothing
-            if (skillIndex == -1) {
+            if (skillID == -1) {
                 Debug.LogWarning($"There is no skill equipped in slot {skillSlot}");
                 return;
             }
 
             //only activate the skill if its not on cooldown
             if (skillsCooldowns[skillSlot] == 0.0f) {
-                if (pInfo.CurrentMana >= skillsCollection.skills[skillIndex].ManaCost) {
+                if (pInfo.CurrentMana >= skillsCollection.skills[skillID].ManaCost) {
                     //activate the skill and only set the cooldown if the skill successfully activated
-                    if (allSkills[skillIndex]()) {
-                        pInfo.CurrentMana -= skillsCollection.skills[skillIndex].ManaCost;
-                        //set the cooldown for the skill in the same index as the skillSlot using the cooldown from the skills array with the index = skillID of the activated skill
-                        skillsCooldowns[skillSlot] = skillsCollection.skills[skillIndex].Cooldown;
-                        StartCoroutine(CooldownSkill(skillSlot));
+                    if (allSkills[skillID]()) {
+                        //pInfo.CurrentMana -= skillsCollection.skills[skillIndex].ManaCost;
                     }
                 }
                 //player doesn't have enough mana
@@ -572,9 +569,14 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    IEnumerator CooldownSkill(int skillSlot) {
+    public IEnumerator CooldownSkill(int skillSlot, Func<bool> startCondition) {
         int skillID = equippedSkills[skillSlot];
+        //set the cooldown for the skill in the same index as the skillSlot using the cooldown from the skills array with the index = skillID of the activated skill
+        skillsCooldowns[skillSlot] = skillsCollection.skills[skillID].Cooldown;
         float maxSkillCooldown = skillsCollection.skills[skillID].Cooldown;
+        while (startCondition()) {
+            yield return null;
+        }
         //do the cooldown overtime instead of just a WaitForSeconds in case we to have a visual indicator of how long the cooldown has left
         while (skillsCooldowns[skillSlot] > 0.0f) {
             skillsCooldowns[skillSlot] -= Time.deltaTime;
@@ -646,8 +648,10 @@ public class PlayerControl : MonoBehaviour {
     }
 
     private bool Skill0() {
+        int skillSlot = (equippedSkills[0] == 0)? 0 : 1;
         if (!IsShieldActive) {
             ToggleShield(true);
+            StartCoroutine(CooldownSkill(skillSlot, () => isShieldActive));
             return true;
         }
         else {

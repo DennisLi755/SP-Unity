@@ -315,4 +315,8 @@ public class UIManager : MonoBehaviour {
     public void UpdateSkillIconCooldown(int skillSlot, float cooldownPercent) {
         skillIcons[skillSlot].transform.GetChild(1).GetComponent<Image>().fillAmount = cooldownPercent;
     }
+
+    public void EnableSkillIcons(bool isEnabled) {
+        skillIcons[0].transform.parent.gameObject.SetActive(isEnabled);
+    }
 }
