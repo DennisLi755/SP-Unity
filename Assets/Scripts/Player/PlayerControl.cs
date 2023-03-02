@@ -53,7 +53,8 @@ public enum PlayerState {
 public enum SkillEquipStatus {
     NotUnlocked = -1,
     Unequipped = 0,
-    Equipped = 1
+    Equipped = 1,
+    Swapped = 2
 }
 
 public class PlayerControl : MonoBehaviour {
@@ -136,9 +137,17 @@ public class PlayerControl : MonoBehaviour {
     #endregion
 
     #region Skills
+    [SerializeField]
+    private Skills skillsCollection;
     private int[] equippedSkills = new int[2] { -1, -1 };
+    private float[] skillsCooldowns = new float[] { 0.0f, 0.0f };
     private List<int> unlockedSkills = new List<int>();
-    private List<Action> allSkills;
+    private List<Func<bool>> allSkills;
+
+    //skill 0
+    GameObject shield;
+    private bool isShieldActive = false;
+    public bool IsShieldActive => isShieldActive;
     #endregion
 
 #if UNITY_EDITOR
@@ -157,7 +166,7 @@ public class PlayerControl : MonoBehaviour {
     /// Draws debug info to the screen
     /// </summary>
     private void OnGUI() {
-        if (showDebug) {
+        if (showDebug && !GameManager.Instance.IsPaused) {
             GUI.color = Color.black;
             int yStart = Screen.height / 8;
             GUI.Box(new Rect(0, yStart + 15, 150, 200), "");
@@ -173,7 +182,13 @@ public class PlayerControl : MonoBehaviour {
 
             GUI.Label(new Rect(5, yStart += 30, 300, 150), $"facing direction: {facingDirection}");
 
-            GUI.Label(new Rect(5, yStart += 30, 300, 150), $"health: {PlayerInfo.Instance.Health}");
+            GUI.Label(new Rect(5, yStart += 30, 300, 150), $"health: {PlayerInfo.Instance.CurrentHealth}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"mana: {PlayerInfo.Instance.CurrentMana}");
+
+            GUI.Label(new Rect(5, yStart += 30, 300, 150), $"skill in slot 0: {equippedSkills[0]}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"skill slot 0 cooldown: {skillsCooldowns[0]}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"skill in slot 1: {equippedSkills[1]}");
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"skill slot 1 cooldown: {skillsCooldowns[1]}");
         }
     }
     #endregion
@@ -187,6 +202,7 @@ public class PlayerControl : MonoBehaviour {
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
         hitbox = transform.GetChild(0).gameObject;
+        shield = transform.GetChild(1).gameObject;
         hitboxCollider = hitbox.GetComponent<CircleCollider2D>();
 
         collisionDirs = new CollisionDirections();
@@ -200,7 +216,7 @@ public class PlayerControl : MonoBehaviour {
             attackHitboxes.Add(hitbox.direction, hitbox.bounds);
         }
 
-        allSkills = new List<Action>() {
+        allSkills = new List<Func<bool>>() {
             Skill0,
             Skill1,
             Skill2,
@@ -317,8 +333,6 @@ public class PlayerControl : MonoBehaviour {
             rayOrigin += Vector2.up * (horizontalRaySpacing * i);
             RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, environmentLayers);
 
-            //Debug.DrawRay(rayOrigin, directionX * rayLength * Vector2.right, Color.blue);
-
             //if the ray cast hits, change the velocity so the player will not end up in the object and set the collision direction
             if (rayHit) {
                 velocity.x = (rayHit.distance - skinWidth) * directionX;
@@ -328,6 +342,7 @@ public class PlayerControl : MonoBehaviour {
                 //set collision direction based on movement direction
                 collisionDirs.right = !(collisionDirs.left = directionX == -1);
             }
+            Debug.DrawRay(rayOrigin, directionX * rayLength * Vector2.right, Color.blue);
         }
     }
 
@@ -345,8 +360,6 @@ public class PlayerControl : MonoBehaviour {
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
             RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, environmentLayers);
 
-            Debug.DrawRay(rayOrigin, directionY * rayLength * Vector2.up, Color.blue);
-
             if (rayHit) {
                 velocity.y = (rayHit.distance - skinWidth) * directionY;
                 //prevents rays past the first one from override the velocity adjustment if they would hit
@@ -355,6 +368,8 @@ public class PlayerControl : MonoBehaviour {
                 //set collision direction based on movement direction
                 collisionDirs.up = !(collisionDirs.down = directionY == -1);
             }
+
+            Debug.DrawRay(rayOrigin, directionY * rayLength * Vector2.up, Color.blue);
         }
     }
     #endregion
@@ -534,8 +549,36 @@ public class PlayerControl : MonoBehaviour {
                 return;
             }
 
-            allSkills[skillIndex]();
+            //only activate the skill if its not on cooldown
+            if (skillsCooldowns[skillSlot] == 0.0f) {
+                if (pInfo.CurrentMana >= skillsCollection.skills[skillIndex].ManaCost) {
+                    //activate the skill and only set the cooldown if the skill successfully activated
+                    if (allSkills[skillIndex]()) {
+                        pInfo.CurrentMana -= skillsCollection.skills[skillIndex].ManaCost;
+                        //set the cooldown for the skill in the same index as the skillSlot using the cooldown from the skills array with the index = skillID of the activated skill
+                        skillsCooldowns[skillSlot] = skillsCollection.skills[skillIndex].Cooldown;
+                        StartCoroutine(CooldownSkill(skillSlot));
+                    }
+                }
+                //player doesn't have enough mana
+                else {
+                Debug.Log($"Could not activate skill equipped in slot {skillSlot}: you do not have enough mana for that skill");
+                }
+            }
+            //skill is still on cooldown
+            else {
+                Debug.Log($"Could not activate skill equipped in slot {skillSlot}: that skill is still on cooldown");
+            }
         }
+    }
+
+    IEnumerator CooldownSkill(int skillSlot) {
+        //do the cooldown overtime instead of just a WaitForSeconds in case we to have a visual indicator of how long the cooldown has left
+        while (skillsCooldowns[skillSlot] > 0.0f) {
+            skillsCooldowns[skillSlot] -= Time.deltaTime;
+            yield return null;
+        }
+        skillsCooldowns[skillSlot] = 0.0f;
     }
     #endregion
 
@@ -556,15 +599,32 @@ public class PlayerControl : MonoBehaviour {
     /// <param name="skillSlot"></param>
     /// <returns></returns>
     public SkillEquipStatus EquipSkill(int skillID, int skillSlot) {
+        //check if the skill is already equipped in the given slot; if it is, unequip it
         if (skillID == equippedSkills[skillSlot]) {
             Debug.Log($"Unequipped skill {skillID} from slot {skillSlot}");
             equippedSkills[skillSlot] = -1;
             return SkillEquipStatus.Unequipped;
         }
+        //if the skill is equipped in the other skill slot, then unequip it from there and equip it in the new slot
+        //The absolute value calculation is to make sure that the value is either 0 or 1 to get the other slot:
+        // skill slot trying to equip to
+        // |                     other skill slot
+        //\/                    \/ 
+        // 1 - 1 = 0    | 0 | = 0
+        // 0 - 1 = -1   |-1 | = 1
+        int otherSlot = Math.Abs(skillSlot - 1);
+        if (skillID == equippedSkills[otherSlot]) {
+            Debug.Log($"Unequipped skill {skillID} from slot {otherSlot} and equipped it to slot ${skillSlot}");
+            equippedSkills[otherSlot] = -1;
+            equippedSkills[skillSlot] = skillID;
+            return SkillEquipStatus.Swapped;
+        }
+        //check if the skill is unlocked, if it isn't 
         if (!unlockedSkills.Contains(skillID)) {
             Debug.LogWarning($"Could not equip skill {skillID}, the player does not have that skill Unlocked");
             return SkillEquipStatus.NotUnlocked;
         }
+        //player can successfull equip skill
         equippedSkills[skillSlot] = skillID;
         Debug.Log($"Skill {skillID} was equipped in slot {skillSlot}");
         return SkillEquipStatus.Equipped;
@@ -581,20 +641,36 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    private void Skill0() {
-        Debug.Log("This is Skill0");
+    private bool Skill0() {
+        if (!IsShieldActive) {
+            ToggleShield(true);
+            return true;
+        }
+        else {
+            Debug.Log("Skill 0 not activated; you already have a shield!");
+            return false;
+        }
     }
 
-    private void Skill1() {
+    public void ToggleShield(bool enabled) {
+        isShieldActive = enabled;
+        //active shield
+        shield.SetActive(isShieldActive);
+    }
+
+    private bool Skill1() {
         Debug.Log("This is Skill1");
+        return true;
     }
 
-    private void Skill2() {
+    private bool Skill2() {
         Debug.Log("This is Skill2");
+        return true;
     }
 
-    private void Skill3() {
+    private bool Skill3() {
         Debug.Log("This is Skill3");
+        return true;
     }
 
     ///Skill Testing Helpers

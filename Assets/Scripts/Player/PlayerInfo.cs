@@ -44,12 +44,20 @@ public class PlayerInfo : MonoBehaviour {
     }
     public GameObject Hitbox => pControl.Hitbox;
 
-    private int health;
-    public int Health => health;
+    //Health
+    private int currentHealth;
+    public int CurrentHealth => currentHealth;
     private const int startingHealth = 5;
     private const float invincibilityLength = 1;
     private bool damageable = true;
-    public bool Damageable { get => damageable; set { damageable = value; } }
+    public bool Damageable { get => damageable; set => damageable = value; }
+    //Mana
+    private int currentMana;
+    public int CurrentMana { get => currentMana; set { 
+            currentMana = value;
+            UIManager.Instance.UpdatePlayerMana((float)currentMana / startingMana);
+        } }
+    private const int startingMana = 100;
 
     [SerializeField]
     private bool attackUnlocked = true;
@@ -76,7 +84,9 @@ public class PlayerInfo : MonoBehaviour {
     private void Start() {
         pControl = GetComponent<PlayerControl>();
         sr = GetComponent<SpriteRenderer>();
-        health = startingHealth;
+
+        currentHealth = startingHealth;
+        currentMana = startingMana;
     }
 
     private void Update() {
@@ -96,15 +106,20 @@ public class PlayerInfo : MonoBehaviour {
         }
         damageable = false;
         SoundManager.Instance.PlaySoundEffect("PlayerHurt", SoundSource.player);
-        health -= amount;
+        if (!pControl.IsShieldActive) {
+            currentHealth -= amount;
+        }
+        else {
+            pControl.ToggleShield(false);
+        }
         if (healthBarStyle) {
-            UIManager.Instance.UpdatePlayerHealth((float)health / startingHealth);
+            UIManager.Instance.UpdatePlayerHealth((float)currentHealth / startingHealth);
         }
         else {
             UpdateHitboxHealth();
         }
         //Player is dead
-        if (health <= 0) {
+        if (currentHealth <= 0) {
             sr.color = Color.red;
             instance.PlayerControl.Velocity = Vector3.zero;
             instance.PlayerControl.CanMove = false;
@@ -139,10 +154,10 @@ public class PlayerInfo : MonoBehaviour {
     /// </summary>
     /// <param name="amount"></param>
     public void Heal(int amount) {
-        if (health < startingHealth) {
-            health += amount;
+        if (currentHealth < startingHealth) {
+            currentHealth += amount;
         }
-        UIManager.Instance.UpdatePlayerHealth(health/startingHealth);
+        UIManager.Instance.UpdatePlayerHealth(currentHealth/startingHealth);
     }
 
     /// <summary>
@@ -184,6 +199,7 @@ public class PlayerInfo : MonoBehaviour {
         inCombat = false;
         Hitbox.SetActive(false);
         UIManager.Instance.EnablePlayerHealthBar(false);
+        UIManager.Instance.EnablePlayerManaBar(false);
     }
 
     /// <summary>
@@ -193,23 +209,24 @@ public class PlayerInfo : MonoBehaviour {
         inCombat = true;
         Hitbox.SetActive(true);
         UIManager.Instance.EnablePlayerHealthBar(true);
+        UIManager.Instance.EnablePlayerManaBar(true);
     }
 
     public void UpdateHitboxHealth() {
-        Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[health];
+        Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[currentHealth];
     }
 
     public void FlipHealthBarStyle() {
         //changing from standard type
         if (healthBarStyle) {
-            Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[health];
+            Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[currentHealth];
             UIManager.Instance.EnablePlayerHealthBar(false);
         }
         //changing from SP style
         else {
             Hitbox.GetComponent<SpriteRenderer>().sprite = playerHitboxSprites[6];
             UIManager.Instance.EnablePlayerHealthBar(true);
-            UIManager.Instance.UpdatePlayerHealth((float)health / startingHealth);
+            UIManager.Instance.UpdatePlayerHealth((float)currentHealth / startingHealth);
         }
         healthBarStyle = !healthBarStyle;
     }

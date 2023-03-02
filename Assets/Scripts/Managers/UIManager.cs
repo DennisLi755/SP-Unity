@@ -36,10 +36,18 @@ public class UIManager : MonoBehaviour {
 
     #region Health Bars
     [Header("Health Bars")]
+    //player health
     [SerializeField]
     private Image playerStandardHealthFill;
     [SerializeField]
     private GameObject playerStandardHealthBar;
+    //player mana
+    [SerializeField]
+    private Image playerManaFill;
+    [SerializeField]
+    private GameObject playerManaBar;
+
+    //boss
     [SerializeField]
     private GameObject bossHealthBar;
     private Image bossHealthFill;
@@ -56,6 +64,10 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     EventSystem menuEventSystem;
     GameObject lastSelectedObject;
+
+    //Skills
+    [SerializeField]
+    GameObject[] skillSlots = new GameObject[2];
     #endregion
 
     [Header("Misc.")]
@@ -77,6 +89,10 @@ public class UIManager : MonoBehaviour {
         bossHealthBorder = bossHealthBar.transform.GetChild(1).GetComponent<Image>();
 
         currentSubMenu = defaultSubMenu;
+
+        if (skillSlots[0] == null || skillSlots[1] == null) {
+            Debug.LogWarning("UIManager's Skill Slot game objects are not setup correctly");
+        }
     }
 
     /// <summary>
@@ -193,6 +209,14 @@ public class UIManager : MonoBehaviour {
         playerStandardHealthBar.SetActive(isEnabled);
     }
 
+    public void UpdatePlayerMana(float manaPercent) {
+        playerManaFill.fillAmount = manaPercent;
+    }
+
+    public void EnablePlayerManaBar(bool isEnabled) {
+        playerManaBar.SetActive(isEnabled);
+    }
+
     /// <summary>
     /// Updates the boss health bar to reflect their current health percent
     /// </summary>
@@ -255,18 +279,24 @@ public class UIManager : MonoBehaviour {
     }
 
     public void TryEquipSkill(int skillID) {
-        SkillEquipStatus result = PlayerInfo.Instance.PlayerControl.EquipSkill(skillID, lastSelectedObject.name[^1] - '0');
+        int targetSlot = lastSelectedObject.name[^1] - '0';
+        SkillEquipStatus result = PlayerInfo.Instance.PlayerControl.EquipSkill(skillID, targetSlot);
         switch (result) {
             case SkillEquipStatus.Equipped:
-                lastSelectedObject.GetComponentInChildren<TMP_Text>().text = skillID.ToString();
+                skillSlots[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
                 ReturnToLastSelected();
                 break;
             case SkillEquipStatus.NotUnlocked:
                 //indicate that skill is not unlocked
                 break;
             case SkillEquipStatus.Unequipped:
-                lastSelectedObject.GetComponentInChildren<TMP_Text>().text = "";
+                skillSlots[targetSlot].GetComponentInChildren<TMP_Text>().text = "";
                 ReturnToLastSelected();
+                break;
+            case SkillEquipStatus.Swapped:
+                int otherSlot = Mathf.Abs(targetSlot - 1);
+                skillSlots[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
+                skillSlots[otherSlot].GetComponentInChildren<TMP_Text>().text = "";
                 break;
         }
     }

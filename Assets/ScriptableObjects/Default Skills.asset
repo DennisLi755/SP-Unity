@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95268373dffa62748bcfdef1c504407e, type: 3}
+  m_Name: Default Skills
+  m_EditorClassIdentifier: 
+  skills:
+  - Name: Shield
+    SkillDescription: Creates a shield around you that absorb the next instance of
+      damage.
+    SkillHint: A gift given by a mysterious force.
+    ManaCost: 30
+    Cooldown: 5
+  - Name: ???
+    SkillDescription: A mass of limitless potential.
+    SkillHint: 
+    ManaCost: 0
+    Cooldown: 0
+  - Name: ???
+    SkillDescription: A mass of limitless potential.
+    SkillHint: 
+    ManaCost: 0
+    Cooldown: 0
+  - Name: ???
+    SkillDescription: A mass of limitless potential.
+    SkillHint: 
+    ManaCost: 0
+    Cooldown: 0

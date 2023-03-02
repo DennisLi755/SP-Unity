@@ -9,7 +9,7 @@ public struct TalkPortrait {
     public Sprite expression;
 }
 
-[CreateAssetMenu(fileName ="Character Talk Portrait Collection")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Character Talk Portrait Collection", fileName ="New Talk Portaits")]
 public class CharacterTalkPortraits : ScriptableObject {
     public string[] aliases;
     public TalkPortrait[] portraits;
