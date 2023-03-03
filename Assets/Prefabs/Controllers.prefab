@@ -559,10 +559,10 @@ MonoBehaviour:
     soundEffect: {fileID: 8300000, guid: 83b6fd801b4354a4884dcf79c92c56c6, type: 3}
   - name: spdemo1_medium
     soundEffect: {fileID: 8300000, guid: 9e559633cc3a5394eb7d8bbb6fcd6b0b, type: 3}
-  - name: spdemo1_instrumental
-    soundEffect: {fileID: 8300000, guid: 06b532e19f3e78a49bdff9c3b109e768, type: 3}
+  - name: spdemo1_novocals
+    soundEffect: {fileID: 8300000, guid: 5c20c909f4608a44f89a9ec13e395e35, type: 3}
   - name: spdemo1_full
-    soundEffect: {fileID: 8300000, guid: eea18f5927229ef428fff8c1a813f2ac, type: 3}
+    soundEffect: {fileID: 8300000, guid: 02309c61999bd744b86897eb9fc7d7d0, type: 3}
 --- !u!1 &634508849414157875
 GameObject:
   m_ObjectHideFlags: 0
