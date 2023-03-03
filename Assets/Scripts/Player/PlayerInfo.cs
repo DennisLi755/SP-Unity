@@ -157,7 +157,12 @@ public class PlayerInfo : MonoBehaviour {
         if (currentHealth < startingHealth) {
             currentHealth += amount;
         }
-        UIManager.Instance.UpdatePlayerHealth(currentHealth/startingHealth);
+        if (healthBarStyle) {
+            UIManager.Instance.UpdatePlayerHealth((float)currentHealth / startingHealth);
+        }
+        else {
+            UpdateHitboxHealth();
+        }
     }
 
     /// <summary>
