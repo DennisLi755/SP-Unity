@@ -12,13 +12,19 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject loadMenu;
     [SerializeField]
-    private Button newGameButton;
+    private Button startButton;
     [SerializeField]
     private Button fileOneButton;
     [SerializeField]
     private EventSystem es;
-    public void NewGame() {
-        SceneManager.LoadSceneAsync("Enemy Testing");
+    [SerializeField]
+    private GameObject fileButtons;
+    private List<Button> files = new List<Button>();
+    void Start() {
+        for (int i = 0; i < fileButtons.transform.childCount-1; i++) {
+            int x = i;
+            fileButtons.transform.GetChild(i).transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { LoadSaveFile(x); });
+        }
     }
 
     public void OpenLoadMenu() {
@@ -30,11 +36,12 @@ public class MainMenu : MonoBehaviour
     public void OpenTitleMenu() {
         titleMenu.SetActive(true);
         loadMenu.SetActive(false);
-        es.SetSelectedGameObject(newGameButton.gameObject);
+        es.SetSelectedGameObject(startButton.gameObject);
     }
 
     public void LoadSaveFile(int index) {
-        
+        Debug.Log(index);
+        SceneManager.LoadSceneAsync("Enemy Testing");
     }
 
     public void OptionsMenu() {
