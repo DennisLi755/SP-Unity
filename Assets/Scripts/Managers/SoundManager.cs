@@ -79,14 +79,10 @@ public class SoundManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M)) {
             devMute = !devMute;
             if (devMute) {
-                foreach (AudioSource ms in musicSources) {
-                    ms.volume = 0.0f;
-                }
+                musicSources[currentLayer].volume = 0.0f;
             }
             else {
-                foreach (AudioSource ms in musicSources) {
-                    ms.volume = musicVolume;
-                }
+                musicSources[currentLayer].volume = musicVolume;
             }
         }
     }
