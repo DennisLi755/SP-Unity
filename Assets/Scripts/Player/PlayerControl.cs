@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// The position origins of the raycasts used to keep the player in bounds
@@ -98,7 +95,6 @@ public class PlayerControl : MonoBehaviour {
     #endregion
 
     #region Attack Info
-    [SerializeField]
     LayerMask attackableLayers;
     [SerializeField]
     private AnimationClip attackAnimation;
@@ -116,7 +112,6 @@ public class PlayerControl : MonoBehaviour {
     #endregion
 
     #region Raycasting & Collisions
-    [SerializeField]
     //the layers that the player will collide with the environment
     private LayerMask environmentLayers;
     private new BoxCollider2D collider;
@@ -209,7 +204,10 @@ public class PlayerControl : MonoBehaviour {
         rayOrigins = new RayCastOrigins();
         CalculateRaySpacing();
         UpdateRayCastOrigins();
+
         bulletLayer = LayerMask.GetMask("Bullet");
+        environmentLayers = LayerMask.GetMask("Environment", "Enemy");
+        attackableLayers = LayerMask.GetMask("Enemy");
 
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
         foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {
@@ -276,16 +274,23 @@ public class PlayerControl : MonoBehaviour {
             VerticalCollisions(ref newVel);
         }
 
-        //move the player by the (possibly) corrected velocity
-        transform.Translate(newVel);
-
         //check the player's hitbox for any bullets
         if (pInfo.InCombat) {
             RaycastHit2D hit = Physics2D.CircleCast(hitboxCollider.bounds.center, hitboxCollider.radius, Vector2.zero, 0.0f, bulletLayer);
             if (hit) {
                 pInfo.Hurt(1);
             }
+
+            /*hit = Physics2D.BoxCast(bounds.center, bounds.size, 0.0f, Vector2.zero, 0.0f, attackableLayers);
+            if (hit) {
+                Vector2 dir = bounds.center - hit.collider.bounds.center;
+                hit = Physics2D.Raycast(bounds.center, dir.normalized, 1.0f, attackableLayers);
+                Vector2 correction = dir * hit.fraction;
+            }*/
         }
+
+        //move the player by the (possibly) corrected velocity
+        transform.Translate(newVel);
     }
 
     #region Collisions & Raycasts
