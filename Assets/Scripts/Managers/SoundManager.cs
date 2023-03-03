@@ -52,6 +52,8 @@ public class SoundManager : MonoBehaviour
     private Dictionary<string, AudioClip> soundEffects;
     private int currentLayer;
 
+    private bool devMute = false;
+
     private void Awake() {
         if (instance == null) {
             instance = this;
@@ -70,6 +72,22 @@ public class SoundManager : MonoBehaviour
         soundEffects = new Dictionary<string, AudioClip>();
         foreach (SoundEffect se in soundEffectsArray) {
             soundEffects.Add(se.name, se.soundEffect);
+        }
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.M)) {
+            devMute = !devMute;
+            if (devMute) {
+                foreach (AudioSource ms in musicSources) {
+                    ms.volume = 0.0f;
+                }
+            }
+            else {
+                foreach (AudioSource ms in musicSources) {
+                    ms.volume = musicVolume;
+                }
+            }
         }
     }
 
