@@ -47,7 +47,6 @@ public class Bullet : MonoBehaviour {
         if (hasRendered && !renderer.isVisible) {
             timeOffScreen += Time.deltaTime;
             if (timeOffScreen > maxTimeOffScreen) {
-                BulletHolder.Instance.RemoveBullet();
                 Destroy(gameObject);
             }
         }
@@ -55,5 +54,9 @@ public class Bullet : MonoBehaviour {
 
     private void FixedUpdate() {
         transform.Translate(speed * Time.fixedDeltaTime * direction);
+    }
+
+    private void OnDestroy() {
+        BulletHolder.Instance.RemoveBullet();
     }
 }

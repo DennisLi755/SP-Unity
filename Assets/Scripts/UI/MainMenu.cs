@@ -41,7 +41,7 @@ public class MainMenu : MonoBehaviour
 
     public void LoadSaveFile(int index) {
         Debug.Log(index);
-        SceneManager.LoadSceneAsync("Enemy Testing");
+        SceneManager.LoadScene(1);
     }
 
     public void OptionsMenu() {

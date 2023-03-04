@@ -131,6 +131,11 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         }
     }
 
+    private void OnDestroy() {
+        PlayerInfo.Instance.CombatLock = false;
+        UIManager.Instance.EnableBossHealthBar(false);
+    }
+
     /// <summary>
     /// Recaculates the placement of the boss's movement nodes; called once in Boss.Start(), 
     /// but could technically be called more if the row/colmn count or the size of the bounds gets changed during runtime (eg. phase change)
@@ -195,6 +200,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
                 UIManager.Instance.EnableBossHealthBar(false);
                 PlayerInfo.Instance.CombatLock = false;
                 SoundManager.Instance.FadeOutCurrentLayer(3.0f);
+                GameManager.Instance.EndFight();
             }
             if (ChangePhase()) {
                 attackCycleIndex = 0;

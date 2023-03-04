@@ -11,12 +11,16 @@ public class GuideInteract : PromptedInteraction {
     public GameObject GuideBoss;
     public GameObject BossRoom;
 
+    private bool settingUpFight = false;
+
     public override void OnInteract() {
-        if (PlayerInfo.Instance.AttackUnlocked) {
-            UIManager.Instance.ActivatePromptedInteraction(this, afterText);
-        }
-        else {
-            UIManager.Instance.ActivateInteractText(beforeText);
+        if (!settingUpFight) {
+            if (PlayerInfo.Instance.AttackUnlocked) {
+                UIManager.Instance.ActivatePromptedInteraction(this, afterText);
+            }
+            else {
+                UIManager.Instance.ActivateInteractText(beforeText);
+            }
         }
     }
 
@@ -27,6 +31,7 @@ public class GuideInteract : PromptedInteraction {
     }
 
     IEnumerator BossStart() {
+        settingUpFight = true;
         UIManager.Instance.FadeToBlack();
         yield return new WaitForSeconds(0.5f);
         BossRoom.GetComponent<Room>().MoveCameraHere();
@@ -38,5 +43,6 @@ public class GuideInteract : PromptedInteraction {
         yield return new WaitForSeconds(0.5f);
 
         Instantiate(GuideBoss, new Vector3(96.4f, -77.33f, 0.0f), Quaternion.identity);
+        settingUpFight = false;
     }
 }

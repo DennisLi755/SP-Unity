@@ -35,4 +35,9 @@ public class Room : MonoBehaviour {
 
         Camera.main.GetComponent<CameraManager>().FollowPlayer(!staticCamera);
     }
+
+    [ContextMenu("Move Player Here")]
+    public void MovePlayerHere() {
+        FindObjectOfType<PlayerInfo>().transform.position = new Vector3(cameraPosition.x, cameraPosition.y, 0.0f);
+    }
 }

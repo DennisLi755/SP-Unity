@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class PlayerInfo : MonoBehaviour {
 
@@ -32,15 +31,15 @@ public class PlayerInfo : MonoBehaviour {
     private bool inCombat = false;
     public bool InCombat => inCombat;
     private bool combatLock = false;
-    public bool CombatLock { 
-        get => combatLock; 
-        set { 
-            combatLock = value; 
+    public bool CombatLock {
+        get => combatLock;
+        set {
+            combatLock = value;
             //ensure the enters combat when the lock is enabled
             if (combatLock) {
                 EnterCombat();
             }
-        } 
+        }
     }
     public GameObject Hitbox => pControl.Hitbox;
 
@@ -53,10 +52,12 @@ public class PlayerInfo : MonoBehaviour {
     public bool Damageable { get => damageable; set => damageable = value; }
     //Mana
     private int currentMana;
-    public int CurrentMana { get => currentMana; set { 
+    public int CurrentMana {
+        get => currentMana; set {
             currentMana = value;
             UIManager.Instance.UpdatePlayerMana((float)currentMana / startingMana);
-        } }
+        }
+    }
     private const int startingMana = 100;
 
     [SerializeField]
@@ -121,9 +122,10 @@ public class PlayerInfo : MonoBehaviour {
         //Player is dead
         if (currentHealth <= 0) {
             sr.color = Color.red;
-            instance.PlayerControl.Velocity = Vector3.zero;
-            instance.PlayerControl.CanMove = false;
+            pControl.Velocity = Vector3.zero;
+            pControl.CanMove = false;
             damageable = false;
+            GameManager.Instance.EndFight();
         }
         //otherwise give them I-Frames
         else {
@@ -163,6 +165,14 @@ public class PlayerInfo : MonoBehaviour {
         else {
             UpdateHitboxHealth();
         }
+    }
+
+    public void Respawn() {
+        currentHealth = startingHealth;
+        UIManager.Instance.UpdatePlayerHealth((float)currentHealth/startingHealth);
+        sr.color = Color.white;
+        pControl.CanMove = true;
+        damageable = true;
     }
 
     /// <summary>
