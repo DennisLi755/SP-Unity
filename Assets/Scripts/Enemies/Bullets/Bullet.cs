@@ -4,6 +4,11 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum BulletType {
+    Normal,
+    Deflectable
+}
+
 public class Bullet : MonoBehaviour {
 
     [Range(0, 359)]
@@ -22,6 +27,9 @@ public class Bullet : MonoBehaviour {
     private bool hasRendered = false;
     private float timeOffScreen = 0.0f;
     private float maxTimeOffScreen = 5.0f;
+    [SerializeField]
+    private BulletType bulletType;
+    public BulletType BulletType {get => bulletType; set => bulletType = value; }
 
     void Start() {
         BulletHolder.Instance.AddBullet();
@@ -35,6 +43,9 @@ public class Bullet : MonoBehaviour {
         IEnumerator WaitForRender() {
             yield return new WaitForSeconds(0.5f);
             hasRendered = true;
+        }
+        if (bulletType == BulletType.Deflectable) {
+            renderer.color = Color.black;
         }
     }
 

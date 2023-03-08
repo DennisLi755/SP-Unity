@@ -207,7 +207,7 @@ public class PlayerControl : MonoBehaviour {
 
         bulletLayer = LayerMask.GetMask("Bullet");
         environmentLayers = LayerMask.GetMask("Environment", "Enemy");
-        attackableLayers = LayerMask.GetMask("Enemy");
+        attackableLayers = LayerMask.GetMask("Enemy", "Bullet");
 
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
         foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {
@@ -444,6 +444,19 @@ public class PlayerControl : MonoBehaviour {
                     case "Enemy":
                         hitObject.GetComponent<IDamageable>().Hurt(1);
                         break;
+                    case "Bullet":
+                        Bullet bullet = hitObject.GetComponent<Bullet>();
+                        if (bullet.BulletType == BulletType.Deflectable) {
+                            if (InDirectionRange(bullet.Angle)) {
+                                bullet.Direction = -bullet.Direction;
+                            } else {
+                                Vector2 direction = new Vector2(facingDirection == FacingDirection.Right ? 1 : facingDirection == FacingDirection.Left ? -1 : 0, 
+                                facingDirection == FacingDirection.Up ? 1 : facingDirection == FacingDirection.Down ? -1 : 0);
+                                bullet.Direction = direction;
+                            }
+                            bullet.Speed *= 2;
+                        }
+                        break;
                     default:
                         Debug.LogError($"Player attack has not been setup for layer: {LayerMask.LayerToName(hit.transform.gameObject.layer)}" +
                             $"\nThis was actived by hitting {hitObject} at {hitObject.transform.position}" +
@@ -467,6 +480,31 @@ public class PlayerControl : MonoBehaviour {
         canMove = true;
         velocity = input;
     }
+
+    public bool InDirectionRange(float angle) {
+        float[] currentDirection = new float[2];
+        switch (facingDirection) {
+            case FacingDirection.Up:
+                currentDirection[0] = 5;
+                break;
+            case FacingDirection.Down:
+                currentDirection[0] = 185;
+                break;
+            case FacingDirection.Left:
+                currentDirection[0] = 95;
+                break;
+            case FacingDirection.Right:
+                currentDirection[0] = 275;
+                break;
+        }
+        currentDirection[1] = currentDirection[0] + 175;
+        if (angle+180 > currentDirection[0] && angle+180 < currentDirection[1]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     #endregion
 
     #region Dash

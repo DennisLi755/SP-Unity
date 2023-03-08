@@ -11,6 +11,8 @@ public class BulletPattern : MonoBehaviour {
     [SerializeField]
     protected float speed;
     protected GameObject player;
+    [SerializeField]
+    protected BulletType bulletType;
 
     protected void Start() {
         bullets = transform.GetComponentsInChildren<Bullet>();
@@ -20,6 +22,9 @@ public class BulletPattern : MonoBehaviour {
                 bullets[i].Speed = speed;
             }
             Array.Clear(bullets, 0, bullets.Length);
+        }
+         for (int i = 0; i < bullets.Length; i++) {
+            bullets[i].BulletType = bulletType;
         }
     }
 
