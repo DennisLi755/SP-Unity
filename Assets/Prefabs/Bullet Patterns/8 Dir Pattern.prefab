@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overrideSpeed: 0
   speed: 0
-  bulletType: 1
+  bulletType: 0
 --- !u!1001 &431621375850919347
 PrefabInstance:
   m_ObjectHideFlags: 0
