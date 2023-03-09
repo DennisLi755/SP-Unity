@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour {
 
     private bool isPaused;
     public bool IsPaused => isPaused;
+
+    private int playerSaveSlot;
+    public int PlayerSaveSlot { set => playerSaveSlot = value; }
 
     private void Awake() {
         if (instance == null) {
@@ -79,5 +83,23 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.FadeFromBlack();
         yield return new WaitForSeconds(0.5f);
         PlayerInfo.Instance.PlayerControl.CanMove = true;
+    }
+
+    public void SavePlayerData(string saveLocation) {
+        PlayerSaveData saveData = new PlayerSaveData();
+        saveData.scene = SceneManager.GetActiveScene().name;
+        saveData.saveLocation = saveLocation;
+    }
+
+    public void LoadPlayerSaveData() {
+        //read in data from correct save file;
+        PlayerSaveData saveData = JsonUtility.FromJson<PlayerSaveData>("");
+
+        SceneManager.sceneLoaded += SceneLoaded;
+        SceneManager.LoadScene(saveData.scene);
+    }
+
+    private void SceneLoaded(Scene scene, LoadSceneMode lsm) {
+        
     }
 }
