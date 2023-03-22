@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-
+        playerSaveSlot = 0;
     }
 
     void Update() {
@@ -89,6 +89,9 @@ public class GameManager : MonoBehaviour {
         PlayerSaveData saveData = new PlayerSaveData();
         saveData.scene = SceneManager.GetActiveScene().name;
         saveData.saveLocation = saveLocation;
+        saveData.unlockedSkills = PlayerInfo.Instance.PlayerControl.UnlockedSkills;
+        saveData.equippedSkills = PlayerInfo.Instance.PlayerControl.EquippedSkills;
+        System.IO.File.WriteAllText(Application.persistentDataPath + $"/save{playerSaveSlot}.data", JsonUtility.ToJson(saveData));
     }
 
     public void LoadPlayerSaveData() {

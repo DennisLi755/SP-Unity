@@ -135,8 +135,10 @@ public class PlayerControl : MonoBehaviour {
     [SerializeField]
     private Skills skillsCollection;
     private int[] equippedSkills = new int[2] { -1, -1 };
+    public int[] EquippedSkills => equippedSkills;
     private float[] skillsCooldowns = new float[] { 0.0f, 0.0f };
     private List<int> unlockedSkills = new List<int>();
+    public int[] UnlockedSkills => unlockedSkills.ToArray();
     private List<Func<bool>> allSkills;
 
     //skill 0

@@ -7,7 +7,7 @@ namespace Assets {
         public string scene;
         public string saveLocation;
         public string playerName = "Somni";
-        public List<int> unlockedSkills = new List<int>();
+        public int[] unlockedSkills;
         public int[] equippedSkills = new int[] { -1, -1 };
     }
 }
