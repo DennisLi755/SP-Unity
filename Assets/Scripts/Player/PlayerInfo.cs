@@ -80,10 +80,10 @@ public class PlayerInfo : MonoBehaviour {
         else {
             Destroy(gameObject);
         }
+        pControl = GetComponent<PlayerControl>();
     }
 
     private void Start() {
-        pControl = GetComponent<PlayerControl>();
         sr = GetComponent<SpriteRenderer>();
 
         currentHealth = startingHealth;

@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
 
     private int playerSaveSlot;
     public int PlayerSaveSlot { set => playerSaveSlot = value; }
+    private PlayerSaveData saveData;
+    private string SaveFilePath => Application.persistentDataPath + $"/save{playerSaveSlot}.data";
 
     private void Awake() {
         if (instance == null) {
@@ -38,6 +40,9 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             EndFight();
+        }
+        if (Input.GetKeyDown(KeyCode.L)) {
+            LoadPlayerSaveData();
         }
     }
 
@@ -86,23 +91,60 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SavePlayerData(string saveLocation) {
-        PlayerSaveData saveData = new PlayerSaveData();
+        //generate a saveData object and fill in the info
+        saveData = new PlayerSaveData();
         saveData.scene = SceneManager.GetActiveScene().name;
         saveData.saveLocation = saveLocation;
         saveData.unlockedSkills = PlayerInfo.Instance.PlayerControl.UnlockedSkills;
         saveData.equippedSkills = PlayerInfo.Instance.PlayerControl.EquippedSkills;
-        System.IO.File.WriteAllText(Application.persistentDataPath + $"/save{playerSaveSlot}.data", JsonUtility.ToJson(saveData));
+        //write the data to a persistent file
+        System.IO.File.WriteAllText(SaveFilePath, JsonUtility.ToJson(saveData));
+        Debug.Log("Saved game!");
     }
 
     public void LoadPlayerSaveData() {
+        if (!new System.IO.FileInfo(SaveFilePath).Exists) {
+            //Make a new save
+            Debug.Log($"There is no save data in slot {playerSaveSlot}");
+        }
         //read in data from correct save file;
-        PlayerSaveData saveData = JsonUtility.FromJson<PlayerSaveData>("");
+        saveData = JsonUtility.FromJson<PlayerSaveData>(System.IO.File.ReadAllText(SaveFilePath));
 
-        SceneManager.sceneLoaded += SceneLoaded;
-        SceneManager.LoadScene(saveData.scene);
+        //load the correct scene if it is not already loaded
+        if (SceneManager.GetActiveScene().name != saveData.scene) {
+            SceneManager.sceneLoaded += SceneLoaded;
+            SceneManager.LoadScene(saveData.scene);
+        }
+        else {
+            SetupPlayer();
+        }
     }
 
     private void SceneLoaded(Scene scene, LoadSceneMode lsm) {
-        
+        SetupPlayer();
+
+        SceneManager.sceneLoaded -= SceneLoaded;
+    }
+
+    private void SetupPlayer() {
+        //get the player
+        PlayerControl player = PlayerInfo.Instance.PlayerControl;
+        //unlock all skills listed in the save data
+        foreach (int skillID in saveData.unlockedSkills) {
+            player.UnlockSkill(skillID);
+        }
+        //equip the correct skills in their coresponding slots
+        player.EquipSkill(saveData.equippedSkills[0], 0);
+        player.EquipSkill(saveData.equippedSkills[1], 1);
+        //move the player to the correct save location in the scene
+        SavePoint[] sceneSavePoints = FindObjectsOfType<SavePoint>();
+        foreach (SavePoint sp in sceneSavePoints) {
+            if (sp.gameObject.name == saveData.saveLocation) {
+                player.transform.position = sp.transform.position;
+                //move the camera to the room that the save point is in - parent is called twice because save points are children of interactables which are children of the room
+                sp.transform.parent.parent.GetComponent<Room>().MoveCameraHere();
+                break;
+            }
+        }
     }
 }

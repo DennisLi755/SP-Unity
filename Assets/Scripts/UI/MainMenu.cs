@@ -40,8 +40,8 @@ public class MainMenu : MonoBehaviour
     }
 
     public void LoadSaveFile(int index) {
-        Debug.Log(index);
-        SceneManager.LoadScene(1);
+        GameManager.Instance.PlayerSaveSlot = index;
+        GameManager.Instance.LoadPlayerSaveData();
     }
 
     public void OptionsMenu() {
