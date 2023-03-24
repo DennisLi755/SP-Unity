@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using TMPro;
 using UnityEngine.InputSystem.UI;
 
@@ -75,6 +76,8 @@ public class UIManager : MonoBehaviour {
     [Header("Misc.")]
     [SerializeField]
     Image fadeToBlackPanel;
+
+    public UnityEvent endInteractionEvent = new UnityEvent();
 
     private void Awake() {
         if (instance == null) {
@@ -161,6 +164,7 @@ public class UIManager : MonoBehaviour {
     public void DeactivateInteractText() {
         interactText.transform.parent.gameObject.SetActive(false);
         PlayerInfo.Instance.ChangeInputMap("Player");
+        endInteractionEvent?.Invoke();
     }
     /// <summary>
     /// Opens and populates text box for a basic prompted object interaction
