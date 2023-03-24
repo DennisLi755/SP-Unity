@@ -41,9 +41,6 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             EndFight();
         }
-        if (Input.GetKeyDown(KeyCode.L)) {
-            LoadPlayerSaveData();
-        }
     }
 
     public void PauseGame() {
@@ -102,13 +99,13 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Saved game!");
     }
 
-    public void LoadPlayerSaveData() {
+    public void LoadPlayerSaveData(int saveSlot, PlayerSaveData psd) {
+        saveData = psd;
+        playerSaveSlot = saveSlot;
         if (!new System.IO.FileInfo(SaveFilePath).Exists) {
             //Make a new save
             Debug.Log($"There is no save data in slot {playerSaveSlot}");
         }
-        //read in data from correct save file;
-        saveData = JsonUtility.FromJson<PlayerSaveData>(System.IO.File.ReadAllText(SaveFilePath));
 
         //load the correct scene if it is not already loaded
         if (SceneManager.GetActiveScene().name != saveData.scene) {
@@ -122,7 +119,6 @@ public class GameManager : MonoBehaviour {
 
     private void SceneLoaded(Scene scene, LoadSceneMode lsm) {
         SetupPlayer();
-
         SceneManager.sceneLoaded -= SceneLoaded;
     }
 

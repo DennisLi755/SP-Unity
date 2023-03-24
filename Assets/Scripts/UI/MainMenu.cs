@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using Assets;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -19,11 +21,21 @@ public class MainMenu : MonoBehaviour
     private EventSystem es;
     [SerializeField]
     private GameObject fileButtons;
-    private List<Button> files = new List<Button>();
+    private PlayerSaveData[] saveFiles = new PlayerSaveData[3];
     void Start() {
         for (int i = 0; i < fileButtons.transform.childCount-1; i++) {
             int x = i;
-            fileButtons.transform.GetChild(i).transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { LoadSaveFile(x); });
+            Transform currButton = fileButtons.transform.GetChild(i);
+            currButton.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { LoadSaveFile(x); });
+            string filePath = Application.persistentDataPath + $"/save{i}.data";
+            if (System.IO.File.Exists(filePath)) {
+                saveFiles[i] = JsonUtility.FromJson<PlayerSaveData>(System.IO.File.ReadAllText(filePath));
+                //fill in save data on UI
+                //name
+                currButton.GetChild(1).GetComponent<TMP_Text>().text = saveFiles[i].playerName;
+                //save location
+                currButton.GetChild(2).GetComponent<TMP_Text>().text = saveFiles[i].saveLocation.Replace("Save Toilet - ", "");
+            }
         }
     }
 
@@ -40,8 +52,15 @@ public class MainMenu : MonoBehaviour
     }
 
     public void LoadSaveFile(int index) {
-        GameManager.Instance.PlayerSaveSlot = index;
-        GameManager.Instance.LoadPlayerSaveData();
+        Debug.Log(index);
+        //start a new game
+        if (saveFiles[index] == null) {
+            SceneManager.LoadScene(1);
+        }
+        //load an existing save
+        else {
+            GameManager.Instance.LoadPlayerSaveData(index, saveFiles[index]);
+        }
     }
 
     public void OptionsMenu() {
