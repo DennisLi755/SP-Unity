@@ -2,11 +2,11 @@
 tags:
 position: 12, -102
 ---
+<<wait 2>>
 <<play_sound "Explosion1">>
-: CRASH
+<<wait 1>>
 Somni: ...Where am I?
 Somni: What was that sound?
-<<show_movement_text>>
 ===
 
 title: Meet_Guide
@@ -36,5 +36,18 @@ Somni: I meant crashing through their ceiling and screaming at them.
 Guide: This case is...special. I've never had to operate on someone with absolutely nothing in their brain.
 Somni: Now I just feel offended.
 Guide: I'm serious here. Go see for yourself.
-<<talk_to_guide>>
+===
+
+title: Enter_House
+tags:
+position: 12, -102
+---
+Guide: Woah.
+Guide: I knew your mind was unstable but I didn't think I'd be THIS bad.
+Somni: ...Why does my house look different?
+Guide: Don't ask me. It's literally <i>your</i> mind.
+Somni: *sigh*
+Somni: ...What's the toilet for?
+Guide: That I do know actually. It's to <color=green>SAVE</color> your progress.
+Guide: There also seems to be some hostiles in your house now. So be careful.
 ===
