@@ -7,10 +7,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class InteractableObject : MonoBehaviour {
-    private BoxCollider2D trigger;
+    protected BoxCollider2D trigger;
     [SerializeField]
-    private LayerMask playerLayer;
-    private bool isActive;
+    protected LayerMask playerLayer;
+    protected bool isActive;
 
 #if UNITY_EDITOR
     /// <summary>
@@ -36,7 +36,7 @@ public class InteractableObject : MonoBehaviour {
     /// <summary>
     /// Detects whether or not the player interacts with the object
     /// </summary>
-    protected void Update() {
+    protected virtual void Update() {
         RaycastHit2D hit = Physics2D.BoxCast(trigger.bounds.center, trigger.bounds.size, 0, Vector2.zero, 0, playerLayer);
         if (hit && !isActive) {
             isActive = true;

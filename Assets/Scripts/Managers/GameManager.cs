@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour {
     private PlayerSaveData saveData;
     private string SaveFilePath => Application.persistentDataPath + $"/save{playerSaveSlot}.data";
 
+    //Progression flags
+    private bool guideInteract = false;
+    public bool GuideInteract { get => guideInteract; set => guideInteract = value; }
+
     private void Awake() {
         if (instance == null) {
             instance = this;
