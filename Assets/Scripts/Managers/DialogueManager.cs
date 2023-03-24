@@ -73,6 +73,8 @@ public class DialogueManager : MonoBehaviour {
     /// </summary>
     public void DisableDialogueCanvas() {
         EnableDialogueCanvas(false);
+        PlayerInfo.Instance.PlayerControl.UnFreeze();
+        PlayerInfo.Instance.ChangeInputMap("Player");
     }
 
     /// <summary>
@@ -184,11 +186,15 @@ public class DialogueManager : MonoBehaviour {
     /// <param name="project"></param>
     /// <param name="startNode"></param>
     public void StartDialogue(YarnProject project, string startNode) {
+        dialogueRunner.SetProject(project);
+        StartDialogue(startNode);
+    }
+
+    public void StartDialogue(string startNode) {
         lastActiveSpeaker = true;
         leftCharacterKey = null;
         rightCharacterKey = null;
         dialogueCanvas.SetActive(true);
-        dialogueRunner.SetProject(project);
         dialogueRunner.StartDialogue(startNode);
         PlayerInfo.Instance.ChangeInputMap("UI");
     }
@@ -198,5 +204,13 @@ public class DialogueManager : MonoBehaviour {
     /// </summary>
     public void ToggleAutoAdvance() {
 
+    }
+
+    /// <summary>
+    /// Toggles the character name plate on and off
+    /// </summary>
+    /// <param name="isEnabled"></param>
+    public void ToggleCharacterNamePlate(bool isEnabled) {
+        dialogueCanvas.transform.GetChild(3).gameObject.SetActive(isEnabled);
     }
 }

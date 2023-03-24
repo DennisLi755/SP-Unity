@@ -389,10 +389,19 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     /// <param name="context"></param>
     public void Move(InputAction.CallbackContext context) {
+        if (!pInfo.HasMoved) {
+            StartCoroutine(DisableMovementText());
+        }
         input = context.ReadValue<Vector2>().normalized;
         if (canMove) {
             velocity = input;
         }
+    }
+
+    IEnumerator DisableMovementText() {
+        yield return new WaitForSeconds(3.0f);
+        pInfo.HasMoved = true;
+        pInfo.DisableTutorialText();
     }
     #endregion
 

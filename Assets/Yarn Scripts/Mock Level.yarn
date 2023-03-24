@@ -2,11 +2,11 @@
 tags:
 position: 12, -102
 ---
-<<wait 2>>
 <<play_sound "Explosion1">>
-<<wait 1>>
+: CRASH
 Somni: ...Where am I?
 Somni: What was that sound?
+<<show_movement_text>>
 ===
 
 title: Meet_Guide
