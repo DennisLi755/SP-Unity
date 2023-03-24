@@ -297,19 +297,25 @@ public class CustomLineView : DialogueViewBase {
             //changed: ensures the continue button is enabled because of the change in DismissLine
             continueButton.SetActive(true);
 
-            //changed: update the active speaker based on the character name
-            DialogueManager.Instance.UpdateActiveSpeaker(dialogueLine.CharacterName);
-            //changed: update the active character's expression based on any line tags
-            if (dialogueLine.Metadata != null && dialogueLine.Metadata.Length > 0) {
-                foreach (string data in dialogueLine.Metadata) {
-                    //if the tag is an expression
-                    if (data.Contains("expression-")) {
-                        DialogueManager.Instance.UpdateExpression(data.Substring(data.IndexOf('-') + 1));
-                    }
-                    //if the tag is not recognized and not the auto-implemented #lastline tag, show a warning
-                    else if (data != "lastline") {
-                        Debug.LogWarning($"Warning: tag {data} was not processed correctly for the current line of dialogue.\n" +
-                            $"Did you forget to append 'expression-' to an expression?");
+            if (dialogueLine.CharacterName == "") {
+                DialogueManager.Instance.ToggleCharacterNamePlate(false);
+            }
+            else {
+                DialogueManager.Instance.ToggleCharacterNamePlate(true);
+                //changed: update the active speaker based on the character name
+                DialogueManager.Instance.UpdateActiveSpeaker(dialogueLine.CharacterName);
+                //changed: update the active character's expression based on any line tags
+                if (dialogueLine.Metadata != null && dialogueLine.Metadata.Length > 0) {
+                    foreach (string data in dialogueLine.Metadata) {
+                        //if the tag is an expression
+                        if (data.Contains("expression-")) {
+                            DialogueManager.Instance.UpdateExpression(data.Substring(data.IndexOf('-') + 1));
+                        }
+                        //if the tag is not recognized and not the auto-implemented #lastline tag, show a warning
+                        else if (data != "lastline") {
+                            Debug.LogWarning($"Warning: tag {data} was not processed correctly for the current line of dialogue.\n" +
+                                $"Did you forget to append 'expression-' to an expression?");
+                        }
                     }
                 }
             }

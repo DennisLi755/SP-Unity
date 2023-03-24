@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -71,6 +72,9 @@ public class PlayerInfo : MonoBehaviour {
     private InteractableObject interactable;
     public InteractableObject Interactable { get => interactable; set { interactable = value; } }
     #endregion
+
+    private bool hasMoved = false;
+    public bool HasMoved { get => hasMoved; set => hasMoved = value; }
 
     private void Awake() {
         if (instance == null) {
@@ -246,5 +250,14 @@ public class PlayerInfo : MonoBehaviour {
             UIManager.Instance.UpdatePlayerHealth((float)currentHealth / startingHealth);
         }
         healthBarStyle = !healthBarStyle;
+    }
+
+    public void EnableTutorialText(string text) {
+        transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = text;
+        transform.GetChild(2).gameObject.SetActive(true);
+    }
+
+    public void DisableTutorialText() {
+        transform.GetChild(2).gameObject.SetActive(false);
     }
 }

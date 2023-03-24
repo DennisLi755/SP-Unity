@@ -5,8 +5,7 @@ using Yarn.Unity;
 
 public class CrashGuide : InteractableObject {
     private Animator anim;
-    [SerializeField]
-    YarnProject dialogue;
+    private bool hasInteracted = false;
 
     public void Start() {
         base.Start();
@@ -14,6 +13,10 @@ public class CrashGuide : InteractableObject {
     }
 
     public override void OnInteract() {
+        if (hasInteracted) {
+            return;
+        }
+        hasInteracted = true;
         StartCoroutine(StandUp());
     }
 
@@ -22,6 +25,6 @@ public class CrashGuide : InteractableObject {
         PlayerInfo.Instance.PlayerControl.Freeze();
         yield return new WaitForSeconds(2.0f);
         //start dialogue
-        DialogueManager.Instance.StartDialogue(dialogue, "Meet_Guide");
+        DialogueManager.Instance.StartDialogue("Meet_Guide");
     }
 }
