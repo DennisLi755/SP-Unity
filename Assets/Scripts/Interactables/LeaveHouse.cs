@@ -25,5 +25,6 @@ public class LeaveHouse : EnterText
     void EndInteraction() {
         UIManager.Instance.FadeFromBlack();
         UIManager.Instance.endInteractionEvent.RemoveAllListeners();
+        DialogueManager.Instance.StartDialogue("Enter_House");
     }
 }
