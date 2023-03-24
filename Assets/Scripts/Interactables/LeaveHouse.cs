@@ -15,6 +15,8 @@ public class LeaveHouse : EnterText
 
             IEnumerator WaitForFade() {
                 yield return new WaitForSeconds(1f);
+                GameObject.Find("Level 1").GetComponent<Room>().MovePlayerHere();
+                GameObject.Find("Level 1").GetComponent<Room>().MoveCameraHere();
                 base.OnInteract();
             }
         }

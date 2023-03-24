@@ -5,6 +5,7 @@ using Yarn.Unity;
 
 public class CrashGuide : InteractableObject {
     private Animator anim;
+    private bool hasInteracted = false;
 
     public void Start() {
         base.Start();
@@ -12,6 +13,10 @@ public class CrashGuide : InteractableObject {
     }
 
     public override void OnInteract() {
+        if (hasInteracted) {
+            return;
+        }
+        hasInteracted = true;
         StartCoroutine(StandUp());
     }
 

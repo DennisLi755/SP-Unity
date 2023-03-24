@@ -40,6 +40,11 @@ public class CutsceneManager : MonoBehaviour {
             PlayerInfo.Instance.EnableTutorialText("Use the the left stick to move");
         }
     }
+
+    [YarnCommand("talk_to_guide")]
+    static void TalkedToGuide() {
+        GameManager.Instance.GuideInteract = true;
+    }
     /*
     [YarnCommand("show_dialogue")]
     static void ShowDialogueCanvas(bool show) {
