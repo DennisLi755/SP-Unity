@@ -13,6 +13,7 @@ public struct SoundEffect {
 public enum SoundSource {
     player,
     enemy,
+    cutscene,
     music,
     UI,
     environment
@@ -35,6 +36,8 @@ public class SoundManager : MonoBehaviour
     private AudioSource enemySource;
     [SerializeField]
     private List<AudioSource> musicSources;
+    [SerializeField]
+    private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
     private AudioSource UISource;
     [SerializeField]
@@ -91,24 +94,39 @@ public class SoundManager : MonoBehaviour
         switch(source) {
             case SoundSource.player:
                 if (playerSources.Count == 0) {
-                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                    audioSource.volume = soundEffectVolume;
-                    playerSources.Add(audioSource);
+                    MakeSource(playerSources);
                 }
                 for (int i = 0; i < playerSources.Count; i++) {
                     if (!playerSources[i].isPlaying) {
                         return playerSources[i];
                     } else if (i == playerSources.Count-1) {
-                        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                        audioSource.volume = soundEffectVolume;
-                        playerSources.Add(audioSource);
+                        MakeSource(playerSources);
                     }
                 }
                 Debug.LogError($"No Available Player SoundSource");
                 return null;
+            case SoundSource.cutscene:
+                if (cutsceneSources.Count == 0) {
+                    MakeSource(cutsceneSources);
+                }
+                for (int i = 0; i < cutsceneSources.Count; i++) {
+                    if (!cutsceneSources[i].isPlaying) {
+                        return cutsceneSources[i];
+                    } else if (i == cutsceneSources.Count-1) {
+                        MakeSource(cutsceneSources);
+                    }
+                }
+                Debug.LogError($"No Available Cutscene SoundSource");
+                return null;
             default:
                 return null;
         }
+    }
+
+    public void MakeSource(List<AudioSource> sources) {
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.volume = soundEffectVolume;
+        sources.Add(audioSource);
     }
 
     public void PlaySoundEffect(string effectName, SoundSource source) {

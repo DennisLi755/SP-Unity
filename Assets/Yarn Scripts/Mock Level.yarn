@@ -1,0 +1,21 @@
+﻿title: Opening
+tags:
+position: 12, -102
+---
+<<wait 2>>
+<<play_sound "Explosion1">>
+<<wait 1>>
+Somni: ...Where am I?
+Somni: What was that sound?
+===
+
+title: Meet_Guide
+tags:
+position: 12, -102
+---
+Guide: YOU!
+Somni: Me?
+Guide: Do you have ANY idea how long I've been falling?!
+Somni: Why <i>would<i> I know?
+Guide: 
+===
