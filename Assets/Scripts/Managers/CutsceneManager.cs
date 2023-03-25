@@ -13,8 +13,10 @@ public class CutsceneManager : MonoBehaviour {
     private GameObject dialogueCanvas;
 
     void Start() {
-        StartCoroutine(WaitForCrash());
-        PlayerInfo.Instance.PlayerControl.Freeze();
+        if (!GameManager.Instance.WatchedOpening) {
+            StartCoroutine(WaitForCrash());
+            PlayerInfo.Instance.PlayerControl.Freeze();
+        }
     }
 
     IEnumerator WaitForCrash() {
@@ -44,6 +46,11 @@ public class CutsceneManager : MonoBehaviour {
     [YarnCommand("talk_to_guide")]
     static void TalkedToGuide() {
         GameManager.Instance.GuideInteract = true;
+    }
+
+    [YarnCommand("watched_opening")]
+    static void WatchedOpening() {
+        GameManager.Instance.WatchedOpening = true;
     }
     /*
     [YarnCommand("show_dialogue")]

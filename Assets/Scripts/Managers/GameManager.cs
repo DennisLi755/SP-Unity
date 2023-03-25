@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
     //Progression flags
     private bool guideInteract = false;
     public bool GuideInteract { get => guideInteract; set => guideInteract = value; }
+    private bool watchedOpening = false;
+    public bool WatchedOpening { get => watchedOpening; set => watchedOpening = value; }
 
     private void Awake() {
         if (instance == null) {
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour {
         saveData.saveLocation = saveLocation;
         saveData.unlockedSkills = PlayerInfo.Instance.PlayerControl.UnlockedSkills;
         saveData.equippedSkills = PlayerInfo.Instance.PlayerControl.EquippedSkills;
+        saveData.watchedOpening = watchedOpening;
         //write the data to a persistent file
         System.IO.File.WriteAllText(SaveFilePath, JsonUtility.ToJson(saveData));
         Debug.Log("Saved game!");
@@ -112,6 +115,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //load the correct scene if it is not already loaded
+        watchedOpening = saveData.watchedOpening;
         if (SceneManager.GetActiveScene().name != saveData.scene) {
             SceneManager.sceneLoaded += SceneLoaded;
             SceneManager.LoadScene(saveData.scene);
@@ -140,7 +144,7 @@ public class GameManager : MonoBehaviour {
         SavePoint[] sceneSavePoints = FindObjectsOfType<SavePoint>();
         foreach (SavePoint sp in sceneSavePoints) {
             if (sp.gameObject.name == saveData.saveLocation) {
-                player.transform.position = sp.transform.position;
+                player.transform.position = sp.PlayerPosition;
                 //move the camera to the room that the save point is in - parent is called twice because save points are children of interactables which are children of the room
                 sp.transform.parent.parent.GetComponent<Room>().MoveCameraHere();
                 break;
