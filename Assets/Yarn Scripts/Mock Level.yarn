@@ -52,3 +52,14 @@ Somni: ...What's the toilet for?
 Guide: That I do know actually. It's to <color=green>SAVE</color> your progress.
 Guide: There also seems to be some hostiles in your house now. So be careful.
 ===
+
+title: Guide_Interact
+tags:
+position: 12, -102
+---
+Somni: So you're just gonna stand there?
+Guide: Part of the procedure is that it's done by you.
+Guide: It used to be the other way around but we ran into some legal trouble.
+Somni: ...Should I even ask?
+Guide: No.
+===
