@@ -4,7 +4,6 @@ position: 12, -102
 ---
 : CRASH
 <<play_sound "Explosion1">>
-<<wait 1>>
 Somni: ...Where am I?
 Somni: What was that sound?
 <<watched_opening>>
