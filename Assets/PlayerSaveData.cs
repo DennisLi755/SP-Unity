@@ -9,5 +9,6 @@ namespace Assets {
         public string playerName = "Somni";
         public int[] unlockedSkills;
         public int[] equippedSkills = new int[] { -1, -1 };
+        public bool watchedOpening;
     }
 }
