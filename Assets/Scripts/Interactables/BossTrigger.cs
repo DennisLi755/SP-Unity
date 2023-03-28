@@ -10,8 +10,7 @@ public class BossTrigger : MonoBehaviour {
     private Vector3 BossSpawnPosition;
     [SerializeField]
     GameObject boss;
-    [SerializeField]
-    GameObject wall;
+    private bool triggered;
 
 #if UNITY_EDITOR
     /// <summary>
@@ -41,14 +40,13 @@ public class BossTrigger : MonoBehaviour {
     /// </summary>
     protected virtual void Update() {
         RaycastHit2D hit = Physics2D.BoxCast(trigger.bounds.center, trigger.bounds.size, 0, Vector2.zero, 0, playerLayer);
-        if (hit) {
-
+        if (hit && !triggered) {
+            SpawnBoss();
+            triggered = true;
         }
     }
 
     private void SpawnBoss() {
-        gameObject.SetActive(false);
-        wall.SetActive(true);
-        Instantiate(boss, BossSpawnPosition + transform.position, Quaternion.identity);
+        boss.SetActive(true);
     }
 }

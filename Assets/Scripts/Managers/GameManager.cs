@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     private int playerSaveSlot;
     public int PlayerSaveSlot { set => playerSaveSlot = value; }
     private PlayerSaveData saveData;
+    public PlayerSaveData SaveData { get => saveData; set => saveData = value; }
     private string SaveFilePath => Application.persistentDataPath + $"/save{playerSaveSlot}.data";
 
     //Progression flags
@@ -73,24 +74,9 @@ public class GameManager : MonoBehaviour {
     IEnumerator EndDemoFight() {
         UIManager.Instance.FadeToBlack();
         yield return new WaitForSeconds(0.5f);
-        GuideBoss guideboss = FindObjectOfType<GuideBoss>();
-        if (guideboss != null) {
-            Destroy(guideboss.gameObject);
-        }
-        GuideAd[] ads = FindObjectsOfType<GuideAd>();
-        for (int i = 0; i < ads.Length; Destroy(ads[i].gameObject), i++);
-
-        Bullet[] bs = FindObjectsOfType<Bullet>();
-        for (int i = 0; i < bs.Length; Destroy(bs[i].gameObject), i++);
-
-        PlayerInfo.Instance.Respawn();
-        PlayerInfo.Instance.PlayerControl.CanMove = false;
-        PlayerInfo.Instance.transform.position = new Vector3(104.2f, -32.1f, 0.0f);
+        SceneManager.LoadScene(0);
         PlayerInfo.Instance.ExitCombat();
-
         UIManager.Instance.FadeFromBlack();
-        yield return new WaitForSeconds(0.5f);
-        PlayerInfo.Instance.PlayerControl.CanMove = true;
     }
 
     public void SavePlayerData(string saveLocation) {
@@ -109,25 +95,26 @@ public class GameManager : MonoBehaviour {
     public void LoadPlayerSaveData(int saveSlot, PlayerSaveData psd) {
         saveData = psd;
         playerSaveSlot = saveSlot;
-        if (!new System.IO.FileInfo(SaveFilePath).Exists) {
-            //Make a new save
-            Debug.Log($"There is no save data in slot {playerSaveSlot}");
-        }
 
         //load the correct scene if it is not already loaded
         watchedOpening = saveData.watchedOpening;
-        if (SceneManager.GetActiveScene().name != saveData.scene) {
-            SceneManager.sceneLoaded += SceneLoaded;
-            SceneManager.LoadScene(saveData.scene);
+        SceneManager.sceneLoaded += SceneLoaded;
+
+        if (!new System.IO.FileInfo(SaveFilePath).Exists) {
+            //Make a new save
+            Debug.Log($"There is no save data in slot {playerSaveSlot}");
+            SceneManager.LoadScene(1);
         }
         else {
-            SetupPlayer();
+            SceneManager.LoadScene(saveData.scene);
         }
     }
+
 
     private void SceneLoaded(Scene scene, LoadSceneMode lsm) {
         SetupPlayer();
         SceneManager.sceneLoaded -= SceneLoaded;
+        
     }
 
     private void SetupPlayer() {
@@ -150,5 +137,6 @@ public class GameManager : MonoBehaviour {
                 break;
             }
         }
+        UIManager.Instance.FadeFromBlack();
     }
 }

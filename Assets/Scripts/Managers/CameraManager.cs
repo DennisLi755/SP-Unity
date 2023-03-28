@@ -14,7 +14,7 @@ public class CameraManager : MonoBehaviour {
         }
     }
 
-    private Transform target;
+    private Transform Target => PlayerInfo.Instance.transform;
     private Vector3 offset = new Vector3(0, 0, -10);
     private const float damping = 0.1f;
     [SerializeField]
@@ -25,7 +25,7 @@ public class CameraManager : MonoBehaviour {
     private void Awake() {
         if (instance == null) {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else {
             Destroy(gameObject);
@@ -33,12 +33,12 @@ public class CameraManager : MonoBehaviour {
     }
 
     private void Start() {
-        target = PlayerInfo.Instance.transform;   
+        
     }
 
     void FixedUpdate() {
         if (shouldFollowPlayer) {
-            Vector3 movePosition = target.position + offset;
+            Vector3 movePosition = Target.position + offset;
             transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
         }
     }

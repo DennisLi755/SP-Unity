@@ -60,6 +60,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     protected Material whiteMaterial;
     private Material spritesDefault;
     protected SpriteRenderer sr;
+    [SerializeField]
+    GameObject[] walls;
 
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
@@ -108,7 +110,9 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         if (usesNodeMovement) {
             UpdateMovementNodePositions();
         }
-
+        foreach (GameObject wall in walls) {
+            wall.SetActive(true);
+        }
         MoveToNewNode();
     }
 
@@ -200,7 +204,9 @@ public abstract class Boss : MonoBehaviour, IDamageable {
                 UIManager.Instance.EnableBossHealthBar(false);
                 PlayerInfo.Instance.CombatLock = false;
                 SoundManager.Instance.FadeOutCurrentLayer(3.0f);
-                GameManager.Instance.EndFight();
+                foreach (GameObject wall in walls) {
+                    wall.SetActive(false);
+                }
             }
             if (ChangePhase()) {
                 attackCycleIndex = 0;

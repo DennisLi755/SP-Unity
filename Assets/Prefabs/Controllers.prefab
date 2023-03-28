@@ -546,6 +546,7 @@ MonoBehaviour:
   playerSources: []
   enemySource: {fileID: 0}
   musicSources: []
+  cutsceneSources: []
   UISource: {fileID: 0}
   environmentSource: {fileID: 0}
   musicVolume: 0.5
@@ -563,6 +564,8 @@ MonoBehaviour:
     soundEffect: {fileID: 8300000, guid: 5c20c909f4608a44f89a9ec13e395e35, type: 3}
   - name: spdemo1_full
     soundEffect: {fileID: 8300000, guid: 02309c61999bd744b86897eb9fc7d7d0, type: 3}
+  - name: Explosion1
+    soundEffect: {fileID: 8300000, guid: 1d4cbd6275776364cafdf969edeb8c75, type: 3}
 --- !u!1 &634508849414157875
 GameObject:
   m_ObjectHideFlags: 0
@@ -3197,6 +3200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02c3e8ce33a29d45ad2c6c655a49e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueCanvas: {fileID: 0}
 --- !u!1 &3695494055635458146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3294,7 +3298,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3695494056827148179}
-  - {fileID: 3695494056955007879}
   - {fileID: 3695494057088771112}
   - {fileID: 3695494055603765498}
   - {fileID: 2261990288044545483}
@@ -4258,56 +4261,9 @@ MonoBehaviour:
   - {fileID: 5049388870038373733}
   - {fileID: 2189175876121316235}
   fadeToBlackPanel: {fileID: 3695494056508443257}
---- !u!1 &3695494056955007877
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3695494056955007879}
-  - component: {fileID: 3695494056955007878}
-  m_Layer: 0
-  m_Name: RoomManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3695494056955007879
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695494056955007877}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3695494055640446564}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3695494056955007878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3695494056955007877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d3071efbcc4d2e41934f3aaecce573e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rooms:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  endInteractionEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3695494057088771119
 GameObject:
   m_ObjectHideFlags: 0

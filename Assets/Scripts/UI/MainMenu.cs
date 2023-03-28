@@ -52,10 +52,9 @@ public class MainMenu : MonoBehaviour
     }
 
     public void LoadSaveFile(int index) {
-        Debug.Log(index);
         //start a new game
         if (saveFiles[index] == null) {
-            SceneManager.LoadScene(1);
+            GameManager.Instance.LoadPlayerSaveData(index, new PlayerSaveData());
         }
         //load an existing save
         else {

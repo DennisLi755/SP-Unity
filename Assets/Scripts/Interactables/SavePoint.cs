@@ -5,7 +5,7 @@ using UnityEngine;
 public class SavePoint : InteractableObject {
     [SerializeField]
     private Vector3 playerPosition;
-    public Vector3 PlayerPosition => playerPosition;
+    public Vector3 PlayerPosition => playerPosition + transform.position;
 
 #if UNITY_EDITOR
     private void OnDrawGizmos() {
@@ -17,6 +17,7 @@ public class SavePoint : InteractableObject {
     public override void OnInteract() {
         GameManager.Instance.SavePlayerData(gameObject.name);
         PlayerInfo.Instance.EnableTutorialText("Saved!");
+        StartCoroutine(TurnOffSaveText());
     }
 
     IEnumerator TurnOffSaveText() {

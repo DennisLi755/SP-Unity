@@ -223,7 +223,7 @@ public class PlayerControl : MonoBehaviour {
             Skill3
         };
         //SetupSkills();
-        //UnlockSkill(0);
+        UnlockSkill(0);
     }
 
     /// <summary>
