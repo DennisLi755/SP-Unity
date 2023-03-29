@@ -39,10 +39,10 @@ public class DialogueManager : MonoBehaviour {
     private void Awake() {
         if (instance == null) {
             instance = this;
-            DontDestroyOnLoad(transform.parent);
+            //DontDestroyOnLoad(transform.parent.gameObject);
         }
         else {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

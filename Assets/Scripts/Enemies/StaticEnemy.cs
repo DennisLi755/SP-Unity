@@ -212,8 +212,8 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     public void Hurt(int amount) {
         if (isDamageable) {
             currentHealth -= amount;
-            sr.material = whiteMaterial;
-            StartCoroutine(TurnColorBack());
+            //sr.material = whiteMaterial;
+            //StartCoroutine(TurnColorBack());
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
                 if (healthDropChance > 0) {
