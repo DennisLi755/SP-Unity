@@ -88,7 +88,7 @@ public class DialogueManager : MonoBehaviour {
     /// Enables or disables the dialogue canvas based on given bool
     /// </summary>
     /// <param name="isEnabled"></param>
-    private void EnableDialogueCanvas(bool isEnabled) {
+    public void EnableDialogueCanvas(bool isEnabled) {
         dialogueCanvas.SetActive(isEnabled);
     }
 

@@ -2,11 +2,52 @@
 tags:
 position: 12, -102
 ---
-: CRASH
-<<play_sound "Explosion1">>
+//<<wait 1>>
 Somni: ...Where am I?
-Somni: What was that sound?
+<<move_player 2, 0, 2>>
+<<wait 2>>
+Somni: I don't know why, but I wanna go outside...
 <<watched_opening>>
+===
+
+title: First_Outside
+tags:
+position: 12, -102
+---
+//fade to black
+//move somni to new room
+//wait
+//change sprite of door
+//play sound of door opening
+//wait
+Somni: Oh.
+Somni: There's nothing.
+//change sprite of door
+//play sound of door closing
+//fade to black
+//go back to previous room
+//fade from black
+Somni: Welp. That's terrifying.
+Somni: I guess I'll go back to bed.
+===
+
+title: Back_To_Bed
+tags:
+position: 12, -102
+---
+//walk command
+Somni: I'll just stay here...
+//fade to black
+//wait
+//<<play_sound Explosion1>>
+//end black
+//wait
+Somni: What was that...?
+//walk
+//wait
+//fade to black
+//wait
+//fade from black
 ===
 
 title: Meet_Guide
