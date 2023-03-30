@@ -129,6 +129,12 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void CutFromBlack() {
+        Color c = fadeToBlackPanel.GetComponent<Image>().color;
+        c.a = 0;
+        fadeToBlackPanel.GetComponent<Image>().color = c;
+    }
+
     /// <summary>
     /// Opens and populates basic object interaction text box
     /// </summary>

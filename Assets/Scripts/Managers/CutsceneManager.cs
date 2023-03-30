@@ -37,7 +37,7 @@ public class CutsceneManager : MonoBehaviour {
         OpeningScene();
     }
     public void OpeningScene() {
-        if (!GameManager.Instance.WatchedOpening && SceneManager.GetActiveScene().buildIndex == 1) {
+        if (!GameManager.Instance.GetProgressionFlag("Watched Opening") && SceneManager.GetActiveScene().buildIndex == 1) {
             StartCoroutine(WaitForCrash());
             PlayerInfo.Instance.PlayerControl.Freeze();
         }
@@ -66,15 +66,9 @@ public class CutsceneManager : MonoBehaviour {
             PlayerInfo.Instance.EnableTutorialText("Use the the left stick to move");
         }
     }
-
-    [YarnCommand("talk_to_guide")]
-    static void TalkedToGuide() {
-        GameManager.Instance.GuideInteract = true;
-    }
-
-    [YarnCommand("watched_opening")]
-    static void WatchedOpening() {
-        GameManager.Instance.WatchedOpening = true;
+    [YarnCommand("set_progression_flag")]
+    static void SetProgressionFlag(string key, bool bol) {
+        GameManager.Instance.SetProgressionFlag(key, bol);
     }
     /*
     [YarnCommand("show_dialogue")]
@@ -82,12 +76,12 @@ public class CutsceneManager : MonoBehaviour {
         dialogueCanvas.SetActive(show);
     }*/
     [YarnCommand("move_object")]
-    static void MoveObject(GameObject obj, float x, float y, float time, bool stopDialogue = true) {
+    static void MoveObject(GameObject obj, float x, float y, float time, bool relative = true, bool stopDialogue = true) {
         if (stopDialogue) {
             DialogueManager.Instance.EnableDialogueCanvas(false);
         }
-        float moveX = obj.transform.position.x + x;
-        float moveY = obj.transform.position.y + y;
+        float moveX = relative ? obj.transform.position.x + x : x;
+        float moveY = relative ? obj.transform.position.y + y : y;
         Vector3 destination = new Vector3(moveX, moveY, 0);
 
         float speed = Vector3.Distance(obj.transform.position, destination)/time;
@@ -141,6 +135,10 @@ public class CutsceneManager : MonoBehaviour {
     [YarnCommand("fade_from_black")]
     static void FadeFromBlack() {
         UIManager.Instance.FadeFromBlack();
+    }
+    [YarnCommand("cut_from_black")]
+    static void CutFromBlack() {
+        UIManager.Instance.CutFromBlack();
     }
     [YarnCommand("set_object_position")]
     static void SetObjectPosition(GameObject obj, float x, float y) {

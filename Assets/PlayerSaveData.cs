@@ -9,6 +9,6 @@ namespace Assets {
         public string playerName = "Somni";
         public int[] unlockedSkills = new int[0];
         public int[] equippedSkills = new int[] { -1, -1 };
-        public bool watchedOpening = false;
+        public Dictionary<string, bool> progressionFlags = new Dictionary<string, bool>();
     }
 }

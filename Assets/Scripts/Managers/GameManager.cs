@@ -23,10 +23,7 @@ public class GameManager : MonoBehaviour {
     private string SaveFilePath => Application.persistentDataPath + $"/save{playerSaveSlot}.data";
 
     //Progression flags
-    private bool guideInteract = false;
-    public bool GuideInteract { get => guideInteract; set => guideInteract = value; }
-    private bool watchedOpening = false;
-    public bool WatchedOpening { get => watchedOpening; set => watchedOpening = value; }
+    private Dictionary<string, bool> progressionFlags = new Dictionary<string, bool>();
 
     private void Awake() {
         if (instance == null) {
@@ -47,6 +44,9 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             EndFight();
+        } 
+        if (Input.GetKeyDown(KeyCode.Alpha9)) {
+            SavePlayerData("Debug");
         }
     }
 
@@ -61,6 +61,20 @@ public class GameManager : MonoBehaviour {
         else {
             Time.timeScale = 1.0f;
         }
+    }
+
+    public bool GetProgressionFlag(string key) {
+        try {
+            return progressionFlags[key];
+        }
+        catch (KeyNotFoundException e) {
+            progressionFlags.Add(key, false);
+            return false;
+        }
+    }
+
+    public void SetProgressionFlag(string key, bool bol) {
+        progressionFlags[key] = bol;
     }
 
     public void QuitGame() {
@@ -86,7 +100,7 @@ public class GameManager : MonoBehaviour {
         saveData.saveLocation = saveLocation;
         saveData.unlockedSkills = PlayerInfo.Instance.PlayerControl.UnlockedSkills;
         saveData.equippedSkills = PlayerInfo.Instance.PlayerControl.EquippedSkills;
-        saveData.watchedOpening = watchedOpening;
+        saveData.progressionFlags = progressionFlags;
         //write the data to a persistent file
         System.IO.File.WriteAllText(SaveFilePath, JsonUtility.ToJson(saveData));
         Debug.Log("Saved game!");
@@ -97,7 +111,7 @@ public class GameManager : MonoBehaviour {
         playerSaveSlot = saveSlot;
 
         //load the correct scene if it is not already loaded
-        watchedOpening = saveData.watchedOpening;
+        progressionFlags = saveData.progressionFlags;
         SceneManager.sceneLoaded += SceneLoaded;
 
         if (!new System.IO.FileInfo(SaveFilePath).Exists) {

@@ -10,7 +10,7 @@ Somni: ...Where am I?
 <<change_player_direction 1>>
 Somni: I don't know why, but I wanna go outside...
 <<player_collision true>>
-<<watched_opening>>
+<<set_progression_flag "Watched Opening" true>>
 ===
 
 title: First_Outside
@@ -56,6 +56,7 @@ Somni: There's nothing.
 <<enable_textboxes true>>
 Somni: Welp. That's terrifying.
 Somni: I guess I'll go back to bed.
+<<set_progression_flag "Saw Void" true>>
 <<player_collision true>>
 ===
 
@@ -64,18 +65,41 @@ tags:
 position: 12, -102
 ---
 //walk command
+<<enable_textboxes false>>
+<<move_player -0.238, -22.08, 0.2, false>>
+<<wait 0.2>>
+<<move_player -2, 0, 1>>
+<<wait 1>>
+<<change_player_direction 1>>
+<<enable_textboxes true>>
 Somni: I'll just stay here...
+<<enable_textboxes false>>
 //fade to black
+<<fade_to_black>>
 //wait
+<<wait 4>>
 //<<play_sound Explosion1>>
+<<play_sound Explosion1>>
 //end black
+<<cut_from_black>>
 //wait
+<<wait 1>>
+<<enable_textboxes true>>
 Somni: What was that...?
+<<enable_textboxes false>>
 //walk
+<<move_player 2, 0, 1>>
+<<wait 1>>
+<<change_player_direction 1>>
 //wait
+<<wait 0.5>>
 //fade to black
+<<fade_to_black>>
 //wait
+<<wait 2>>
 //fade from black
+<<fade_from_black>>
+<<set_progression_flag "SecondAwake" true>>
 ===
 
 title: Meet_Guide
@@ -105,7 +129,7 @@ Somni: I meant crashing through their ceiling and screaming at them.
 Guide: This case is...special. I've never had to operate on someone with absolutely nothing in their brain.
 Somni: Now I just feel offended.
 Guide: I'm serious here. Go see for yourself.
-<<talk_to_guide>>
+<<set_progression_flag "Guide Interact" true>>
 ===
 
 title: Enter_House
