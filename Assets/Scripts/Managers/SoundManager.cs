@@ -30,13 +30,10 @@ public class SoundManager : MonoBehaviour
             return instance;
         }
     }
-    [SerializeField]
     private List<AudioSource> playerSources;
     [SerializeField]
     private AudioSource enemySource;
-    [SerializeField]
     private List<AudioSource> musicSources;
-    [SerializeField]
     private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
     private AudioSource UISource;
@@ -118,7 +115,12 @@ public class SoundManager : MonoBehaviour
                 }
                 Debug.LogError($"No Available Cutscene SoundSource");
                 return null;
+
+            case SoundSource.UI:
+                return UISource;
+
             default:
+                Debug.LogError($"The case for SoundSource {source} has not been setup yet");
                 return null;
         }
     }
@@ -145,6 +147,10 @@ public class SoundManager : MonoBehaviour
                 playerSources.Remove(audioSource);
             }
         }
+    }
+
+    public void PlayerUISoundEffect(string effectName) {
+        PlaySoundEffect(effectName, SoundSource.UI);
     }
 
     public void SetUpMusicLayers(string[] names) {

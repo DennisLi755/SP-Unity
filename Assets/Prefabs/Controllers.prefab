@@ -543,10 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b4aaa6c8f85aa4388dee882a3d284c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSources: []
   enemySource: {fileID: 0}
-  musicSources: []
-  cutsceneSources: []
   UISource: {fileID: 0}
   environmentSource: {fileID: 0}
   musicVolume: 0.5
@@ -566,6 +563,12 @@ MonoBehaviour:
     soundEffect: {fileID: 8300000, guid: 02309c61999bd744b86897eb9fc7d7d0, type: 3}
   - name: Explosion1
     soundEffect: {fileID: 8300000, guid: 1d4cbd6275776364cafdf969edeb8c75, type: 3}
+  - name: DoorOpen
+    soundEffect: {fileID: 8300000, guid: bb7968fe7902839438f725db06055caf, type: 3}
+  - name: DoorClose
+    soundEffect: {fileID: 8300000, guid: d52e857236f197c44995cee2224486fa, type: 3}
+  - name: Text Type
+    soundEffect: {fileID: 8300000, guid: 9c7a5de615105d04b9021664fe7d26ae, type: 3}
 --- !u!1 &634508849414157875
 GameObject:
   m_ObjectHideFlags: 0
@@ -3201,6 +3204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueCanvas: {fileID: 0}
+  openingProject: {fileID: 0}
 --- !u!1 &3695494055635458146
 GameObject:
   m_ObjectHideFlags: 0
@@ -8866,6 +8870,38 @@ PrefabInstance:
     - target: {fileID: 867282370832102595, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198661328790108914}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerUISoundEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SoundManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Text Type
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

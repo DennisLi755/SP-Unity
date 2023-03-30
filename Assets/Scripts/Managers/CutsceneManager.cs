@@ -30,7 +30,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        //DialogueManager.Instance.StartDialogue("First_Outside");
+        DialogueManager.Instance.StartDialogue("First_Outside");
     }
 
     public void OpeningScene(Scene s, LoadSceneMode lsm) {
