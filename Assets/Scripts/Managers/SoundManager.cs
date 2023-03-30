@@ -30,10 +30,10 @@ public class SoundManager : MonoBehaviour
             return instance;
         }
     }
-    private List<AudioSource> playerSources;
+    private List<AudioSource> playerSources = new List<AudioSource>();
     [SerializeField]
     private AudioSource enemySource;
-    private List<AudioSource> musicSources;
+    private List<AudioSource> musicSources = new List<AudioSource>();
     private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
     private AudioSource UISource;

@@ -30,7 +30,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        DialogueManager.Instance.StartDialogue("First_Outside");
+        //DialogueManager.Instance.StartDialogue("First_Outside");
     }
 
     public void OpeningScene(Scene s, LoadSceneMode lsm) {
@@ -76,10 +76,7 @@ public class CutsceneManager : MonoBehaviour {
         dialogueCanvas.SetActive(show);
     }*/
     [YarnCommand("move_object")]
-    static void MoveObject(GameObject obj, float x, float y, float time, bool relative = true, bool stopDialogue = true) {
-        if (stopDialogue) {
-            DialogueManager.Instance.EnableDialogueCanvas(false);
-        }
+    static void MoveObject(GameObject obj, float x, float y, float time, bool relative = true) {
         float moveX = relative ? obj.transform.position.x + x : x;
         float moveY = relative ? obj.transform.position.y + y : y;
         Vector3 destination = new Vector3(moveX, moveY, 0);
@@ -93,19 +90,15 @@ public class CutsceneManager : MonoBehaviour {
                 yield return null;
                 Debug.Log("In loop");
             }
-            if (stopDialogue) {
-                DialogueManager.Instance.EnableDialogueCanvas(true);
-            }
         }
     }
     [YarnCommand("move_player")]
-    static void MovePlayer(float x, float y, float time, bool stopDialogue = true) {
-        if (stopDialogue) {
-            DialogueManager.Instance.EnableDialogueCanvas(false);
-            instance.StartCoroutine(Wait());
-        }
+    static void MovePlayer(float x, float y, float time, bool relative = true) {
+        instance.StartCoroutine(Wait());
         Vector3 playerPosition = PlayerInfo.Instance.gameObject.transform.position;
-        Vector3 destination = new Vector3(playerPosition.x + x, playerPosition.y + y, 0);
+        float moveX = relative ? playerPosition.x + x : x;
+        float moveY = relative ? playerPosition.y + y : y;
+        Vector3 destination = new Vector3(moveX, moveY, 0);
 
         float speed = Vector3.Distance(playerPosition, destination)/time;
         float angle = Mathf.Atan2(destination.y - playerPosition.y, 
@@ -117,7 +110,6 @@ public class CutsceneManager : MonoBehaviour {
         IEnumerator Wait() {
             yield return new WaitForSeconds(time);
             PlayerInfo.Instance.PlayerControl.Velocity = Vector2.zero;
-            DialogueManager.Instance.EnableDialogueCanvas(true);
         }
     }
     [YarnCommand("change_player_direction")]
@@ -146,7 +138,6 @@ public class CutsceneManager : MonoBehaviour {
     }
     [YarnCommand("set_alpha")]
     static void SetAlpha(GameObject obj, float alpha) {
-        //obj.SetActive(condition);
         Color c;
         c = Color.white;
         c.a = alpha;

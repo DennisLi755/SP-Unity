@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
             SavePlayerData("Debug");
         }
+        if (Input.GetKeyDown(KeyCode.Alpha8)) {
+             PlayerSaveData file = new PlayerSaveData();
+            string filePath = Application.persistentDataPath + $"/save{0}.data";
+            file = JsonUtility.FromJson<PlayerSaveData>(System.IO.File.ReadAllText(filePath));
+            LoadPlayerSaveData(0, file);
+        }
     }
 
     public void PauseGame() {
@@ -142,13 +148,15 @@ public class GameManager : MonoBehaviour {
         player.EquipSkill(saveData.equippedSkills[0], 0);
         player.EquipSkill(saveData.equippedSkills[1], 1);
         //move the player to the correct save location in the scene
-        SavePoint[] sceneSavePoints = FindObjectsOfType<SavePoint>();
-        foreach (SavePoint sp in sceneSavePoints) {
-            if (sp.gameObject.name == saveData.saveLocation) {
-                player.transform.position = sp.PlayerPosition;
-                //move the camera to the room that the save point is in - parent is called twice because save points are children of interactables which are children of the room
-                sp.transform.parent.parent.GetComponent<Room>().MoveCameraHere();
-                break;
+        if (saveData.saveLocation != "Debug") {
+            SavePoint[] sceneSavePoints = FindObjectsOfType<SavePoint>();
+            foreach (SavePoint sp in sceneSavePoints) {
+                if (sp.gameObject.name == saveData.saveLocation) {
+                    player.transform.position = sp.PlayerPosition;
+                    //move the camera to the room that the save point is in - parent is called twice because save points are children of interactables which are children of the room
+                    sp.transform.parent.parent.GetComponent<Room>().MoveCameraHere();
+                    break;
+                }
             }
         }
         UIManager.Instance.FadeFromBlack();
