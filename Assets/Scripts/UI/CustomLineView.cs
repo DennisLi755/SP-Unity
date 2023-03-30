@@ -323,7 +323,10 @@ public class CustomLineView : DialogueViewBase {
             // Hide the continue button until presentation is complete (if
             // we have one).
             if (continueButton != null) {
-                continueButton.SetActive(false);
+                //continueButton.SetActive(false);
+                Color c = continueButton.GetComponent<Image>().color;
+                c.a = 0.0f;
+                continueButton.GetComponent<Image>().color = c;
             }
 
             if (characterNameText != null) {
@@ -409,7 +412,10 @@ public class CustomLineView : DialogueViewBase {
 
         // Show the continue button, if we have one.
         if (continueButton != null) {
-            continueButton.SetActive(true);
+            //continueButton.SetActive(true);
+            Color c = continueButton.GetComponent<Image>().color;
+            c.a = 1.0f;
+            continueButton.GetComponent<Image>().color = c;
         }
 
         // If we have a hold time, wait that amount of time, and then
@@ -451,9 +457,11 @@ public class CustomLineView : DialogueViewBase {
             // started it.
             currentStopToken.Interrupt();
         }
-        // No animation is now running. Signal that we want to
-        // interrupt the line instead.
-        requestInterrupt?.Invoke();
+        else {
+            // No animation is now running. Signal that we want to
+            // interrupt the line instead.
+            requestInterrupt?.Invoke();
+        }
     }
 
     /// <summary>
