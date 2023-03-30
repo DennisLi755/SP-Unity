@@ -21,7 +21,7 @@ namespace Assets {
             progressionFlags = new ProgressionFlags[flags.Count];
             int i = 0;
             foreach (KeyValuePair<string, bool> kvp in flags) {
-                ProgressionFlags flag = new ProgressionFlags;
+                ProgressionFlags flag = new ProgressionFlags();
                 flag.flagName = kvp.Key;
                 flag.flagActivated = kvp.Value;
                 progressionFlags[i] = flag;
