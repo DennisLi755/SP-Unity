@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BedInteraction : PromptedInteraction
 {
-    void OnInteract() {
+    public override void OnInteract() {
         if (!GameManager.Instance.GetProgressionFlag("Saw Void")) {
             UIManager.Instance.ActivateInteractText(new List<string>{"Your bed.", "You resist the urge to go back to bed immediately..."});
         } else {
@@ -14,6 +14,7 @@ public class BedInteraction : PromptedInteraction
 
     public override void OnYes()
     {
+        UIManager.Instance.ResetPromptedInteraction();
         DialogueManager.Instance.StartDialogue("Back_To_Bed");
     }
 }
