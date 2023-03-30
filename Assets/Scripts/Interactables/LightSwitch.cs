@@ -21,6 +21,11 @@ public class LightSwitch : InteractableObject {
         if (PlayerInfo.Instance.PlayerControl.FacingDirection == FacingDirection.Up) {
             lightOn = !lightOn;
             lightObject.SetActive(lightOn);
+            if (lightOn) {
+                SoundManager.Instance.PlaySoundEffect("LightSwitch1", SoundSource.environment);
+            } else {
+                SoundManager.Instance.PlaySoundEffect("LightSwitch2", SoundSource.environment);
+            }
         }
     }
 }

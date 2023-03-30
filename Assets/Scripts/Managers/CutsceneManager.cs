@@ -147,4 +147,12 @@ public class CutsceneManager : MonoBehaviour {
     static void EnableTextboxes(bool condition) {
         DialogueManager.Instance.EnableDialogueCanvas(condition);
     }
+    [YarnCommand("music_layers")]
+    static void SetUpMusicLayers() {
+
+    }
+    [YarnCommand("set_up_music")]
+    static void SetUpMusic() {
+        
+    }
 }

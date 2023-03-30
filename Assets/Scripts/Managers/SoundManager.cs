@@ -118,6 +118,9 @@ public class SoundManager : MonoBehaviour
 
             case SoundSource.UI:
                 return UISource;
+            
+            case SoundSource.environment:
+                return environmentSource;
 
             default:
                 Debug.LogError($"The case for SoundSource {source} has not been setup yet");
