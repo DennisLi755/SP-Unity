@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour {
         saveData.saveLocation = saveLocation;
         saveData.unlockedSkills = PlayerInfo.Instance.PlayerControl.UnlockedSkills;
         saveData.equippedSkills = PlayerInfo.Instance.PlayerControl.EquippedSkills;
-        saveData.progressionFlags = progressionFlags;
+        saveData.FillProgressionFlags(progressionFlags);
         //write the data to a persistent file
         System.IO.File.WriteAllText(SaveFilePath, JsonUtility.ToJson(saveData));
         Debug.Log("Saved game!");
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour {
         playerSaveSlot = saveSlot;
 
         //load the correct scene if it is not already loaded
-        progressionFlags = saveData.progressionFlags;
+        progressionFlags = saveData.GetProgressionFlags();
         SceneManager.sceneLoaded += SceneLoaded;
 
         if (!new System.IO.FileInfo(SaveFilePath).Exists) {
