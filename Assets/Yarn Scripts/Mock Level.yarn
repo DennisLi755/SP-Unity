@@ -3,10 +3,13 @@ tags:
 position: 12, -102
 ---
 //<<wait 1>>
+<<player_collision false>>
 Somni: ...Where am I?
-<<move_player 2, 0, 2>>
-<<wait 2>>
+<<move_player 2, 0, 1>>
+<<wait 1>>
+<<change_player_direction 1>>
 Somni: I don't know why, but I wanna go outside...
+<<player_collision true>>
 <<watched_opening>>
 ===
 
@@ -15,20 +18,45 @@ tags:
 position: 12, -102
 ---
 //fade to black
+<<enable_textboxes false>>
+<<player_collision false>>
+<<fade_to_black>>
+<<wait 1>>
 //move somni to new room
+<<set_object_position Player 168.309 -45.5>>
 //wait
+<<wait 0.5>>
+<<fade_from_black>>
+<<wait 2>>
 //change sprite of door
+<<set_alpha house_door 0>>
 //play sound of door opening
+<<play_sound DoorOpen>>
 //wait
+<<wait 2>>
+<<enable_textboxes true>>
 Somni: Oh.
 Somni: There's nothing.
+<<enable_textboxes false>>
+<<wait 0.5>>
 //change sprite of door
+<<set_alpha house_door 1>>
 //play sound of door closing
+<<play_sound DoorClose>>
+<<wait 1>>
 //fade to black
+<<fade_to_black>>
 //go back to previous room
+<<wait 1>>
+<<set_object_position Player 90.52 -44.2>>
 //fade from black
+<<wait 0.5>>
+<<fade_from_black>>
+<<wait 1>>
+<<enable_textboxes true>>
 Somni: Welp. That's terrifying.
 Somni: I guess I'll go back to bed.
+<<player_collision true>>
 ===
 
 title: Back_To_Bed

@@ -30,6 +30,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
+        //DialogueManager.Instance.StartDialogue("First_Outside");
     }
 
     public void OpeningScene(Scene s, LoadSceneMode lsm) {
@@ -115,12 +116,46 @@ public class CutsceneManager : MonoBehaviour {
         float speed = Vector3.Distance(playerPosition, destination)/time;
         float angle = Mathf.Atan2(destination.y - playerPosition.y, 
             destination.x  - playerPosition.x);
-        PlayerInfo.Instance.PlayerControl.Velocity = new Vector2(speed*Mathf.Cos(angle * Mathf.Deg2Rad), speed*Mathf.Sin(angle * Mathf.Deg2Rad));
+        Debug.Log(speed*Mathf.Sin(angle));
+        PlayerInfo.Instance.PlayerControl.Velocity = new Vector2((speed*Mathf.Cos(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed, 
+            (speed*Mathf.Sin(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
 
         IEnumerator Wait() {
             yield return new WaitForSeconds(time);
             PlayerInfo.Instance.PlayerControl.Velocity = Vector2.zero;
             DialogueManager.Instance.EnableDialogueCanvas(true);
         }
+    }
+    [YarnCommand("change_player_direction")]
+    static void ChangePlayerDirection(int direction) {
+        PlayerInfo.Instance.PlayerControl.ForceDirection((FacingDirection)direction);
+    }
+    [YarnCommand("player_collision")]
+    static void PlayerCollision(bool condition) {
+        PlayerInfo.Instance.PlayerControl.CanCollide = condition;
+    }
+    [YarnCommand("fade_to_black")]
+    static void FadeToBlack() {
+        UIManager.Instance.FadeToBlack();
+    }
+    [YarnCommand("fade_from_black")]
+    static void FadeFromBlack() {
+        UIManager.Instance.FadeFromBlack();
+    }
+    [YarnCommand("set_object_position")]
+    static void SetObjectPosition(GameObject obj, float x, float y) {
+        obj.transform.position = new Vector3(x, y, 0);
+    }
+    [YarnCommand("set_alpha")]
+    static void SetAlpha(GameObject obj, float alpha) {
+        //obj.SetActive(condition);
+        Color c;
+        c = Color.white;
+        c.a = alpha;
+        obj.GetComponent<SpriteRenderer>().color = c;
+    }
+    [YarnCommand("enable_textboxes")]
+    static void EnableTextboxes(bool condition) {
+        DialogueManager.Instance.EnableDialogueCanvas(condition);
     }
 }

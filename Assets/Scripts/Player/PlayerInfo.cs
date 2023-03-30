@@ -62,7 +62,7 @@ public class PlayerInfo : MonoBehaviour {
     private const int startingMana = 100;
 
     [SerializeField]
-    private bool attackUnlocked = true;
+    private bool attackUnlocked = false;
     public bool AttackUnlocked { get => attackUnlocked; set => attackUnlocked = value; }
     #endregion
 

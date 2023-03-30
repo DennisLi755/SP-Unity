@@ -92,6 +92,7 @@ public class PlayerControl : MonoBehaviour {
     //active move speed is changed between the value of walkSpeed and dashSpeed when the player starts or ends a dash
     //by default is is equal to walkSpeed
     private float activeMoveSpeed = walkSpeed;
+    public float ActiveMoveSpeed { get => activeMoveSpeed; set => activeMoveSpeed = value; }
     #endregion
 
     #region Attack Info
@@ -126,6 +127,8 @@ public class PlayerControl : MonoBehaviour {
     const int verticalRayCount = 3;
     private float horizontalRaySpacing;
     private float verticalRaySpacing;
+    private bool canCollide = true;
+    public bool CanCollide { get => canCollide; set => canCollide = value; }
 
     public FacingDirection FacingDirection => facingDirection;
 
@@ -269,12 +272,14 @@ public class PlayerControl : MonoBehaviour {
         //put any scalar values before velocity for better performance
         Vector2 newVel = activeMoveSpeed * focusScalar * Time.fixedDeltaTime * velocity;
 
-        //if the player is moving vertically or horizontally, check for collisions in those directions
-        if (velocity.x != 0) {
-            HorizontalCollisions(ref newVel);
-        }
-        if (velocity.y != 0) {
-            VerticalCollisions(ref newVel);
+        if (canCollide) {
+            //if the player is moving vertically or horizontally, check for collisions in those directions
+            if (velocity.x != 0) {
+                HorizontalCollisions(ref newVel);
+            }
+            if (velocity.y != 0) {
+                VerticalCollisions(ref newVel);
+            }
         }
 
         //check the player's hitbox for any bullets
