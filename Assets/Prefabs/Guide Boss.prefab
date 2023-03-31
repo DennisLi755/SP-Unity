@@ -270,7 +270,17 @@ MonoBehaviour:
           m_CallState: 2
   currentPhase: 0
   usesNodeMovement: 1
-  movementNodes: []
+  movementNodes:
+  - {x: -6.45, y: 1.19, z: 0}
+  - {x: -3.49, y: 1.19, z: 0}
+  - {x: 0, y: 1.19, z: 0}
+  - {x: 3.5, y: 1.19, z: 0}
+  - {x: 6.56, y: 1.19, z: 0}
+  - {x: -6.56, y: -2.73, z: 0}
+  - {x: -3.49, y: -2.73, z: 0}
+  - {x: 0, y: -2.73, z: 0}
+  - {x: 3.49, y: -2.73, z: 0}
+  - {x: 6.56, y: -2.73, z: 0}
   nodeColumnCount: 5
   nodeRowCount: 2
   nodeBounds:
@@ -278,6 +288,7 @@ MonoBehaviour:
     m_Extent: {x: 7, y: 2.3, z: 0}
   afterImage: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   whiteMaterial: {fileID: 2100000, guid: c3bc6a1834fa08348ad11d8bfc8f95f6, type: 2}
+  walls: []
   ad: {fileID: 7503953173959933805, guid: 8484648acdd1bb040abca524ac409b2a, type: 3}
 --- !u!61 &772907965599314203
 BoxCollider2D:

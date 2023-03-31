@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772907965599314198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 96.7, y: -76.47, z: 0}
+  m_LocalPosition: {x: -39.557495, y: -160.37779, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &772907965599314202
 SpriteRenderer:
@@ -301,7 +301,22 @@ MonoBehaviour:
           m_CallState: 2
   currentPhase: 0
   usesNodeMovement: 1
-  movementNodes: []
+  movementNodes:
+  - {x: -6.99, y: 4.29, z: 0}
+  - {x: -3.22, y: 4.29, z: 0}
+  - {x: -0.14, y: 4.29, z: 0}
+  - {x: 3.06, y: 4.29, z: 0}
+  - {x: 5.97, y: 4.29, z: 0}
+  - {x: -6.9, y: 0.5, z: 0}
+  - {x: -3.26, y: 0.5, z: 0}
+  - {x: -0.04, y: 0.5, z: 0}
+  - {x: 3.27, y: 0.5, z: 0}
+  - {x: 6.09, y: 0.5, z: 0}
+  - {x: -7.08, y: -2.99, z: 0}
+  - {x: -3.14, y: -2.99, z: 0}
+  - {x: 0, y: -2.99, z: 0}
+  - {x: 3.48, y: -2.99, z: 0}
+  - {x: 6.53, y: -2.99, z: 0}
   nodeColumnCount: 5
   nodeRowCount: 2
   nodeBounds:
@@ -309,4 +324,5 @@ MonoBehaviour:
     m_Extent: {x: 7, y: 2.3, z: 0}
   afterImage: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   whiteMaterial: {fileID: 2100000, guid: c3bc6a1834fa08348ad11d8bfc8f95f6, type: 2}
+  walls: []
   ad: {fileID: 7503953173959933805, guid: 8484648acdd1bb040abca524ac409b2a, type: 3}

@@ -72,15 +72,14 @@ public abstract class Boss : MonoBehaviour, IDamageable {
 
         if (usesNodeMovement) {
             Gizmos.color = Color.black;
-            if (Application.isPlaying) {
-                Gizmos.DrawWireCube(nodeBounds.center + startPos, nodeBounds.size);
-            }
-            else {
-                Gizmos.DrawWireCube(nodeBounds.center + transform.position, nodeBounds.size);
-            }
             for (int i = 0; i < movementNodes.Count; i++) {
                 Handles.color = new Color((float)i / movementNodes.Count, 0, 0);
-                Handles.DrawSolidDisc(movementNodes[i], Vector3.back, 0.2f);
+                if (Application.isPlaying) {
+                    Handles.DrawSolidDisc(movementNodes[i], Vector3.back, 0.2f);
+                }
+                else {
+                    Handles.DrawSolidDisc(movementNodes[i] + transform.position, Vector3.back, 0.2f);
+                }
             }
         }
     }
@@ -108,7 +107,11 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         currentHealth = maxHealth;
         //if the boss uses node movement, populate the list of nodes based on the bounds defined in the inspector
         if (usesNodeMovement) {
-            UpdateMovementNodePositions();
+            blacklistNodeIndices = new List<int>();
+            for (int i =0; i < movementNodes.Count; i++) {
+                movementNodes[i] += transform.position;
+            }
+            //UpdateMovementNodePositions();
         }
         foreach (GameObject wall in walls) {
             wall.SetActive(true);
