@@ -48,5 +48,6 @@ public class BossTrigger : MonoBehaviour {
 
     private void SpawnBoss() {
         boss.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
