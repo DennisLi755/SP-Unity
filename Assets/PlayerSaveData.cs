@@ -15,8 +15,12 @@ namespace Assets {
         public string playerName = "Somni";
         public int[] unlockedSkills = new int[0];
         public int[] equippedSkills = new int[] { -1, -1 };
-        public ProgressionFlags[] progressionFlags;
+        private ProgressionFlags[] progressionFlags;
 
+        /// <summary>
+        /// Populates the save data's internal list of flags with structs representing the KVP of the given dictionary
+        /// </summary>
+        /// <param name="flags"></param>
         public void FillProgressionFlags(Dictionary<string, bool> flags) {
             progressionFlags = new ProgressionFlags[flags.Count];
             int i = 0;
@@ -29,6 +33,10 @@ namespace Assets {
             }
         }
 
+        /// <summary>
+        /// Creates a dictionary representation of the save data's internal list of flags
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<string, bool> GetProgressionFlags() {
             Dictionary<string, bool> flags = new Dictionary<string, bool>();
             foreach (ProgressionFlags flag in progressionFlags) {

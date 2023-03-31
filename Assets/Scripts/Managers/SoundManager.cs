@@ -19,8 +19,7 @@ public enum SoundSource {
     environment
 }
 
-public class SoundManager : MonoBehaviour
-{
+public class SoundManager : MonoBehaviour {
     private static SoundManager instance;
     public static SoundManager Instance {
         get {
@@ -65,8 +64,7 @@ public class SoundManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         //load volumes from player preferences
 
         soundEffects = new Dictionary<string, AudioClip>();
@@ -88,7 +86,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public AudioSource FindSource(SoundSource source) {
-        switch(source) {
+        switch (source) {
             case SoundSource.player:
                 if (playerSources.Count == 0) {
                     MakeSource(playerSources);
@@ -96,7 +94,8 @@ public class SoundManager : MonoBehaviour
                 for (int i = 0; i < playerSources.Count; i++) {
                     if (!playerSources[i].isPlaying) {
                         return playerSources[i];
-                    } else if (i == playerSources.Count-1) {
+                    }
+                    else if (i == playerSources.Count - 1) {
                         MakeSource(playerSources);
                     }
                 }
@@ -109,7 +108,8 @@ public class SoundManager : MonoBehaviour
                 for (int i = 0; i < cutsceneSources.Count; i++) {
                     if (!cutsceneSources[i].isPlaying) {
                         return cutsceneSources[i];
-                    } else if (i == cutsceneSources.Count-1) {
+                    }
+                    else if (i == cutsceneSources.Count - 1) {
                         MakeSource(cutsceneSources);
                     }
                 }
@@ -118,7 +118,7 @@ public class SoundManager : MonoBehaviour
 
             case SoundSource.UI:
                 return UISource;
-            
+
             case SoundSource.environment:
                 return environmentSource;
 
@@ -128,12 +128,21 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Attaches a new audio source to the GameObject
+    /// </summary>
+    /// <param name="sources"></param>
     public void MakeSource(List<AudioSource> sources) {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.volume = soundEffectVolume;
         sources.Add(audioSource);
     }
 
+    /// <summary>
+    /// Plays the given sound effect through an audio source coresponding to the given sound source
+    /// </summary>
+    /// <param name="effectName"></param>
+    /// <param name="source"></param>
     public void PlaySoundEffect(string effectName, SoundSource source) {
         AudioSource audioSource = FindSource(source);
         audioSource.clip = soundEffects[effectName];
@@ -152,10 +161,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Plays the given sound effect through the UI sound source
+    /// </summary>
+    /// <param name="effectName"></param>
     public void PlayerUISoundEffect(string effectName) {
         PlaySoundEffect(effectName, SoundSource.UI);
     }
 
+    /// <summary>
+    /// Sets up a music audio source for each item in the array to use for layer blending
+    /// </summary>
+    /// <param name="names"></param>
     public void SetUpMusicLayers(string[] names) {
         currentLayer = 0;
         float volume = musicVolume;
@@ -168,16 +185,30 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fades to the next music layer in the list
+    /// </summary>
+    /// <param name="fadeTime"></param>
     public void ChangeMusicLayer(float fadeTime) {
         StartCoroutine(FadeOut(currentLayer, fadeTime, false));
-        StartCoroutine(FadeIn(currentLayer+1, fadeTime));
+        StartCoroutine(FadeIn(currentLayer + 1, fadeTime));
     }
 
+    /// <summary>
+    /// Fades out the current music layer without fading in a new one
+    /// </summary>
+    /// <param name="fadeTime"></param>
     public void FadeOutCurrentLayer(float fadeTime) {
         StartCoroutine(FadeOut(currentLayer, fadeTime, true));
-
     }
 
+    /// <summary>
+    /// Fades out the given music layer over the given time
+    /// </summary>
+    /// <param name="layer"></param>
+    /// <param name="fadeTime"></param>
+    /// <param name="resetLayers"></param>
+    /// <returns></returns>
     IEnumerator FadeOut(int layer, float fadeTime, bool resetLayers) {
         AudioSource audioSource = musicSources[currentLayer];
         float startVolume = audioSource.volume;
@@ -192,6 +223,12 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fades the given music layer in over the given time
+    /// </summary>
+    /// <param name="layer"></param>
+    /// <param name="fadeTime"></param>
+    /// <returns></returns>
     IEnumerator FadeIn(int layer, float fadeTime) {
         AudioSource audioSource = musicSources[currentLayer + 1];
         float endVolume = musicVolume;
@@ -204,6 +241,9 @@ public class SoundManager : MonoBehaviour
         currentLayer++;
     }
 
+    /// <summary>
+    /// Resets all music layers
+    /// </summary>
     public void ResetMusicLayers() {
         for (int i = 0; i < musicSources.Count;) {
             Destroy(musicSources[i]);

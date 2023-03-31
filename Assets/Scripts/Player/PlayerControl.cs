@@ -119,6 +119,7 @@ public class PlayerControl : MonoBehaviour {
     private LayerMask bulletLayer;
     private CircleCollider2D hitboxCollider;
     private Bounds bounds => collider.bounds;
+    public Vector2 HitboxPosition { get => (Vector2)transform.position + collider.offset; set => transform.position = value - collider.offset; }
     private CollisionDirections collisionDirs;
     //The inner corners of the player's hitbox that raycasts start from
     private RayCastOrigins rayOrigins;

@@ -39,23 +39,31 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
+        //Dev commands used for easy testing
+        //Pauses the game without bringing up the menu so you can still see the current state of the scnree
         if (Input.GetKeyDown(KeyCode.P)) {
             Time.timeScale = Mathf.Abs(Time.timeScale - 1.0f);
         }
+        //Force moves the player to get them "un-stuck"
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             EndFight();
         } 
+        //Saves the game without needing to interact wtih a save toilet
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
             SavePlayerData("Debug");
         }
+        //Loads save data without having to go through the main menu
         if (Input.GetKeyDown(KeyCode.Alpha8)) {
              PlayerSaveData file = new PlayerSaveData();
-            string filePath = Application.persistentDataPath + $"/save{0}.data";
+            string filePath = Application.persistentDataPath + $"/save{playerSaveSlot}.data";
             file = JsonUtility.FromJson<PlayerSaveData>(System.IO.File.ReadAllText(filePath));
-            LoadPlayerSaveData(0, file);
+            LoadPlayerSaveData(playerSaveSlot, file);
         }
     }
 
+    /// <summary>
+    /// Toggles the game's pause state
+    /// </summary>
     public void PauseGame() {
         isPaused = !isPaused;
         UIManager.Instance.ToggleMenu();
@@ -69,16 +77,27 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Returns whether the player has completed a given progression flag
+    /// If the flag does not exist in the dictionary already, then it is assumed the player has not completed and it is added for future calls
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public bool GetProgressionFlag(string key) {
         try {
             return progressionFlags[key];
         }
-        catch (KeyNotFoundException e) {
+        catch (KeyNotFoundException) {
             progressionFlags.Add(key, false);
             return false;
         }
     }
 
+    /// <summary>
+    /// Sets the value of a progression flag
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="bol"></param>
     public void SetProgressionFlag(string key, bool bol) {
         progressionFlags[key] = bol;
     }
@@ -99,6 +118,10 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.FadeFromBlack();
     }
 
+    /// <summary>
+    /// Serailzes the player's data into a save file
+    /// </summary>
+    /// <param name="saveLocation"></param>
     public void SavePlayerData(string saveLocation) {
         //generate a saveData object and fill in the info
         saveData = new PlayerSaveData();
@@ -112,6 +135,11 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Saved game!");
     }
 
+    /// <summary>
+    /// Loads the scene saved in the save data and restores progression flags
+    /// </summary>
+    /// <param name="saveSlot"></param>
+    /// <param name="psd"></param>
     public void LoadPlayerSaveData(int saveSlot, PlayerSaveData psd) {
         saveData = psd;
         playerSaveSlot = saveSlot;
@@ -130,13 +158,20 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-
+    /// <summary>
+    /// In-Between method called once the SceneManager finishes loading the correct scene
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="lsm"></param>
     private void SceneLoaded(Scene scene, LoadSceneMode lsm) {
         SetupPlayer();
+        //remove the event in case we load a scene during gameplay that is not based on save data
         SceneManager.sceneLoaded -= SceneLoaded;
-        
     }
 
+    /// <summary>
+    /// Setups the player's data and position based on the current save data
+    /// </summary>
     private void SetupPlayer() {
         //get the player
         PlayerControl player = PlayerInfo.Instance.PlayerControl;
@@ -152,7 +187,7 @@ public class GameManager : MonoBehaviour {
             SavePoint[] sceneSavePoints = FindObjectsOfType<SavePoint>();
             foreach (SavePoint sp in sceneSavePoints) {
                 if (sp.gameObject.name == saveData.saveLocation) {
-                    player.transform.position = sp.PlayerPosition;
+                    player.HitboxPosition = sp.PlayerPosition;
                     //move the camera to the room that the save point is in - parent is called twice because save points are children of interactables which are children of the room
                     sp.transform.parent.parent.GetComponent<Room>().MoveCameraHere();
                     break;

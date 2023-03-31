@@ -6,17 +6,19 @@ using Yarn.Unity;
 public class CrashGuide : InteractableObject {
     private Animator anim;
 
-    public void Start() {
+    new void Start() {
         base.Start();
         anim = GetComponent<Animator>();
     }
 
     public override void OnInteract() {
-        DialogueManager.Instance.StartDialogue("Meet_Guide");
-        //hasInteracted = true;
-        //StartCoroutine(StandUp());
+        StartCoroutine(StandUp());
     }
 
+    /// <summary>
+    /// Plays Guide's stand up animation and then starts dialogue with her
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator StandUp() {
         anim.SetTrigger("Stand Up");
         PlayerInfo.Instance.PlayerControl.Freeze();

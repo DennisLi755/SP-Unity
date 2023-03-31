@@ -253,6 +253,9 @@ public class UIManager : MonoBehaviour {
         bossHealthBar.SetActive(isEnabled);
     }
 
+    /// <summary>
+    /// Toggles the menu's visibility
+    /// </summary>
     public void ToggleMenu() {
         menu.SetActive(!menu.activeInHierarchy);
         if (menu.activeInHierarchy) {
@@ -264,32 +267,57 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Switches the currently shown sub menu preview
+    /// </summary>
+    /// <param name="subMenu"></param>
     public void EnableSubMenu(GameObject subMenu) {
         currentSubMenu.SetActive(false);
         currentSubMenu = subMenu;
         currentSubMenu.SetActive(true);
     }
 
+    /// <summary>
+    /// Changes the player's navigation to enter a submenu
+    /// </summary>
     public void FocusSubMenu() {
         menuEventSystem.SetSelectedGameObject(currentSubMenu.transform.GetChild(2).gameObject);
     }
 
+    /// <summary>
+    /// Changes the player's navigation back to the sub-menu selection tabs
+    /// </summary>
     public void UnFocusSubMenu() {
         menuEventSystem.SetSelectedGameObject(currentSubMenu.transform.parent.gameObject);
     }
 
+    /// <summary>
+    /// Sets the selected UI gameobject in the event system
+    /// </summary>
+    /// <param name="newSelected"></param>
     public void SetSelected(GameObject newSelected) {
         menuEventSystem.SetSelectedGameObject(newSelected);
     }
 
+    /// <summary>
+    /// The last selected game object that will be re-focused when the player presses 'cancel'
+    /// </summary>
+    /// <param name="sender"></param>
     public void SetLastSelected(GameObject sender) {
         lastSelectedObject = sender;
     }
 
+    /// <summary>
+    /// Selects the last seleceted UI game object
+    /// </summary>
     public void ReturnToLastSelected() {
         SetSelected(lastSelectedObject);
     }
 
+    /// <summary>
+    /// Tries to equip a skill
+    /// </summary>
+    /// <param name="skillID"></param>
     public void TryEquipSkill(int skillID) {
         int targetSlot = lastSelectedObject.name[^1] - '0';
         SkillEquipStatus result = PlayerInfo.Instance.PlayerControl.EquipSkill(skillID, targetSlot);
@@ -322,10 +350,19 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Updates the UI element representing a skil's cooldown
+    /// </summary>
+    /// <param name="skillSlot"></param>
+    /// <param name="cooldownPercent"></param>
     public void UpdateSkillIconCooldown(int skillSlot, float cooldownPercent) {
         skillIcons[skillSlot].transform.GetChild(1).GetComponent<Image>().fillAmount = cooldownPercent;
     }
 
+    /// <summary>
+    /// Toggles the visibility of the player's currently equipped skill cooldown icons under their health
+    /// </summary>
+    /// <param name="isEnabled"></param>
     public void EnableSkillIcons(bool isEnabled) {
         skillIcons[0].transform.parent.gameObject.SetActive(isEnabled);
     }
