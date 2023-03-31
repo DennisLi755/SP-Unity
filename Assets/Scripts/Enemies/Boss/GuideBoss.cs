@@ -15,8 +15,8 @@ public class GuideBoss : Boss
     private Dictionary<GameObject, int> adNodeIndicies = new Dictionary<GameObject, int>();
     private new void Start() {
         base.Start();
-        string[] musicLayers = new string[] {"spdemo1_novocals", "spdemo1_full"}; 
-        SoundManager.Instance.SetUpMusicLayers(musicLayers);
+        //string[] musicLayers = new string[] {"spdemo1_novocals", "spdemo1_full"}; 
+        //SoundManager.Instance.SetUpMusicLayers(musicLayers);
     }
 
     private new void Update() {

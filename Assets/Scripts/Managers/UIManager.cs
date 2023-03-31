@@ -79,6 +79,8 @@ public class UIManager : MonoBehaviour {
     [Header("Misc.")]
     [SerializeField]
     Image fadeToBlackPanel;
+    [SerializeField]
+    Image fadeToWhitePanel;
 
     public UnityEvent endInteractionEvent = new UnityEvent();
 
@@ -108,7 +110,7 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     [ContextMenu("FadeToBlack")]
     public void FadeToBlack() {
-        FadeToBlack(true);
+        Fade(true, "FadeToBlack");
     }
 
     /// <summary>
@@ -116,19 +118,27 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     [ContextMenu("Fade From Black")]
     public void FadeFromBlack() {
-        FadeToBlack(false);
+        Fade(false, "FadeFromBlack");
+    }
+
+    public void FadeToWhite() {
+        Fade(true, "FadeToWhite");
+    }
+
+    public void FadeFromWhite() {
+        Fade(false, "FadeFromWhite");
     }
 
     /// <summary>
     /// Controls whether the screen fades to or from black based on the paramter
     /// </summary>
     /// <param name="fade">true causes the screen to fade to black; false causes the screen to from from black</param>
-    private void FadeToBlack(bool fade) {
+    private void Fade(bool fade, string animName) {
         if (fade) {
-            fadeToBlackPanel.GetComponent<Animation>().Play("FadeToBlack");
+            fadeToBlackPanel.GetComponent<Animation>().Play(animName);
         }
         else {
-            fadeToBlackPanel.GetComponent<Animation>().Play("FadeFromBlack");
+            fadeToBlackPanel.GetComponent<Animation>().Play(animName);
         }
     }
 

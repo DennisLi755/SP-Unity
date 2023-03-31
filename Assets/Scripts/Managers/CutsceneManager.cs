@@ -136,7 +136,9 @@ public class CutsceneManager : MonoBehaviour {
         //This requires calculating direction they should move to a normalized angle vector
         float angle = Mathf.Atan2(destination.y - playerPosition.y, 
             destination.x  - playerPosition.x);
-        Debug.Log(speed*Mathf.Sin(angle));
+        
+        Debug.Log((speed*Mathf.Cos(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
+
         PlayerInfo.Instance.PlayerControl.Velocity = new Vector2((speed*Mathf.Cos(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed, 
             (speed*Mathf.Sin(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
 
@@ -188,7 +190,14 @@ public class CutsceneManager : MonoBehaviour {
     static void CutFromBlack() {
         UIManager.Instance.CutFromBlack();
     }
-
+    [YarnCommand("fade_to_white")]
+    static void FadeToWhite() {
+        UIManager.Instance.FadeToWhite();
+    }
+    [YarnCommand("fade_from_white")]
+    static void FadeFromWhite() {
+        UIManager.Instance.FadeFromWhite();
+    }
     /// <summary>
     /// Move a game object to a specific position in the scene
     /// </summary>
@@ -212,7 +221,10 @@ public class CutsceneManager : MonoBehaviour {
         c.a = alpha;
         obj.GetComponent<SpriteRenderer>().color = c;
     }
-
+    [YarnCommand("destroy_object")]
+    static void DestroyObject(GameObject obj) {
+        Destroy(obj);
+    }
     /// <summary>
     /// Toggles the dialogue canvas's visbility
     /// </summary>
@@ -223,14 +235,18 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     [YarnCommand("music_layers")]
-    static void SetUpMusicLayers() {
-
+    static void SetUpMusicLayers(string layers) {
+        string[] musicLayers = layers.Split(',');
+        SoundManager.Instance.SetUpMusicLayers(musicLayers);
     }
     [YarnCommand("set_up_music")]
     static void SetUpMusic() {
         
     }
-
+    [YarnCommand("change_music_layer")]
+    static void ChangeMusicLayer() {
+        SoundManager.Instance.ChangeMusicLayer(3f);
+    }
     /// <summary>
     /// Creates a new GameObject at the given positoin in the scene
     /// </summary>
@@ -241,4 +257,12 @@ public class CutsceneManager : MonoBehaviour {
     static void MakeObject(string name, float x, float y) {
         Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
     } 
+    [YarnCommand("set_anim_trigger")]
+    static void SetAnimTrigger(GameObject go, string trigger) {
+        go.GetComponent<Animator>().SetTrigger(trigger);
+    }
+    [YarnCommand("set_camera_target")]
+    static void SetCameraTarget(GameObject target) {
+        CameraManager.Instance.Target = target.transform;
+    }
 }

@@ -113,30 +113,57 @@ title: Meet_Guide
 tags:
 position: 12, -102
 ---
+//move somni to correct position
+<<enable_textboxes false>>
+<<player_collision false>>
+//debug this later
+//<<move_player 96.01 -39.488 2>>
+//<<wait 2>>
+//<<change_player_direction 0>>
+<<enable_textboxes true>>
+Somni: Um... hey there. Are you okay?
+<<enable_textboxes false>>
+//wait
+<<wait 1>>
+<<enable_textboxes true>>
+Somni: Hey. So uh...I can't help but notice that there's this hole in the ceiling that is...right above you. And-
+<<enable_textboxes false>>
+//guide gets up
+<<set_anim_trigger Guide "Stand Up">>
+//wait
+<<wait 1.7>>
+<<enable_textboxes true>>
 Guide: YOU!
+<<enable_textboxes false>>
+//camera follows guide
+//guide begins levitating and floats into the air
+//start playing music
+<<set_camera_target Guide>>
+<<set_anim_trigger Guide "Ascend">>
+<<wait 0.45>>
+<<music_layers "spdemo1_medium,spdemo1_novocals,spdemo1_full">>
+<<move_object Guide 0 5 1>>
+<<wait 4>>
+<<enable_textboxes true>>
 Somni: ...Me?
-Guide: Do you have ANY idea how long I've been falling?!
-Somni: How would <i>I</i> know?
-Guide: Because! We're inside <i>your</i> mind!
-Guide: Who the heck has an infinite void inside their brain? It makes my job 10 times harder.
-Somni: ...I have absolutely no idea what you're talking about
-Guide: What-
-Guide: <i>Oh<i>...right.
-Guide: You don't remember <i>anything</i>. I don't know why we erase the briefings, but I guess-
-Somni: Can you please just explain what's going on?
-Guide: Fine. The gist of it is that we're currently talking in your mind.
-Guide: In the waking world, your body is in stasis in order for us to operate.
-Somni: Operate?
-Guide: You came to our company in order to undergo a procedure that will effectively "update" your emotions by putting you through scenarios specifically designed to trigger the desired emotion.
-Guide: Let's see...In this case, it's <color=blue><b>Sadness</b></color>, <color=red><b>Anger</b></color> and, <color=yellow><b>Happiness</b></color>.
-Guide: Wow. These three? How original.
-Somni: Do you treat all your clients like this?
-Guide: Some customers have complained about my occassionally erudite demeanor.
-Somni: I meant crashing through their ceiling and screaming at them.
-Guide: This case is...special. I've never had to operate on someone with absolutely nothing in their brain.
-Somni: Now I just feel offended.
-Guide: I'm serious here. Go see for yourself.
-<<set_progression_flag "Guide Interact" true>>
+Somni: What did <i>I</i> do?
+Guide: I'm... gonna... KILL YOU! //"KILL YOU" is in shaking red text
+<<enable_textboxes false>>
+//explosion and transition to boss room
+<<play_sound "Explosion2">>
+<<fade_to_white>>
+<<wait 0.25>>
+<<set_object_position Player 95.9 -79.31>>
+<<set_object_position Guide 95.9 -72.83>>
+<<set_object_position MainCamera 95.9 -72.83>>
+<<fade_from_white>>
+<<wait 3>>
+<<set_camera_target Player>>
+<<destroy_object Guide>>
+<<instantiate "Guide Boss" 95.9 -72.83>>
+<<change_music_layer>>
+//wait
+//<<set_progression_flag "Guide Interact" true>>
 ===
 
 title: Enter_House
