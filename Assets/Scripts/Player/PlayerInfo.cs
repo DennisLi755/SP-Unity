@@ -140,17 +140,22 @@ public class PlayerInfo : MonoBehaviour {
         ///number of times set inside the routine
         IEnumerator WaitForIFrames() {
             const int flashCount = 7;
-            bool fullOpacity = true;
+            bool fullOpacity = false;
             for (int i = 0; i < flashCount; i++, fullOpacity = !fullOpacity) {
+                //player's sprite opacity
                 Color newColor = sr.color;
                 newColor.a = fullOpacity ? 1.0f : 0.5f;
                 sr.color = newColor;
+
+                //hitbox color
+                Hitbox.GetComponent<SpriteRenderer>().color = fullOpacity? Color.white : Color.red;
                 yield return new WaitForSeconds(invincibilityLength / flashCount);
             }
             //ensure that when I-Frames end the player is at full-opacity
             Color fullOpa = sr.color;
             fullOpa.a = 1.0f;
             sr.color = fullOpa;
+            Hitbox.GetComponent<SpriteRenderer>().color = Color.white;
             damageable = true;
         }
     }
