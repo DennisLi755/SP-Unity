@@ -8,13 +8,19 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
+[Serializable]
+public struct Objs {
+    public string name;
+    public GameObject obj;
+}
 
 public class CutsceneManager : MonoBehaviour {
     private static CutsceneManager instance;
     public static CutsceneManager Instance => Instance;
 
     [SerializeField]
-    private GameObject dialogueCanvas;
+    private Objs[] objsArray;
+    private static Dictionary<string, GameObject> objs;
     [SerializeField]
     YarnProject openingProject;
 
@@ -31,6 +37,10 @@ public class CutsceneManager : MonoBehaviour {
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
         //DialogueManager.Instance.StartDialogue("First_Outside");
+        objs = new Dictionary<string, GameObject>();
+        foreach(Objs o in objsArray) {
+            objs.Add(o.name, o.obj);
+        }
     }
 
     public void OpeningScene(Scene s, LoadSceneMode lsm) {
@@ -147,6 +157,7 @@ public class CutsceneManager : MonoBehaviour {
     static void EnableTextboxes(bool condition) {
         DialogueManager.Instance.EnableDialogueCanvas(condition);
     }
+
     [YarnCommand("music_layers")]
     static void SetUpMusicLayers() {
 
@@ -155,4 +166,8 @@ public class CutsceneManager : MonoBehaviour {
     static void SetUpMusic() {
         
     }
+    [YarnCommand("instantiate")]
+    static void MakeObject(string name, float x, float y) {
+        Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
+    } 
 }

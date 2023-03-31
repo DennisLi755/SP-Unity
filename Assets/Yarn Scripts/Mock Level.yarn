@@ -105,6 +105,7 @@ Somni: What was that...?
 //fade from black
 <<fade_from_black>>
 <<player_collision true>>
+<<instantiate "Guide Crash" 96.02 -38.73>>
 <<set_progression_flag "Second Awake" true>>
 ===
 
