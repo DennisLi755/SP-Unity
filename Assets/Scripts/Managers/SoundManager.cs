@@ -165,7 +165,7 @@ public class SoundManager : MonoBehaviour {
     /// Plays the given sound effect through the UI sound source
     /// </summary>
     /// <param name="effectName"></param>
-    public void PlayerUISoundEffect(string effectName) {
+    public void PlayUISoundEffect(string effectName) {
         PlaySoundEffect(effectName, SoundSource.UI);
     }
 

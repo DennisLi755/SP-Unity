@@ -21,6 +21,9 @@ public class UIManager : MonoBehaviour {
 
     #region Object Interaction
     [Header("Object Interaction")]
+    ///Characters per second
+    const float typewriterSpeed = 30.0f;
+    private Coroutine typewriterRoutine;
     public TMP_Text interactText;
     List<string> interactTexts;
     private int currentTextIndex;
@@ -150,20 +153,64 @@ public class UIManager : MonoBehaviour {
         currentTextIndex = 0;
         interactText.SetText(interactTexts[currentTextIndex++]);
         interactText.transform.parent.gameObject.SetActive(true);
+        typewriterRoutine = StartCoroutine(TypewriterEffect(false));
 
         //disable the player's movement
         PlayerInfo.Instance.ChangeInputMap("UI");
     }
+
+    IEnumerator TypewriterEffect(bool isPrompted) {
+        //start everything invisible
+        interactText.maxVisibleCharacters = 0;
+
+        //wait 1 frame to let the text box update its content
+        yield return null;
+
+        int characterCount = interactText.textInfo.characterCount;
+
+        float secondsPerCharacter = 1.0f / typewriterSpeed;
+
+        //in order to account for frame drops, we use the time between frames to calculate how many characters to show
+        float time = Time.deltaTime;
+
+        while (interactText.maxVisibleCharacters < characterCount) {
+            while (time >= secondsPerCharacter) {
+                interactText.maxVisibleCharacters++;
+                SoundManager.Instance.PlayUISoundEffect("Text Type");
+                time -= secondsPerCharacter;
+            }
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        interactText.maxVisibleCharacters = characterCount;
+        typewriterRoutine = null;
+        if (isPrompted) {
+            prompt.SetActive(true);
+        }
+    }
+
     /// <summary>
     /// When the current messages finish either continue or end the interaction
     /// </summary>
     public void ContinueInteractText() {
-        if (currentTextIndex == interactTexts.Count) {
-            DeactivateInteractText();
-        } else {
-            interactText.SetText(interactTexts[currentTextIndex++]);
+        //not every character has been displayed, so interrupt the typewriter effect
+        if (interactText.maxVisibleCharacters < interactText.textInfo.characterCount) {
+            //StopCoroutine(typewriterRoutine);
+            interactText.maxVisibleCharacters = interactText.textInfo.characterCount;
+        }
+        else {
+            if (currentTextIndex == interactTexts.Count) {
+                DeactivateInteractText();
+            }
+            else {
+                interactText.SetText(interactTexts[currentTextIndex++]);
+                typewriterRoutine = StartCoroutine(TypewriterEffect(false));
+            }
         }
     }
+
     /// <summary>
     /// End the current object interaction
     /// </summary>
@@ -191,10 +238,11 @@ public class UIManager : MonoBehaviour {
         interactText.SetText(interactTexts[currentTextIndex]);
 
         interactText.transform.parent.gameObject.SetActive(true);
-        prompt.SetActive(true);
+        typewriterRoutine = StartCoroutine(TypewriterEffect(true));
 
         PlayerInfo.Instance.ChangeInputMap("UI");
     }
+
     /// <summary>
     /// Ends the current prompted object interaction
     /// </summary>
