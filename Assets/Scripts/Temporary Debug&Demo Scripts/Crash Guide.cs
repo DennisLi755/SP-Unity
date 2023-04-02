@@ -12,7 +12,8 @@ public class CrashGuide : InteractableObject {
     }
 
     public override void OnInteract() {
-        StartCoroutine(StandUp());
+        //StartCoroutine(StandUp());
+        DialogueManager.Instance.StartDialogue("Meet_Guide");
     }
 
     /// <summary>

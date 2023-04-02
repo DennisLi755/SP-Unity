@@ -26,7 +26,7 @@ position: 12, -102
 <<player_collision false>>
 <<fade_to_black>>
 <<wait 1>>
-//move somni to new room
+//move Somni to new room
 <<set_object_position Player 168.309 -45.5>>
 //wait
 <<wait 0.5>>
@@ -113,13 +113,13 @@ title: Meet_Guide
 tags:
 position: 12, -102
 ---
-//move somni to correct position
+//move Somni to correct position
 <<enable_textboxes false>>
 <<player_collision false>>
 //debug this later
-//<<move_player 96.01 -39.488 2>>
-//<<wait 2>>
-//<<change_player_direction 0>>
+<<move_player -1.13 -22.08 0.2 false>>
+<<wait 0.2>>
+<<change_player_direction 0>>
 <<enable_textboxes true>>
 Somni: Um... hey there. Are you okay?
 <<enable_textboxes false>>
@@ -128,21 +128,21 @@ Somni: Um... hey there. Are you okay?
 <<enable_textboxes true>>
 Somni: Hey. So uh...I can't help but notice that there's this hole in the ceiling that is...right above you. And-
 <<enable_textboxes false>>
-//guide gets up
+//Guide gets up
 <<set_anim_trigger Guide "Stand Up">>
 //wait
 <<wait 1.7>>
 <<enable_textboxes true>>
 Guide: YOU!
 <<enable_textboxes false>>
-//camera follows guide
-//guide begins levitating and floats into the air
+//camera follows Guide
+//Guide begins levitating and floats into the air
 //start playing music
 <<set_camera_target Guide>>
 <<set_anim_trigger Guide "Ascend">>
 <<wait 0.45>>
 <<music_layers "spdemo1_medium,spdemo1_novocals,spdemo1_full">>
-<<move_object Guide 0 5 1>>
+<<move_object Guide 0 5 1.48>>
 <<wait 4>>
 <<enable_textboxes true>>
 Somni: ...Me?
@@ -152,10 +152,10 @@ Guide: I'm... gonna... KILL YOU! //"KILL YOU" is in shaking red text
 //explosion and transition to boss room
 <<play_sound "Explosion2">>
 <<fade_to_white>>
-<<wait 0.25>>
-<<set_object_position Player 95.9 -79.31>>
-<<set_object_position Guide 95.9 -72.83>>
-<<set_object_position MainCamera 95.9 -72.83>>
+<<wait 0.35>>
+<<set_object_position Player 96.02 -79.31>>
+<<set_object_position Guide 96.02 -73.83>>
+<<set_object_position MainCamera 96.02 -73.83>>
 <<fade_from_white>>
 <<wait 3>>
 <<set_camera_target Player>>
@@ -164,6 +164,76 @@ Guide: I'm... gonna... KILL YOU! //"KILL YOU" is in shaking red text
 <<change_music_layer>>
 //wait
 //<<set_progression_flag "Guide Interact" true>>
+===
+
+title: After_Guide
+tags:
+position: 12, -102
+---
+<<declare $choice = "" as string>>
+Guide: Wait, wait! I'm good! I'm good!
+Somni: ...
+Guide: Phew...It's okay. It's okay! Inhale, *breathes in*, exhale, *breathes out*.
+Somni: ...
+Guide: I'm so sorry, sir. This was incredibly unprofessional of me and I hope this won't affect an post-procedure reviews.
+Somni: Um...sure. Could you just-
+Guide: Do you remember your name?
+Somni: Uh...yeah. It's Somni.
+Guide: Perfect! Had me worried there for a second.
+Somni: Well. I certainly remember my name, I guess.
+Guide: Wait, do you not know about any of this?
+Somni: What "this" are you referring to exactly?
+Somni: Who are you? What's going on?
+Guide: Wha-
+Guide: Oh...right.
+Guide: You don't remember <i>anything.</i> I don't know why we erase the briefings, but I guess-
+Somni: Can you just start from the beginning?
+Guide: Well I'm glad you asked! You can call me <b>Guide.</b>
+Guide: I'm here to help you perform this procedure.
+Guide: We are currently talking in your mind. In the waking world, your body is currently in stasis in order for us to operate.
+Somni: Operate?
+Guide: You, Somni, have come to <b>Paths Inc.</b> in order to undergo a procedure that will effectively "update" your emotions by putting you through scenarios specifically designed to trigger the emotions you requested to be updated.
+Guide: ...Which in this case is <color=blue>Sadness</color>, <color=red>Anger</color>, and <color=yellow>Happiness</color>.
+Guide: ...Wow. These three? How original.
+Somni: Do you treat all your clients like this?
+Guide: Some customers have complained about my occasionally erudite demeanor.
+Somni: I meant crashing through their ceiling and jumping them with demon powers.
+Guide: Once again, apologies for the unprofessionalism.
+Guide: I was simply surprised by the...uh...state of your <b>mindscape</b>.
+Guide: Clients don't typically have a single structure floating through an endless void.
+Somni: For a Guide, you're not very good at explaining.
+Guide: Well, you'll just need to figure it out as we go then. We have to get going.
+Somni: No. I’m good.
+Guide: Um… what?
+Somni: I’m fine. Send me back to the real world. This seems sketchy as hell and I’m not taking any risks.
+Guide: Sir, if I could change your mind-
+Somni: Why? So you can get paid. Clearly I made a mistake because I put my brain in the hands of a corporation.
+Guide: If you just let me explain-
+Somni: I don’t care how much you explain! I’m not just gonna trust someone who breaks into my mind and says they're performing a procedure that I don’t even remember signing up for. Send me back.
+Guide: ...
+Somni: ...
+Guide: Listen…
+Somni: ...
+Guide: If you want to go back, I can send you back. No one is making you do this. But know that you came to us for a reason. I have no information on what your situation is out there, but from what I’ve seen, I know that you wouldn’t be here if you had any other choice.
+Somni: ...
+Guide: Are you ready to begin?
+-> Somni: I guess....
+    <<set $choice to "A">>
+-> Somni: Not yet.
+    <<set $choice to "B">>
+<<if $choice == "A">>
+    Guide: That’s the spirit.
+    //Guide snaps her fingers and the room is filled with white light.
+    Somni: What happened?
+    Guide: Go through the front door.
+    Somni: You mean the one with nothing on the other side?
+    Guide: Precisely.
+    Somni: Okay. But if I die I’m suing.
+<<elseif $choice == "B">>
+    Somni: Not yet. Just need a little more time to get my bearings.
+    Guide: All right. Just let me know when you’re ready!
+<<endif>>
+
 ===
 
 title: Enter_House

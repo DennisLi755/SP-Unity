@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        //DialogueManager.Instance.StartDialogue("First_Outside");
+        //DialogueManager.Instance.StartDialogue("Opening");
         objs = new Dictionary<string, GameObject>();
         foreach(Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -190,10 +190,16 @@ public class CutsceneManager : MonoBehaviour {
     static void CutFromBlack() {
         UIManager.Instance.CutFromBlack();
     }
+    /// <summary>
+    /// Fades the screen to white
+    /// </summary>
     [YarnCommand("fade_to_white")]
     static void FadeToWhite() {
         UIManager.Instance.FadeToWhite();
     }
+    /// <summary>
+    /// Fades the screen from white
+    /// </summary>
     [YarnCommand("fade_from_white")]
     static void FadeFromWhite() {
         UIManager.Instance.FadeFromWhite();
@@ -221,6 +227,10 @@ public class CutsceneManager : MonoBehaviour {
         c.a = alpha;
         obj.GetComponent<SpriteRenderer>().color = c;
     }
+    /// <summary>
+    /// Destroys a GameObject
+    /// </summary>
+    /// <param name="obj">GameObject to destroy</param>
     [YarnCommand("destroy_object")]
     static void DestroyObject(GameObject obj) {
         Destroy(obj);
@@ -233,16 +243,18 @@ public class CutsceneManager : MonoBehaviour {
     static void EnableTextboxes(bool isEnabled) {
         DialogueManager.Instance.EnableDialogueCanvas(isEnabled);
     }
-
+    /// <summary>
+    /// Sets up music layers
+    /// </summary>
+    /// <param name="layers">the string of layers for spliting</param>
     [YarnCommand("music_layers")]
     static void SetUpMusicLayers(string layers) {
         string[] musicLayers = layers.Split(',');
         SoundManager.Instance.SetUpMusicLayers(musicLayers);
     }
-    [YarnCommand("set_up_music")]
-    static void SetUpMusic() {
-        
-    }
+    /// <summary>
+    /// Changes the layer of the current song
+    /// </summary>
     [YarnCommand("change_music_layer")]
     static void ChangeMusicLayer() {
         SoundManager.Instance.ChangeMusicLayer(3f);
@@ -257,10 +269,19 @@ public class CutsceneManager : MonoBehaviour {
     static void MakeObject(string name, float x, float y) {
         Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
     } 
+    /// <summary>
+    /// Sets an animation trigger
+    /// </summary>
+    /// <param name="go">GameObject animation is attached to</param>
+    /// <param name="trigger">the trigger name</param>
     [YarnCommand("set_anim_trigger")]
     static void SetAnimTrigger(GameObject go, string trigger) {
         go.GetComponent<Animator>().SetTrigger(trigger);
     }
+    /// <summary>
+    /// Sets a new target GameObject for the camera
+    /// </summary>
+    /// <param name="target">target gameobject</param>
     [YarnCommand("set_camera_target")]
     static void SetCameraTarget(GameObject target) {
         CameraManager.Instance.Target = target.transform;
