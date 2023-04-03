@@ -227,6 +227,29 @@ public class CutsceneManager : MonoBehaviour {
         c.a = alpha;
         obj.GetComponent<SpriteRenderer>().color = c;
     }
+
+    public static void FadeObject(GameObject obj, float targetAlpha, float time) {
+        instance.StartCoroutine(Fade());
+
+        IEnumerator Fade() {
+            SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+            float startingAlpha = sr.color.a;
+            float t = 0.0f;
+            while (t < time) {
+                float newAlpha = Mathf.Lerp(startingAlpha, targetAlpha, t/time);
+                Color newColor = sr.color;
+                newColor.a = newAlpha;
+                sr.color = newColor;
+                t += Time.deltaTime;
+                //wait a frame
+                yield return null;
+            }
+            Color finalColor = sr.color;
+            finalColor.a = targetAlpha;
+            sr.color = finalColor;
+        }
+    }
+
     /// <summary>
     /// Destroys a GameObject
     /// </summary>
