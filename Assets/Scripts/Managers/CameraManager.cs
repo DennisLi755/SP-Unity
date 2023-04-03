@@ -37,7 +37,14 @@ public class CameraManager : MonoBehaviour {
         target = PlayerInfo.Instance.transform;
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.K)) {
+            //for testing stuff
+        }
+    }
+
     void FixedUpdate() {
+        
         if (shouldFollowTarget) {
             Vector3 movePosition = target.position + offset;
             transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
@@ -70,5 +77,29 @@ public class CameraManager : MonoBehaviour {
     /// <param name="follow"></param>
     public void FollowTarget(bool follow) {
         shouldFollowTarget = follow;
+    }
+
+    /// <summary>
+    /// Shakes the camera in place for the given amount of time; regular intensity is 1
+    /// </summary>
+    /// <param name="intensity"></param>
+    /// <param name="time"></param>
+    public void ScreenShake(float intensity, float time) {
+        intensity /= 10;
+        StartCoroutine(Shake());
+
+        IEnumerator Shake() {
+            Vector3 initialPosition = transform.position;
+            float t = 0.0f;
+            while (t < time) {
+                Vector3 newPosition = initialPosition + new Vector3(Random.Range(-intensity, intensity), Random.Range(-intensity, intensity), -10);
+                transform.position = newPosition;
+
+                t += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = initialPosition;
+        }
     }
 }

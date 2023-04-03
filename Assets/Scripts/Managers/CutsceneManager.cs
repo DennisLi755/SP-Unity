@@ -335,4 +335,8 @@ public class CutsceneManager : MonoBehaviour {
     static void PanCameraTo(float x, float y, float time) {
         CameraManager.Instance.PanTo(new Vector3(x, y, -10), time);
     }
+
+    static void ShakeCamera(float intensity, float time) {
+        CameraManager.Instance.ScreenShake(intensity, time);
+    }
 }
