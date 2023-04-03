@@ -80,6 +80,18 @@ public class GuideBoss : Boss
         return false;
     }
 
+    public override void Death()
+    {
+        for (int i = 0; i < ads.Count; i++) {
+            Destroy(ads[i].gameObject);
+            //ads.Remove(ads[i]);
+        }
+        ads.Clear();
+        SoundManager.Instance.FadeOutCurrentLayer(3.0f);
+        DialogueManager.Instance.StartDialogue("After_Guide");
+        base.Death();
+    }
+
     ///
     public override void MoveToNewNode() {
         base.MoveToNewNode();

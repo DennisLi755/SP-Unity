@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 772907965599314196}
   - component: {fileID: 772907965599314203}
   m_Layer: 9
-  m_Name: Guide Boss
+  m_Name: GuideBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,16 +271,16 @@ MonoBehaviour:
   currentPhase: 0
   usesNodeMovement: 1
   movementNodes:
-  - {x: -6.45, y: 1.19, z: 0}
-  - {x: -3.49, y: 1.19, z: 0}
-  - {x: 0, y: 1.19, z: 0}
-  - {x: 3.5, y: 1.19, z: 0}
-  - {x: 6.56, y: 1.19, z: 0}
-  - {x: -6.56, y: -2.73, z: 0}
-  - {x: -3.49, y: -2.73, z: 0}
-  - {x: 0, y: -2.73, z: 0}
-  - {x: 3.49, y: -2.73, z: 0}
-  - {x: 6.56, y: -2.73, z: 0}
+  - {x: -6.45, y: -0.5, z: 0}
+  - {x: -3.49, y: -0.5, z: 0}
+  - {x: 0, y: -0.5, z: 0}
+  - {x: 3.5, y: -0.5, z: 0}
+  - {x: 6.56, y: -0.5, z: 0}
+  - {x: -6.56, y: -4.42, z: 0}
+  - {x: -3.49, y: -4.42, z: 0}
+  - {x: 0, y: -4.42, z: 0}
+  - {x: 3.49, y: -4.42, z: 0}
+  - {x: 6.56, y: -4.42, z: 0}
   nodeColumnCount: 5
   nodeRowCount: 2
   nodeBounds:

@@ -203,13 +203,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             sr.material = whiteMaterial;
             StartCoroutine(TurnColorBack());
             if (currentHealth <= 0) {
-                gameObject.SetActive(false);
-                UIManager.Instance.EnableBossHealthBar(false);
-                PlayerInfo.Instance.CombatLock = false;
-                SoundManager.Instance.FadeOutCurrentLayer(3.0f);
-                foreach (GameObject wall in walls) {
-                    wall.SetActive(false);
-                }
+                Death();
             }
             if (ChangePhase()) {
                 attackCycleIndex = 0;
@@ -221,6 +215,14 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         IEnumerator TurnColorBack() {
             yield return new WaitForSeconds(0.2f);
             sr.material = spritesDefault;
+        }
+    }
+    public virtual void Death() {
+        gameObject.SetActive(false);
+        UIManager.Instance.EnableBossHealthBar(false);
+        PlayerInfo.Instance.CombatLock = false;
+        foreach (GameObject wall in walls) {
+            wall.SetActive(false);
         }
     }
     /// <summary>
