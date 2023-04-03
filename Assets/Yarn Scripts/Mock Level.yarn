@@ -201,6 +201,7 @@ Somni: ...
 Guide: Phew...It's okay. It's okay! Inhale, *breathes in*, exhale, *breathes out*.
 Somni: ...
 //start playing music
+<<music_layers "unforeseen">>
 Guide: I'm so sorry, sir. This was incredibly unprofessional of me and I hope this won't affect an post-procedure reviews.
 Somni: Um...sure. Could you just-
 Guide: Do you remember your name?
@@ -215,7 +216,13 @@ Guide: Oh...right.
 Guide: You don't remember <i>anything.</i> I don't know why we erase the briefings, but I guess-
 Somni: Can you just start from the beginning?
 Guide: Well I'm glad you asked! 
+<<enable_textboxes false>>
 //takes out pamplet
+<<set_anim_trigger Guide "Pamphlet">>
+<<wait 1>>
+<<play_sound "Paper">>
+<<wait 0.5>>
+<<enable_textboxes true>>
 Guide: You can call me <b>Guide.</b>
 Guide: I'm here to help you perform this procedure.
 Guide: We are currently talking in your mind. In the waking world, your body is currently in stasis in order for us to operate.
@@ -223,7 +230,13 @@ Somni: Operate?
 Guide: You, Somni, have come to <b>Paths Inc.</b> in order to undergo a procedure that will effectively "update" your emotions by putting you through scenarios specifically designed to trigger the emotions you requested to be updated.
 Guide: ...Which in this case is <color=blue>Sadness</color>, <color=red>Anger</color>, and <color=yellow>Happiness</color>.
 Guide: ...Wow. These three? How original.
+<<enable_textboxes false>>
 //puts away pamplet
+<<set_anim_trigger Guide "Pamphlet Close">>
+<<wait 0.2>>
+<<play_sound "Paper">>
+<<wait 1.3>>
+<<enable_textboxes true>>
 Somni: Do you treat all your clients like this?
 Guide: Some customers have complained about my occasionally erudite demeanor.
 Somni: I meant crashing through their ceiling and jumping them with demon powers.
@@ -237,13 +250,15 @@ Guide: Um… what?
 Somni: I’m fine. Send me back to the real world. This seems sketchy as hell and I’m not taking any risks.
 Guide: Sir, if I could change your mind-
 Somni: Why? So you can get paid. Clearly I made a mistake because I put my brain in the hands of a corporation.
-Guide: If you just let me explain-
-Somni: I don’t care how much you explain! I’m not just gonna trust someone who breaks into my mind and says they're performing a procedure that I don’t even remember signing up for. Send me back.
+Guide: If you just let me explain- //Auto Advance
+Somni: I don’t care how much you explain! 
+Somni: I’m not just gonna trust someone who breaks into my mind and says they're performing a procedure that I don’t even remember signing up for. Send me back.
 Guide: ...
 Somni: ...
 Guide: Listen…
 Somni: ...
-Guide: If you want to go back, I can send you back. No one is making you do this. But know that you came to us for a reason. I have no information on what your situation is out there, but from what I’ve seen, I know that you wouldn’t be here if you had any other choice.
+Guide: If you want to go back, I can send you back. No one is making you do this. But know that you came to us for a reason. 
+Guide: I have no information on what your situation is out there, but from what I’ve seen, I know that you wouldn’t be here if you had any other choice.
 Somni: ...
 Guide: Are you ready to begin?
 -> Somni: I guess....
@@ -254,6 +269,7 @@ Guide: Are you ready to begin?
     Guide: That’s the spirit.
     //Guide snaps her fingers and the room is filled with white light.
     Somni: What happened?
+    //Pan camera to front door
     Guide: Go through the front door.
     Somni: You mean the one with nothing on the other side?
     Guide: Precisely.
@@ -261,6 +277,7 @@ Guide: Are you ready to begin?
 <<elseif $choice == "B">>
     Somni: Not yet. Just need a little more time to get my bearings.
     Guide: All right. Just let me know when you’re ready!
+    <<set_progression_flag "Not Ready" true>>
 <<endif>>
 
 ===
@@ -346,6 +363,39 @@ Somni: I hate it when she does that. I know I've only seen her do it once, but I
 Somni: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
 Ghost Dog: tweat.
 Somni: Hey, Ghost Dog. What sound does a bird make?
+Ghost Dog: tweat.
+Somni: Great. Thanks.
+===
+
+title: GhostDog_Interact
+tags:
+position: 12, -102
+---
+Ghost Dog: tweat.
+Somni: Don't worry buddy we'll get you one soon.
+Ghost Dog: yay.
+===
+
+title: Meet_FakeGuide
+tags:
+position: 12, -102
+---
+//somni enters the room
+Somni: Well, well, caught red-handed! I knew you weren't actually doing anything.
+Guide: ...
+Somni: What? Too embarrassed to speak?
+Guide: ...
+Somni: ...Hellooooo? Guide?
+//guide fades in next to somni
+Guide: UGH! I'm busy trying to stop your head from exploding! What do you- //Auto advance
+//fake guide gurgling?
+Somni: What...? If you're you, then who is...
+Guide: That...that's not me.
+//screen shake
+//fake guide turns around
+Guide: AH!
+Guide: I have to stabilize everything. Whatever this thing is, keep it in this room or kill it.
+//guide fades out again
 ===
 
 title: Guide_Interact

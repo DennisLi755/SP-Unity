@@ -180,6 +180,7 @@ public class SoundManager : MonoBehaviour {
             musicSources.Add(gameObject.AddComponent<AudioSource>());
             musicSources[i].clip = soundEffects[names[i]];
             musicSources[i].volume = volume;
+            musicSources[i].loop = true;
             musicSources[i].Play();
             volume = 0.0f;
         }
