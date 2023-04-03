@@ -50,12 +50,7 @@ public class DialogueManager : MonoBehaviour {
         dialogueRunner = GetComponent<DialogueRunner>();
         dialogueCanvas = transform.GetChild(0).gameObject;
 
-        leftCharacterImage = dialogueCanvas.transform.GetChild(0).GetComponent<Image>();
-        leftCharacterImage.color = disabledColor;
-        leftCharacterKey = null;
-        rightCharacterImage = dialogueCanvas.transform.GetChild(1).GetComponent<Image>();
-        rightCharacterImage.color = disabledColor;
-        rightCharacterKey = null;
+        ResetTalkingPortraits();
 
         //populate the talk portrait dictionary with expressions for each character by gonig through the inspector list
         foreach (CharacterTalkPortraits cbt in charactersList) {
@@ -66,6 +61,16 @@ public class DialogueManager : MonoBehaviour {
             //consolodate a character's alias to use as the key for their expressions
             characters.Add(string.Join(", ", cbt.aliases), expressions);
         }
+    }
+
+    private void ResetTalkingPortraits() {
+        lastActiveSpeaker = true;
+        leftCharacterImage = dialogueCanvas.transform.GetChild(0).GetComponent<Image>();
+        leftCharacterImage.color = disabledColor;
+        leftCharacterKey = null;
+        rightCharacterImage = dialogueCanvas.transform.GetChild(1).GetComponent<Image>();
+        rightCharacterImage.color = disabledColor;
+        rightCharacterKey = null;
     }
 
     /// <summary>
@@ -191,9 +196,7 @@ public class DialogueManager : MonoBehaviour {
     }
 
     public void StartDialogue(string startNode) {
-        lastActiveSpeaker = true;
-        leftCharacterKey = null;
-        rightCharacterKey = null;
+        ResetTalkingPortraits();
         dialogueCanvas.SetActive(true);
         dialogueRunner.StartDialogue(startNode);
         PlayerInfo.Instance.ChangeInputMap("UI");
