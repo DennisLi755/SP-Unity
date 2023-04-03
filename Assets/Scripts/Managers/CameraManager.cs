@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour {
     private Vector3 offset = new Vector3(0, 0, -10);
     private const float damping = 0.1f;
     [SerializeField]
-    private bool shouldFollowPlayer = true;
+    private bool shouldFollowTarget = true;
 
     private Vector3 velocity = Vector3.zero;
 
@@ -38,7 +38,7 @@ public class CameraManager : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (shouldFollowPlayer) {
+        if (shouldFollowTarget) {
             Vector3 movePosition = target.position + offset;
             transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
         }
@@ -56,7 +56,7 @@ public class CameraManager : MonoBehaviour {
     /// Enables player following behavior
     /// </summary>
     /// <param name="follow"></param>
-    public void FollowPlayer(bool follow) {
-        shouldFollowPlayer = follow;
+    public void FollowTarget(bool follow) {
+        shouldFollowTarget = follow;
     }
 }
