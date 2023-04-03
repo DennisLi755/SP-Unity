@@ -52,6 +52,18 @@ public class CameraManager : MonoBehaviour {
         transform.position = position;
     }
 
+    public void PanTo(Vector3 position, float time) {
+        float speed = Vector3.Distance(transform.position, position) / time;
+        StartCoroutine(Pan());
+
+        IEnumerator Pan() {
+            while (transform.position != position) {
+                transform.position = Vector3.MoveTowards(transform.position, position, speed * Time.deltaTime);
+                yield return null;
+            }
+        }
+    }
+
     /// <summary>
     /// Enables player following behavior
     /// </summary>

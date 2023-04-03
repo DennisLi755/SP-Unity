@@ -228,7 +228,7 @@ public class CutsceneManager : MonoBehaviour {
         obj.GetComponent<SpriteRenderer>().color = c;
     }
 
-    public static void FadeObject(GameObject obj, float targetAlpha, float time) {
+    static void FadeObject(GameObject obj, float targetAlpha, float time) {
         instance.StartCoroutine(Fade());
 
         IEnumerator Fade() {
@@ -330,5 +330,9 @@ public class CutsceneManager : MonoBehaviour {
     /// <param name="y"></param>
     static void SetCameraTarget(float x, float y) {
         CameraManager.Instance.MoveTo(new Vector3(x, y, -10));
+    }
+
+    static void PanCameraTo(float x, float y, float time) {
+        CameraManager.Instance.PanTo(new Vector3(x, y, -10), time);
     }
 }
