@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        //DialogueManager.Instance.StartDialogue("Opening");
+        DialogueManager.Instance.StartDialogue("After_Guide");
         objs = new Dictionary<string, GameObject>();
         foreach(Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -278,6 +278,20 @@ public class CutsceneManager : MonoBehaviour {
     static void SetAnimTrigger(GameObject go, string trigger) {
         go.GetComponent<Animator>().SetTrigger(trigger);
     }
+    [YarnCommand("reset_anim_trigger")]
+    static void ResetAnimTrigger(GameObject go, string trigger) {
+        go.GetComponent<Animator>().ResetTrigger(trigger);
+    }
+    [YarnCommand("reset_all_anim_triggers")]
+    static void ResetAllAnimTriggers(GameObject go) {
+        Animator animator = go.GetComponent<Animator>();
+        AnimatorControllerParameter[] acp = animator.parameters;
+        foreach (AnimatorControllerParameter param in acp) {
+            if (param.type == AnimatorControllerParameterType.Trigger) {
+                animator.ResetTrigger(param.name);
+            }
+        }
+    }
     /// <summary>
     /// Sets a new target GameObject for the camera
     /// </summary>
@@ -285,5 +299,13 @@ public class CutsceneManager : MonoBehaviour {
     [YarnCommand("set_camera_target")]
     static void SetCameraTarget(GameObject target) {
         CameraManager.Instance.Target = target.transform;
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    static void SetCameraTarget(float x, float y) {
+        CameraManager.Instance.MoveTo(new Vector3(x, y, -10));
     }
 }

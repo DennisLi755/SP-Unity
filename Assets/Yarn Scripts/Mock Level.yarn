@@ -146,7 +146,7 @@ Guide: YOU!
 <<enable_textboxes true>>
 Somni: ...Me?
 Somni: What did <i>I</i> do?
-Guide: I'm... gonna... KILL YOU! //"KILL YOU" is in shaking red text
+Guide: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
 <<enable_textboxes false>>
 //explosion and transition to boss room
 <<play_sound "Explosion2">>
@@ -158,8 +158,10 @@ Guide: I'm... gonna... KILL YOU! //"KILL YOU" is in shaking red text
 <<fade_from_white>>
 <<wait 3>>
 <<set_camera_target Player>>
-<<destroy_object Guide>>
 <<instantiate "Guide Boss" 96.02 -73.83>>
+<<set_object_position Guide 1000 1000>>
+<<reset_all_anim_triggers Guide>>
+<<player_collision true>>
 <<change_music_layer>>
 //wait
 //<<set_progression_flag "Guide Interact" true>>
@@ -179,14 +181,16 @@ position: 12, -102
 <<fade_to_white>>
 <<wait 0.35>>
 //put characters in correct location
+<<change_player_direction 0>>
 <<set_object_position Player 96 -77.47>>
-<<instantiate "Guide Crash" 96.02 -75.163>>
+<<set_object_position Guide 96.02 -75.163>>
 //fade from white
 <<fade_from_white>>
 <<wait 0.25>>
 <<enable_textboxes true>>
 Somni: Hey...Are you good now?
 <<enable_textboxes false>>
+<<wait 0.1>>
 <<set_anim_trigger Guide "Stand Up">>
 <<wait 2>>
 <<enable_textboxes true>>
@@ -206,7 +210,7 @@ Somni: Well. I certainly remember my name, I guess.
 Guide: Wait, do you not know about any of this?
 Somni: What "this" are you referring to exactly?
 Somni: Who are you? What's going on?
-Guide: Wha-
+Guide: Wha- //Autoadvance
 Guide: Oh...right.
 Guide: You don't remember <i>anything.</i> I don't know why we erase the briefings, but I guess-
 Somni: Can you just start from the beginning?
@@ -285,18 +289,63 @@ Guide: Are you ready to begin?
 <<endif>>
 ===
 
+title: Gravestone_Interact
+tags:
+position: 12, -102
+---
+Somni: Whoaaaa. What's that?
+Guide: Wait for it.
+//Ghost dog rises from the grave
+Somni: AYOOOOO! A DOG IN A BEEDSHEET! I take it back this is dope!
+//Somni runs up to GHOST DOG but runs straight through him
+Somni: HE'S A <i>GHOST</i> TOO?
+Ghost Dog: hi.
+Somni: ...
+Somni: HE TALKS?!
+Guide: Yeah, he talks.
+Ghost Dog: tweat.
+Somni: What's he saying?
+Ghost Dog: tweat.
+Guide: I think it's pretty self-explanatory.
+Ghost Dog: tweat.
+Somni: Uhhhh...do you have any treats?
+Guide: Ah, sorry. No.
+Somni: What!?
+Somni: You're telling me you created a dog that <i>only</i> wants treats, and you have <i>no treats?</i>
+Guide: Now you're getting it.
+Somni: You're a monster.
+Guide ...
+Guide: Yeah...welp. I have other, uh, guide business to attend to.
+Guide: Good luck figuring this out!
+//Guide fades out
+Somni: You know what? We don't need you! We'll find a treat all by ourselves!
+Somni: Right, Ghost Dog?
+Ghost Dog: bark.
+Somni: All right. Cool.
+Ghost Dog: tweat.
+Somni: Okay, let's see if I have anything for you in the kitchen.
+Ghost Dog: yay.
+===
+
 title: Enter_House
 tags:
 position: 12, -102
 ---
-Guide: Woah.
-Guide: I knew your mind was unstable but I didn't think it'd be THIS bad.
-Somni: ...Why does my house look different?
-Guide: Don't ask me. It's literally <i>your</i> mind.
-Somni: *sigh*
-Somni: ...What's the toilet for?
-Guide: That I do know actually. It's to <color=green>SAVE</color> your progress.
-Guide: There also seems to be some hostiles in your house now. So be careful.
+Guide: Somni! Hi! How ya doin'?
+Somni: What did you do? What happened to my house?
+Guide: Funny story...
+Guide: I have no idea. But I'm working on it!
+Somni: Why is there a toilet here?
+Guide: Oh yeah...
+Guide: Soooo...because everything seems to be randomly moving itself around, I'm gonna need you to <color=green>SAVE</color> your progress periodically in case I need to reset.
+Somni: Reset?
+Guide: Don't worry about it! I've got it under control.
+Guide: Go find your dog a treat! I'll be back.
+//Guide fades out again
+Somni: I hate it when she does that. I know I've only seen her do it once, but I hate it.
+Somni: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
+Ghost Dog: tweat.
+Somni: Hey, Ghost Dog. What sound does a bird make?
 ===
 
 title: Guide_Interact
