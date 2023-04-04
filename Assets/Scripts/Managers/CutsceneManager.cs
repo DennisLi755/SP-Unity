@@ -315,6 +315,14 @@ public class CutsceneManager : MonoBehaviour {
             }
         }
     }
+    [YarnCommand("set_anim_bool")]
+    static void SetAnimBool(GameObject go, string bol, bool value) {
+        go.GetComponent<Animator>().SetBool(bol, value);
+    }
+    [YarnCommand("set_anim_int")]
+    static void SetAnimInt(GameObject go, string number, int value) {
+        go.GetComponent<Animator>().SetInteger(number, value);
+    }
     /// <summary>
     /// Sets a new target GameObject for the camera
     /// </summary>

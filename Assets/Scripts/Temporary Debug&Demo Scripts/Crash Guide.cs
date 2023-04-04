@@ -13,7 +13,11 @@ public class CrashGuide : InteractableObject {
 
     public override void OnInteract() {
         //StartCoroutine(StandUp());
-        DialogueManager.Instance.StartDialogue("Meet_Guide");
+        if (GameManager.Instance.GetProgressionFlag("Not Ready")) {
+            DialogueManager.Instance.StartDialogue("Are_You_Ready?");
+        } else {
+            DialogueManager.Instance.StartDialogue("Meet_Guide");
+        }
     }
 
     /// <summary>
