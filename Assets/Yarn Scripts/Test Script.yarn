@@ -2,7 +2,7 @@
 tags:
 position: 12,-102
 ---
-<<declare $choice = "" as string>>
+//<<declare $choice3 = "" as string>>
 <<declare $test = "Hello there" as string>>
 
 Somni: This is test dialogue.
@@ -10,15 +10,15 @@ Guide: Why do <color=red><i>we</i></color> have to do this? #expression-angry
 ???: To make sure Yarn Spinner is working correctly.
 Guide: Whatever, just pick an option. #expression-neutral
 -> Somni: Option A.
-    <<set $choice to "A">>
+    //<<set $choice to "A">>
 -> Somni: Option B.
-    <<set $choice to "B">>
+    //<<set $choice to "B">>
 
-<<if $choice == "A">>
+//<<if $choice == "A">>
     Guide: You chose Option A.
-<<elseif $choice == "B">>
+//<<elseif $choice == "B">>
     <<jump ChoiceBResult>>
-<<endif>>
+//<<endif>>
 
 Guide: Wonder what would happen if you chose Option B.
 Somni: Guess we'll never know.

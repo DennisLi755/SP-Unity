@@ -277,7 +277,7 @@ Guide: Are you ready to begin?
 -> Somni: Not yet.
     <<set $choice to "B">>
 <<if $choice == "A">>
-    Guide: That’s the spirit.
+    Guide: That's the spirit.
     //Guide snaps her fingers and the room is filled with white light.
     //snap sound
     <<enable_textboxes false>>
@@ -296,12 +296,21 @@ Guide: Are you ready to begin?
     <<wait 0.2>>
     <<enable_textboxes true>>
     Somni: What happened?
+    <<enable_textboxes false>>
     //Pan camera to front door
+    <<pan_camera 90.53 -45.79 1>>
+    <<wait 1>>
+    <<enable_textboxes true>>
     Guide: Go through the front door.
     Somni: You mean the one with nothing on the other side?
     Guide: Precisely.
+    <<enable_textboxes false>>
     //Pan camera back
+    <<set_camera_target Player>>
+    <<wait 0.5>>
+    <<enable_textboxes true>>
     Somni: Okay but if I die I'm suing.
+    <<set_progression_flag "Door Time" true>>
 <<elseif $choice == "B">>
     Somni: Just need a little more time to get my bearings.
     Guide: All right. Just let me know when you're ready!
@@ -339,28 +348,65 @@ Guide: Are you ready to begin?
     <<wait 0.2>>
     <<enable_textboxes true>>
     Somni: What happened?
+    <<enable_textboxes false>>
     //Pan camera to front door
+    <<pan_camera 90.53 -45.79 2>>
+    <<wait 2>>
+    <<enable_textboxes true>>
     Guide: Go through the front door.
     Somni: You mean the one with nothing on the other side?
     Guide: Precisely.
+    <<enable_textboxes false>>
     //Pan camera back
-    Somni: Okay, but if I die I'm suing.
+    <<set_camera_target Player>>
+    <<wait 0.5>>
+    <<enable_textboxes true>>
+    Somni: Okay but if I die I'm suing.
+    <<set_progression_flag "Door Time" true>>
 <<elseif $choice2 == "B">>
     Somni: Just need a little more time to get my bearings.
     Guide: All right. Just let me know when you're ready!
 <<endif>>
 ===
 
+title: Guide_Interact_After_Boss
+tags:
+position: 12, -102
+---
+Guide: What are you standing around for?
+Guide: Let's get going!
+Somni: Yeah, yeah.
+===
 
+title: Second_Outside
+tags:
+position: 12, -102
+---
+Somni: How did you...but you were-
+Guide: Let's just call it some guide magic. //magic is in wavy text
+Somni: ...Can I do that too?
+Guide: Nope. The power of teleportation is only reserved for the coolest of guides.
+
+===
+
+title: Try_Leave
+tags:
+position: 12, -102
+---
+Guide: Hey! Where are you going?
+Somni: ...I can go outside if I want. It is MY mind after all.
+Guide: Uhhhh...no can do. Get back over here.
+
+===
 
 title: Gravestone_Interact
 tags:
 position: 12, -102
 ---
-Somni: Whoaaaa. What's that?
+Somni: What's that?
 Guide: Wait for it.
 //Ghost dog rises from the grave
-Somni: AYOOOOO! A DOG IN A BEEDSHEET! I take it back this is dope!
+Somni: WHOAAAAA! A DOG IN A BEEDSHEET! I take it back this is dope!
 //Somni runs up to GHOST DOG but runs straight through him
 Somni: HE'S A <i>GHOST</i> TOO?
 Ghost Dog: hi.

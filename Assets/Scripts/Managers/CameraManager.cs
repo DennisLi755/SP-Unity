@@ -60,6 +60,7 @@ public class CameraManager : MonoBehaviour {
     }
 
     public void PanTo(Vector3 position, float time) {
+        FollowTarget(false);
         float speed = Vector3.Distance(transform.position, position) / time;
         StartCoroutine(Pan());
 
@@ -69,6 +70,11 @@ public class CameraManager : MonoBehaviour {
                 yield return null;
             }
         }
+    }
+
+    public void SetNewTarget(Transform transform) {
+        FollowTarget(true);
+        target = transform;
     }
 
     /// <summary>

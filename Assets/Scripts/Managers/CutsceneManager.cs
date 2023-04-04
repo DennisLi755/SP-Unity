@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        //DialogueManager.Instance.StartDialogue("After_Guide");
+        DialogueManager.Instance.StartDialogue("After_Guide");
         objs = new Dictionary<string, GameObject>();
         foreach(Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -329,7 +329,7 @@ public class CutsceneManager : MonoBehaviour {
     /// <param name="target">target gameobject</param>
     [YarnCommand("set_camera_target")]
     static void SetCameraTarget(GameObject target) {
-        CameraManager.Instance.Target = target.transform;
+        CameraManager.Instance.SetNewTarget(target.transform);
     }
     [YarnCommand("pan_camera")]
     static void PanCameraTo(float x, float y, float time) {
