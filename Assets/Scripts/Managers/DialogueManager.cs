@@ -77,6 +77,8 @@ public class DialogueManager : MonoBehaviour {
     /// Enables the dialogue canvas
     /// </summary>
     public void DisableDialogueCanvas() {
+        CameraManager.Instance.SetNewTarget(PlayerInfo.Instance.transform);
+        PlayerInfo.Instance.PlayerControl.CanCollide = true;
         EnableDialogueCanvas(false);
         PlayerInfo.Instance.PlayerControl.UnFreeze();
         PlayerInfo.Instance.ChangeInputMap("Player");
@@ -86,6 +88,7 @@ public class DialogueManager : MonoBehaviour {
     /// Disables the dialogue canvas
     /// </summary>
     public void EnableDialogueCanvas() {
+        PlayerInfo.Instance.PlayerControl.CanCollide = false;
         EnableDialogueCanvas(true);
     }
 
