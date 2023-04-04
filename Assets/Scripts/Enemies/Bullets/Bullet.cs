@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour {
     [Range(0, 359)]
     [SerializeField]
     private float angle;
-    public float Angle {get => angle;}
+    public float Angle { get => angle; set => angle = value; }
     [SerializeField]
     private float speed;
     public float Speed { get => speed; set { speed = value; } }

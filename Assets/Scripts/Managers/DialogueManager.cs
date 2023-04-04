@@ -88,7 +88,6 @@ public class DialogueManager : MonoBehaviour {
     /// Disables the dialogue canvas
     /// </summary>
     public void EnableDialogueCanvas() {
-        PlayerInfo.Instance.PlayerControl.CanCollide = false;
         EnableDialogueCanvas(true);
     }
 
@@ -200,7 +199,8 @@ public class DialogueManager : MonoBehaviour {
 
     public void StartDialogue(string startNode) {
         ResetTalkingPortraits();
-        dialogueCanvas.SetActive(true);
+        PlayerInfo.Instance.PlayerControl.CanCollide = false;
+        EnableDialogueCanvas();
         dialogueRunner.StartDialogue(startNode);
         PlayerInfo.Instance.ChangeInputMap("UI");
     }
