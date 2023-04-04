@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        DialogueManager.Instance.StartDialogue("Second_Outside");
+        //DialogueManager.Instance.StartDialogue("Second_Outside");
         objs = new Dictionary<string, GameObject>();
         foreach(Objs o in objsArray) {
             objs.Add(o.name, o.obj);

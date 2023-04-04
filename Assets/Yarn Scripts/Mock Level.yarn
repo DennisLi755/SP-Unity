@@ -374,7 +374,6 @@ tags:
 position: 12, -102
 ---
 //fade to black
-<<player_collision false>>
 <<set_anim_bool Guide "Idle" true>>
 <<fade_music_layer 1>>
 <<enable_textboxes false>>
@@ -421,6 +420,9 @@ position: 12, -102
 Guide: Hey! Where are you going?
 Somni: ...I can go outside if I want. It is MY mind after all.
 Guide: Uhhhh...no can do. Get back over here.
+<<enable_textboxes false>>
+<<move_player 0 1 0.5>>
+<<wait 0.5>>
 <<set_anim_int Guide "direction" 1>>
 ===
 
