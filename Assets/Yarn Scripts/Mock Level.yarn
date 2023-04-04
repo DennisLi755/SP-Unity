@@ -4,7 +4,6 @@ position: 12, -102
 ---
 //<<wait 1>>
 <<enable_textboxes false>>
-<<player_collision false>>
 <<enable_textboxes true>>
 Somni: ...Where am I?
 <<enable_textboxes false>>
@@ -13,7 +12,6 @@ Somni: ...Where am I?
 <<change_player_direction 1>>
 <<enable_textboxes true>>
 Somni: I don't know why, but I wanna go outside...
-<<player_collision true>>
 <<set_progression_flag "Watched Opening" true>>
 ===
 
@@ -23,7 +21,6 @@ position: 12, -102
 ---
 //fade to black
 <<enable_textboxes false>>
-<<player_collision false>>
 <<fade_to_black>>
 <<wait 1>>
 //move Somni to new room
@@ -61,7 +58,6 @@ Somni: There's nothing.
 Somni: Welp. That's terrifying.
 Somni: I guess I'll go back to bed.
 <<set_progression_flag "Saw Void" true>>
-<<player_collision true>>
 ===
 
 title: Back_To_Bed
@@ -70,7 +66,6 @@ position: 12, -102
 ---
 //walk command
 <<enable_textboxes false>>
-<<player_collision false>>
 <<move_player -1.13 -22.08 0.2 false>>
 <<wait 0.2>>
 <<move_player -2.238 -22.08 0.5 false>>
@@ -104,7 +99,6 @@ Somni: What was that...?
 <<wait 2>>
 //fade from black
 <<fade_from_black>>
-<<player_collision true>>
 <<instantiate "Guide Crash" 96.02 -38.73>>
 <<set_progression_flag "Second Awake" true>>
 ===
@@ -114,7 +108,6 @@ tags:
 position: 12, -102
 ---
 <<enable_textboxes false>>
-<<player_collision false>>
 <<wait 0.1>>
 <<move_player 96.02 -39.7 0.5 false>>
 <<wait 0.5>>
@@ -164,7 +157,6 @@ Guide: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
 <<set_object_position Guide 1000 1000>>
 <<reset_all_anim_triggers Guide>>
 <<set_anim_bool Guide "Idle" false>>
-<<player_collision true>>
 <<change_music_layer>>
 //wait
 //<<set_progression_flag "Guide Interact" true>>
@@ -178,7 +170,6 @@ position: 12, -102
 //fade to white
 <<destroy_object GuideBoss>>
 <<clear_bullets>>
-<<player_collision false>>
 <<enable_textboxes false>>
 //explosion and transition to boss room
 <<play_sound "Explosion2">>
@@ -206,13 +197,13 @@ Somni: ...
 //guide turns around
 <<set_anim_trigger Player "Back To Loop">>
 <<change_player_direction 0>>
-<<set_anim_int Guide "direction" 1>>
-Guide: Phew...It's okay. It's okay! Inhale, *breathes in*, exhale, *breathes out*.
-Somni: ...
-//guide turns around
-<<set_anim_int Guide "direction" 0>>
-//start playing music
-<<music_layers "unforeseen">>
+// <<set_anim_int Guide "direction" 1>>
+// Guide: Phew...It's okay. It's okay! Inhale, *breathes in*, exhale, *breathes out*.
+// Somni: ...
+// //guide turns around
+// <<set_anim_int Guide "direction" 0>>
+// //start playing music
+// <<music_layers "unforeseen">>
 // Guide: I'm so sorry, sir. This was incredibly unprofessional of me and I hope this won't affect an post-procedure reviews.
 // Somni: Um...sure. Could you just-
 // Guide: Do you remember your name?
@@ -227,13 +218,13 @@ Somni: ...
 // Guide: You don't remember <i>anything.</i> I don't know why we erase the briefings, but I guess-
 // Somni: Can you just start from the beginning?
 // Guide: Well I'm glad you asked! 
-<<enable_textboxes false>>
-//takes out pamplet
-<<set_anim_trigger Guide "Pamphlet">>
-<<wait 1>>
-<<play_sound "Paper">>
-<<wait 0.5>>
-<<enable_textboxes true>>
+// <<enable_textboxes false>>
+// //takes out pamplet
+// <<set_anim_trigger Guide "Pamphlet">>
+// <<wait 1>>
+// <<play_sound "Paper">>
+// <<wait 0.5>>
+// <<enable_textboxes true>>
 // Guide: You can call me <b>Guide.</b>
 // Guide: I'm here to help you perform this procedure.
 // Guide: We are currently talking in your mind. In the waking world, your body is currently in stasis in order for us to operate.
@@ -241,13 +232,13 @@ Somni: ...
 // Guide: You, Somni, have come to <b>Paths Inc.</b> in order to undergo a procedure that will effectively "update" your emotions by putting you through scenarios specifically designed to trigger the emotions you requested to be updated.
 // Guide: ...Which in this case is <color=blue>Sadness</color>, <color=red>Anger</color>, and <color=yellow>Happiness</color>.
 // Guide: ...Wow. These three? How original.
-<<enable_textboxes false>>
-//puts away pamplet
-<<set_anim_trigger Guide "Pamphlet Close">>
-<<wait 0.2>>
-<<play_sound "Paper">>
-<<wait 1.3>>
-<<enable_textboxes true>>
+// <<enable_textboxes false>>
+// //puts away pamplet
+// <<set_anim_trigger Guide "Pamphlet Close">>
+// <<wait 0.2>>
+// <<play_sound "Paper">>
+// <<wait 1.3>>
+// <<enable_textboxes true>>
 // Somni: Do you treat all your clients like this?
 // Guide: Some customers have complained about my occasionally erudite demeanor.
 // Somni: I meant crashing through their ceiling and jumping them with demon powers.
@@ -382,21 +373,55 @@ title: Second_Outside
 tags:
 position: 12, -102
 ---
+//fade to black
+<<player_collision false>>
+<<set_anim_bool Guide "Idle" true>>
+<<fade_music_layer 1>>
+<<enable_textboxes false>>
+<<fade_to_black>>
+<<wait 1>>
+//move Somni to new room
+<<set_object_position Player 152.52 -95.15>>
+<<set_anim_int Guide "direction" 1>>
+<<set_object_position Guide 152.52 -99>>
+//wait
+<<wait 0.5>>
+<<fade_from_black>>
+<<wait 1>>
+//change sprite of door
+<<set_alpha house_door_2 0>>
+//play sound of door opening
+<<play_sound DoorOpen>>
+//wait
+<<wait 2>>
+<<move_player 0 -2 1>>
+<<wait 1>>
+<<set_alpha house_door_2 1>>
+//play sound of door opening
+<<play_sound DoorClose>>
+<<wait 0.2>>
+<<enable_textboxes true>>
 Somni: How did you...but you were-
 Guide: Let's just call it some guide magic. //magic is in wavy text
-Somni: ...Can I do that too?
-Guide: Nope. The power of teleportation is only reserved for the coolest of guides.
-
+Guide: Now get over here. There's something I want to show you.
+<<enable_textboxes false>>
+//sound for fading
+<<fade_object Guide 0 1>>
+<<wait 1.2>>
+<<set_object_position Guide 160.47 -99>>
+<<fade_object Guide 1 1>>
+<<wait 1>>
 ===
 
 title: Try_Leave
 tags:
 position: 12, -102
 ---
+<<set_anim_int Guide "direction" 0>>
 Guide: Hey! Where are you going?
 Somni: ...I can go outside if I want. It is MY mind after all.
 Guide: Uhhhh...no can do. Get back over here.
-
+<<set_anim_int Guide "direction" 1>>
 ===
 
 title: Gravestone_Interact

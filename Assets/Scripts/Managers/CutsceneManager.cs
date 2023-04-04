@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        //DialogueManager.Instance.StartDialogue("After_Guide");
+        DialogueManager.Instance.StartDialogue("Second_Outside");
         objs = new Dictionary<string, GameObject>();
         foreach(Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -137,7 +137,7 @@ public class CutsceneManager : MonoBehaviour {
         float angle = Mathf.Atan2(destination.y - playerPosition.y, 
             destination.x  - playerPosition.x);
         
-        Debug.Log((speed*Mathf.Cos(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
+        Debug.Log((speed*Mathf.Sin(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
 
         PlayerInfo.Instance.PlayerControl.Velocity = new Vector2((speed*Mathf.Cos(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed, 
             (speed*Mathf.Sin(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
@@ -227,7 +227,7 @@ public class CutsceneManager : MonoBehaviour {
         c.a = alpha;
         obj.GetComponent<SpriteRenderer>().color = c;
     }
-
+    [YarnCommand("fade_object")]
     static void FadeObject(GameObject obj, float targetAlpha, float time) {
         instance.StartCoroutine(Fade());
 
@@ -281,6 +281,14 @@ public class CutsceneManager : MonoBehaviour {
     [YarnCommand("change_music_layer")]
     static void ChangeMusicLayer() {
         SoundManager.Instance.ChangeMusicLayer(3f);
+    }
+    /// <summary>
+    /// Fades out the current music layer
+    /// </summary>
+    /// <param name="time"></param>
+    [YarnCommand("fade_music_layer")]
+    static void FadeMusicLayer(float time) {
+        SoundManager.Instance.FadeOutCurrentLayer(time);
     }
     /// <summary>
     /// Creates a new GameObject at the given positoin in the scene
