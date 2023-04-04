@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        DialogueManager.Instance.StartDialogue("After_Guide");
+        //DialogueManager.Instance.StartDialogue("After_Guide");
         objs = new Dictionary<string, GameObject>();
         foreach(Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -331,20 +331,16 @@ public class CutsceneManager : MonoBehaviour {
     static void SetCameraTarget(GameObject target) {
         CameraManager.Instance.Target = target.transform;
     }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    static void SetCameraTarget(float x, float y) {
-        CameraManager.Instance.MoveTo(new Vector3(x, y, -10));
-    }
-
+    [YarnCommand("pan_camera")]
     static void PanCameraTo(float x, float y, float time) {
         CameraManager.Instance.PanTo(new Vector3(x, y, -10), time);
     }
-
+    [YarnCommand("shake_camera")]
     static void ShakeCamera(float intensity, float time) {
         CameraManager.Instance.ScreenShake(intensity, time);
+    }
+    [YarnCommand("clear_bullets")]
+    static void ClearBullets() {
+        BulletHolder.Instance.ClearBullets();
     }
 }

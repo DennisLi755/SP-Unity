@@ -153,9 +153,10 @@ Guide: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
 <<play_sound "Explosion2">>
 <<fade_to_white>>
 <<wait 0.35>>
-<<set_object_position Player 96.02 -80.31>>
+<<set_object_position Player 96.02 -79.81>>
 <<set_object_position Guide 96.02 -73.83>>
 <<set_object_position MainCamera 96.02 -73.83>>
+<<set_anim_trigger Guide "Horns">>
 <<fade_from_white>>
 <<wait 3>>
 <<set_camera_target Player>>
@@ -176,6 +177,7 @@ position: 12, -102
 <<declare $choice = "" as string>>
 //fade to white
 <<destroy_object GuideBoss>>
+<<clear_bullets>>
 <<player_collision false>>
 <<enable_textboxes false>>
 //explosion and transition to boss room
