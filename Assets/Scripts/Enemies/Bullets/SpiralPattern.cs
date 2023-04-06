@@ -24,7 +24,7 @@ public class SpiralPattern : BulletPattern {
     new void Update() { }
 
     IEnumerator Shoot() {
-        float currAngle = 0.0f;
+        float currAngle = startingAngle;
         while (currAngle / 360.0f < fullRotations) {
             GameObject b = Instantiate(bullet,transform);
             Bullet bScript;

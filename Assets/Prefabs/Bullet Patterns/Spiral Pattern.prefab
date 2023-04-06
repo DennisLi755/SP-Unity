@@ -52,5 +52,3 @@ MonoBehaviour:
   delay: 0.05
   fullRotations: 1
   bullet: {fileID: 6667369788057125289, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
-  bs:
-  - {fileID: 0}
