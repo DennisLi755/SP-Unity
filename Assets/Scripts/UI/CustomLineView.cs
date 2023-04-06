@@ -188,6 +188,7 @@ public class CustomLineView : DialogueViewBase {
     /// </remarks>
     [SerializeField]
     private bool autoAdvance = false;
+    public bool AutoAdvance { get => autoAdvance; set => autoAdvance = value; }
 
     /// <summary>
     /// The current <see cref="LocalizedLine"/> that this line view is

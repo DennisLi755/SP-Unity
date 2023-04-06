@@ -38,7 +38,7 @@ public class CutsceneManager : MonoBehaviour {
         SceneManager.sceneLoaded += OpeningScene;
         //DialogueManager.Instance.StartDialogue("Second_Outside");
         objs = new Dictionary<string, GameObject>();
-        foreach(Objs o in objsArray) {
+        foreach (Objs o in objsArray) {
             objs.Add(o.name, o.obj);
         }
     }
@@ -58,6 +58,7 @@ public class CutsceneManager : MonoBehaviour {
         DialogueManager.Instance.StartDialogue(openingProject, "Opening");
     }
 
+    #region Sounds & Music
     /// <summary>
     /// Plays the soud effect with the coresponding name on the cutscene audio source
     /// </summary>
@@ -68,28 +69,36 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Shows the movement tutorial text over the player's head
+    /// Sets up music layers
     /// </summary>
-    [YarnCommand("show_movement_text")]
-    static void ShowMovementText() {
-        if (PlayerInfo.Instance.GetComponent<PlayerInput>().currentControlScheme == "Keyboard") {
-            PlayerInfo.Instance.EnableTutorialText("Use the arrow keys to move");
-        }
-        else {
-            PlayerInfo.Instance.EnableTutorialText("Use the the left stick to move");
-        }
+    /// <param name="layers">the string of layers for spliting</param>
+    [YarnCommand("music_layers")]
+    static void SetUpMusicLayers(string layers) {
+        string[] musicLayers = layers.Split(',');
+        SoundManager.Instance.SetUpMusicLayers(musicLayers);
     }
 
     /// <summary>
-    /// Sets a progression flag for the player
+    /// Changes the layer of the current song
     /// </summary>
-    /// <param name="flagName"></param>
-    /// <param name="value"></param>
-    [YarnCommand("set_progression_flag")]
-    static void SetProgressionFlag(string flagName, bool value) {
-        GameManager.Instance.SetProgressionFlag(flagName, value);
+    [YarnCommand("change_music_layer")]
+    static void ChangeMusicLayer() {
+        SoundManager.Instance.ChangeMusicLayer(3f);
     }
 
+    /// <summary>
+    /// Fades out the current music layer
+    /// </summary>
+    /// <param name="time"></param>
+    [YarnCommand("fade_music_layer")]
+    static void FadeMusicLayer(float time) {
+        SoundManager.Instance.FadeOutCurrentLayer(time);
+    }
+
+
+    #endregion
+
+    #region Object Control
     /// <summary>
     /// Moves a gameObject to a new position in the scene
     /// </summary>
@@ -104,7 +113,7 @@ public class CutsceneManager : MonoBehaviour {
         float moveY = relative ? obj.transform.position.y + y : y;
         Vector3 destination = new Vector3(moveX, moveY, 0);
 
-        float speed = Vector3.Distance(obj.transform.position, destination)/time;
+        float speed = Vector3.Distance(obj.transform.position, destination) / time;
         instance.StartCoroutine(Moving());
 
         IEnumerator Moving() {
@@ -116,6 +125,81 @@ public class CutsceneManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Move a game object to a specific position in the scene
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    [YarnCommand("set_object_position")]
+    static void SetObjectPosition(GameObject obj, float x, float y) {
+        obj.transform.position = new Vector3(x, y, 0);
+    }
+
+    /// <summary>
+    /// Changes the alpha of an object's sprite renderer
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="alpha"></param>
+    [YarnCommand("set_alpha")]
+    static void SetAlpha(GameObject obj, float alpha) {
+        Color c;
+        c = Color.white;
+        c.a = alpha;
+        obj.GetComponent<SpriteRenderer>().color = c;
+    }
+
+    /// <summary>
+    /// Fades an object's alpha over time
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="targetAlpha"></param>
+    /// <param name="time"></param>
+    [YarnCommand("fade_object")]
+    static void FadeObject(GameObject obj, float targetAlpha, float time) {
+        instance.StartCoroutine(Fade());
+
+        IEnumerator Fade() {
+            SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+            float startingAlpha = sr.color.a;
+            float t = 0.0f;
+            while (t < time) {
+                float newAlpha = Mathf.Lerp(startingAlpha, targetAlpha, t / time);
+                Color newColor = sr.color;
+                newColor.a = newAlpha;
+                sr.color = newColor;
+                t += Time.deltaTime;
+                //wait a frame
+                yield return null;
+            }
+            Color finalColor = sr.color;
+            finalColor.a = targetAlpha;
+            sr.color = finalColor;
+        }
+    }
+
+    /// <summary>
+    /// Destroys a GameObject
+    /// </summary>
+    /// <param name="obj">GameObject to destroy</param>
+    [YarnCommand("destroy_object")]
+    static void DestroyObject(GameObject obj) {
+        Destroy(obj);
+    }
+
+    /// <summary>
+    /// Creates a new GameObject at the given positoin in the scene
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    [YarnCommand("instantiate")]
+    static void MakeObject(string name, float x, float y) {
+        Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
+    }
+
+
+    #region Player
     /// <summary>
     /// Moves the player to a new position in the scene
     /// </summary>
@@ -131,16 +215,16 @@ public class CutsceneManager : MonoBehaviour {
         float moveY = relative ? playerPosition.y + y : y;
         Vector3 destination = new Vector3(moveX, moveY, 0);
 
-        float speed = Vector3.Distance(playerPosition, destination)/time;
+        float speed = Vector3.Distance(playerPosition, destination) / time;
         //In order to have the player's anmiation change while moving without additional commands, we move the player by setting their velocity
         //This requires calculating direction they should move to a normalized angle vector
-        float angle = Mathf.Atan2(destination.y - playerPosition.y, 
-            destination.x  - playerPosition.x);
-        
-        Debug.Log((speed*Mathf.Sin(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
+        float angle = Mathf.Atan2(destination.y - playerPosition.y,
+            destination.x - playerPosition.x);
 
-        PlayerInfo.Instance.PlayerControl.Velocity = new Vector2((speed*Mathf.Cos(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed, 
-            (speed*Mathf.Sin(angle))/PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
+        Debug.Log((speed * Mathf.Sin(angle)) / PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
+
+        PlayerInfo.Instance.PlayerControl.Velocity = new Vector2((speed * Mathf.Cos(angle)) / PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed,
+            (speed * Mathf.Sin(angle)) / PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
 
         //After the appropriate time has passed, stop the player
         IEnumerator Wait() {
@@ -165,6 +249,22 @@ public class CutsceneManager : MonoBehaviour {
     [YarnCommand("player_collision")]
     static void PlayerCollision(bool isEnabled) {
         PlayerInfo.Instance.PlayerControl.CanCollide = isEnabled;
+    }
+    #endregion
+    #endregion
+
+    #region UI Control
+    /// <summary>
+    /// Shows the movement tutorial text over the player's head
+    /// </summary>
+    [YarnCommand("show_movement_text")]
+    static void ShowMovementText() {
+        if (PlayerInfo.Instance.GetComponent<PlayerInput>().currentControlScheme == "Keyboard") {
+            PlayerInfo.Instance.EnableTutorialText("Use the arrow keys to move");
+        }
+        else {
+            PlayerInfo.Instance.EnableTutorialText("Use the the left stick to move");
+        }
     }
 
     /// <summary>
@@ -204,60 +304,19 @@ public class CutsceneManager : MonoBehaviour {
     static void FadeFromWhite() {
         UIManager.Instance.FadeFromWhite();
     }
+    #endregion
+
+    #region Progression Control
     /// <summary>
-    /// Move a game object to a specific position in the scene
+    /// Sets a progression flag for the player
     /// </summary>
-    /// <param name="obj"></param>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    [YarnCommand("set_object_position")]
-    static void SetObjectPosition(GameObject obj, float x, float y) {
-        obj.transform.position = new Vector3(x, y, 0);
+    /// <param name="flagName"></param>
+    /// <param name="value"></param>
+    [YarnCommand("set_progression_flag")]
+    static void SetProgressionFlag(string flagName, bool value) {
+        GameManager.Instance.SetProgressionFlag(flagName, value);
     }
 
-    /// <summary>
-    /// Changes the alpha of an object's sprite renderer
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <param name="alpha"></param>
-    [YarnCommand("set_alpha")]
-    static void SetAlpha(GameObject obj, float alpha) {
-        Color c;
-        c = Color.white;
-        c.a = alpha;
-        obj.GetComponent<SpriteRenderer>().color = c;
-    }
-    [YarnCommand("fade_object")]
-    static void FadeObject(GameObject obj, float targetAlpha, float time) {
-        instance.StartCoroutine(Fade());
-
-        IEnumerator Fade() {
-            SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-            float startingAlpha = sr.color.a;
-            float t = 0.0f;
-            while (t < time) {
-                float newAlpha = Mathf.Lerp(startingAlpha, targetAlpha, t/time);
-                Color newColor = sr.color;
-                newColor.a = newAlpha;
-                sr.color = newColor;
-                t += Time.deltaTime;
-                //wait a frame
-                yield return null;
-            }
-            Color finalColor = sr.color;
-            finalColor.a = targetAlpha;
-            sr.color = finalColor;
-        }
-    }
-
-    /// <summary>
-    /// Destroys a GameObject
-    /// </summary>
-    /// <param name="obj">GameObject to destroy</param>
-    [YarnCommand("destroy_object")]
-    static void DestroyObject(GameObject obj) {
-        Destroy(obj);
-    }
     /// <summary>
     /// Toggles the dialogue canvas's visbility
     /// </summary>
@@ -266,40 +325,49 @@ public class CutsceneManager : MonoBehaviour {
     static void EnableTextboxes(bool isEnabled) {
         DialogueManager.Instance.EnableDialogueCanvas(isEnabled);
     }
+
     /// <summary>
-    /// Sets up music layers
+    /// 
     /// </summary>
-    /// <param name="layers">the string of layers for spliting</param>
-    [YarnCommand("music_layers")]
-    static void SetUpMusicLayers(string layers) {
-        string[] musicLayers = layers.Split(',');
-        SoundManager.Instance.SetUpMusicLayers(musicLayers);
+    [YarnCommand("clear_bullets")]
+    static void ClearBullets() {
+        BulletHolder.Instance.ClearBullets();
     }
+    #endregion
+
+    #region Camera Control
     /// <summary>
-    /// Changes the layer of the current song
+    /// Sets a new target GameObject for the camera
     /// </summary>
-    [YarnCommand("change_music_layer")]
-    static void ChangeMusicLayer() {
-        SoundManager.Instance.ChangeMusicLayer(3f);
+    /// <param name="target">target gameobject</param>
+    [YarnCommand("set_camera_target")]
+    static void SetCameraTarget(GameObject target) {
+        CameraManager.Instance.SetNewTarget(target.transform);
     }
+
     /// <summary>
-    /// Fades out the current music layer
+    /// 
     /// </summary>
-    /// <param name="time"></param>
-    [YarnCommand("fade_music_layer")]
-    static void FadeMusicLayer(float time) {
-        SoundManager.Instance.FadeOutCurrentLayer(time);
-    }
-    /// <summary>
-    /// Creates a new GameObject at the given positoin in the scene
-    /// </summary>
-    /// <param name="name"></param>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    [YarnCommand("instantiate")]
-    static void MakeObject(string name, float x, float y) {
-        Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
-    } 
+    /// <param name="time"></param>
+    [YarnCommand("pan_camera")]
+    static void PanCameraTo(float x, float y, float time) {
+        CameraManager.Instance.PanTo(new Vector3(x, y, -10), time);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="intensity"></param>
+    /// <param name="time"></param>
+    [YarnCommand("shake_camera")]
+    static void ShakeCamera(float intensity, float time) {
+        CameraManager.Instance.ScreenShake(intensity, time);
+    }
+    #endregion
+
+    #region Animation Control
     /// <summary>
     /// Sets an animation trigger
     /// </summary>
@@ -309,10 +377,21 @@ public class CutsceneManager : MonoBehaviour {
     static void SetAnimTrigger(GameObject go, string trigger) {
         go.GetComponent<Animator>().SetTrigger(trigger);
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="trigger"></param>
     [YarnCommand("reset_anim_trigger")]
     static void ResetAnimTrigger(GameObject go, string trigger) {
         go.GetComponent<Animator>().ResetTrigger(trigger);
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="go"></param>
     [YarnCommand("reset_all_anim_triggers")]
     static void ResetAllAnimTriggers(GameObject go) {
         Animator animator = go.GetComponent<Animator>();
@@ -323,32 +402,27 @@ public class CutsceneManager : MonoBehaviour {
             }
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="bol"></param>
+    /// <param name="value"></param>
     [YarnCommand("set_anim_bool")]
     static void SetAnimBool(GameObject go, string bol, bool value) {
         go.GetComponent<Animator>().SetBool(bol, value);
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="number"></param>
+    /// <param name="value"></param>
     [YarnCommand("set_anim_int")]
     static void SetAnimInt(GameObject go, string number, int value) {
         go.GetComponent<Animator>().SetInteger(number, value);
     }
-    /// <summary>
-    /// Sets a new target GameObject for the camera
-    /// </summary>
-    /// <param name="target">target gameobject</param>
-    [YarnCommand("set_camera_target")]
-    static void SetCameraTarget(GameObject target) {
-        CameraManager.Instance.SetNewTarget(target.transform);
-    }
-    [YarnCommand("pan_camera")]
-    static void PanCameraTo(float x, float y, float time) {
-        CameraManager.Instance.PanTo(new Vector3(x, y, -10), time);
-    }
-    [YarnCommand("shake_camera")]
-    static void ShakeCamera(float intensity, float time) {
-        CameraManager.Instance.ScreenShake(intensity, time);
-    }
-    [YarnCommand("clear_bullets")]
-    static void ClearBullets() {
-        BulletHolder.Instance.ClearBullets();
-    }
+    #endregion
 }

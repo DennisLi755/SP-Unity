@@ -208,8 +208,8 @@ public class DialogueManager : MonoBehaviour {
     /// <summary>
     /// Toggles auto advance dialogue on and off. Used when characters cut each other and the player cannot control it
     /// </summary>
-    public void ToggleAutoAdvance() {
-
+    public void ToggleAutoAdvance(bool enabled) {
+        ((CustomLineView)dialogueRunner.dialogueViews[0]).AutoAdvance = enabled;
     }
 
     /// <summary>
