@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
@@ -56,6 +57,8 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
 
     protected bool overridePatternSpeed = false;
     protected float newPatternSpeed;
+
+    protected string patternSettingsOverride = "";
     #endregion
 
 #if UNITY_EDITOR
@@ -137,6 +140,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         if (canContinueAttack && attackCycle.Length > 0) {
             //default assume the enemy uses the built in speed of the pattern
             overridePatternSpeed = false;
+            patternSettingsOverride = "";
             //activate all of the actions associated with the current attack cycle index then increase the index for the next call
             attackCycle[attackCycleIndex]?.Invoke();
             attackCycleIndex++;
@@ -172,6 +176,9 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         if (overridePatternSpeed && pat.TryGetComponent<BulletPattern>(out bulPat)) {
             bulPat.SetSpeedOverride(newPatternSpeed);
         }
+        if (patternSettingsOverride != "" && pat.TryGetComponent<BulletPattern>(out bulPat)) {
+            bulPat.SetOverrideSettings(patternSettingsOverride);       
+        }
     }
 
     /// <summary>
@@ -203,6 +210,10 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     public void SetPatternSpeed(float speed) {
         overridePatternSpeed = true;
         newPatternSpeed = speed;
+    }
+
+    public void SetPatternSettings(string settings) {
+        patternSettingsOverride = settings;
     }
 
     /// <summary>

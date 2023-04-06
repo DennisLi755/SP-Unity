@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class SpiralPattern : BulletPattern {
 
     [SerializeField]
     [Range(0, 360)]
-    float startingAngle = 0.0f;
+    private float startingAngle = 0.0f;
     [SerializeField]
     [Range(1, 359)]
     private float angleStep;
@@ -25,8 +26,8 @@ public class SpiralPattern : BulletPattern {
 
     IEnumerator Shoot() {
         float currAngle = startingAngle;
-        while (currAngle / 360.0f < fullRotations) {
-            GameObject b = Instantiate(bullet,transform);
+        while ((currAngle - startingAngle) / 360.0f < fullRotations) {
+            GameObject b = Instantiate(bullet, transform);
             Bullet bScript;
             if (b.TryGetComponent<Bullet>(out bScript)) {
                 bScript.Angle = currAngle;
@@ -36,6 +37,26 @@ public class SpiralPattern : BulletPattern {
             }
             yield return new WaitForSeconds(delay);
             currAngle += angleStep;
+        }
+    }
+
+    public override void SetOverrideSettings(string settings) {
+        string[] splitSettings = settings.Split(',');
+        foreach (string s in splitSettings) {
+            int equal = s.IndexOf('=');
+            if (equal == -1) {
+                Debug.LogWarning($"{s} does not contain a \'=\', therefore the pattern setting is unable to be set");
+                continue;
+            }
+            string setting = s.Substring(0, equal).Trim();
+            int value = Int32.Parse(s.Substring(equal+1).Trim());
+            switch (setting) {
+                case "startingAngle": startingAngle = value; break;
+                case "angleStep": angleStep = value; break;
+                case "delay": delay = value; break;
+                case "fullRotations": fullRotations = value; break;
+                default: Debug.LogWarning($"Setting {s} does not exist for ${this}"); break;
+            }
         }
     }
 }
