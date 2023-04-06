@@ -10,6 +10,8 @@ public class InteractableObject : MonoBehaviour {
     protected BoxCollider2D trigger;
     [SerializeField]
     protected LayerMask playerLayer;
+    [SerializeField]
+    protected FacingDirection direction;
     protected bool isActive;
 
 #if UNITY_EDITOR

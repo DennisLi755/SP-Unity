@@ -407,7 +407,7 @@ Guide: Now get over here. There's something I want to show you.
 //sound for fading
 <<fade_object Guide 0 1>>
 <<wait 1.2>>
-<<set_object_position Guide 160.47 -99>>
+<<set_object_position Guide 160.47 -99.206>>
 <<fade_object Guide 1 1>>
 <<wait 1>>
 ===
@@ -430,8 +430,15 @@ title: Gravestone_Interact
 tags:
 position: 12, -102
 ---
+//move player to specific location
+<<enable_textboxes false>>
+<<move_player 161.525 -99.206 0.5 false>>
+<<wait 0.5>>
+<<change_player_direction 0>>
+<<enable_textboxes true>>
 Somni: What's that?
 Guide: Wait for it.
+<<enable_textboxes false>>
 //Ghost dog rises from the grave
 Somni: WHOAAAAA! A DOG IN A BEEDSHEET! I take it back this is dope!
 //Somni runs up to GHOST DOG but runs straight through him

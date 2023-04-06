@@ -6,8 +6,6 @@ public class TextboxInteraction : InteractableObject {
     [SerializeField]
     private List<string> message;
     [SerializeField]
-    private FacingDirection direction;
-    [SerializeField]
     private bool isChild = false;
 
     public List<string> Message { get => message; }
