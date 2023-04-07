@@ -73,8 +73,12 @@ public class PlayerInfo : MonoBehaviour {
     public InteractableObject Interactable { get => interactable; set { interactable = value; } }
     #endregion
 
-    private bool hasMoved = false;
-    public bool HasMoved { get => hasMoved; set => hasMoved = value; }
+
+    private Dictionary<string, bool> tutorialTexts = new Dictionary<string, bool>() {
+        {"movement",  false},
+        {"attacking", false }
+    };
+    public Dictionary<string, bool> Tutorials => tutorialTexts;
 
     private void Awake() {
         if (instance == null) {

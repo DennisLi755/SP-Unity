@@ -303,6 +303,12 @@ public class PlayerControl : MonoBehaviour {
         transform.Translate(newVel);
     }
 
+    IEnumerator EndTutorial(Action onEnd, float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        onEnd();
+        pInfo.DisableTutorialText();
+    }
+
     #region Collisions & Raycasts
     /// <summary>
     /// Calculates the spacing of the raycasts used for player collision
@@ -399,16 +405,10 @@ public class PlayerControl : MonoBehaviour {
         input = context.ReadValue<Vector2>().normalized;
         if (canMove) {
             velocity = input; 
-            if (!pInfo.HasMoved) {
-                StartCoroutine(DisableMovementText());
+            if (!pInfo.Tutorials["movement"]) {
+                StartCoroutine(EndTutorial(() => pInfo.Tutorials["movement"] = true, 3.0f));
             }
         }
-    }
-
-    IEnumerator DisableMovementText() {
-        yield return new WaitForSeconds(3.0f);
-        pInfo.HasMoved = true;
-        pInfo.DisableTutorialText();
     }
     #endregion
 
@@ -439,6 +439,9 @@ public class PlayerControl : MonoBehaviour {
             canDash = false;
             canMove = false;
             StartCoroutine(EndAttack());
+            if (!pInfo.Tutorials["attacking"]) {
+                StartCoroutine(EndTutorial(() => pInfo.Tutorials["attacking"] = true, 2.0f));
+            }
         }
     }
 

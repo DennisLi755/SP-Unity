@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     Image fadeToWhitePanel;
 
-    public UnityEvent endInteractionEvent = new UnityEvent();
+    public System.Action EndInteractionEvent { get; set; }
 
     private void Awake() {
         if (instance == null) {
@@ -227,7 +227,7 @@ public class UIManager : MonoBehaviour {
     public void DeactivateInteractText() {
         interactText.transform.parent.gameObject.SetActive(false);
         PlayerInfo.Instance.ChangeInputMap("Player");
-        endInteractionEvent?.Invoke();
+        EndInteractionEvent?.Invoke();
     }
     /// <summary>
     /// Opens and populates text box for a basic prompted object interaction

@@ -34,5 +34,6 @@ public class SwordInteraction : PromptedInteraction
         tileMap.SetTile(position, null);
         base.OnYes();
         UIManager.Instance.ActivateInteractText(base.AfterYesMessage);
+        UIManager.Instance.EndInteractionEvent += () => { PlayerInfo.Instance.EnableTutorialText("Press Z to attack", "Press X to attack"); };
     }
 }

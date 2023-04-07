@@ -16,10 +16,4 @@ public class LeaveHouse : EnterText
             DialogueManager.Instance.StartDialogue("First_Outside");
         }
     }
-
-    void EndInteraction() {
-        UIManager.Instance.FadeFromBlack();
-        UIManager.Instance.endInteractionEvent.RemoveAllListeners();
-        DialogueManager.Instance.StartDialogue("Enter_House");
-    }
 }
