@@ -200,6 +200,7 @@ public class DialogueManager : MonoBehaviour {
     public void StartDialogue(string startNode) {
         ResetTalkingPortraits();
         PlayerInfo.Instance.PlayerControl.CanCollide = false;
+        PlayerInfo.Instance.DisableTutorialText();
         EnableDialogueCanvas();
         dialogueRunner.StartDialogue(startNode);
         PlayerInfo.Instance.ChangeInputMap("UI");

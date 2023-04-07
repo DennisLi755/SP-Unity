@@ -39,6 +39,9 @@ namespace Assets {
         /// <returns></returns>
         public Dictionary<string, bool> GetProgressionFlags() {
             Dictionary<string, bool> flags = new Dictionary<string, bool>();
+            if (progressionFlags == null || progressionFlags.Length == 0) {
+                return flags;
+            }
             foreach (ProgressionFlags flag in progressionFlags) {
                 flags.Add(flag.flagName, flag.flagActivated);
             }

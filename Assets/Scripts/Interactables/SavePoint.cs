@@ -18,6 +18,7 @@ public class SavePoint : InteractableObject {
     public override void OnInteract() {
         GameManager.Instance.SavePlayerData(gameObject.name);
         PlayerInfo.Instance.EnableTutorialText("Saved!");
+        PlayerInfo.Instance.Heal(99);
         StartCoroutine(TurnOffSaveText());
     }
 
