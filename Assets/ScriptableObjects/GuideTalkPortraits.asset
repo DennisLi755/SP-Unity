@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aliases:
   - Guide
+  - GUIDE
   portraits:
   - name: neutral
-    expression: {fileID: -2029019755, guid: 7d178013283dc8f45a66dc7e5d16f59d, type: 3}
+    expression: {fileID: 21300000, guid: fa89d62ff62f94544a452c4d3f8c60aa, type: 3}
   - name: angry
     expression: {fileID: -2121110130, guid: 27363fbf072650044a576d554501602e, type: 3}

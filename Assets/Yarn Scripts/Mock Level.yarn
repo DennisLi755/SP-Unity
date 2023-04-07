@@ -263,54 +263,10 @@ Somni: ...
 // Guide: If you want to go back, I can send you back. No one is making you do this. But know that you came to us for a reason. 
 // Guide: I have no information on what your situation is out there, but from what I’ve seen, I know that you wouldn’t be here if you had any other choice.
 // Somni: ...
-Guide: Are you ready to begin?
--> Somni: I guess....
-    <<set $choice to "A">>
--> Somni: Not yet.
-    <<set $choice to "B">>
-<<if $choice == "A">>
-    Guide: That's the spirit.
-    //Guide snaps her fingers and the room is filled with white light.
-    //snap sound
-    <<enable_textboxes false>>
-    <<fade_to_white>>
-    <<wait 0.35>>
-    <<set_object_position Player 94.63 -38.77>>
-    <<set_object_position Guide 97.49 -38.77>>
-    <<wait 0.3>>
-    <<fade_from_white>>
-    <<wait 1>>
-    <<change_player_direction 2>>
-    <<wait 0.25>>
-    <<change_player_direction 1>>
-    <<wait 0.25>>
-    <<change_player_direction 3>>
-    <<wait 0.2>>
-    <<enable_textboxes true>>
-    Somni: What happened?
-    <<enable_textboxes false>>
-    //Pan camera to front door
-    <<pan_camera 90.53 -45.79 1>>
-    <<wait 1>>
-    <<enable_textboxes true>>
-    Guide: Go through the front door.
-    Somni: You mean the one with nothing on the other side?
-    Guide: Precisely.
-    <<enable_textboxes false>>
-    //Pan camera back
-    <<set_camera_target Player>>
-    <<wait 0.5>>
-    <<enable_textboxes true>>
-    Somni: Okay but if I die I'm suing.
-    <<set_progression_flag "Door Time" true>>
-<<elseif $choice == "B">>
-    Somni: Just need a little more time to get my bearings.
-    Guide: All right. Just let me know when you're ready!
-    <<set_progression_flag "Not Ready" true>>
-<<endif>>
+<<jump Are_You_Ready>>
 ===
 
-title: Are_You_Ready?
+title: Are_You_Ready
 tags:
 position: 12, -102
 ---
@@ -354,10 +310,11 @@ Guide: Are you ready to begin?
     <<wait 0.5>>
     <<enable_textboxes true>>
     Somni: Okay but if I die I'm suing.
-    <<set_progression_flag "Door Time" true>>
+    <<set_progression_flag "Leave House First Time" true>>
 <<elseif $choice2 == "B">>
     Somni: Just need a little more time to get my bearings.
     Guide: All right. Just let me know when you're ready!
+    <<set_progression_flag "Not Ready" true>>
 <<endif>>
 ===
 
@@ -406,11 +363,13 @@ Guide: Let's just call it some guide magic. //magic is in wavy text
 Guide: Now get over here. There's something I want to show you.
 <<enable_textboxes false>>
 //sound for fading
-<<fade_object Guide 0 1>>
-<<wait 1.2>>
+<<fade_to_white>>
+<<wait 0.35>>
 <<set_object_position Guide 160.47 -99.206>>
-<<fade_object Guide 1 1>>
-<<wait 1>>
+<<fade_from_white>>
+<<object_layer house_door_2 10>>
+<<wait 0.3>>
+<<set_progression_flag "Second Outside" true>>
 ===
 
 title: Try_Leave
@@ -433,6 +392,7 @@ position: 12, -102
 ---
 //move player to specific location
 <<enable_textboxes false>>
+<<wait 0.1>>
 <<move_player 161.525 -99.206 0.5 false>>
 <<wait 0.5>>
 <<change_player_direction 0>>
@@ -440,9 +400,23 @@ position: 12, -102
 Somni: What's that?
 Guide: Wait for it.
 <<enable_textboxes false>>
+<<wait 0.5>>
 //Ghost dog rises from the grave
-Somni: WHOAAAAA! A DOG IN A BEEDSHEET! I take it back this is dope!
+<<move_object GhostDog 0 1 1>>
+<<fade_object GhostDog 1 1>>
+<<wait 1.2>>
+<<enable_textboxes true>>
+Somni: WHOAAAAA! A DOG IN A BEDSHEET! I take it back this is dope!
+<<enable_textboxes false>>
 //Somni runs up to GHOST DOG but runs straight through him
+<<move_player 0 2 0.5>>
+<<fade_object GhostDog 0 0.25>>
+<<wait 0.25>>
+<<object_layer GhostDog 13>>
+<<fade_object GhostDog 1 0.25>>
+<<wait 0.4>>
+<<change_player_direction 1>>
+<<enable_textboxes true>>
 Somni: HE'S A <i>GHOST</i> TOO?
 Ghost Dog: hi.
 Somni: ...
@@ -459,10 +433,17 @@ Somni: What!?
 Somni: You're telling me you created a dog that <i>only</i> wants treats, and you have <i>no treats?</i>
 Guide: Now you're getting it.
 Somni: You're a monster.
-Guide ...
+Guide: ...
 Guide: Yeah...welp. I have other, uh, guide business to attend to.
 Guide: Good luck figuring this out!
+<<enable_textboxes false>>
 //Guide fades out
+<<fade_to_white>>
+<<wait 0.35>>
+<<set_object_position Guide 10000 1000>>
+<<fade_from_white>>
+<<wait 0.3>>
+<<enable_textboxes true>>
 Somni: You know what? We don't need you! We'll find a treat all by ourselves!
 Somni: Right, Ghost Dog?
 Ghost Dog: bark.
@@ -470,29 +451,71 @@ Somni: All right. Cool.
 Ghost Dog: tweat.
 Somni: Okay, let's see if I have anything for you in the kitchen.
 Ghost Dog: yay.
+<<set_progression_flag "Met Ghost Dog" true>>
+===
+
+title: Try_Leave_GD
+tags:
+position: 12, -102
+---
+Ghost Dog: tweat.
+Somni: Yeah...you're right.
+<<move_player 0 1 0.5>>
+<<wait 0.5>>
 ===
 
 title: Enter_House
 tags:
 position: 12, -102
 ---
+<<enable_textboxes false>>
+<<fade_to_black>>
+<<play_sound DoorOpen>>
+<<wait 1>>
+//move Somni to new room
+<<set_object_position Player -55.5 -267.78>>
+<<set_anim_int Guide "direction" 1>>
+<<set_object_position Guide -55.5 -264.89>>
+//wait
+<<wait 0.5>>
+<<fade_from_black>>
+<<play_sound DoorClose>>
+<<wait 1>>
+<<enable_textboxes true>>
+Guide: ...!
+<<enable_textboxes false>>
+<<pan_camera -55.5 -264.89 1>>
+<<wait 2>>
+<<set_anim_int Guide "direction" 0>>
+<<enable_textboxes true>>
 Guide: Somni! Hi! How ya doin'?
 Somni: What did you do? What happened to my house?
 Guide: Funny story...
 Guide: I have no idea. But I'm working on it!
+<<pan_camera -56.468 -262.46 1>>
 Somni: Why is there a toilet here?
 Guide: Oh yeah...
 Guide: Soooo...because everything seems to be randomly moving itself around, I'm gonna need you to <color=green>SAVE</color> your progress periodically in case I need to reset.
 Somni: Reset?
 Guide: Don't worry about it! I've got it under control.
 Guide: Go find your dog a treat! I'll be back.
+<<enable_textboxes false>>
 //Guide fades out again
-Somni: I hate it when she does that. I know I've only seen her do it once, but I hate it.
+<<fade_to_white>>
+<<wait 0.35>>
+<<set_object_position Guide 10000 1000>>
+<<fade_from_white>>
+<<wait 0.5>>
+<<set_camera_target Player>>
+<<wait 0.5>>
+<<enable_textboxes true>>
+Somni: I hate it when she does that. I know I've only seen her do it twice, but I hate it.
 Somni: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
 Ghost Dog: tweat.
 Somni: Hey, Ghost Dog. What sound does a bird make?
 Ghost Dog: tweat.
 Somni: Great. Thanks.
+<<set_progression_flag "Started Level" true>>
 ===
 
 title: GhostDog_Interact

@@ -6,7 +6,7 @@ using UnityEngine;
 public class LeaveHouse : EnterText
 {
     public override void OnInteract() {
-        if (GameManager.Instance.GetProgressionFlag("Door Time")) {
+        if (GameManager.Instance.GetProgressionFlag("Leave House First Time")) {
             DialogueManager.Instance.StartDialogue("Second_Outside");
         } else if (GameManager.Instance.GetProgressionFlag("Saw Void")) {
             UIManager.Instance.ActivateInteractText(new List<string>{"You refuse to open the door."});
