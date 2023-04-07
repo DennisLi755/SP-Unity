@@ -18,7 +18,7 @@ public class TextboxInteraction : InteractableObject {
     }
 
     public override void OnInteract() {
-        if (PlayerInfo.Instance.PlayerControl.FacingDirection == direction) {
+        if (ValidatePlayerDirection()) {
             UIManager.Instance.ActivateInteractText(message);
         }
     }

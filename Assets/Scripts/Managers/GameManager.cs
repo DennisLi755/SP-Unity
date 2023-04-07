@@ -196,4 +196,12 @@ public class GameManager : MonoBehaviour {
         }
         UIManager.Instance.FadeFromBlack();
     }
+
+    [ContextMenu("Fix Interactables")]
+    public void UpdateInteractables() {
+        InteractableObject[] objs = FindObjectsOfType<InteractableObject>();
+        foreach (InteractableObject io in objs) {
+            DestroyImmediate(io.GetComponent<BoxCollider2D>());
+        }
+    }
 }

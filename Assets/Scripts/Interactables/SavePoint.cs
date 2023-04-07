@@ -8,9 +8,10 @@ public class SavePoint : InteractableObject {
     public Vector3 PlayerPosition => playerPosition + transform.position;
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos() {
+    new void OnDrawGizmos() {
+        base.OnDrawGizmos();
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(PlayerPosition + transform.position, new Vector3(0.491736591f, 0.384848833f, 0.0f));
+        Gizmos.DrawWireCube(playerPosition + transform.position, new Vector3(0.491736591f, 0.384848833f, 0.0f));
     }
 #endif
 

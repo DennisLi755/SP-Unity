@@ -5,9 +5,10 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
 public class InteractableObject : MonoBehaviour {
-    protected BoxCollider2D trigger;
+    [SerializeField]
+    protected Bounds triggerBounds;
+    public Bounds TriggerBounds { set => triggerBounds = value; }
     [SerializeField]
     protected LayerMask playerLayer;
     [SerializeField]
@@ -18,13 +19,9 @@ public class InteractableObject : MonoBehaviour {
     /// <summary>
     /// Draws debug info to the screen
     /// </summary>
-    private void OnDrawGizmos() {
-        if (!EditorApplication.isPlaying && trigger == null) {
-            trigger = GetComponent<BoxCollider2D>();
-        }
-
+    protected void OnDrawGizmos() {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireCube(trigger.bounds.center, trigger.bounds.size);
+        Gizmos.DrawWireCube(triggerBounds.center, triggerBounds.size);
     }
 #endif
 
@@ -32,14 +29,13 @@ public class InteractableObject : MonoBehaviour {
     /// 
     /// </summary>
     protected void Start() {
-        trigger = GetComponent<BoxCollider2D>();
         isActive = false;
     }
     /// <summary>
     /// Detects whether or not the player interacts with the object
     /// </summary>
     protected virtual void Update() {
-        RaycastHit2D hit = Physics2D.BoxCast(trigger.bounds.center, trigger.bounds.size, 0, Vector2.zero, 0, playerLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(triggerBounds.center, triggerBounds.size, 0, Vector2.zero, 0, playerLayer);
         if (hit && !isActive) {
             isActive = true;
             //display prompt? depends on if we do it
@@ -55,4 +51,12 @@ public class InteractableObject : MonoBehaviour {
     /// Base OnInteract() for InteractableObject
     /// </summary>
     public virtual void OnInteract() { }
+
+    /// <summary>
+    /// Checks if the player is facing the correct way to interact with the object or they object is set to omni-directional
+    /// </summary>
+    /// <returns></returns>
+    public bool ValidatePlayerDirection() {
+        return PlayerInfo.Instance.PlayerControl.FacingDirection == direction || direction == FacingDirection.Omni;
+    }
 }

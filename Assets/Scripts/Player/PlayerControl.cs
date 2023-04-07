@@ -35,7 +35,8 @@ public enum FacingDirection {
     Up = 0,
     Down = 1,
     Left = 2,
-    Right = 3
+    Right = 3,
+    Omni = 4 //This is used for object interactions that can be interacted with from any direction
 }
 
 /// <summary>
