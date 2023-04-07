@@ -432,6 +432,7 @@ position: 12, -102
 ---
 //move player to specific location
 <<enable_textboxes false>>
+<<wait 0.1>>
 <<move_player 161.525 -99.206 0.5 false>>
 <<wait 0.5>>
 <<change_player_direction 0>>
@@ -439,9 +440,23 @@ position: 12, -102
 Somni: What's that?
 Guide: Wait for it.
 <<enable_textboxes false>>
+<<wait 0.5>>
 //Ghost dog rises from the grave
+<<move_object GhostDog 0 1 1>>
+<<fade_object GhostDog 1 1>>
+<<wait 1.2>>
+<<enable_textboxes true>>
 Somni: WHOAAAAA! A DOG IN A BEEDSHEET! I take it back this is dope!
+<<enable_textboxes false>>
 //Somni runs up to GHOST DOG but runs straight through him
+<<move_player 0 2 0.5>>
+<<fade_object GhostDog 0 0.25>>
+<<wait 0.25>>
+<<object_layer GhostDog 13>>
+<<fade_object GhostDog 1 0.25>>
+<<wait 0.4>>
+<<change_player_direction 1>>
+<<enable_textboxes true>>
 Somni: HE'S A <i>GHOST</i> TOO?
 Ghost Dog: hi.
 Somni: ...
@@ -461,7 +476,12 @@ Somni: You're a monster.
 Guide ...
 Guide: Yeah...welp. I have other, uh, guide business to attend to.
 Guide: Good luck figuring this out!
+<<enable_textboxes false>>
 //Guide fades out
+<<fade_object Guide 0 1>>
+<<wait 1.2>>
+<<set_object_position Guide 10000 10000>>
+<<enable_textboxes true>>
 Somni: You know what? We don't need you! We'll find a treat all by ourselves!
 Somni: Right, Ghost Dog?
 Ghost Dog: bark.
