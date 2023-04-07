@@ -409,6 +409,7 @@ Guide: Now get over here. There's something I want to show you.
 <<wait 0.35>>
 <<set_object_position Guide 160.47 -99.206>>
 <<fade_from_white>>
+<<object_layer house_door_2 10>>
 <<wait 0.3>>
 ===
 
@@ -491,12 +492,37 @@ Somni: All right. Cool.
 Ghost Dog: tweat.
 Somni: Okay, let's see if I have anything for you in the kitchen.
 Ghost Dog: yay.
+<<set_progression_flag "Met Ghost Dog" true>>
+===
+
+title: Try_Leave_GD
+tags:
+position: 12, -102
+---
+Ghost Dog: tweat.
+Somni: Yeah...you're right.
+<<move_player 0 1 0.5>>
+<<wait 0.5>>
 ===
 
 title: Enter_House
 tags:
 position: 12, -102
 ---
+<<enable_textboxes false>>
+<<fade_to_black>>
+<<play_sound DoorOpen>>
+<<wait 1>>
+//move Somni to new room
+<<set_object_position Player -55.5 -267.78>>
+<<set_anim_int Guide "direction" 1>>
+<<set_object_position Guide -55.5 -264.89>>
+//wait
+<<wait 0.5>>
+<<fade_from_black>>
+<<play_sound DoorClose>>
+<<wait 1>>
+Guide: ...!
 Guide: Somni! Hi! How ya doin'?
 Somni: What did you do? What happened to my house?
 Guide: Funny story...
