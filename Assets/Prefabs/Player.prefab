@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &604929477
 RectTransform:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1146411343
 RectTransform:
   m_ObjectHideFlags: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use the arrow keys to move
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 92244af12bef6854495713b6d8566ebe, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 225bca9cc5d09bc41b4074d40e1a69a8, type: 2}
