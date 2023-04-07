@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        DialogueManager.Instance.StartDialogue("After_Guide");
+        DialogueManager.Instance.StartDialogue("Opening");
         objs = new Dictionary<string, GameObject>();
         foreach (Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -195,7 +195,8 @@ public class CutsceneManager : MonoBehaviour {
     /// <param name="y"></param>
     [YarnCommand("instantiate")]
     static void MakeObject(string name, float x, float y) {
-        Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
+        GameObject obj = Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
+        obj.name = "Guide";
     }
     /// <summary>
     /// Sets a new value for the Sorting Order property of a GameObjects Sprite Renderer
