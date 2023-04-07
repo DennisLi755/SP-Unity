@@ -447,7 +447,7 @@ Guide: Wait for it.
 <<fade_object GhostDog 1 1>>
 <<wait 1.2>>
 <<enable_textboxes true>>
-Somni: WHOAAAAA! A DOG IN A BEEDSHEET! I take it back this is dope!
+Somni: WHOAAAAA! A DOG IN A BEDSHEET! I take it back this is dope!
 <<enable_textboxes false>>
 //Somni runs up to GHOST DOG but runs straight through him
 <<move_player 0 2 0.5>>
@@ -474,7 +474,7 @@ Somni: What!?
 Somni: You're telling me you created a dog that <i>only</i> wants treats, and you have <i>no treats?</i>
 Guide: Now you're getting it.
 Somni: You're a monster.
-Guide ...
+Guide: ...
 Guide: Yeah...welp. I have other, uh, guide business to attend to.
 Guide: Good luck figuring this out!
 <<enable_textboxes false>>
@@ -522,11 +522,18 @@ position: 12, -102
 <<fade_from_black>>
 <<play_sound DoorClose>>
 <<wait 1>>
+<<enable_textboxes true>>
 Guide: ...!
+<<enable_textboxes false>>
+<<pan_camera -55.5 -264.89 1>>
+<<wait 2>>
+<<set_anim_int Guide "direction" 0>>
+<<enable_textboxes true>>
 Guide: Somni! Hi! How ya doin'?
 Somni: What did you do? What happened to my house?
 Guide: Funny story...
 Guide: I have no idea. But I'm working on it!
+<<pan_camera -56.468 -262.46 1>>
 Somni: Why is there a toilet here?
 Guide: Oh yeah...
 Guide: Soooo...because everything seems to be randomly moving itself around, I'm gonna need you to <color=green>SAVE</color> your progress periodically in case I need to reset.
@@ -534,12 +541,20 @@ Somni: Reset?
 Guide: Don't worry about it! I've got it under control.
 Guide: Go find your dog a treat! I'll be back.
 //Guide fades out again
-Somni: I hate it when she does that. I know I've only seen her do it once, but I hate it.
+<<fade_to_white>>
+<<wait 0.35>>
+<<set_object_position Guide 10000 1000>>
+<<fade_from_white>>
+<<wait 0.5>>
+<<set_camera_target Player>>
+<<wait 0.5>>
+Somni: I hate it when she does that. I know I've only seen her do it twice, but I hate it.
 Somni: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
 Ghost Dog: tweat.
 Somni: Hey, Ghost Dog. What sound does a bird make?
 Ghost Dog: tweat.
 Somni: Great. Thanks.
+<<set_progression_flag "Started Level" true>>
 ===
 
 title: GhostDog_Interact
