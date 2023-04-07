@@ -262,54 +262,10 @@ Somni: ...
 // Guide: If you want to go back, I can send you back. No one is making you do this. But know that you came to us for a reason. 
 // Guide: I have no information on what your situation is out there, but from what I’ve seen, I know that you wouldn’t be here if you had any other choice.
 // Somni: ...
-Guide: Are you ready to begin?
--> Somni: I guess....
-    <<set $choice to "A">>
--> Somni: Not yet.
-    <<set $choice to "B">>
-<<if $choice == "A">>
-    Guide: That's the spirit.
-    //Guide snaps her fingers and the room is filled with white light.
-    //snap sound
-    <<enable_textboxes false>>
-    <<fade_to_white>>
-    <<wait 0.35>>
-    <<set_object_position Player 94.63 -38.77>>
-    <<set_object_position Guide 97.49 -38.77>>
-    <<wait 0.3>>
-    <<fade_from_white>>
-    <<wait 1>>
-    <<change_player_direction 2>>
-    <<wait 0.25>>
-    <<change_player_direction 1>>
-    <<wait 0.25>>
-    <<change_player_direction 3>>
-    <<wait 0.2>>
-    <<enable_textboxes true>>
-    Somni: What happened?
-    <<enable_textboxes false>>
-    //Pan camera to front door
-    <<pan_camera 90.53 -45.79 1>>
-    <<wait 1>>
-    <<enable_textboxes true>>
-    Guide: Go through the front door.
-    Somni: You mean the one with nothing on the other side?
-    Guide: Precisely.
-    <<enable_textboxes false>>
-    //Pan camera back
-    <<set_camera_target Player>>
-    <<wait 0.5>>
-    <<enable_textboxes true>>
-    Somni: Okay but if I die I'm suing.
-    <<set_progression_flag "Door Time" true>>
-<<elseif $choice == "B">>
-    Somni: Just need a little more time to get my bearings.
-    Guide: All right. Just let me know when you're ready!
-    <<set_progression_flag "Not Ready" true>>
-<<endif>>
+<<jump Are_You_Ready>>
 ===
 
-title: Are_You_Ready?
+title: Are_You_Ready
 tags:
 position: 12, -102
 ---
@@ -353,10 +309,11 @@ Guide: Are you ready to begin?
     <<wait 0.5>>
     <<enable_textboxes true>>
     Somni: Okay but if I die I'm suing.
-    <<set_progression_flag "Door Time" true>>
+    <<set_progression_flag "Leave House First Time" true>>
 <<elseif $choice2 == "B">>
     Somni: Just need a little more time to get my bearings.
     Guide: All right. Just let me know when you're ready!
+    <<set_progression_flag "Not Ready" true>>
 <<endif>>
 ===
 
@@ -411,6 +368,7 @@ Guide: Now get over here. There's something I want to show you.
 <<fade_from_white>>
 <<object_layer house_door_2 10>>
 <<wait 0.3>>
+<<set_progression_flag "Second Outside" true>>
 ===
 
 title: Try_Leave
@@ -540,6 +498,7 @@ Guide: Soooo...because everything seems to be randomly moving itself around, I'm
 Somni: Reset?
 Guide: Don't worry about it! I've got it under control.
 Guide: Go find your dog a treat! I'll be back.
+<<enable_textboxes false>>
 //Guide fades out again
 <<fade_to_white>>
 <<wait 0.35>>
@@ -548,6 +507,7 @@ Guide: Go find your dog a treat! I'll be back.
 <<wait 0.5>>
 <<set_camera_target Player>>
 <<wait 0.5>>
+<<enable_textboxes true>>
 Somni: I hate it when she does that. I know I've only seen her do it twice, but I hate it.
 Somni: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
 Ghost Dog: tweat.

@@ -13,10 +13,10 @@ public class CrashGuide : InteractableObject {
 
     public override void OnInteract() {
         //StartCoroutine(StandUp());
-        if (GameManager.Instance.GetProgressionFlag("Door Time")) {
+        if (GameManager.Instance.GetProgressionFlag("Leave House First Time")) {
             DialogueManager.Instance.StartDialogue("Guide_Interact_After_Boss");
         } else if (GameManager.Instance.GetProgressionFlag("Not Ready")) {
-            DialogueManager.Instance.StartDialogue("Are_You_Ready?");
+            DialogueManager.Instance.StartDialogue("Are_You_Ready");
         } else {
             DialogueManager.Instance.StartDialogue("Meet_Guide");
         }
