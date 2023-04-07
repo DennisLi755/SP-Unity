@@ -405,11 +405,11 @@ Guide: Let's just call it some guide magic. //magic is in wavy text
 Guide: Now get over here. There's something I want to show you.
 <<enable_textboxes false>>
 //sound for fading
-<<fade_object Guide 0 1>>
-<<wait 1.2>>
+<<fade_to_white>>
+<<wait 0.35>>
 <<set_object_position Guide 160.47 -99.206>>
-<<fade_object Guide 1 1>>
-<<wait 1>>
+<<fade_from_white>>
+<<wait 0.3>>
 ===
 
 title: Try_Leave
@@ -478,9 +478,11 @@ Guide: Yeah...welp. I have other, uh, guide business to attend to.
 Guide: Good luck figuring this out!
 <<enable_textboxes false>>
 //Guide fades out
-<<fade_object Guide 0 1>>
-<<wait 1.2>>
-<<set_object_position Guide 10000 10000>>
+<<fade_to_white>>
+<<wait 0.35>>
+<<set_object_position Guide 10000 1000>>
+<<fade_from_white>>
+<<wait 0.3>>
 <<enable_textboxes true>>
 Somni: You know what? We don't need you! We'll find a treat all by ourselves!
 Somni: Right, Ghost Dog?
