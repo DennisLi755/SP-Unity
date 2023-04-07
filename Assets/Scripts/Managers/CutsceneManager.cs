@@ -36,7 +36,7 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         SceneManager.sceneLoaded += OpeningScene;
-        //DialogueManager.Instance.StartDialogue("Second_Outside");
+        //DialogueManager.Instance.StartDialogue("Opening");
         objs = new Dictionary<string, GameObject>();
         foreach (Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -221,8 +221,6 @@ public class CutsceneManager : MonoBehaviour {
         float angle = Mathf.Atan2(destination.y - playerPosition.y,
             destination.x - playerPosition.x);
 
-        Debug.Log((speed * Mathf.Sin(angle)) / PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
-
         PlayerInfo.Instance.PlayerControl.Velocity = new Vector2((speed * Mathf.Cos(angle)) / PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed,
             (speed * Mathf.Sin(angle)) / PlayerInfo.Instance.PlayerControl.ActiveMoveSpeed);
 
@@ -254,17 +252,19 @@ public class CutsceneManager : MonoBehaviour {
     #endregion
 
     #region UI Control
+
+    [ContextMenu("Movement Text")]
+    public void MoveMentText() {
+        ShowMovementText();
+    }
+
     /// <summary>
     /// Shows the movement tutorial text over the player's head
     /// </summary>
     [YarnCommand("show_movement_text")]
     static void ShowMovementText() {
-        if (PlayerInfo.Instance.GetComponent<PlayerInput>().currentControlScheme == "Keyboard") {
-            PlayerInfo.Instance.EnableTutorialText("Use the arrow keys to move");
-        }
-        else {
-            PlayerInfo.Instance.EnableTutorialText("Use the the left stick to move");
-        }
+        PlayerInfo.Instance.EnableTutorialText("Use the arrow keys to move & SPACE to interact",
+            "Use the the left stick to move & A to interact");
     }
 
     /// <summary>
