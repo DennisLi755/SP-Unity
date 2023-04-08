@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Somni House.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
-    path: Assets/Scenes/Mock Level.unity
-    guid: 263828ddabe5fc145a8f6811125d4b3e
-  - enabled: 0
     path: Assets/Scenes/Enemy Testing.unity
     guid: 0d217eee96b0b91479e4a8bea9899ea9
   m_configObjects:

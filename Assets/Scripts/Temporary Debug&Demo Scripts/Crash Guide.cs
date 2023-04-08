@@ -19,18 +19,7 @@ public class CrashGuide : InteractableObject {
             DialogueManager.Instance.StartDialogue("Are_You_Ready");
         } else {
             DialogueManager.Instance.StartDialogue("Meet_Guide");
+            GameManager.Instance.SavePlayerData("Save Toilet - Guide Fight");
         }
-    }
-
-    /// <summary>
-    /// Plays Guide's stand up animation and then starts dialogue with her
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator StandUp() {
-        anim.SetTrigger("Stand Up");
-        PlayerInfo.Instance.PlayerControl.Freeze();
-        yield return new WaitForSeconds(2.0f);
-        //start dialogue
-        DialogueManager.Instance.StartDialogue("Meet_Guide");
     }
 }

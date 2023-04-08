@@ -40,6 +40,10 @@ public class GuideTutorialPattern : BulletPattern
     }
 
     private void ShootBullet(int index) {
+        if (bullets[index].gameObject == null) {
+            StopAllCoroutines();
+            Destroy(gameObject);
+        }
         float angle = Mathf.Atan2(player.transform.position.y - bullets[index].gameObject.transform.position.y, 
             player.transform.position.x  - bullets[index].gameObject.transform.position.x);
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));

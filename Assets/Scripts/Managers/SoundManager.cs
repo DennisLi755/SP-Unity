@@ -233,7 +233,6 @@ public class SoundManager : MonoBehaviour {
     IEnumerator FadeIn(int layer, float fadeTime) {
         AudioSource audioSource = musicSources[currentLayer + 1];
         float endVolume = musicVolume;
-        Debug.Log(musicVolume);
         while (audioSource.volume < endVolume) {
             audioSource.volume += endVolume * Time.deltaTime / fadeTime;
             yield return null;

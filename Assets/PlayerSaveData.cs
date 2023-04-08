@@ -15,7 +15,7 @@ namespace Assets {
         public string playerName = "Somni";
         public int[] unlockedSkills = new int[0];
         public int[] equippedSkills = new int[] { -1, -1 };
-        private ProgressionFlags[] progressionFlags;
+        public ProgressionFlags[] progressionFlags;
 
         /// <summary>
         /// Populates the save data's internal list of flags with structs representing the KVP of the given dictionary

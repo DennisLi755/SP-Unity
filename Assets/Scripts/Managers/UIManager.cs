@@ -228,6 +228,7 @@ public class UIManager : MonoBehaviour {
         interactText.transform.parent.gameObject.SetActive(false);
         PlayerInfo.Instance.ChangeInputMap("Player");
         EndInteractionEvent?.Invoke();
+        EndInteractionEvent = null;
     }
     /// <summary>
     /// Opens and populates text box for a basic prompted object interaction

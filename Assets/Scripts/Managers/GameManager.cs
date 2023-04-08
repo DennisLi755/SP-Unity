@@ -112,9 +112,15 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator EndDemoFight() {
         UIManager.Instance.FadeToBlack();
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(0);
+
+        yield return new WaitForSecondsRealtime(1.0f);
+        //Time.timeScale = 0.0f;
+        BulletHolder.Instance.ClearBullets();
+        PlayerInfo.Instance.CombatLock = false;
         PlayerInfo.Instance.ExitCombat();
+        SceneManager.LoadScene(0);
+
+        Time.timeScale = 1.0f;
         UIManager.Instance.FadeFromBlack();
     }
 
@@ -164,7 +170,7 @@ public class GameManager : MonoBehaviour {
     /// <param name="scene"></param>
     /// <param name="lsm"></param>
     private void SceneLoaded(Scene scene, LoadSceneMode lsm) {
-        SetupPlayer();
+        StartCoroutine(SetupPlayer());
         //remove the event in case we load a scene during gameplay that is not based on save data
         SceneManager.sceneLoaded -= SceneLoaded;
     }
@@ -172,7 +178,9 @@ public class GameManager : MonoBehaviour {
     /// <summary>
     /// Setups the player's data and position based on the current save data
     /// </summary>
-    private void SetupPlayer() {
+    IEnumerator SetupPlayer() {
+        yield return null;
+        UIManager.Instance.UpdatePlayerHealth(1.0f);
         //get the player
         PlayerControl player = PlayerInfo.Instance.PlayerControl;
         //unlock all skills listed in the save data
@@ -187,6 +195,9 @@ public class GameManager : MonoBehaviour {
             SavePoint[] sceneSavePoints = FindObjectsOfType<SavePoint>();
             foreach (SavePoint sp in sceneSavePoints) {
                 if (sp.gameObject.name == saveData.saveLocation) {
+                    if (GetProgressionFlag("Sword Unlocked")) {
+                        PlayerInfo.Instance.AttackUnlocked = true;
+                    }
                     player.HitboxPosition = sp.PlayerPosition;
                     //move the camera to the room that the save point is in - parent is called twice because save points are children of interactables which are children of the room
                     sp.transform.parent.parent.GetComponent<Room>().MoveCameraHere();
@@ -194,6 +205,11 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+        else {
+            GameObject.Find("Living Room").GetComponent<Room>().MovePlayerHere();
+            GameObject.Find("Living Room").GetComponent<Room>().MoveCameraHere();
+        }
+        yield return null;
         UIManager.Instance.FadeFromBlack();
     }
 

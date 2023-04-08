@@ -139,7 +139,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     }
 
     private void OnDestroy() {
-        PlayerInfo.Instance.CombatLock = false;
         UIManager.Instance.EnableBossHealthBar(false);
     }
 

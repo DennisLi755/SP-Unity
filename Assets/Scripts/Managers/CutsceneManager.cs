@@ -35,10 +35,13 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     void Start() {
-        SceneManager.sceneLoaded += OpeningScene;
-        if (SceneManager.GetActiveScene().buildIndex == 1) {
-            DialogueManager.Instance.StartDialogue("Opening");
+        if (SceneManager.GetActiveScene().buildIndex == 0) {
+            SceneManager.sceneLoaded += OpeningScene;
         }
+        else {
+            OpeningScene(new Scene(), 0);
+        }
+        
         objs = new Dictionary<string, GameObject>();
         foreach (Objs o in objsArray) {
             objs.Add(o.name, o.obj);
@@ -46,18 +49,20 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     public void OpeningScene(Scene s, LoadSceneMode lsm) {
-        OpeningScene();
-    }
-    public void OpeningScene() {
-        if (!GameManager.Instance.GetProgressionFlag("Watched Opening") && SceneManager.GetActiveScene().buildIndex == 1) {
-            StartCoroutine(WaitForCrash());
-            PlayerInfo.Instance.PlayerControl.Freeze();
+        if (SceneManager.GetActiveScene().buildIndex == 1) {
+            if (!GameManager.Instance.GetProgressionFlag("Watched Opening")) {
+                OpeningScene();
+            }
+            else if (GameManager.Instance.GetProgressionFlag("Second Awake")) {
+                GameObject guide = Instantiate(objs["Guide Crash"], new Vector3(96.02f, -38.73f, 0.0f), Quaternion.identity);
+                guide.name = guide.name.Replace("(Clone)", "").Trim();
+            }
         }
     }
 
-    IEnumerator WaitForCrash() {
-        yield return new WaitForSeconds(1.0f);
+    public void OpeningScene() {
         DialogueManager.Instance.StartDialogue(openingProject, "Opening");
+        PlayerInfo.Instance.PlayerControl.Freeze();
     }
 
     #region Sounds & Music
@@ -122,7 +127,6 @@ public class CutsceneManager : MonoBehaviour {
             while (obj.transform.position != destination) {
                 obj.transform.position = Vector3.MoveTowards(obj.transform.position, destination, speed * Time.deltaTime);
                 yield return null;
-                Debug.Log("In loop");
             }
         }
     }

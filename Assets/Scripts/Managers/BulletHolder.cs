@@ -42,7 +42,7 @@ public class BulletHolder : MonoBehaviour {
     public void RemoveBullet() {
         bulletCount--;
         if (bulletCount == 0) {
-            PlayerInfo.Instance.ExitCombat();
+            PlayerInfo.Instance?.ExitCombat();
         }
     }
 
@@ -53,6 +53,10 @@ public class BulletHolder : MonoBehaviour {
     public void ClearBullets() {
         Bullet[] bullets = FindObjectsOfType<Bullet>();
         foreach (Bullet b in bullets) {
+            Destroy(b.gameObject);
+        }
+        BulletPattern[] bulletPatterns = FindObjectsOfType<BulletPattern>();
+        foreach (BulletPattern b in bulletPatterns) {
             Destroy(b.gameObject);
         }
     }
