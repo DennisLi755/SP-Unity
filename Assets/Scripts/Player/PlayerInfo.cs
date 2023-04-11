@@ -170,7 +170,8 @@ public class PlayerInfo : MonoBehaviour {
     /// <param name="amount"></param>
     public void Heal(int amount) {
         if (currentHealth < startingHealth) {
-            currentHealth += amount;
+            currentHealth = Mathf.Clamp(currentHealth += amount, 0, startingHealth);
+
         }
         if (healthBarStyle) {
             UIManager.Instance.UpdatePlayerHealth((float)currentHealth / startingHealth);
