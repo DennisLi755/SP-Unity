@@ -9,7 +9,7 @@ public class RailEnemy : StaticEnemy {
     [SerializeField]
     protected bool moveBulletsWithEnemy;
     [SerializeField]
-    protected List<Vector3> nodes;
+    public List<Vector3> nodes;
     protected int currentNodeIndex = 0;
     protected Vector3 Target {
         get {
