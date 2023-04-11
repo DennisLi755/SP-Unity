@@ -32,4 +32,10 @@ public class StrongEnemy : MonoBehaviour {
             wall.SetActive(true);
         }
     }
+
+    private void OnDisable() {
+        foreach (GameObject wall in walls) {
+            wall.SetActive(false);
+        }
+    }
 }
