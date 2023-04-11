@@ -35,10 +35,5 @@ public class BulletPattern : MonoBehaviour {
         }
     }
 
-    public void SetSpeedOverride(float speed) {
-        overrideSpeed = true;
-        this.speed = speed;
-    }
-
     public virtual void SetOverrideSettings(string settings) { Debug.LogError($"The setting override for {this.name} has not been setup"); }
 }

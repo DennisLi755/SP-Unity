@@ -53,6 +53,7 @@ public class LinePattern : BulletPattern
                 case "delay": delay = value; break;
                 case "length": length = value; break;
                 case "decay": decayTime = value; break;
+                case "speed": speed = value; break;
                 default: Debug.LogWarning($"Setting {s} does not exist for ${this}"); break;
             }
         }
