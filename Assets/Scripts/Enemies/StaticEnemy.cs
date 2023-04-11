@@ -55,9 +55,6 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     protected float aggroLossTime = 5.0f;
     protected Coroutine aggroLossRoutine;
 
-    protected bool overridePatternSpeed = false;
-    protected float newPatternSpeed;
-
     protected string patternSettingsOverride = "";
     #endregion
 
@@ -139,7 +136,6 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         //if the enemy's attack cycle actually has data and they can continue attacking, then attack
         if (canContinueAttack && attackCycle.Length > 0) {
             //default assume the enemy uses the built in speed of the pattern
-            overridePatternSpeed = false;
             patternSettingsOverride = "";
             //activate all of the actions associated with the current attack cycle index then increase the index for the next call
             attackCycle[attackCycleIndex]?.Invoke();
@@ -173,9 +169,6 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         //if the pattern has an attached BulletPattern script and a ChangeBulletSpeed action was part of the current attack cycle index,
         //then update the speed on the BulletPattern script so it can update its bullet children
         BulletPattern bulPat;
-        if (overridePatternSpeed && pat.TryGetComponent<BulletPattern>(out bulPat)) {
-            bulPat.SetSpeedOverride(newPatternSpeed);
-        }
         if (patternSettingsOverride != "" && pat.TryGetComponent<BulletPattern>(out bulPat)) {
             bulPat.SetOverrideSettings(patternSettingsOverride);       
         }
@@ -201,15 +194,6 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
             //clear the routine so the next one can be stored
             attackCycleRoutine = null;
         }
-    }
-
-    /// <summary>
-    /// Sets the flag for the enemy to change the bullet speed of any patterns shot after this action is called
-    /// </summary>
-    /// <param name="speed"></param>
-    public void SetPatternSpeed(float speed) {
-        overridePatternSpeed = true;
-        newPatternSpeed = speed;
     }
 
     public void SetPatternSettings(string settings) {

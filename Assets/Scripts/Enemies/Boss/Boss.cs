@@ -28,8 +28,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     protected bool canContinueAttack = false;
     protected int attackCycleIndex = 0;
     protected Coroutine attackCycleRoutine;
-    protected bool overridePatternSpeed = false;
-    protected float newPatternSpeed;
     [SerializeField]
     protected int currentPhase = 0;
     protected GameObject pattern;
@@ -121,7 +119,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
 
     protected void Update() {
         if (canContinueAttack && phasesList[currentPhase].Length > 0) {
-            overridePatternSpeed = false;
             phasesList[currentPhase][attackCycleIndex]?.Invoke();
             //check if the boss has already repeated the set index the number of times they need to,
             //or they are on a cycle command after the one they are supposed to repeat
@@ -166,10 +163,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     /// <inheritdoc cref="StaticEnemy.ShootPatternBullet(GameObject)"/>
     public virtual void ShootPatternBullet(GameObject pattern) {
         this.pattern = Instantiate(pattern, transform.position, Quaternion.identity, BulletHolder.Instance.transform);
-        BulletPattern bulPat;
-        if (this.pattern.TryGetComponent<BulletPattern>(out bulPat) && overridePatternSpeed) {
-            bulPat.SetSpeedOverride(newPatternSpeed);
-        }
     }
 
     /// <inheritdoc cref="StaticEnemy.Wait(float)"/>
@@ -187,12 +180,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             }
             attackCycleRoutine = null;
         }
-    }
-
-    /// <inheritdoc cref="StaticEnemy.SetPatternSpeed(float)"/>
-    public void SetPatternSpeed(float speed) {
-        overridePatternSpeed = true;
-        newPatternSpeed = speed;
     }
 
     /// <inheritdoc cref="StaticEnemy.Hurt(int)"/>
