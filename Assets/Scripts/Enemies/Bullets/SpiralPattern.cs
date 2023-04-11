@@ -60,6 +60,7 @@ public class SpiralPattern : BulletPattern {
                 case "angleStep": angleStep = value; break;
                 case "delay": delay = value; break;
                 case "fullRotations": fullRotations = value; break;
+                case "decay": decayTime = value; break;
                 default: Debug.LogWarning($"Setting {s} does not exist for ${this}"); break;
             }
         }
