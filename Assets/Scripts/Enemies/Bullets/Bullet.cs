@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour {
     public float DecayTime {get => decayTime; set => decayTime = value; }
     public BulletType BulletType {get => bulletType; set => bulletType = value; }
 
-    void Start() {
+    protected void Start() {
         BulletHolder.Instance.AddBullet();
 
         collider = GetComponent<CircleCollider2D>();

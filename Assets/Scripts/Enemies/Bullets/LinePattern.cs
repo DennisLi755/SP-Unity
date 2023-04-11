@@ -12,6 +12,8 @@ public class LinePattern : BulletPattern
     [SerializeField]
     private float delay = 0.5f;
     [SerializeField]
+    private float decayTime = 0.0f;
+    [SerializeField]
     private GameObject bullet;
     // Start is called before the first frame update
     new void Start()
@@ -20,13 +22,16 @@ public class LinePattern : BulletPattern
     }
 
     IEnumerator Shoot() {
-        if (length >= 0.0f) {
+        while (length >= 0.0f) {
             GameObject b = Instantiate(bullet, transform);
             Bullet bScript;
             if (b.TryGetComponent<Bullet>(out bScript)) {
                 bScript.Angle = angle;
                 if (overrideSpeed) {
                     bScript.Speed = speed;
+                }
+                if (decayTime != 0) {
+                    bScript.DecayTime = decayTime;
                 }
             }
             length--;
@@ -47,6 +52,7 @@ public class LinePattern : BulletPattern
                 case "angle": angle = value; break;
                 case "delay": delay = value; break;
                 case "length": length = value; break;
+                case "decay": decayTime = value; break;
                 default: Debug.LogWarning($"Setting {s} does not exist for ${this}"); break;
             }
         }
