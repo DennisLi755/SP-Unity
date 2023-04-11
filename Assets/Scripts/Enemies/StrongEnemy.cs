@@ -21,9 +21,15 @@ public class StrongEnemy : MonoBehaviour {
             }
         }
         ai.enabled = false;
+        foreach (GameObject wall in walls) {
+            wall.SetActive(false);
+        }
     }
 
     public void Activate() {
         ai.enabled = true;
+        foreach (GameObject wall in walls) {
+            wall.SetActive(true);
+        }
     }
 }
