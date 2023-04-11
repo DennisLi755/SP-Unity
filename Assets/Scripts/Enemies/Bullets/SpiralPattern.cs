@@ -49,7 +49,7 @@ public class SpiralPattern : BulletPattern {
                 continue;
             }
             string setting = s.Substring(0, equal).Trim();
-            int value = Int32.Parse(s.Substring(equal+1).Trim());
+            float value = float.Parse(s.Substring(equal+1).Trim());
             switch (setting) {
                 case "startingAngle": startingAngle = value; break;
                 case "angleStep": angleStep = value; break;
