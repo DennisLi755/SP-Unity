@@ -102,6 +102,8 @@ MonoBehaviour:
   startingHealth: 0
   healthDropChance: 70
   healthDrop: {fileID: 6975054099003363484, guid: 242c098b272cb6c4b867ec31290c893f, type: 3}
+  sr: {fileID: 0}
+  whiteMaterial: {fileID: 2100000, guid: c3bc6a1834fa08348ad11d8bfc8f95f6, type: 2}
   useTargetingCircle: 0
   targetingCircle:
     center: {x: 0, y: 0}

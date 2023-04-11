@@ -223,8 +223,10 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     public void Hurt(int amount) {
         if (isDamageable) {
             currentHealth -= amount;
-            //sr.material = whiteMaterial;
-            //StartCoroutine(TurnColorBack());
+            //flash white to indicate the enemy took damage
+            sr.material = whiteMaterial;
+            StartCoroutine(TurnColorBack());
+            //kill the enemy
             if (currentHealth <= 0) {
                 gameObject.SetActive(false);
                 if (healthDropChance > 0) {
@@ -233,6 +235,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
             }
         }
 
+        //change the enemie's color back to the regular color
         IEnumerator TurnColorBack() {
             yield return new WaitForSeconds(0.2f);
             sr.material = spriteDefault;
