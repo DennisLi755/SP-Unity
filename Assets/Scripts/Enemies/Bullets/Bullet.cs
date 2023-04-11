@@ -29,6 +29,9 @@ public class Bullet : MonoBehaviour {
     private float maxTimeOffScreen = 5.0f;
     [SerializeField]
     private BulletType bulletType;
+    [SerializeField]
+    private float decayTime = 0.0f;
+    public float DecayTime {get => decayTime; set => decayTime = value; }
     public BulletType BulletType {get => bulletType; set => bulletType = value; }
 
     void Start() {
@@ -39,6 +42,10 @@ public class Bullet : MonoBehaviour {
 
         direction = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle)).normalized;
         StartCoroutine(WaitForRender());
+
+        if (decayTime != 0) {
+            StartCoroutine(Decay(decayTime));
+        }
 
         IEnumerator WaitForRender() {
             yield return new WaitForSeconds(0.5f);
@@ -69,5 +76,10 @@ public class Bullet : MonoBehaviour {
 
     private void OnDestroy() {
         BulletHolder.Instance.RemoveBullet();
+    }
+
+    IEnumerator Decay(float time) {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
     }
 }

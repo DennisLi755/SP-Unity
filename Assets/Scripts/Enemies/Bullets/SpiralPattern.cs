@@ -16,6 +16,8 @@ public class SpiralPattern : BulletPattern {
     [SerializeField]
     private float fullRotations = 1;
     [SerializeField]
+    private float decayTime = 0;
+    [SerializeField]
     GameObject bullet;
 
     new void Start() {
@@ -33,6 +35,9 @@ public class SpiralPattern : BulletPattern {
                 bScript.Angle = currAngle;
                 if (overrideSpeed) {
                     bScript.Speed = speed;
+                }
+                if (decayTime != 0) {
+                    bScript.DecayTime = decayTime;
                 }
             }
             yield return new WaitForSeconds(delay);
