@@ -44,9 +44,9 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P)) {
             Time.timeScale = Mathf.Abs(Time.timeScale - 1.0f);
         }
-        //Force moves the player to get them "un-stuck"
-        if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            EndFight();
+        //Dev Immunity
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            PlayerInfo.Instance.Damageable = !PlayerInfo.Instance.Damageable;
         } 
         //Saves the game without needing to interact wtih a save toilet
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
         }
         //Loads save data without having to go through the main menu
         if (Input.GetKeyDown(KeyCode.Alpha8)) {
-             PlayerSaveData file = new PlayerSaveData();
+            PlayerSaveData file;
             string filePath = Application.persistentDataPath + $"/save{playerSaveSlot}.data";
             file = JsonUtility.FromJson<PlayerSaveData>(System.IO.File.ReadAllText(filePath));
             LoadPlayerSaveData(playerSaveSlot, file);
