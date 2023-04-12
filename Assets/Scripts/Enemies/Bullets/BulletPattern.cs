@@ -35,5 +35,21 @@ public class BulletPattern : MonoBehaviour {
         }
     }
 
-    public virtual void SetOverrideSettings(string settings) { Debug.LogError($"The setting override for {this.name} has not been setup"); }
+    public virtual void SetOverrideSettings(string settings) { 
+        string[] splitSettings = settings.Split(',');
+        foreach (string s in splitSettings) {
+            int equal = s.IndexOf('=');
+            if (equal == -1) {
+                Debug.LogWarning($"{s} does not contain a \'=\', therefore the pattern setting is unable to be set");
+                continue;
+            }
+            string setting = s.Substring(0, equal).Trim();
+            float value = Single.Parse(s.Substring(equal+1).Trim());
+            switch (setting) {
+                case "speed": speed = value; break;
+                default: Debug.LogWarning($"Setting {s} does not exist for ${this}"); break;
+            }
+        }
+        Debug.LogError($"The setting override for {this.name} has not been setup"); 
+    }
 }
