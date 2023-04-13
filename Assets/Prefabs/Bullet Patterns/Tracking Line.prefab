@@ -51,4 +51,5 @@ MonoBehaviour:
   length: 5
   delay: 0.5
   decayTime: 0
-  bullet: {fileID: 6667369788057125289, guid: 8a2ef84f863127e4abea09503a53bff0, type: 3}
+  bullet: {fileID: 6667369788057125289, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
+  tracking: 1

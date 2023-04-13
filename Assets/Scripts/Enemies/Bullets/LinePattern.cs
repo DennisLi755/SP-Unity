@@ -15,9 +15,17 @@ public class LinePattern : BulletPattern
     private float decayTime = 0.0f;
     [SerializeField]
     private GameObject bullet;
+    [SerializeField]
+    private bool tracking;
     // Start is called before the first frame update
     new void Start()
     {
+        if (tracking) {
+            GameObject player = PlayerInfo.Instance.gameObject;
+            angle = Mathf.Rad2Deg * Mathf.Atan2(player.transform.position.y - transform.position.y, 
+                player.transform.position.x  - transform.position.x);
+            Debug.Log(angle);
+        }
         StartCoroutine(Shoot());
     }
 
