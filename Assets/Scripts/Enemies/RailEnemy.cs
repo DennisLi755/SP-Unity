@@ -66,6 +66,8 @@ public class RailEnemy : StaticEnemy {
     private void FixedUpdate() {
         if (!(transform.position == Target)) {
             transform.position = Vector3.MoveTowards(transform.position, Target, speed * Time.fixedDeltaTime);
+        } else {
+            
         }
     }
 
