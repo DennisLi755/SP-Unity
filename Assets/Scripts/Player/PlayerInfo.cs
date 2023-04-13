@@ -51,6 +51,8 @@ public class PlayerInfo : MonoBehaviour {
     private const float invincibilityLength = 1;
     private bool damageable = true;
     public bool Damageable { get => damageable; set => damageable = value; }
+    private bool invincible = false;
+    public bool Invinicble { get => invincible; set => invincible = value; }
     //Mana
     private int currentMana;
     public int CurrentMana {
@@ -99,9 +101,7 @@ public class PlayerInfo : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            FlipHealthBarStyle();
-        }
+        
     }
 
     /// <summary>
@@ -110,7 +110,7 @@ public class PlayerInfo : MonoBehaviour {
     /// <param name="amount"></param>
     public void Hurt(int amount) {
         //if the player is not currently damageable (most likely from I-Frames), do nothing
-        if (!damageable) {
+        if (!damageable || invincible) {
             return;
         }
         damageable = false;
