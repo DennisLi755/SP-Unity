@@ -226,9 +226,7 @@ public class PlayerInfo : MonoBehaviour {
         }
         inCombat = false;
         Hitbox.SetActive(false);
-        UIManager.Instance.EnablePlayerHealthBar(false);
-        //UIManager.Instance.EnablePlayerManaBar(false);
-        UIManager.Instance.EnableSkillIcons(false);
+        UIManager.Instance.EnableCombatUI(false);
     }
 
     /// <summary>
@@ -237,9 +235,7 @@ public class PlayerInfo : MonoBehaviour {
     public void EnterCombat() {
         inCombat = true;
         Hitbox.SetActive(true);
-        UIManager.Instance.EnablePlayerHealthBar(true);
-        //UIManager.Instance.EnablePlayerManaBar(true);
-        UIManager.Instance.EnableSkillIcons(true);
+        UIManager.Instance.EnableCombatUI(true);
     }
 
     public void UpdateHitboxHealth() {

@@ -105,6 +105,7 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    #region Fade to Black/White
     /// <summary>
     /// Fades the screen to black
     /// </summary>
@@ -147,7 +148,9 @@ public class UIManager : MonoBehaviour {
         c.a = 0;
         fadeToBlackPanel.GetComponent<Image>().color = c;
     }
+    #endregion
 
+    #region Object Interaction UI
     /// <summary>
     /// Opens and populates basic object interaction text box
     /// </summary>
@@ -263,7 +266,8 @@ public class UIManager : MonoBehaviour {
         prompt.SetActive(false);
         PlayerInfo.Instance.ChangeInputMap("Player");
     }
-
+    #endregion
+    #region Combat UI
     /// <summary>
     /// Updates the player's health bar fill to reflect their current health percent
     /// </summary>
@@ -289,6 +293,35 @@ public class UIManager : MonoBehaviour {
     }
 
     /// <summary>
+    /// Updates the UI element representing a skil's cooldown
+    /// </summary>
+    /// <param name="skillSlot"></param>
+    /// <param name="cooldownPercent"></param>
+    public void UpdateSkillIconCooldown(int skillSlot, float cooldownPercent) {
+        skillIcons[skillSlot].transform.GetChild(1).GetComponent<Image>().fillAmount = cooldownPercent;
+    }
+
+    /// <summary>
+    /// Toggles the visibility of the player's currently equipped skill cooldown icons under their health
+    /// </summary>
+    /// <param name="isEnabled"></param>
+    public void EnableSkillIcons(bool isEnabled) {
+        skillIcons[0].transform.parent.gameObject.SetActive(isEnabled);
+    }
+
+    public void EnableDashCharges(bool isEnabled) {
+
+    }
+
+    public void EnableCombatUI(bool isEnabled) {
+        EnablePlayerHealthBar(isEnabled);
+        //EnablePlayerManaBar(isEnabled);
+        EnableSkillIcons(isEnabled);
+        EnableDashCharges(isEnabled);
+    }
+
+    #region Boss Healthbar
+    /// <summary>
     /// Updates the boss health bar to reflect their current health percent
     /// </summary>
     /// <param name="healthPercent"></param>
@@ -311,7 +344,9 @@ public class UIManager : MonoBehaviour {
     public void EnableBossHealthBar(bool isEnabled) {
         bossHealthBar.SetActive(isEnabled);
     }
-
+    #endregion
+    #endregion
+    #region Pause Menu
     /// <summary>
     /// Toggles the menu's visibility
     /// </summary>
@@ -403,26 +438,14 @@ public class UIManager : MonoBehaviour {
                 skillSlots[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
                 skillSlots[otherSlot].GetComponentInChildren<TMP_Text>().text = "";
 
+                //enable the new skill icon
                 skillIcons[targetSlot].SetActive(true);
                 skillIcons[targetSlot].GetComponentInChildren<TMP_Text>().text = skillID.ToString();
+                //disable the old skill icon
+                skillIcons[otherSlot].SetActive(false);
+                skillIcons[otherSlot].GetComponentInChildren<TMP_Text>().text = "";
                 break;
         }
     }
-
-    /// <summary>
-    /// Updates the UI element representing a skil's cooldown
-    /// </summary>
-    /// <param name="skillSlot"></param>
-    /// <param name="cooldownPercent"></param>
-    public void UpdateSkillIconCooldown(int skillSlot, float cooldownPercent) {
-        skillIcons[skillSlot].transform.GetChild(1).GetComponent<Image>().fillAmount = cooldownPercent;
-    }
-
-    /// <summary>
-    /// Toggles the visibility of the player's currently equipped skill cooldown icons under their health
-    /// </summary>
-    /// <param name="isEnabled"></param>
-    public void EnableSkillIcons(bool isEnabled) {
-        skillIcons[0].transform.parent.gameObject.SetActive(isEnabled);
-    }
+    #endregion
 }
