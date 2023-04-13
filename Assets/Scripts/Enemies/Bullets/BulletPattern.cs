@@ -44,12 +44,11 @@ public class BulletPattern : MonoBehaviour {
                 continue;
             }
             string setting = s.Substring(0, equal).Trim();
-            float value = Single.Parse(s.Substring(equal+1).Trim());
+            float value = float.Parse(s.Substring(equal+1).Trim());
             switch (setting) {
                 case "speed": speed = value; break;
                 default: Debug.LogWarning($"Setting {s} does not exist for ${this}"); break;
             }
         }
-        Debug.LogError($"The setting override for {this.name} has not been setup"); 
     }
 }

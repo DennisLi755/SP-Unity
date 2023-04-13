@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
         }
         //Dev Immunity
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            PlayerInfo.Instance.Damageable = !PlayerInfo.Instance.Damageable;
+            PlayerInfo.Instance.Invinicble = !PlayerInfo.Instance.Invinicble;
         } 
         //Saves the game without needing to interact wtih a save toilet
         if (Input.GetKeyDown(KeyCode.Alpha9)) {
