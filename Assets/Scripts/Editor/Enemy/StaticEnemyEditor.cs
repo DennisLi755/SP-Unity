@@ -19,6 +19,7 @@ public class StaticEnemyEditor : Editor {
     protected SerializedProperty aggroLossTime;
 
     protected SerializedProperty whiteMaterial;
+    protected SerializedProperty isActive;
 
     protected void OnEnable() {
         startingHealth = serializedObject.FindProperty("startingHealth");
@@ -35,6 +36,8 @@ public class StaticEnemyEditor : Editor {
         aggroLossTime = serializedObject.FindProperty("aggroLossTime");
 
         whiteMaterial = serializedObject.FindProperty("whiteMaterial");
+
+        isActive = serializedObject.FindProperty("isActive");
     }
 
     public override void OnInspectorGUI() {
@@ -58,6 +61,7 @@ public class StaticEnemyEditor : Editor {
         }
 
         EditorGUILayout.PropertyField(whiteMaterial);
+        EditorGUILayout.PropertyField(isActive);
 
         serializedObject.ApplyModifiedProperties();
     }

@@ -6,6 +6,9 @@ public class StrongEnemy : MonoBehaviour {
 
     [SerializeField]
     private GameObject[] walls;
+    [SerializeField]
+    private StaticEnemy[] ads;
+    public StaticEnemy[] Ads { get => ads; }
     StaticEnemy ai;
 
     private void Awake() {
@@ -36,6 +39,11 @@ public class StrongEnemy : MonoBehaviour {
     private void OnDisable() {
         foreach (GameObject wall in walls) {
             wall.SetActive(false);
+        }
+        if (ads.Length != 0) {
+            foreach (StaticEnemy ad in ads) {
+                ad.gameObject.SetActive(false);
+            }
         }
     }
 }

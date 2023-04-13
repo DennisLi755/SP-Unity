@@ -58,6 +58,12 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     protected string patternSettingsOverride = "";
     #endregion
 
+    #region Scene Control
+    [SerializeField]
+    protected bool isActive;
+
+    #endregion
+
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
         //display health
@@ -74,6 +80,9 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
 #endif
 
     protected void Start() {
+        if (!isActive) {
+            this.enabled = false;
+        }
         if (!useTargetingCircle && GetComponent<SpriteRenderer>().isVisible) {
             canAttack = true;
             canContinueAttack = true;
@@ -234,6 +243,14 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         float randomNum = UnityEngine.Random.Range(0, 100);
         if (randomNum < chance) {
             Instantiate(healthDrop, transform.position, Quaternion.identity);
+        }
+    }
+    /// <summary>
+    /// Activates an enemy if they are inactive
+    /// </summary>
+    public void Activate() {
+        if (!isActive) {
+            this.enabled = true;
         }
     }
 }

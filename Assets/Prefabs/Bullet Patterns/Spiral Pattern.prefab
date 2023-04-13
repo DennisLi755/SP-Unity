@@ -25,12 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3363813831770021441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 61.415184, y: -56.465443, z: 0.0066253766}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4966136502156926108
 MonoBehaviour:
@@ -51,4 +51,5 @@ MonoBehaviour:
   angleStep: 15
   delay: 0.05
   fullRotations: 1
+  decayTime: 0
   bullet: {fileID: 6667369788057125289, guid: ccdf504a389cd984baa98e957ed25d86, type: 3}
