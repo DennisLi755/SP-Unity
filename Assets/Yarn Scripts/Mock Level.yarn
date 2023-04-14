@@ -3,7 +3,7 @@ tags:
 position: 12, -102
 ---
 //<<wait 1>>
-<<set_object_position Player -2.19 -22.02>>
+<<set_object_position Player -2.22 -22.2>>
 <<enable_textboxes false>>
 <<enable_textboxes true>>
 Somni: ...Where am I?

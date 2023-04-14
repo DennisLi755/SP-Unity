@@ -22,7 +22,9 @@ public class CutsceneManager : MonoBehaviour {
     private Objs[] objsArray;
     private static Dictionary<string, GameObject> objs;
     [SerializeField]
-    YarnProject openingProject;
+    private YarnProject openingProject;
+    [SerializeField]
+    private bool playOpening = true;
 
     private void Awake() {
         if (instance == null) {
@@ -38,7 +40,7 @@ public class CutsceneManager : MonoBehaviour {
         if (SceneManager.GetActiveScene().buildIndex == 0) {
             SceneManager.sceneLoaded += OpeningScene;
         }
-        else {
+        else if (playOpening) {
             OpeningScene(new Scene(), 0);
         }
         
@@ -63,6 +65,14 @@ public class CutsceneManager : MonoBehaviour {
     public void OpeningScene() {
         DialogueManager.Instance.StartDialogue(openingProject, "Opening");
         PlayerInfo.Instance.PlayerControl.Freeze();
+    }
+
+    /// <summary>
+    /// Inspector command to position the player in their bed
+    /// </summary>
+    [ContextMenu("Move Player to Bed")]
+    public void MovePlayerToBed() {
+        FindObjectOfType<PlayerInfo>().transform.position = new Vector3(-2.3f, -22.2f, 0);
     }
 
     #region Sounds & Music
