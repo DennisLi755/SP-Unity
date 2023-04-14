@@ -545,6 +545,9 @@ public class PlayerControl : MonoBehaviour {
             currentDashCharges--;
             StartCoroutine(EndDash());
             StartCoroutine(CreateAfterImages());
+            if (pInfo.Tutorials.ContainsKey("dashing") && !pInfo.Tutorials["dashing"]) {
+                StartCoroutine(EndTutorial(() => pInfo.Tutorials["dashing"] = true, 2.0f));
+            }
         }
     }
 

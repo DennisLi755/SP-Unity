@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthPickup : MonoBehaviour {
-    [SerializeField]
     private LayerMask playerLayer;
     private new BoxCollider2D collider;
     private SpriteRenderer sr;
 
     void Start() {
+        playerLayer = LayerMask.GetMask("Player", "Player Hitbox");
         collider = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
         StartCoroutine(WaitForDespawn(5.0f));

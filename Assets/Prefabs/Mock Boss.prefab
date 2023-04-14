@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &772907965599314199
 Transform:
   m_ObjectHideFlags: 0
@@ -201,49 +201,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - attackCycle:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1940172004}
-          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
-          m_MethodName: Wait
-          m_Mode: 4
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 2
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1940172004}
-          m_TargetAssemblyTypeName: MockBoss, Assembly-CSharp
-          m_MethodName: MoveToNewNode
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1940172004}
-          m_TargetAssemblyTypeName: Boss, Assembly-CSharp
-          m_MethodName: Wait
-          m_Mode: 4
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 1
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  - attackCycle: []
   - attackCycle:
     - m_PersistentCalls:
         m_Calls:
@@ -273,7 +231,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 772907965599314198}
+        - m_Target: {fileID: 1940172004}
           m_TargetAssemblyTypeName: Boss, Assembly-CSharp
           m_MethodName: Wait
           m_Mode: 4
@@ -320,9 +278,10 @@ MonoBehaviour:
   ad: {fileID: 7503953173959933805, guid: 24334e70498a7e241adc5320cfadcc78, type: 3}
   specialNodes:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 4.82, z: 0}
+  - {x: -8.35, y: 9.42, z: 0}
   adNodes:
   - {x: 6.31, y: 3.69, z: 0}
   - {x: 6.31, y: -3.69, z: 0}
   - {x: -6.31, y: -3.69, z: 0}
   - {x: -6.31, y: 3.69, z: 0}
+  timeoutAd: {fileID: 7377167972027523041, guid: 311159b7e0a7c204ca0178ddcfe9e6cb, type: 3}

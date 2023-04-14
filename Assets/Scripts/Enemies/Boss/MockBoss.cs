@@ -118,6 +118,8 @@ public class MockBoss : Boss {
                     currentPhase++;
                     totalAds = 0;
                     StartCoroutine(MoveToTargetNode(specialNodes[1], () => {
+                        UIManager.Instance.UpdateTimeoutText(35);
+                        UIManager.Instance.EnableTimeoutText(true);
                         StartCoroutine(PhaseTimeOut(35));
                         timeoutAd =Instantiate(timeoutAd, transform.position, Quaternion.identity);
                         GetComponent<SpriteRenderer>().enabled = false;
@@ -133,11 +135,14 @@ public class MockBoss : Boss {
     IEnumerator PhaseTimeOut(float timeLeft) {
         while (timeLeft >= 0) {
             timeLeft -= Time.deltaTime;
+            UIManager.Instance.UpdateTimeoutText(timeLeft);
             yield return null;
         }
         currentPhase++;
         GetComponent<SpriteRenderer>().enabled = true;
+        UIManager.Instance.EnableTimeoutText(false);
         Destroy(timeoutAd);
+        totalAds = 4;
     }
 
     ///
