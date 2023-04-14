@@ -36,8 +36,7 @@ public class SoundManager : MonoBehaviour {
     private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
     private AudioSource UISource;
-    [SerializeField]
-    private AudioSource environmentSource;
+    private List<AudioSource> environmentSources = new List<AudioSource>();
 
     [Range(0, 1)]
     [SerializeField]
@@ -71,6 +70,7 @@ public class SoundManager : MonoBehaviour {
         foreach (SoundEffect se in soundEffectsArray) {
             soundEffects.Add(se.name, se.soundEffect);
         }
+        UISource.volume = soundEffectVolume;
     }
 
     private void Update() {
@@ -120,7 +120,56 @@ public class SoundManager : MonoBehaviour {
                 return UISource;
 
             case SoundSource.environment:
-                return environmentSource;
+                if (environmentSources.Count == 0) {
+                    MakeSource(environmentSources);
+                }
+                for (int i = 0; i < environmentSources.Count; i++) {
+                    if (!environmentSources[i].isPlaying) {
+                        return environmentSources[i];
+                    }
+                    else if (i == environmentSources.Count - 1) {
+                        MakeSource(environmentSources);
+                    }
+                }
+                Debug.LogError($"No Available Environment SoundSource");
+                return null;
+
+            default:
+                Debug.LogError($"The case for SoundSource {source} has not been setup yet");
+                return null;
+        }
+    }
+
+    public AudioSource FindPlayingSource(SoundSource source) {
+        switch (source) {
+            case SoundSource.player:
+                for (int i = 0; i < playerSources.Count; i++) {
+                    if (playerSources[i].isPlaying) {
+                        return playerSources[i];
+                    }
+                }
+                Debug.LogError($"No Playing Player SoundSource");
+                return null;
+            case SoundSource.cutscene:
+                for (int i = 0; i < cutsceneSources.Count; i++) {
+                    if (cutsceneSources[i].isPlaying) {
+                        return cutsceneSources[i];
+                    }
+                }
+                Debug.LogError($"No Playing Cutscene SoundSource");
+                return null;
+
+            case SoundSource.UI:
+                return UISource;
+
+            case SoundSource.environment:
+                for (int i = 0; i < environmentSources.Count; i++) {
+                    if (environmentSources[i].isPlaying) {
+                        return environmentSources[i];
+                    }
+                }
+                Debug.LogError($"No Playing Environment SoundSource");
+                return null;
 
             default:
                 Debug.LogError($"The case for SoundSource {source} has not been setup yet");
@@ -170,8 +219,22 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void StopSoundSource(SoundSource source) {
-        AudioSource audioSource = FindSource(source);
+        AudioSource audioSource = FindPlayingSource(source);
         audioSource.Stop();
+        switch (source) {
+            case SoundSource.player:
+                playerSources.Remove(audioSource);
+                break;
+            case SoundSource.cutscene:
+                cutsceneSources.Remove(audioSource);
+                break;
+            case SoundSource.environment:
+                environmentSources.Remove(audioSource);
+                break;
+            case SoundSource.music:
+                musicSources.Remove(audioSource);
+                break;
+        }
         Destroy(audioSource);
     }
 

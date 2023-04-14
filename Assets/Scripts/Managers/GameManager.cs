@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour {
         //Time.timeScale = 0.0f;
         BulletHolder.Instance.ClearBullets();
         PlayerInfo.Instance.CombatLock = false;
+        SoundManager.Instance.ResetMusicLayers();
         PlayerInfo.Instance.ExitCombat();
         SceneManager.LoadScene(0);
 

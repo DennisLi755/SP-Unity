@@ -85,8 +85,18 @@ public class CutsceneManager : MonoBehaviour {
     /// </summary>
     /// <param name="sound"></param>
     [YarnCommand("play_sound")]
-    static void PlaySound(string sound) {
-        SoundManager.Instance.PlaySoundEffect(sound, SoundSource.cutscene);
+    static void PlaySound(string sound, string source = "") {
+        SoundSource soundSource = SoundSource.cutscene;
+        switch (source) {
+            case "environment":
+                soundSource = SoundSource.environment;
+                break;
+            default:
+                if (source != "")
+                    Debug.LogError("No valid source was inputted for PlaySound() in Cutscene Manager");
+                break;
+        }
+        SoundManager.Instance.PlaySoundEffect(sound, soundSource);
     }
 
     /// <summary>
