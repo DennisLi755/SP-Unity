@@ -117,6 +117,7 @@ position: 12, -102
 <<move_player 96.02 -39.7 0.5 false>>
 <<wait 0.5>>
 <<change_player_direction 0>>
+<<fade_out_source 3 "environment">>
 <<enable_textboxes true>>
 SOMNI: Um... hey there. Are you okay?
 <<enable_textboxes false>>
@@ -344,7 +345,7 @@ position: 12, -102
 //move SOMNI to new room
 <<set_object_position Player 152.52 -95.15>>
 <<set_anim_int Guide "direction" 1>>
-<<set_object_position GUIDE 152.52 -99>>
+<<set_object_position Guide 152.52 -99>>
 //wait
 <<wait 0.5>>
 <<fade_from_black>>

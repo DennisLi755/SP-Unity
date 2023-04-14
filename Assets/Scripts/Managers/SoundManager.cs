@@ -32,6 +32,7 @@ public class SoundManager : MonoBehaviour {
     private List<AudioSource> playerSources = new List<AudioSource>();
     [SerializeField]
     private AudioSource enemySource;
+    [SerializeField]
     private List<AudioSource> musicSources = new List<AudioSource>();
     private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
@@ -272,6 +273,21 @@ public class SoundManager : MonoBehaviour {
         StartCoroutine(FadeOut(currentLayer, fadeTime, true));
     }
 
+    public void FadeOutSource(float fadeTime, SoundSource source) {
+        StartCoroutine(FadeSource(fadeTime, source));
+    }
+
+    IEnumerator FadeSource(float fadeTime, SoundSource source) {
+        AudioSource audioSource = FindPlayingSource(source);
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume >= 0) {
+            audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            yield return null;
+        }
+        audioSource.volume = 0;
+    }
+
     /// <summary>
     /// Fades out the given music layer over the given time
     /// </summary>
@@ -291,6 +307,7 @@ public class SoundManager : MonoBehaviour {
         if (resetLayers) {
             ResetMusicLayers();
         }
+        Debug.Log("Got here");
     }
 
     /// <summary>

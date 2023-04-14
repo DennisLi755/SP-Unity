@@ -125,6 +125,20 @@ public class CutsceneManager : MonoBehaviour {
     static void FadeMusicLayer(float time) {
         SoundManager.Instance.FadeOutCurrentLayer(time);
     }
+    [YarnCommand("fade_out_source")]
+    static void FadeOutSource(float time, string source = "") {
+        SoundSource soundSource = SoundSource.cutscene;
+        switch (source) {
+            case "environment":
+                soundSource = SoundSource.environment;
+                break;
+            default:
+                if (source != "")
+                    Debug.LogError("No valid source was inputted for PlaySound() in Cutscene Manager");
+                break;
+        }
+        SoundManager.Instance.FadeOutSource(time, soundSource);
+    }
 
 
     #endregion
