@@ -4,7 +4,7 @@ position: 12, -102
 ---
 //<<wait 1>>
 //<<play_sound Clock>>
-<<set_object_position Player -2.19 -22.02>>
+<<set_object_position Player -2.22 -22.2>>
 <<enable_textboxes false>>
 <<enable_textboxes true>>
 SOMNI: ...Where am I?
@@ -15,7 +15,6 @@ SOMNI: ...Where am I?
 <<enable_textboxes true>>
 SOMNI: I don't know why, but I wanna go outside...
 <<set_progression_flag "Watched Opening" true>>
-<<set_object_position Player -0.19 -22.29>>
 <<show_movement_text>>
 ===
 
