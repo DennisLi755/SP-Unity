@@ -455,7 +455,7 @@ SOMNI: All right. Cool.
 GHOST DOG: tweat.
 SOMNI: Okay, let's see if I have anything for you in the kitchen.
 GHOST DOG: yay.
-<<set_progression_flag "Met GHOST DOG" true>>
+<<set_progression_flag "Met Ghost Dog" true>>
 ===
 
 title: Try_Leave_GD
