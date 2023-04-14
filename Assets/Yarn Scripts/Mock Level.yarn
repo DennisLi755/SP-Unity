@@ -14,7 +14,6 @@ Somni: ...Where am I?
 <<enable_textboxes true>>
 Somni: I don't know why, but I wanna go outside...
 <<set_progression_flag "Watched Opening" true>>
-<<set_object_position Player -0.19 -22.29>>
 <<show_movement_text>>
 ===
 

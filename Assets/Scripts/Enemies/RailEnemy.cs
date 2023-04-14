@@ -14,7 +14,7 @@ public class RailEnemy : StaticEnemy {
     protected Vector3 Target {
         get {
             if (nodes.Count == 0) {
-                return transform.position ;
+                return transform.position;
             }
             return nodes[(currentNodeIndex + 1) % nodes.Count];
         }
@@ -27,20 +27,10 @@ public class RailEnemy : StaticEnemy {
         base.OnDrawGizmos();
         Handles.color = Color.grey;
         Gizmos.color = Color.grey;
-        if (EditorApplication.isPlaying) {
-            for (int i = 0; i < nodes.Count; i++) {
-                Handles.DrawSolidDisc(nodes[i], Vector3.back, 0.2f); ;
-                if (nodes.Count > 1) {
-                    Gizmos.DrawLine(nodes[i], (i < nodes.Count - 1) ? nodes[i + 1] : nodes[0]);
-                }
-            }
-        }
-        else {
-            for (int i = 0; i < nodes.Count; i++) {
-                Handles.DrawSolidDisc(nodes[i] + transform.position, Vector3.back, 0.2f);
-                if (nodes.Count > 1) {
-                    Gizmos.DrawLine(nodes[i] + transform.position, ((i < nodes.Count - 1) ? nodes[i + 1] : nodes[0]) + transform.position);
-                }
+        for (int i = 0; i < nodes.Count; i++) {
+            Handles.DrawSolidDisc(nodes[i] + transform.position, Vector3.back, 0.2f);
+            if (nodes.Count > 1) {
+                Gizmos.DrawLine(nodes[i] + transform.position, ((i < nodes.Count - 1) ? nodes[i + 1] : nodes[0]) + transform.position);
             }
         }
     }
@@ -57,7 +47,7 @@ public class RailEnemy : StaticEnemy {
 
     private new void Update() {
         base.Update();
-        
+
         if (nodes.Count > 1 && transform.position == Target) {
             currentNodeIndex = (currentNodeIndex + 1) % nodes.Count;
         }
@@ -66,8 +56,9 @@ public class RailEnemy : StaticEnemy {
     private void FixedUpdate() {
         if (!(transform.position == Target)) {
             transform.position = Vector3.MoveTowards(transform.position, Target, speed * Time.fixedDeltaTime);
-        } else {
-            
+        }
+        else {
+
         }
     }
 

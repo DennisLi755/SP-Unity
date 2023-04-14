@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
+
 [Serializable]
 public struct Objs {
     public string name;
@@ -73,6 +75,8 @@ public class CutsceneManager : MonoBehaviour {
     [ContextMenu("Move Player to Bed")]
     public void MovePlayerToBed() {
         FindObjectOfType<PlayerInfo>().transform.position = new Vector3(-2.3f, -22.2f, 0);
+        GameObject.Find("Bedroom").GetComponent<Room>().MoveCameraHere();
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
 
     #region Sounds & Music
