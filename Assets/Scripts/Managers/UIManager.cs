@@ -56,6 +56,8 @@ public class UIManager : MonoBehaviour {
     private GameObject bossHealthBar;
     private Image bossHealthFill;
     private Image bossHealthBorder;
+    [SerializeField]
+    private TMP_Text timeoutText;
     #endregion
 
     #region Menu
@@ -344,6 +346,14 @@ public class UIManager : MonoBehaviour {
     /// <param name="isEnabled"></param>
     public void EnableBossHealthBar(bool isEnabled) {
         bossHealthBar.SetActive(isEnabled);
+    }
+
+    public void UpdateTimeoutText(float time) {
+        timeoutText.text = string.Format("{0:#0.00}", time);
+    }
+
+    public void EnableTimeoutText(bool isEnabled) {
+        timeoutText.gameObject.SetActive(isEnabled);
     }
     #endregion
     #endregion

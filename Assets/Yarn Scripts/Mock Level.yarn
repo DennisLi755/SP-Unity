@@ -344,7 +344,7 @@ position: 12, -102
 //move SOMNI to new room
 <<set_object_position Player 152.52 -95.15>>
 <<set_anim_int Guide "direction" 1>>
-<<set_object_position GUIDE 152.52 -99>>
+<<set_object_position Guide 152.52 -99>>
 //wait
 <<wait 0.5>>
 <<fade_from_black>>
