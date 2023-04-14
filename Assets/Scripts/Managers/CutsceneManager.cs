@@ -61,8 +61,8 @@ public class CutsceneManager : MonoBehaviour {
     }
 
     public void OpeningScene() {
-        //DialogueManager.Instance.StartDialogue(openingProject, "Opening");
-        //PlayerInfo.Instance.PlayerControl.Freeze();
+        DialogueManager.Instance.StartDialogue(openingProject, "Opening");
+        PlayerInfo.Instance.PlayerControl.Freeze();
     }
 
     #region Sounds & Music
