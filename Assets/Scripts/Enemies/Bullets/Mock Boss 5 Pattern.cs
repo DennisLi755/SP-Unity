@@ -9,13 +9,10 @@ public class MockBoss5Pattern : BulletPattern
 
     new void Start() {
         base.Start();
-        for (int i = 0; i < bullets.Length; i++) {
-            bullets[i].Speed = 2/Mathf.Cos((bullets[i].Angle - 90) * Mathf.Deg2Rad);
-        }
         StartCoroutine(StopAndStartShoot());
 
         IEnumerator StopAndStartShoot() {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             for (int i = 0; i < bullets.Length; i++) {
                 bullets[i].Speed = 0f;
             }

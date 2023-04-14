@@ -60,7 +60,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
 
     #region Scene Control
     [SerializeField]
-    protected bool isActive;
+    protected bool isActive = true;
 
     #endregion
 

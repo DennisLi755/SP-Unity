@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: a7b7c2fb77e89fe499c864489e803e31, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.04400561, g: 1, b: 0.02264148, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 3
+            m_FloatArgument: 2
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -302,27 +302,27 @@ MonoBehaviour:
   currentPhase: 0
   usesNodeMovement: 1
   movementNodes:
-  - {x: -6.99, y: 4.29, z: 0}
-  - {x: -3.22, y: 4.29, z: 0}
-  - {x: -0.14, y: 4.29, z: 0}
-  - {x: 3.06, y: 4.29, z: 0}
-  - {x: 5.97, y: 4.29, z: 0}
-  - {x: -6.9, y: 0.5, z: 0}
-  - {x: -3.26, y: 0.5, z: 0}
-  - {x: -0.04, y: 0.5, z: 0}
-  - {x: 3.27, y: 0.5, z: 0}
-  - {x: 6.09, y: 0.5, z: 0}
-  - {x: -7.08, y: -2.99, z: 0}
-  - {x: -3.14, y: -2.99, z: 0}
-  - {x: 0, y: -2.99, z: 0}
-  - {x: 3.48, y: -2.99, z: 0}
-  - {x: 6.53, y: -2.99, z: 0}
+  - {x: 0, y: 3.82, z: 0}
+  - {x: 0, y: -4.19, z: 0}
+  - {x: -5.92, y: -0.03, z: 0}
+  - {x: 6.02, y: -0.03, z: 0}
+  - {x: 3.57, y: 2.38, z: 0}
+  - {x: 3.57, y: -2.63, z: 0}
+  - {x: -3.44, y: -2.63, z: 0}
+  - {x: -3.44, y: 2.32, z: 0}
   nodeColumnCount: 5
   nodeRowCount: 2
-  nodeBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 7, y: 2.3, z: 0}
+  nodeOffsets: {x: 0, y: 0}
   afterImage: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   whiteMaterial: {fileID: 2100000, guid: c3bc6a1834fa08348ad11d8bfc8f95f6, type: 2}
-  walls: []
-  ad: {fileID: 7503953173959933805, guid: 8484648acdd1bb040abca524ac409b2a, type: 3}
+  walls:
+  - {fileID: 0}
+  ad: {fileID: 7503953173959933805, guid: 24334e70498a7e241adc5320cfadcc78, type: 3}
+  specialNodes:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 4.82, z: 0}
+  adNodes:
+  - {x: 6.31, y: 3.69, z: 0}
+  - {x: 6.31, y: -3.69, z: 0}
+  - {x: -6.31, y: -3.69, z: 0}
+  - {x: -6.31, y: 3.69, z: 0}

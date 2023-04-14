@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afa8f56e0823c34cbd8aa38e2dd97b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideSpeed: 0
-  speed: 0
-  bulletType: 1
-  shootSpeed: 4
+  overrideSpeed: 1
+  speed: 4
+  bulletType: 0
+  shootSpeed: 5
 --- !u!1001 &661732008845424790
 PrefabInstance:
   m_ObjectHideFlags: 0

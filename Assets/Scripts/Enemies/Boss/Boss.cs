@@ -46,7 +46,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     [SerializeField]
     protected int nodeRowCount = 1;
     [SerializeField]
-    protected Bounds nodeBounds;
     protected Vector2 nodeOffsets;
     protected int targetNodeIndex = -1;
     protected int currentNodeIndex = -1;
@@ -62,7 +61,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     GameObject[] walls;
 
 #if UNITY_EDITOR
-    protected void OnDrawGizmos() {
+    protected virtual void OnDrawGizmos() {
         GUIContent content = new GUIContent($"Health: {currentHealth}");
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.black;
@@ -70,8 +69,8 @@ public abstract class Boss : MonoBehaviour, IDamageable {
 
         if (usesNodeMovement) {
             Gizmos.color = Color.black;
+            Handles.color = Color.black;
             for (int i = 0; i < movementNodes.Count; i++) {
-                Handles.color = new Color((float)i / movementNodes.Count, 0, 0);
                 if (Application.isPlaying) {
                     Handles.DrawSolidDisc(movementNodes[i], Vector3.back, 0.2f);
                 }
@@ -146,7 +145,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     [ContextMenu("Update Nodes")]
     protected void UpdateMovementNodePositions() {
         //the distance between each node
-        nodeOffsets = new Vector2(nodeBounds.size.x / (nodeColumnCount - 1), nodeBounds.size.y / (nodeRowCount - 1));
+        /*nodeOffsets = new Vector2(nodeBounds.size.x / (nodeColumnCount - 1), nodeBounds.size.y / (nodeRowCount - 1));
 
         movementNodes = new List<Vector3>();
         blacklistNodeIndices = new List<int>();
@@ -157,7 +156,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
                     y * nodeOffsets.y + transform.position.y - nodeBounds.extents.y + nodeBounds.center.y,
                     1));
             }
-        }
+        }*/
     }
 
     /// <inheritdoc cref="StaticEnemy.ShootPatternBullet(GameObject)"/>

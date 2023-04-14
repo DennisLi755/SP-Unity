@@ -21,7 +21,7 @@ public class BulletPattern : MonoBehaviour {
             for (int i = 0; i < bullets.Length; i++) {
                 bullets[i].Speed = speed;
             }
-            Array.Clear(bullets, 0, bullets.Length);
+            //Array.Clear(bullets, 0, bullets.Length);
         }
         /*
         for (int i = 0; i < bullets.Length; i++) {

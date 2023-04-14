@@ -30,12 +30,14 @@ public class GuideBoss : Boss
 
         //check if any of the ads have been killed; if they have,
         //remove them from the ads list and remove the movementNode they were at from the blacklist
-        for (int i = 0; i < ads.Count; i++) {
-            if (!ads[i].activeInHierarchy) {
-                blacklistNodeIndices.Remove(adNodeIndicies[ads[i]]);
-                adNodeIndicies.Remove(ads[i]);
-                ads.Remove(ads[i]);
-                i--;
+        if (currentPhase >= 1 && ads.Count > 0) {
+            for (int i = 0; i < ads.Count; i++) {
+                if (!ads[i].activeInHierarchy) {
+                    blacklistNodeIndices.Remove(adNodeIndicies[ads[i]]);
+                    adNodeIndicies.Remove(ads[i]);
+                    ads.Remove(ads[i]);
+                    i--;
+                }
             }
         }
     }

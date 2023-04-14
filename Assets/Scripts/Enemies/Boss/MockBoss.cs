@@ -1,42 +1,71 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MockBoss : Boss
-{
-    private List<GameObject> ads = new List<GameObject>();
+public class MockBoss : Boss {
+    private Dictionary<GameObject, int> ads = new Dictionary<GameObject, int>();
     [SerializeField]
     private GameObject ad;
     private int totalAds = 2;
     private Coroutine spawnEnemyCoroutine;
-    private Dictionary<GameObject, int> adNodeIndicies = new Dictionary<GameObject, int>();
+
+    [SerializeField]
+    private Vector3[] specialNodes;
+    [SerializeField]
+    private Vector3[] adNodes;
+    private Dictionary<int, bool> adAtNode = new Dictionary<int, bool>();
+
+#if UNITY_EDITOR
+    protected override void OnDrawGizmos() {
+        base.OnDrawGizmos();
+        Handles.color = Color.red;
+        foreach (Vector3 node in specialNodes) {
+            if (Application.isPlaying) {
+                Handles.DrawSolidDisc(node + startPos, Vector3.back, 0.2f);
+            }
+            else {
+                Handles.DrawSolidDisc(node + transform.position, Vector3.back, 0.2f);
+            }
+        }
+        Handles.color = Color.green;
+        foreach (Vector3 node in adNodes) {
+            if (Application.isPlaying) {
+                Handles.DrawSolidDisc(node + startPos, Vector3.back, 0.2f);
+            }
+            else {
+                Handles.DrawSolidDisc(node + transform.position, Vector3.back, 0.2f);
+            }
+        }
+    }
+#endif
+
     private new void Start() {
         base.Start();
-        string[] musicLayers = new string[] {"spdemo1_novocals", "spdemo1_full"}; 
+        string[] musicLayers = new string[] { "spdemo1_novocals", "spdemo1_full" };
         SoundManager.Instance.SetUpMusicLayers(musicLayers);
+        for (int i = 0; i < adNodes.Length; i++) {
+            adNodes[i] += transform.position;
+            adAtNode.Add(i, false);
+        }
     }
 
     private new void Update() {
         base.Update();
         //check if Guide should spawn any ads
-        if (currentPhase >= 1 && totalAds > 0) {
-            if (spawnEnemyCoroutine == null && ads.Count < totalAds) {
-                spawnEnemyCoroutine = StartCoroutine(SpawnEnemy());
-            }
+        if (spawnEnemyCoroutine == null && ads.Count < totalAds) {
+            spawnEnemyCoroutine = StartCoroutine(SpawnEnemy());
         }
 
         //check if any of the ads have been killed; if they have,
         //remove them from the ads list and remove the movementNode they were at from the blacklist
-        for (int i = 0; i < ads.Count; i++) {
-            if (!ads[i].activeInHierarchy) {
-                blacklistNodeIndices.Remove(adNodeIndicies[ads[i]]);
-                adNodeIndicies.Remove(ads[i]);
-                ads.Remove(ads[i]);
-                i--;
-            }
+        KeyValuePair<GameObject, int>[] deadAds = ads.Where(ad => !ad.Key.activeInHierarchy).ToArray();
+        foreach (KeyValuePair<GameObject, int> kvp in deadAds) {
+            adAtNode[kvp.Value] = false;
+            ads.Remove(kvp.Key);
         }
     }
 
@@ -45,19 +74,30 @@ public class MockBoss : Boss
     /// </summary>
     /// <returns></returns>
     IEnumerator SpawnEnemy() {
-        yield return new WaitForSeconds(UnityEngine.Random.Range(1.0f, 2.0f));
+        yield return new WaitForSeconds(UnityEngine.Random.Range(2.0f, 3.0f));
         GameObject newAd = Instantiate(ad, transform.position, Quaternion.identity);
-        int targetIndex = GetRandomNodeIndex();
-        blacklistNodeIndices.Add(targetIndex);
-        //used to keep track of what movementNode index an ad was at when it comes time to remove it when it dies
-        adNodeIndicies.Add(newAd, targetIndex);
+
+        //random node
+        int targetIndex = UnityEngine.Random.Range(0, adNodes.Length);
+        //ensure that the node doesn't already have an ad
+        while (adAtNode[targetIndex]) {
+            targetIndex++;
+            //keep the index in bounds
+            if (targetIndex >= adNodes.Length) {
+                targetIndex = 0;
+            }
+        }
+        //track that there is an ad at that node
+        adAtNode[targetIndex] = true;
         //tell the ad where to move to
-        newAd.GetComponent<RailEnemy>().AddNode(movementNodes[targetIndex]);
-        ads.Add(newAd);
+        newAd.GetComponent<RailEnemy>().AddNode(adNodes[targetIndex]);
+
+        ads.Add(newAd, targetIndex);
         //if Guide can spawn more ads, call the routine again
         if (ads.Count < totalAds) {
             StartCoroutine(SpawnEnemy());
-        } else {
+        }
+        else {
             spawnEnemyCoroutine = null;
         }
     }
@@ -71,7 +111,8 @@ public class MockBoss : Boss
             currentPhase = 1;
             totalAds = 2;
             return true;
-        } else if (currentHealth <= 15 && currentPhase < 2) {
+        }
+        else if (currentHealth <= 15 && currentPhase < 2) {
             SoundManager.Instance.ChangeMusicLayer(3f);
             currentPhase = 2;
             totalAds = 4;
