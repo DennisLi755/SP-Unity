@@ -246,6 +246,7 @@ public class UIManager : MonoBehaviour {
         interactEventSystem.SetSelectedGameObject(promptedInteractionYesButton.gameObject);
         //update the the yes button with the yes command from the interactable object
         promptedInteractionYesButton.onClick.AddListener(sender.OnYes);
+        promptedInteractionYesButton.onClick.AddListener(() => SoundManager.Instance.PlaySoundEffect("UI Select", SoundSource.UI));
         interactTexts = message;
         currentTextIndex = 0;
 

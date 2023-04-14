@@ -50,12 +50,12 @@ public class Room : MonoBehaviour {
     /// </summary>
     /// <param name="soundEffect"></param>
     public void PlaySoundEffect(string soundEffect) {
-        SoundManager.Instance.PlaySoundEffect(soundEffect, SoundSource.cutscene);
+        SoundManager.Instance.PlaySoundEffect(soundEffect, SoundSource.environment);
     }
     /// <summary>
     /// Stops a sound
     /// </summary>
     public void StopSound() {
-        SoundManager.Instance.StopSoundSource(SoundSource.cutscene);
+        SoundManager.Instance.StopSoundSource(SoundSource.environment);
     }
 }

@@ -15,7 +15,7 @@ public class RoomTransition : MonoBehaviour {
     [SerializeField]
     private LayerMask playerLayer;
     private Room containingRoom;
-    public Room ContainingRoom { get => containingRoom; }
+    public Room ContainingRoom { get => containingRoom; set => containingRoom = value; }
     //this is used to make sure the player doesn't active the transition multiple times
     private bool transitioning = false;
 
@@ -51,15 +51,15 @@ public class RoomTransition : MonoBehaviour {
         //stop the player from moving and fade to blade
         PlayerInfo.Instance.PlayerControl.Freeze();
         UIManager.Instance.FadeToBlack();
-        StartCoroutine(WaitForFade());
         containingRoom.onExit?.Invoke();
-        transitionPartner.ContainingRoom.onEnter?.Invoke();
+        StartCoroutine(WaitForFade());
 
         IEnumerator WaitForFade() {
             yield return new WaitForSecondsRealtime(1.0f);
             PlayerInfo.Instance.DisableTutorialText();
             PlayerInfo.Instance.transform.position = transitionPartner.TransitionToLocation;
             transitionPartner.ContainingRoom.UpdateCameraFollow();
+            transitionPartner.containingRoom.onEnter?.Invoke();
             UIManager.Instance.FadeFromBlack();
             PlayerInfo.Instance.PlayerControl.UnFreeze();
 
