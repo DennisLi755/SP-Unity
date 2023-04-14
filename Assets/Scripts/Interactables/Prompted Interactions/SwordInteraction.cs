@@ -9,6 +9,12 @@ public class SwordInteraction : PromptedInteraction
     private Tilemap tileMap;
     [SerializeField]
     private Vector3Int position;
+    new void Start() {
+        base.Start();
+        if (GameManager.Instance.GetProgressionFlag("Sword Unlocked")) {
+            tileMap.SetTile(position, null);
+        }
+    }
     /// <summary>
     /// OnInteract() for interacting with the sword
     /// If the sword has been unlocked do a regular object interaction
