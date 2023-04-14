@@ -54,6 +54,8 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     [SerializeField]
     protected float aggroLossTime = 5.0f;
     protected Coroutine aggroLossRoutine;
+    [SerializeField]
+    protected bool shootOffscreen = false;
 
     protected string patternSettingsOverride = "";
     #endregion
@@ -83,7 +85,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
         if (!isActive) {
             this.enabled = false;
         }
-        if (!useTargetingCircle && GetComponent<SpriteRenderer>().isVisible) {
+        if (!useTargetingCircle && GetComponent<SpriteRenderer>().isVisible || shootOffscreen) {
             canAttack = true;
             canContinueAttack = true;
         }
@@ -119,7 +121,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
             }
         }
         //enemies that shoot whenever on the screen
-        else {
+        else if (!shootOffscreen) {
             //enemy is now on screen and can start attacking
             if (!canAttack && GetComponent<SpriteRenderer>().isVisible) {
                 canAttack = true;

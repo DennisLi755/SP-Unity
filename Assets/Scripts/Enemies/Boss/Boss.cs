@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,6 +34,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
     protected GameObject pattern;
     protected int numberOfRepeats = 0;
     protected int indexToRepeat = 0;
+    protected string patternSettingsOverride;
     #endregion
     #region Node Movement
     protected Vector3 startPos;
@@ -108,7 +110,6 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             for (int i =0; i < movementNodes.Count; i++) {
                 movementNodes[i] += transform.position;
             }
-            //UpdateMovementNodePositions();
         }
         foreach (GameObject wall in walls) {
             wall.SetActive(true);
@@ -118,6 +119,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
 
     protected void Update() {
         if (canContinueAttack && phasesList[currentPhase].Length > 0) {
+            patternSettingsOverride = "";
             phasesList[currentPhase][attackCycleIndex]?.Invoke();
             //check if the boss has already repeated the set index the number of times they need to,
             //or they are on a cycle command after the one they are supposed to repeat
@@ -138,30 +140,15 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         UIManager.Instance.EnableBossHealthBar(false);
     }
 
-    /// <summary>
-    /// Recaculates the placement of the boss's movement nodes; called once in Boss.Start(), 
-    /// but could technically be called more if the row/colmn count or the size of the bounds gets changed during runtime (eg. phase change)
-    /// </summary>
-    [ContextMenu("Update Nodes")]
-    protected void UpdateMovementNodePositions() {
-        //the distance between each node
-        /*nodeOffsets = new Vector2(nodeBounds.size.x / (nodeColumnCount - 1), nodeBounds.size.y / (nodeRowCount - 1));
-
-        movementNodes = new List<Vector3>();
-        blacklistNodeIndices = new List<int>();
-        for (int y = nodeRowCount - 1; y >= 0; y--) {
-            for (int x = 0; x < nodeColumnCount; x++) {
-                //x/y times the nodeOffset givess the location within the bounds the node should be and all the other stuff is used to calculaute the starting position
-                movementNodes.Add(new Vector3(x * nodeOffsets.x + transform.position.x - nodeBounds.extents.x + nodeBounds.center.x,
-                    y * nodeOffsets.y + transform.position.y - nodeBounds.extents.y + nodeBounds.center.y,
-                    1));
-            }
-        }*/
-    }
-
     /// <inheritdoc cref="StaticEnemy.ShootPatternBullet(GameObject)"/>
     public virtual void ShootPatternBullet(GameObject pattern) {
-        this.pattern = Instantiate(pattern, transform.position, Quaternion.identity, BulletHolder.Instance.transform);
+        GameObject pat = Instantiate(pattern, transform.position, Quaternion.identity, BulletHolder.Instance.transform);
+        //if the pattern has an attached BulletPattern script and a ChangeBulletSpeed action was part of the current attack cycle index,
+        //then update the speed on the BulletPattern script so it can update its bullet children
+        BulletPattern bulPat;
+        if (patternSettingsOverride != "" && pat.TryGetComponent<BulletPattern>(out bulPat)) {
+            bulPat.SetOverrideSettings(patternSettingsOverride);
+        }
     }
 
     /// <inheritdoc cref="StaticEnemy.Wait(float)"/>
@@ -232,15 +219,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         isDamageable = false;
         blacklistNodeIndices.Add(targetNodeIndex);
         canContinueAttack = false;
-        attackCycleRoutine = StartCoroutine(MoveToTargetNode());
-        hitbox.enabled = false;
-
-        ///Moves the boss to the target node and resets it relavent fields (eg. damageable, targetNodeIndex, etc) once it stops moving
-        IEnumerator MoveToTargetNode() {
-            while (transform.position != movementNodes[targetNodeIndex]) {
-                transform.position = Vector3.MoveTowards(transform.position, movementNodes[targetNodeIndex], moveSpeed * Time.deltaTime);
-                yield return null;
-            }
+        attackCycleRoutine = StartCoroutine(MoveToTargetNode(movementNodes[targetNodeIndex], () => {
             blacklistNodeIndices.Remove(currentNodeIndex);
             currentNodeIndex = targetNodeIndex;
             targetNodeIndex = -1;
@@ -248,7 +227,17 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             attackCycleRoutine = null;
             canContinueAttack = true;
             hitbox.enabled = true;
+        }));
+        hitbox.enabled = false;
+    }
+
+    ///Moves the boss to the target node and resets it relavent fields (eg. damageable, targetNodeIndex, etc) once it stops moving
+    protected IEnumerator MoveToTargetNode(Vector3 targetPosition, Action onEnd) {
+        while (transform.position != targetPosition) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
         }
+        onEnd();
     }
 
     /// <summary>
@@ -342,5 +331,9 @@ public abstract class Boss : MonoBehaviour, IDamageable {
             echoInstance.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime * 3);
         }
+    }
+
+    public void SetPatternSettings(string settings) {
+        patternSettingsOverride = settings;
     }
 }

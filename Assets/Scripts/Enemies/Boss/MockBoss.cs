@@ -18,6 +18,8 @@ public class MockBoss : Boss {
     [SerializeField]
     private Vector3[] adNodes;
     private Dictionary<int, bool> adAtNode = new Dictionary<int, bool>();
+    [SerializeField]
+    GameObject timeoutAd;
 
 #if UNITY_EDITOR
     protected override void OnDrawGizmos() {
@@ -50,6 +52,9 @@ public class MockBoss : Boss {
         for (int i = 0; i < adNodes.Length; i++) {
             adNodes[i] += transform.position;
             adAtNode.Add(i, false);
+        }
+        for (int i = 0; i < specialNodes.Length; i++) {
+            specialNodes[i] += transform.position;
         }
     }
 
@@ -107,18 +112,32 @@ public class MockBoss : Boss {
     /// Guide changes to phases 1 and 2 at <= 20 health and <= 15 health respectively
     /// </summary>
     public override bool ChangePhase() {
-        if (currentHealth <= 20 && currentPhase < 1) {
-            currentPhase = 1;
-            totalAds = 2;
-            return true;
-        }
-        else if (currentHealth <= 15 && currentPhase < 2) {
-            SoundManager.Instance.ChangeMusicLayer(3f);
-            currentPhase = 2;
-            totalAds = 4;
-            return true;
+        switch (currentPhase) {
+            case 0:
+                if (currentHealth <= 20) {
+                    currentPhase++;
+                    totalAds = 0;
+                    StartCoroutine(MoveToTargetNode(specialNodes[1], () => {
+                        StartCoroutine(PhaseTimeOut(35));
+                        timeoutAd =Instantiate(timeoutAd, transform.position, Quaternion.identity);
+                        GetComponent<SpriteRenderer>().enabled = false;
+                    }));
+                    return true;
+                }
+                break;
+            case 1:  break; //do nothing because its a timeout
         }
         return false;
+    }
+
+    IEnumerator PhaseTimeOut(float timeLeft) {
+        while (timeLeft >= 0) {
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+        currentPhase++;
+        GetComponent<SpriteRenderer>().enabled = true;
+        Destroy(timeoutAd);
     }
 
     ///
