@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Room : MonoBehaviour {
 
@@ -6,6 +7,10 @@ public class Room : MonoBehaviour {
     private bool staticCamera = false;
     [SerializeField]
     private Vector3 cameraPosition;
+    [SerializeField]
+    public UnityEvent onEnter;
+    [SerializeField]
+    public UnityEvent onExit;
 
     void Start() {
         if (cameraPosition == Vector3.zero) {
@@ -39,5 +44,18 @@ public class Room : MonoBehaviour {
     [ContextMenu("Move Player Here")]
     public void MovePlayerHere() {
         FindObjectOfType<PlayerInfo>().transform.position = new Vector3(cameraPosition.x, cameraPosition.y, 0.0f);
+    }
+    /// <summary>
+    /// Plays a Sound effect through the cutscene sound source
+    /// </summary>
+    /// <param name="soundEffect"></param>
+    public void PlaySoundEffect(string soundEffect) {
+        SoundManager.Instance.PlaySoundEffect(soundEffect, SoundSource.cutscene);
+    }
+    /// <summary>
+    /// Stops a sound
+    /// </summary>
+    public void StopSound() {
+        SoundManager.Instance.StopSoundSource(SoundSource.cutscene);
     }
 }

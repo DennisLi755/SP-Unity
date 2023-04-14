@@ -3,16 +3,17 @@ tags:
 position: 12, -102
 ---
 //<<wait 1>>
+//<<play_sound Clock>>
 <<set_object_position Player -2.22 -22.2>>
 <<enable_textboxes false>>
 <<enable_textboxes true>>
-Somni: ...Where am I?
+SOMNI: ...Where am I?
 <<enable_textboxes false>>
 <<move_player 2 0 1>>
 <<wait 1>>
 <<change_player_direction 1>>
 <<enable_textboxes true>>
-Somni: I don't know why, but I wanna go outside...
+SOMNI: I don't know why, but I wanna go outside...
 <<set_progression_flag "Watched Opening" true>>
 <<show_movement_text>>
 ===
@@ -25,7 +26,7 @@ position: 12, -102
 <<enable_textboxes false>>
 <<fade_to_black>>
 <<wait 1>>
-//move Somni to new room
+//move SOMNI to new room
 <<set_object_position Player 168.309 -45.5>>
 //wait
 <<wait 0.5>>
@@ -38,8 +39,8 @@ position: 12, -102
 //wait
 <<wait 2>>
 <<enable_textboxes true>>
-Somni: Oh.
-Somni: There's nothing.
+SOMNI: Oh.
+SOMNI: There's nothing.
 <<enable_textboxes false>>
 <<wait 0.5>>
 //change sprite of door
@@ -57,8 +58,8 @@ Somni: There's nothing.
 <<fade_from_black>>
 <<wait 1>>
 <<enable_textboxes true>>
-Somni: Welp. That's terrifying.
-Somni: I guess I'll go back to bed.
+SOMNI: Welp. That's terrifying.
+SOMNI: I guess I'll go back to bed.
 <<set_progression_flag "Saw Void" true>>
 ===
 
@@ -74,7 +75,7 @@ position: 12, -102
 <<wait 0.5>>
 <<change_player_direction 1>>
 <<enable_textboxes true>>
-Somni: I'll just stay here...
+SOMNI: I'll just stay here...
 <<enable_textboxes false>>
 //fade to black
 <<fade_to_black>>
@@ -87,7 +88,7 @@ Somni: I'll just stay here...
 //wait
 <<wait 1>>
 <<enable_textboxes true>>
-Somni: What was that...?
+SOMNI: What was that...?
 <<enable_textboxes false>>
 //walk
 <<move_player 2 0 1>>
@@ -116,23 +117,23 @@ position: 12, -102
 <<wait 0.5>>
 <<change_player_direction 0>>
 <<enable_textboxes true>>
-Somni: Um... hey there. Are you okay?
+SOMNI: Um... hey there. Are you okay?
 <<enable_textboxes false>>
 //wait
 <<wait 1>>
 <<enable_textboxes true>>
-Somni: Hey. So uh...I can't help but notice that there's this hole in the ceiling that is...right above you. And-
+SOMNI: Hey. So uh...I can't help but notice that there's this hole in the ceiling that is...right above you. And-
 <<enable_textboxes false>>
-//Guide gets up
+//GUIDE gets up
 <<set_anim_trigger Guide "Stand Up">>
 //wait
 <<wait 1.7>>
 <<set_anim_bool Guide "Idle" true>>
 <<enable_textboxes true>>
-Guide: YOU!
+GUIDE: YOU!
 <<enable_textboxes false>>
-//camera follows Guide
-//Guide begins levitating and floats into the air
+//camera follows GUIDE
+//GUIDE begins levitating and floats into the air
 //start playing music
 <<set_anim_trigger Guide "Ascend">>
 <<wait 0.45>>
@@ -141,9 +142,9 @@ Guide: YOU!
 <<set_camera_target Guide>>
 <<wait 4>>
 <<enable_textboxes true>>
-Somni: ...Me?
-Somni: What did <i>I</i> do?
-Guide: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
+SOMNI: ...Me?
+SOMNI: What did <i>I</i> do?
+GUIDE: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
 <<enable_textboxes false>>
 //explosion and transition to boss room
 <<play_sound "Explosion2">>
@@ -162,7 +163,7 @@ Guide: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
 <<set_anim_bool Guide "Idle" false>>
 <<change_music_layer>>
 //wait
-//<<set_progression_flag "Guide Interact" true>>
+//<<set_progression_flag "GUIDE Interact" true>>
 ===
 
 title: After_Guide
@@ -187,40 +188,40 @@ position: 12, -102
 <<fade_from_white>>
 <<wait 0.25>>
 <<enable_textboxes true>>
-Somni: Hey...are you good now?
+SOMNI: Hey...are you good now?
 <<enable_textboxes false>>
 <<wait 0.1>>
 <<set_anim_trigger Guide "Stand Up">>
 <<wait 2>>
 <<set_anim_bool Guide "Idle" true>>
 <<enable_textboxes true>>
-Guide: Uhhhngh...what happened...
-Guide: AH! Wait, wait! I'm good! I'm good!
-Somni: ...
-//guide turns around
+GUIDE: Uhhhngh...what happened...
+GUIDE: AH! Wait, wait! I'm good! I'm good!
+SOMNI: ...
+//GUIDE turns around
 <<set_anim_trigger Player "Back To Loop">>
 <<change_player_direction 0>>
 <<set_anim_int Guide "direction" 1>>
-Guide: Phew...It's okay. It's okay! Inhale, *breathes in*, exhale, *breathes out*.
-Somni: ...
-//guide turns around
+GUIDE: Phew...It's okay. It's okay! Inhale, *breathes in*, exhale, *breathes out*.
+SOMNI: ...
+//GUIDE turns around
 <<set_anim_int Guide "direction" 0>>
 //start playing music
 <<music_layers "unforeseen">>
-Guide: I'm so sorry, sir. This was incredibly unprofessional of me and I hope this won't affect an post-procedure reviews.
-Somni: Um...sure. Could you just-
-Guide: Do you remember your name?
-Somni: Uh...yeah. It's Somni.
-Guide: Perfect! Had me worried there for a second.
-Somni: Well. I certainly remember my name, I guess.
-Guide: Wait, do you not know about any of this?
-Somni: What "this" are you referring to exactly?
-Somni: Who are you? What's going on?
-Guide: Wha- //Autoadvance
-Guide: Oh...right.
-Guide: You don't remember <i>anything.</i> I don't know why we erase the briefings, but I guess-
-Somni: Can you just start from the beginning?
-Guide: Well I'm glad you asked! 
+GUIDE: I'm so sorry, sir. This was incredibly unprofessional of me and I hope this won't affect an post-procedure reviews.
+SOMNI: Um...sure. Could you just-
+GUIDE: Do you remember your name?
+SOMNI: Uh...yeah. It's SOMNI.
+GUIDE: Perfect! Had me worried there for a second.
+SOMNI: Well. I certainly remember my name, I guess.
+GUIDE: Wait, do you not know about any of this?
+SOMNI: What "this" are you referring to exactly?
+SOMNI: Who are you? What's going on?
+GUIDE: Wha- //Autoadvance
+GUIDE: Oh...right.
+GUIDE: You don't remember <i>anything.</i> I don't know why we erase the briefings, but I guess-
+SOMNI: Can you just start from the beginning?
+GUIDE: Well I'm glad you asked! 
 <<enable_textboxes false>>
 //takes out pamplet
 <<set_anim_trigger Guide "Pamphlet">>
@@ -228,13 +229,13 @@ Guide: Well I'm glad you asked!
 <<play_sound "Paper">>
 <<wait 0.5>>
 <<enable_textboxes true>>
-Guide: You can call me <b>Guide.</b>
-Guide: I'm here to help you perform this procedure.
-Guide: We are currently talking in your mind. In the waking world, your body is currently in stasis in order for us to operate.
-Somni: Operate?
-Guide: You, Somni, have come to <b>Paths Inc.</b> in order to undergo a procedure that will effectively "update" your emotions by putting you through scenarios specifically designed to trigger the emotions you requested to be updated.
-Guide: ...Which in this case is <color=blue>Sadness</color>, <color=red>Anger</color>, and <color=yellow>Happiness</color>.
-Guide: ...Wow. These three? How original.
+GUIDE: You can call me <b>GUIDE.</b>
+GUIDE: I'm here to help you perform this procedure.
+GUIDE: We are currently talking in your mind. In the waking world, your body is currently in stasis in order for us to operate.
+SOMNI: Operate?
+GUIDE: You, SOMNI, have come to <b>Paths Inc.</b> in order to undergo a procedure that will effectively "update" your emotions by putting you through scenarios specifically designed to trigger the emotions you requested to be updated.
+GUIDE: ...Which in this case is <color=blue>Sadness</color>, <color=red>Anger</color>, and <color=yellow>Happiness</color>.
+GUIDE: ...Wow. These three? How original.
 <<enable_textboxes false>>
 //puts away pamplet
 <<set_anim_trigger Guide "Pamphlet Close">>
@@ -242,29 +243,29 @@ Guide: ...Wow. These three? How original.
 <<play_sound "Paper">>
 <<wait 1.3>>
 <<enable_textboxes true>>
-Somni: Do you treat all your clients like this?
-Guide: Some customers have complained about my occasionally erudite demeanor.
-Somni: I meant crashing through their ceiling and jumping them with demon powers.
-Guide: Once again, apologies for the unprofessionalism.
-Guide: I was simply surprised by the...uh...state of your <b>mindscape</b>.
-Guide: Clients don't typically have a single structure floating through an endless void.
-Somni: For a Guide, you're not very good at explaining.
-Guide: Well, you'll just need to figure it out as we go then. We have to get going.
-Somni: No. I’m good.
-Guide: Um… what?
-Somni: I’m fine. Send me back to the real world. This seems sketchy as hell and I’m not taking any risks.
-Guide: Sir, if I could change your mind-
-Somni: Why? So you can get paid. Clearly I made a mistake because I put my brain in the hands of a corporation.
-Guide: If you just let me explain- //Auto Advance
-Somni: I don’t care how much you explain! 
-Somni: I’m not just gonna trust someone who breaks into my mind and says they're performing a procedure that I don’t even remember signing up for. Send me back.
-Guide: ...
-Somni: ...
-Guide: Listen…
-Somni: ...
-Guide: If you want to go back, I can send you back. No one is making you do this. But know that you came to us for a reason. 
-Guide: I have no information on what your situation is out there, but from what I’ve seen, I know that you wouldn’t be here if you had any other choice.
-Somni: ...
+SOMNI: Do you treat all your clients like this?
+GUIDE: Some customers have complained about my occasionally erudite demeanor.
+SOMNI: I meant crashing through their ceiling and jumping them with demon powers.
+GUIDE: Once again, apologies for the unprofessionalism.
+GUIDE: I was simply surprised by the...uh...state of your <b>mindscape</b>.
+GUIDE: Clients don't typically have a single structure floating through an endless void.
+SOMNI: For a GUIDE, you're not very good at explaining.
+GUIDE: Well, you'll just need to figure it out as we go then. We have to get going.
+SOMNI: No. I’m good.
+GUIDE: Um… what?
+SOMNI: I’m fine. Send me back to the real world. This seems sketchy as hell and I’m not taking any risks.
+GUIDE: Sir, if I could change your mind-
+SOMNI: Why? So you can get paid. Clearly I made a mistake because I put my brain in the hands of a corporation.
+GUIDE: If you just let me explain- //Auto Advance
+SOMNI: I don’t care how much you explain! 
+SOMNI: I’m not just gonna trust someone who breaks into my mind and says they're performing a procedure that I don’t even remember signing up for. Send me back.
+GUIDE: ...
+SOMNI: ...
+GUIDE: Listen…
+SOMNI: ...
+GUIDE: If you want to go back, I can send you back. No one is making you do this. But know that you came to us for a reason. 
+GUIDE: I have no information on what your situation is out there, but from what I’ve seen, I know that you wouldn’t be here if you had any other choice.
+SOMNI: ...
 <<jump Are_You_Ready>>
 ===
 
@@ -273,14 +274,14 @@ tags:
 position: 12, -102
 ---
 <<declare $choice2 = "" as string>>
-Guide: Are you ready to begin?
--> Somni: I guess....
+GUIDE: Are you ready to begin?
+-> SOMNI: I guess....
     <<set $choice2 to "A">>
--> Somni: Not yet.
+-> SOMNI: Not yet.
     <<set $choice2 to "B">>
 <<if $choice2 == "A">>
-    Guide: That's the spirit.
-    //Guide snaps her fingers and the room is filled with white light.
+    GUIDE: That's the spirit.
+    //GUIDE snaps her fingers and the room is filled with white light.
     //snap sound
     <<enable_textboxes false>>
     <<fade_to_white>>
@@ -297,25 +298,25 @@ Guide: Are you ready to begin?
     <<change_player_direction 3>>
     <<wait 0.2>>
     <<enable_textboxes true>>
-    Somni: What happened?
+    SOMNI: What happened?
     <<enable_textboxes false>>
     //Pan camera to front door
     <<pan_camera 90.53 -45.79 2>>
     <<wait 2>>
     <<enable_textboxes true>>
-    Guide: Go through the front door.
-    Somni: You mean the one with nothing on the other side?
-    Guide: Precisely.
+    GUIDE: Go through the front door.
+    SOMNI: You mean the one with nothing on the other side?
+    GUIDE: Precisely.
     <<enable_textboxes false>>
     //Pan camera back
     <<set_camera_target Player>>
     <<wait 0.5>>
     <<enable_textboxes true>>
-    Somni: Okay but if I die I'm suing.
+    SOMNI: Okay but if I die I'm suing.
     <<set_progression_flag "Leave House First Time" true>>
 <<elseif $choice2 == "B">>
-    Somni: Just need a little more time to get my bearings.
-    Guide: All right. Just let me know when you're ready!
+    SOMNI: Just need a little more time to get my bearings.
+    GUIDE: All right. Just let me know when you're ready!
     <<set_progression_flag "Not Ready" true>>
 <<endif>>
 ===
@@ -324,9 +325,9 @@ title: Guide_Interact_After_Boss
 tags:
 position: 12, -102
 ---
-Guide: What are you standing around for?
-Guide: Let's get going!
-Somni: Yeah, yeah.
+GUIDE: What are you standing around for?
+GUIDE: Let's get going!
+SOMNI: Yeah, yeah.
 ===
 
 title: Second_Outside
@@ -339,10 +340,10 @@ position: 12, -102
 <<enable_textboxes false>>
 <<fade_to_black>>
 <<wait 1>>
-//move Somni to new room
+//move SOMNI to new room
 <<set_object_position Player 152.52 -95.15>>
 <<set_anim_int Guide "direction" 1>>
-<<set_object_position Guide 152.52 -99>>
+<<set_object_position GUIDE 152.52 -99>>
 //wait
 <<wait 0.5>>
 <<fade_from_black>>
@@ -360,9 +361,9 @@ position: 12, -102
 <<play_sound DoorClose>>
 <<wait 0.2>>
 <<enable_textboxes true>>
-Somni: How did you...but you were-
-Guide: Let's just call it some guide magic. //magic is in wavy text
-Guide: Now get over here. There's something I want to show you.
+SOMNI: How did you...but you were-
+GUIDE: Let's just call it some GUIDE magic. //magic is in wavy text
+GUIDE: Now get over here. There's something I want to show you.
 <<enable_textboxes false>>
 //sound for fading
 <<fade_to_white>>
@@ -379,9 +380,9 @@ tags:
 position: 12, -102
 ---
 <<set_anim_int Guide "direction" 0>>
-Guide: Hey! Where are you going?
-Somni: ...I can go outside if I want. It is MY mind after all.
-Guide: Uhhhh...no can do. Get back over here.
+GUIDE: Hey! Where are you going?
+SOMNI: ...I can go outside if I want. It is MY mind after all.
+GUIDE: Uhhhh...no can do. Get back over here.
 <<enable_textboxes false>>
 <<move_player 0 1 0.5>>
 <<wait 0.5>>
@@ -399,18 +400,18 @@ position: 12, -102
 <<wait 0.5>>
 <<change_player_direction 0>>
 <<enable_textboxes true>>
-Somni: What's that?
-Guide: Wait for it.
+SOMNI: What's that?
+GUIDE: Wait for it.
 <<enable_textboxes false>>
 <<wait 0.5>>
-//Ghost dog rises from the grave
+//GHOST DOG rises from the grave
 <<move_object GhostDog 0 1 1>>
 <<fade_object GhostDog 1 1>>
 <<wait 1.2>>
 <<enable_textboxes true>>
-Somni: WHOAAAAA! A DOG IN A BEDSHEET! I take it back this is dope!
+SOMNI: WHOAAAAA! A DOG IN A BEDSHEET! I take it back this is dope!
 <<enable_textboxes false>>
-//Somni runs up to GHOST DOG but runs straight through him
+//SOMNI runs up to GHOST DOG but runs straight through him
 <<move_player 0 2 0.5>>
 <<fade_object GhostDog 0 0.25>>
 <<wait 0.25>>
@@ -419,49 +420,49 @@ Somni: WHOAAAAA! A DOG IN A BEDSHEET! I take it back this is dope!
 <<wait 0.4>>
 <<change_player_direction 1>>
 <<enable_textboxes true>>
-Somni: HE'S A <i>GHOST</i> TOO?
-Ghost Dog: hi.
-Somni: ...
-Somni: HE TALKS?!
-Guide: Yeah, he talks.
-Ghost Dog: tweat.
-Somni: What's he saying?
-Ghost Dog: tweat.
-Guide: I think it's pretty self-explanatory.
-Ghost Dog: tweat.
-Somni: Uhhhh...do you have any treats?
-Guide: Ah, sorry. No.
-Somni: What!?
-Somni: You're telling me you created a dog that <i>only</i> wants treats, and you have <i>no treats?</i>
-Guide: Now you're getting it.
-Somni: You're a monster.
-Guide: ...
-Guide: Yeah...welp. I have other, uh, guide business to attend to.
-Guide: Good luck figuring this out!
+SOMNI: HE'S A <i>GHOST</i> TOO?
+GHOST DOG: hi.
+SOMNI: ...
+SOMNI: HE TALKS?!
+GUIDE: Yeah, he talks.
+GHOST DOG: tweat.
+SOMNI: What's he saying?
+GHOST DOG: tweat.
+GUIDE: I think it's pretty self-explanatory.
+GHOST DOG: tweat.
+SOMNI: Uhhhh...do you have any treats?
+GUIDE: Ah, sorry. No.
+SOMNI: What!?
+SOMNI: You're telling me you created a dog that <i>only</i> wants treats, and you have <i>no treats?</i>
+GUIDE: Now you're getting it.
+SOMNI: You're a monster.
+GUIDE: ...
+GUIDE: Yeah...welp. I have other, uh, GUIDE business to attend to.
+GUIDE: Good luck figuring this out!
 <<enable_textboxes false>>
-//Guide fades out
+//GUIDE fades out
 <<fade_to_white>>
 <<wait 0.35>>
 <<set_object_position Guide 10000 1000>>
 <<fade_from_white>>
 <<wait 0.3>>
 <<enable_textboxes true>>
-Somni: You know what? We don't need you! We'll find a treat all by ourselves!
-Somni: Right, Ghost Dog?
-Ghost Dog: bark.
-Somni: All right. Cool.
-Ghost Dog: tweat.
-Somni: Okay, let's see if I have anything for you in the kitchen.
-Ghost Dog: yay.
-<<set_progression_flag "Met Ghost Dog" true>>
+SOMNI: You know what? We don't need you! We'll find a treat all by ourselves!
+SOMNI: Right, GHOST DOG?
+GHOST DOG: bark.
+SOMNI: All right. Cool.
+GHOST DOG: tweat.
+SOMNI: Okay, let's see if I have anything for you in the kitchen.
+GHOST DOG: yay.
+<<set_progression_flag "Met GHOST DOG" true>>
 ===
 
 title: Try_Leave_GD
 tags:
 position: 12, -102
 ---
-Ghost Dog: tweat.
-Somni: Yeah...you're right.
+GHOST DOG: tweat.
+SOMNI: Yeah...you're right.
 <<move_player 0 1 0.5>>
 <<wait 0.5>>
 ===
@@ -474,7 +475,7 @@ position: 12, -102
 <<fade_to_black>>
 <<play_sound DoorOpen>>
 <<wait 1>>
-//move Somni to new room
+//move SOMNI to new room
 <<set_object_position Player -55.5 -267.78>>
 <<set_anim_int Guide "direction" 1>>
 <<set_object_position Guide -55.5 -264.89>>
@@ -484,25 +485,25 @@ position: 12, -102
 <<play_sound DoorClose>>
 <<wait 1>>
 <<enable_textboxes true>>
-Guide: ...!
+GUIDE: ...!
 <<enable_textboxes false>>
 <<pan_camera -55.5 -264.89 1>>
 <<wait 2>>
 <<set_anim_int Guide "direction" 0>>
 <<enable_textboxes true>>
-Guide: Somni! Hi! How ya doin'?
-Somni: What did you do? What happened to my house?
-Guide: Funny story...
-Guide: I have no idea. But I'm working on it!
+GUIDE: SOMNI! Hi! How ya doin'?
+SOMNI: What did you do? What happened to my house?
+GUIDE: Funny story...
+GUIDE: I have no idea. But I'm working on it!
 <<pan_camera -56.468 -262.46 1>>
-Somni: Why is there a toilet here?
-Guide: Oh yeah...
-Guide: Soooo...because everything seems to be randomly moving itself around, I'm gonna need you to <color=green>SAVE</color> your progress periodically in case I need to reset.
-Somni: Reset?
-Guide: Don't worry about it! I've got it under control.
-Guide: Go find your dog a treat! I'll be back.
+SOMNI: Why is there a toilet here?
+GUIDE: Oh yeah...
+GUIDE: Soooo...because everything seems to be randomly moving itself around, I'm gonna need you to <color=green>SAVE</color> your progress periodically in case I need to reset.
+SOMNI: Reset?
+GUIDE: Don't worry about it! I've got it under control.
+GUIDE: Go find your dog a treat! I'll be back.
 <<enable_textboxes false>>
-//Guide fades out again
+//GUIDE fades out again
 <<fade_to_white>>
 <<wait 0.35>>
 <<set_object_position Guide 10000 1000>>
@@ -511,12 +512,12 @@ Guide: Go find your dog a treat! I'll be back.
 <<set_camera_target Player>>
 <<wait 0.5>>
 <<enable_textboxes true>>
-Somni: I hate it when she does that. I know I've only seen her do it twice, but I hate it.
-Somni: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
-Ghost Dog: tweat.
-Somni: Hey, Ghost Dog. What sound does a bird make?
-Ghost Dog: tweat.
-Somni: Great. Thanks.
+SOMNI: I hate it when she does that. I know I've only seen her do it twice, but I hate it.
+SOMNI: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
+GHOST DOG: tweat.
+SOMNI: Hey, GHOST DOG. What sound does a bird make?
+GHOST DOG: tweat.
+SOMNI: Great. Thanks.
 <<set_progression_flag "Started Level" true>>
 ===
 
@@ -524,40 +525,58 @@ title: GhostDog_Interact
 tags:
 position: 12, -102
 ---
-Ghost Dog: tweat.
-Somni: Don't worry buddy we'll get you one soon.
-Ghost Dog: yay.
+GHOST DOG: tweat.
+SOMNI: Don't worry buddy we'll get you one soon.
+GHOST DOG: yay.
 ===
 
 title: Meet_FakeGuide
 tags:
 position: 12, -102
 ---
-//somni enters the room
-Somni: Well, well, caught red-handed! I knew you weren't actually doing anything.
-Guide: ...
-Somni: What? Too embarrassed to speak?
-Guide: ...
-Somni: ...Hellooooo? Guide?
-//guide fades in next to somni
-Guide: UGH! I'm busy trying to stop your head from exploding! What do you- //Auto advance
-//fake guide gurgling?
-Somni: What...? If you're you, then who is...
-Guide: That...that's not me.
+//SOMNI enters the room
+SOMNI: Well, well, caught red-handed! I knew you weren't actually doing anything.
+GUIDE: ...
+SOMNI: What? Too embarrassed to speak?
+GUIDE: ...
+SOMNI: ...Hellooooo? GUIDE?
+//GUIDE fades in next to SOMNI
+GUIDE: UGH! I'm busy trying to stop your head from exploding! What do you- //Auto advance
+//fake GUIDE gurgling?
+SOMNI: What...? If you're you, then who is...
+GUIDE: That...that's not me.
 //screen shake
-//fake guide turns around
-Guide: AH!
-Guide: I have to stabilize everything. Whatever this thing is, keep it in this room or kill it.
-//guide fades out again
+//fake GUIDE turns around
+GUIDE: AH!
+GUIDE: I have to stabilize everything. Whatever this thing is, keep it in this room or kill it.
+//GUIDE fades out again
 ===
 
-title: Guide_Interact
+
+title: Goodbye_GhostDog
 tags:
 position: 12, -102
 ---
-Somni: So you're just gonna stand there?
-Guide: Part of the procedure is that it's done by you.
-Guide: It used to be the other way around but we ran into some legal trouble.
-Somni: ...Should I even ask?
-Guide: No.
+//Edit this node later to work with the current version of the script
+GHOST DOG: nom nom. tenks.
+SOMNI: Anything for you, GHOST DOG.
+GHOST DOG: nom nom nom.
+SOMNI: ...
+GHOST DOG: yum. all done.
+SOMNI: Great! Now what?
+GHOST DOG: bye.
+SOMNI: What? "Bye?"
+GHOST DOG: SOMNI make GHOST DOG happy. business finished.
+SOMNI: Wait, what? What do you- //auto advance
+GHOST DOG: miss u.
+//GHOST DOG fades away into nothingness
+GUIDE: Okay, I think I got everything stabilized. Should be smooth sailing from here on.
+SOMNI: ...
+GUIDE: SOMNI? You okay?
+SOMNI: He's...he's gone.
+GUIDE: Oh, crap. I forgot to tell you...
+GUIDE: Listen, I know this process isn't easy, but I think it's important to remember that- // auto advance
+//A hole appears below SOMNI, sucking him in.
+SOMNI: AHH! GUIDE!
+GUIDE: SOMNI!
 ===

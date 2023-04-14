@@ -169,6 +169,12 @@ public class SoundManager : MonoBehaviour {
         PlaySoundEffect(effectName, SoundSource.UI);
     }
 
+    public void StopSoundSource(SoundSource source) {
+        AudioSource audioSource = FindSource(source);
+        audioSource.Stop();
+        Destroy(audioSource);
+    }
+
     /// <summary>
     /// Sets up a music audio source for each item in the array to use for layer blending
     /// </summary>
