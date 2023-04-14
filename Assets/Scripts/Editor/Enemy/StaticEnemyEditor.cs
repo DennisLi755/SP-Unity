@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using Unity.Collections;
+using UnityEditor.Build.Content;
 
 [CustomEditor(typeof(StaticEnemy))]
 [CanEditMultipleObjects]
@@ -17,6 +18,7 @@ public class StaticEnemyEditor : Editor {
 
     protected SerializedProperty hasAggroLoss;
     protected SerializedProperty aggroLossTime;
+    protected SerializedProperty shootOffscreen;
 
     protected SerializedProperty whiteMaterial;
     protected SerializedProperty isActive;
@@ -34,6 +36,7 @@ public class StaticEnemyEditor : Editor {
 
         hasAggroLoss = serializedObject.FindProperty("losesAggro");
         aggroLossTime = serializedObject.FindProperty("aggroLossTime");
+        shootOffscreen = serializedObject.FindProperty("shootOffscreen");
 
         whiteMaterial = serializedObject.FindProperty("whiteMaterial");
 
@@ -59,6 +62,7 @@ public class StaticEnemyEditor : Editor {
         if (hasAggroLoss.boolValue) {
             EditorGUILayout.PropertyField(aggroLossTime);
         }
+        EditorGUILayout.PropertyField(shootOffscreen);
 
         EditorGUILayout.PropertyField(whiteMaterial);
         EditorGUILayout.PropertyField(isActive);
