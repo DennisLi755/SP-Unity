@@ -45,5 +45,6 @@ public class StrongEnemy : MonoBehaviour {
                 ad.gameObject.SetActive(false);
             }
         }
+        PlayerInfo.Instance.Heal(99);
     }
 }
