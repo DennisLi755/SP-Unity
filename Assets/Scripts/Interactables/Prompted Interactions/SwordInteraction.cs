@@ -22,10 +22,13 @@ public class SwordInteraction : PromptedInteraction
     /// </summary>
     public override void OnInteract()
     {
-        if (PlayerInfo.Instance.PlayerControl.AttackUnlocked == false) {
-            base.OnInteract();
-        } else {
-            UIManager.Instance.ActivateInteractText(new List<string>{"Just a regular coffee table."});
+        if (ValidatePlayerDirection()) {
+            if (PlayerInfo.Instance.PlayerControl.AttackUnlocked == false) {
+                base.OnInteract();
+            }
+            else {
+                UIManager.Instance.ActivateInteractText(new List<string> { "Just a regular coffee table." });
+            }
         }
     }
     /// <summary>

@@ -228,6 +228,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void MarkSceneDirty() {
+        if (Application.isPlaying) {
+            return;
+        }
 #if UNITY_EDITOR
         EditorSceneManager.MarkAllScenesDirty();
 #endif

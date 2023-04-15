@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutsceneInteractable : InteractableObject
-{
+public class CutsceneInteractable : InteractableObject {
     [SerializeField]
     private string cutsceneName;
+    [SerializeField]
+    private string checkForProgressionFlag;
 
-    public override void OnInteract()
-    {
-        if (PlayerInfo.Instance.PlayerControl.FacingDirection == direction)
-        {
+    public override void OnInteract() {
+        if (ValidatePlayerDirection() && (checkForProgressionFlag != null && !GameManager.Instance.GetProgressionFlag(checkForProgressionFlag) || checkForProgressionFlag == null)) {
             DialogueManager.Instance.StartDialogue(cutsceneName);
         }
     }

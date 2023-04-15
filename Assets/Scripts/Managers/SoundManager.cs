@@ -308,6 +308,9 @@ public class SoundManager : MonoBehaviour {
     /// <returns></returns>
     IEnumerator FadeOut(int layer, float fadeTime, bool resetLayers) {
         AudioSource audioSource = musicSources[currentLayer];
+        if (audioSource == null) {
+            yield break;
+        }
         float startVolume = audioSource.volume;
 
         while (audioSource.volume >= 0) {

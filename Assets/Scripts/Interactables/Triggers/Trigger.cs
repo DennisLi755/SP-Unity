@@ -20,7 +20,7 @@ public class Trigger : MonoBehaviour {
     }
 #endif
 
-    void Start() {
+    protected void Start() {
         playerLayer = LayerMask.GetMask("Player");
     }
 
