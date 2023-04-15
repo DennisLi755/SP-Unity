@@ -200,8 +200,10 @@ public class GameManager : MonoBehaviour {
                         PlayerInfo.Instance.AttackUnlocked = true;
                     }
                     player.HitboxPosition = sp.PlayerPosition;
-                    //move the camera to the room that the save point is in - parent is called twice because save points are children of interactables which are children of the room
+                    //move the camera to the room that the save point is in - parent is called twice because save
+                    //points are children of interactables which are children of the room
                     sp.transform.parent.parent.GetComponent<Room>().MoveCameraHere();
+                    sp.transform.parent.parent.GetComponent<Room>().onEnter?.Invoke();
                     break;
                 }
             }
@@ -218,7 +220,7 @@ public class GameManager : MonoBehaviour {
     public void UpdateInteractables() {
         InteractableObject[] objs = FindObjectsOfType<InteractableObject>();
         foreach (InteractableObject io in objs) {
-            DestroyImmediate(io.GetComponent<BoxCollider2D>());
+           
         }
     }
 }

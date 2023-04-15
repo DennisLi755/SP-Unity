@@ -1216,10 +1216,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 4, y: 30}
-        - {x: -3, y: 30}
-        - {x: -3, y: -29}
-        - {x: 4, y: -29}
+      - - {x: 12, y: 30}
+        - {x: -11, y: 30}
+        - {x: -11, y: -29}
+        - {x: 12, y: -29}
       tessellationDetail: 0
       bones: []
       spriteID: 808e5ed4d6700ca4395da6b8c0027b75

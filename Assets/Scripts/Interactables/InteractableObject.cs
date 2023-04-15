@@ -8,7 +8,7 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour {
     [SerializeField]
     protected Bounds triggerBounds;
-    public Bounds TriggerBounds { set => triggerBounds = value; }
+    public Vector3 Trigger => triggerBounds.center + transform.position;
     [SerializeField]
     protected LayerMask playerLayer;
     [SerializeField]
@@ -21,7 +21,7 @@ public class InteractableObject : MonoBehaviour {
     /// </summary>
     protected void OnDrawGizmos() {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireCube(triggerBounds.center, triggerBounds.size);
+        Gizmos.DrawWireCube(Trigger, triggerBounds.size);
     }
 #endif
 
@@ -35,7 +35,7 @@ public class InteractableObject : MonoBehaviour {
     /// Detects whether or not the player interacts with the object
     /// </summary>
     protected virtual void Update() {
-        RaycastHit2D hit = Physics2D.BoxCast(triggerBounds.center, triggerBounds.size, 0, Vector2.zero, 0, playerLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(Trigger, triggerBounds.size, 0, Vector2.zero, 0, playerLayer);
         if (hit && !isActive) {
             isActive = true;
             //display prompt? depends on if we do it
