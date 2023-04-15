@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
-using UnityEditor.SceneManagement;
-#endif
 
 [Serializable]
 public struct Objs {
@@ -74,7 +71,7 @@ public class CutsceneManager : MonoBehaviour {
     public void MovePlayerToBed() {
         FindObjectOfType<PlayerInfo>().transform.position = new Vector3(-2.3f, -22.2f, 0);
         GameObject.Find("Bedroom").GetComponent<Room>().MoveCameraHere();
-        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        GameManager.MarkSceneDirty();
     }
 
     #region Sounds & Music

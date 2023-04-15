@@ -11,7 +11,7 @@ SOMNI: ...Where am I?
 <<enable_textboxes false>>
 <<move_player 2 0 1>>
 <<wait 1>>
-<<change_player_direction 1>>
+<<change_player_direction 3>>
 <<enable_textboxes true>>
 SOMNI: I don't know why, but I wanna go outside...
 <<set_progression_flag "Watched Opening" true>>
@@ -74,7 +74,7 @@ position: 12, -102
 <<wait 0.2>>
 <<move_player -2.238 -22.08 0.5 false>>
 <<wait 0.5>>
-<<change_player_direction 1>>
+<<change_player_direction 3>>
 <<enable_textboxes true>>
 SOMNI: I'll just stay here...
 <<enable_textboxes false>>
@@ -94,7 +94,7 @@ SOMNI: What was that...?
 //walk
 <<move_player 2 0 1>>
 <<wait 1>>
-<<change_player_direction 1>>
+<<change_player_direction 3>>
 //wait
 <<wait 0.5>>
 //fade to black
@@ -116,7 +116,7 @@ position: 12, -102
 <<wait 0.1>>
 <<move_player 96.02 -39.7 0.5 false>>
 <<wait 0.5>>
-<<change_player_direction 0>>
+<<change_player_direction 1>>
 <<fade_out_source 3 "environment">>
 <<enable_textboxes true>>
 SOMNI: Um... hey there. Are you okay?
@@ -182,7 +182,7 @@ position: 12, -102
 <<fade_to_white>>
 <<wait 0.35>>
 //put characters in correct location
-<<change_player_direction 0>>
+<<change_player_direction 1>>
 <<set_object_position Player 96 -77.47>>
 <<set_object_position Guide 96.02 -75.163>>
 <<set_anim_trigger Player "Hold Attack">>
@@ -202,7 +202,7 @@ GUIDE: AH! Wait, wait! I'm good! I'm good!
 SOMNI: ...
 //GUIDE turns around
 <<set_anim_trigger Player "Back To Loop">>
-<<change_player_direction 0>>
+<<change_player_direction 1>>
 <<set_anim_int Guide "direction" 1>>
 GUIDE: Phew...It's okay. It's okay! Inhale, *breathes in*, exhale, *breathes out*.
 SOMNI: ...
@@ -295,9 +295,9 @@ GUIDE: Are you ready to begin?
     <<wait 1>>
     <<change_player_direction 2>>
     <<wait 0.25>>
-    <<change_player_direction 1>>
-    <<wait 0.25>>
     <<change_player_direction 3>>
+    <<wait 0.25>>
+    <<change_player_direction 0>>
     <<wait 0.2>>
     <<enable_textboxes true>>
     SOMNI: What happened?
@@ -400,7 +400,7 @@ position: 12, -102
 <<wait 0.1>>
 <<move_player 161.525 -99.206 0.5 false>>
 <<wait 0.5>>
-<<change_player_direction 0>>
+<<change_player_direction 1>>
 <<enable_textboxes true>>
 SOMNI: What's that?
 GUIDE: Wait for it.
@@ -420,7 +420,7 @@ SOMNI: WHOAAAAA! A DOG IN A BEDSHEET! I take it back this is dope!
 <<object_layer GhostDog 13>>
 <<fade_object GhostDog 1 0.25>>
 <<wait 0.4>>
-<<change_player_direction 1>>
+<<change_player_direction 3>>
 <<enable_textboxes true>>
 SOMNI: HE'S A <i>GHOST</i> TOO?
 GHOST DOG: hi.

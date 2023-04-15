@@ -39,11 +39,13 @@ public class Room : MonoBehaviour {
         Camera.main.transform.position = cameraPosition;
 
         Camera.main.GetComponent<CameraManager>().FollowTarget(!staticCamera);
+        GameManager.MarkSceneDirty();
     }
 
     [ContextMenu("Move Player Here")]
     public void MovePlayerHere() {
         FindObjectOfType<PlayerInfo>().transform.position = new Vector3(cameraPosition.x, cameraPosition.y, 0.0f);
+        GameManager.MarkSceneDirty();
     }
     /// <summary>
     /// Plays a Sound effect through the cutscene sound source

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif
 
 /// <summary>
 /// Manages overall Game information such as SP value, important player progression flags, etc.
@@ -222,5 +225,11 @@ public class GameManager : MonoBehaviour {
         foreach (InteractableObject io in objs) {
            
         }
+    }
+
+    public static void MarkSceneDirty() {
+#if UNITY_EDITOR
+        EditorSceneManager.MarkAllScenesDirty();
+#endif
     }
 }
