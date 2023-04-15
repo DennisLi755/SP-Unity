@@ -216,7 +216,7 @@ public class PlayerControl : MonoBehaviour {
 
         bulletLayer = LayerMask.GetMask("Bullet");
         environmentLayers = LayerMask.GetMask("Environment", "Enemy");
-        attackableLayers = LayerMask.GetMask("Enemy", "Bullet");
+        attackableLayers = LayerMask.GetMask("Enemy");
 
         totalAttackFrames = (int)(attackAnimation.length * attackAnimation.frameRate);
         foreach (AttackHitbox hitbox in inspectorAttackHixboxes) {

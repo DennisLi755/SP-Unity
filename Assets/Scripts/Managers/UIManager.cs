@@ -321,6 +321,9 @@ public class UIManager : MonoBehaviour {
         //EnablePlayerManaBar(isEnabled);
         EnableSkillIcons(isEnabled);
         EnableDashCharges(isEnabled);
+        if (!isEnabled) {
+            EnableTimeoutText(false);
+        }
     }
 
     #region Boss Healthbar

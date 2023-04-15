@@ -342,7 +342,6 @@ public class SoundManager : MonoBehaviour {
     /// Resets all music layers
     /// </summary>
     public void ResetMusicLayers() {
-        Debug.Log("Got here");
         for (int i = 0; i < musicSources.Count;) {
             Destroy(musicSources[i]);
             musicSources.RemoveAt(i);
