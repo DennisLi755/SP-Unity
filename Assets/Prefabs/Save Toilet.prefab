@@ -94,10 +94,7 @@ MonoBehaviour:
   triggerBounds:
     m_Center: {x: 0.39, y: -1.07, z: 0}
     m_Extent: {x: 0.77, y: 0.83, z: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  direction: 4
+  direction: 99
   playerPosition: {x: 0, y: 0, z: 0}
 --- !u!212 &1725364094308321768
 SpriteRenderer:

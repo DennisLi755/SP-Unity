@@ -167,7 +167,4 @@ MonoBehaviour:
   triggerBounds:
     m_Center: {x: 95.97, y: -39.2, z: 0}
     m_Extent: {x: 2.07, y: 1.29, z: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  direction: 4
+  direction: 99

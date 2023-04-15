@@ -263,8 +263,12 @@ public class PlayerInfo : MonoBehaviour {
         canvas.SetActive(true);
     }
 
+    public string GetControlScheme() {
+        return GetComponent<PlayerInput>().currentControlScheme;
+    }
+
     public void EnableTutorialText(string keyboardText, string gamepadText) {
-        if (PlayerInfo.Instance.GetComponent<PlayerInput>().currentControlScheme == "Keyboard") {
+        if (GetControlScheme() == "Keyboard") {
             EnableTutorialText(keyboardText);
         }
         else {

@@ -9,7 +9,6 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     protected Bounds triggerBounds;
     public Vector3 Trigger => triggerBounds.center + transform.position;
-    [SerializeField]
     protected LayerMask playerLayer;
     [SerializeField]
     protected FacingDirection direction;
@@ -29,6 +28,7 @@ public class InteractableObject : MonoBehaviour {
     /// 
     /// </summary>
     protected void Start() {
+        playerLayer = LayerMask.GetMask("Player");
         isActive = false;
     }
     /// <summary>

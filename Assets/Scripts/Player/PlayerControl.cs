@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,14 +30,14 @@ public struct AttackHitbox {
 }
 
 /// <summary>
-/// Which direction the player is facing; used to determine if they can interact with an object
+/// Which direction the player is facing; used to determine if they can interact with an object & what direction to attack
 /// </summary>
 public enum FacingDirection {
-    Up = 0,
-    Down = 1,
+    Up = 1,
+    Down = 3,
     Left = 2,
-    Right = 3,
-    Omni = 4 //This is used for object interactions that can be interacted with from any direction
+    Right = 0,
+    Omni = 99 //This is used for object interactions that can be interacted with from any direction
 }
 
 /// <summary>
@@ -173,6 +174,7 @@ public class PlayerControl : MonoBehaviour {
             int yStart = Screen.height / 8;
             GUI.Box(new Rect(0, yStart + 15, 150, 200), "");
             GUI.color = Color.white;
+            GUI.Label(new Rect(5, yStart += 15, 300, 150), $"Velocity: {velocity}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"activeMoveSpeed: {activeMoveSpeed}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"dashCharges: {currentDashCharges}");
             GUI.Label(new Rect(5, yStart += 15, 300, 150), $"playerState: {playerState}");
@@ -242,16 +244,6 @@ public class PlayerControl : MonoBehaviour {
                     animator.SetFloat("Vertical", velocity.y);
                 }
                 animator.SetFloat("Speed", velocity.sqrMagnitude);
-
-                //sets the player's facing direction based on their velocity
-                if (velocity.y > 0)
-                    facingDirection = FacingDirection.Up;
-                else if (velocity.y < 0)
-                    facingDirection = FacingDirection.Down;
-                else if (velocity.x > 0)
-                    facingDirection = FacingDirection.Right;
-                else if (velocity.x < 0)
-                    facingDirection = FacingDirection.Left;
                 break;
         }
     }
@@ -310,6 +302,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     #region Collisions & Raycasts
+
     /// <summary>
     /// Calculates the spacing of the raycasts used for player collision
     /// This is only run once: at startup
@@ -404,7 +397,15 @@ public class PlayerControl : MonoBehaviour {
     public void Move(InputAction.CallbackContext context) {
         input = context.ReadValue<Vector2>().normalized;
         if (canMove) {
-            velocity = input; 
+            velocity = input;
+            //calculate the direction the player is facing based on their movement
+            if (velocity.magnitude != 0.0f) {
+                float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+                //correct the angle to be 0-360 instead of -pi-pi
+                angle = (180 - angle * -1 + 180) % 360;
+                int directionQuadrant = (int)((angle+45 % 360) / 90);
+                facingDirection = (FacingDirection)(directionQuadrant % 4);
+            }
             if (!pInfo.Tutorials["movement"]) {
                 StartCoroutine(EndTutorial(() => pInfo.Tutorials["movement"] = true, 3.0f));
             }
