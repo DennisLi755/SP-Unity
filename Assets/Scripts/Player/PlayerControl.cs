@@ -317,7 +317,7 @@ public class PlayerControl : MonoBehaviour {
     private void CalculateRaySpacing() {
         //We make a copy of the bounds so that we can expand it without affect the player's actual hitbox
         Bounds tempBounds = bounds;
-        tempBounds.Expand(skinWidth * -2);
+        //tempBounds.Expand(skinWidth * -2);
 
         horizontalRaySpacing = tempBounds.size.y / (horizontalRayCount - 1);
         verticalRaySpacing = tempBounds.size.x / (verticalRayCount - 1);
@@ -328,7 +328,7 @@ public class PlayerControl : MonoBehaviour {
     /// </summary>
     private void UpdateRayCastOrigins() {
         Bounds tempBounds = bounds;
-        tempBounds.Expand(skinWidth * -2);
+        //tempBounds.Expand(skinWidth * -2);
 
         rayOrigins.bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
         rayOrigins.bottomRight = new Vector2(bounds.max.x, bounds.min.y);

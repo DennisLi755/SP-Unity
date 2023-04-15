@@ -140,40 +140,45 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    public AudioSource FindPlayingSource(SoundSource source) {
+    public bool FindPlayingSource(SoundSource source, out AudioSource audioSource) {
+        audioSource = null;
         switch (source) {
             case SoundSource.player:
                 for (int i = 0; i < playerSources.Count; i++) {
                     if (playerSources[i].isPlaying) {
-                        return playerSources[i];
+                        audioSource = playerSources[i];
+                        return true;
                     }
                 }
                 Debug.LogError($"No Playing Player SoundSource");
-                return null;
+                return false;
             case SoundSource.cutscene:
                 for (int i = 0; i < cutsceneSources.Count; i++) {
                     if (cutsceneSources[i].isPlaying) {
-                        return cutsceneSources[i];
+                        audioSource = cutsceneSources[i];
+                        return true;
                     }
                 }
                 Debug.LogError($"No Playing Cutscene SoundSource");
-                return null;
+                return false;
 
             case SoundSource.UI:
-                return UISource;
+                audioSource = UISource;
+                return true;
 
             case SoundSource.environment:
                 for (int i = 0; i < environmentSources.Count; i++) {
                     if (environmentSources[i].isPlaying) {
-                        return environmentSources[i];
+                        audioSource = environmentSources[i];
+                        return true;
                     }
                 }
                 Debug.LogError($"No Playing Environment SoundSource");
-                return null;
+                return false;
 
             default:
                 Debug.LogError($"The case for SoundSource {source} has not been setup yet");
-                return null;
+                return false;
         }
     }
 
@@ -219,7 +224,10 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void StopSoundSource(SoundSource source) {
-        AudioSource audioSource = FindPlayingSource(source);
+        AudioSource audioSource;
+        if (!FindPlayingSource(source, out audioSource)) {
+            return;
+        }
         audioSource.Stop();
         switch (source) {
             case SoundSource.player:
@@ -278,7 +286,10 @@ public class SoundManager : MonoBehaviour {
     }
 
     IEnumerator FadeSource(float fadeTime, SoundSource source) {
-        AudioSource audioSource = FindPlayingSource(source);
+        AudioSource audioSource;
+        if (!FindPlayingSource(source, out audioSource)) {
+            yield break;
+        }
         float startVolume = audioSource.volume;
 
         while (audioSource.volume >= 0) {
