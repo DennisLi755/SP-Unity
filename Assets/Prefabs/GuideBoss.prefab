@@ -270,9 +270,7 @@ MonoBehaviour:
   - {x: 6.56, y: -4.42, z: 0}
   nodeColumnCount: 5
   nodeRowCount: 2
-  nodeBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 7, y: 2.3, z: 0}
+  nodeOffsets: {x: 0, y: 0}
   afterImage: {fileID: 1094766694737516616, guid: bb5d91b852d8a1c40b3d9dfd5cbdd833, type: 3}
   whiteMaterial: {fileID: 2100000, guid: c3bc6a1834fa08348ad11d8bfc8f95f6, type: 2}
   walls: []
@@ -309,7 +307,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0000038146973, y: 0.27814484}
+  m_Offset: {x: 0.0000038146973, y: 0.020549774}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.19480519}
@@ -320,7 +318,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0186386, y: 1.4872894}
+  m_Size: {x: 1.0186386, y: 1.4455185}
   m_EdgeRadius: 0
 --- !u!95 &7998729407086987877
 Animator:

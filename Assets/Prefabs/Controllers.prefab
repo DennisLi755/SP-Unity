@@ -546,6 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySource: {fileID: 0}
+  musicSources: []
   UISource: {fileID: 6074591319767599651}
   musicVolume: 0.5
   soundEffectVolume: 0.3
@@ -3702,7 +3703,7 @@ Transform:
   - {fileID: 4713777696167264692}
   - {fileID: 3695494056335884187}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3695494056154048406
 GameObject:

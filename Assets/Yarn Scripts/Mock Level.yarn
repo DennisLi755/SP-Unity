@@ -165,7 +165,7 @@ GUIDE: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
 <<set_anim_bool Guide "Idle" false>>
 <<change_music_layer>>
 //wait
-//<<set_progression_flag "GUIDE Interact" true>>
+//<<set_progression_flag "Guide Interact" true>>
 ===
 
 title: After_Guide

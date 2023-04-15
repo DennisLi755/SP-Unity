@@ -168,7 +168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Use the arrow keys to move & SPACE to interact
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 92244af12bef6854495713b6d8566ebe, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 225bca9cc5d09bc41b4074d40e1a69a8, type: 2}
@@ -195,8 +195,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.4
-  m_fontSizeBase: 0.4
+  m_fontSize: 0.43
+  m_fontSizeBase: 0.43
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -28.67
+  m_lineSpacing: -16.83
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -694,13 +694,13 @@ MonoBehaviour:
   - showBounds: 0
     direction: 2
     bounds:
-      m_Center: {x: -1.25, y: 0.4, z: 0}
-      m_Extent: {x: 0.6, y: 1.58, z: 0}
+      m_Center: {x: -1.13, y: 0.4, z: 0}
+      m_Extent: {x: 0.72, y: 1.58, z: 0}
   - showBounds: 0
     direction: 3
     bounds:
-      m_Center: {x: 1.25, y: 0.4, z: 0}
-      m_Extent: {x: 0.6, y: 1.58, z: 0}
+      m_Center: {x: 1.13, y: 0.4, z: 0}
+      m_Extent: {x: 0.72, y: 1.58, z: 0}
   skillsCollection: {fileID: 11400000, guid: e772e38e9480d72438bfaa86da64cc70, type: 2}
 --- !u!114 &4047285249303267157
 MonoBehaviour:
@@ -722,7 +722,7 @@ MonoBehaviour:
   - {fileID: 3286163911610860551, guid: e8c6b68406091aa4087a441112644d8b, type: 3}
   - {fileID: 3286163911610860551, guid: b6f4db0b9367b8e4b880e892167d0d6d, type: 3}
   - {fileID: 21300000, guid: 8dedfc82c28741548bdfd3ac6b2face0, type: 3}
-  attackUnlocked: 0
+  attackUnlocked: 1
 --- !u!1 &4047285250310632639
 GameObject:
   m_ObjectHideFlags: 0

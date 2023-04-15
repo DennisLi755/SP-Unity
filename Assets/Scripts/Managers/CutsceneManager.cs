@@ -2,13 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 
 [Serializable]
 public struct Objs {
@@ -68,7 +63,7 @@ public class CutsceneManager : MonoBehaviour {
         DialogueManager.Instance.StartDialogue(openingProject, "Opening");
         PlayerInfo.Instance.PlayerControl.Freeze();
     }
-
+    /*
     /// <summary>
     /// Inspector command to position the player in their bed
     /// </summary>
@@ -77,7 +72,7 @@ public class CutsceneManager : MonoBehaviour {
         FindObjectOfType<PlayerInfo>().transform.position = new Vector3(-2.3f, -22.2f, 0);
         GameObject.Find("Bedroom").GetComponent<Room>().MoveCameraHere();
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
-    }
+    }*/
 
     #region Sounds & Music
     /// <summary>

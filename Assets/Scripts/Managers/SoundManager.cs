@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [Serializable]
 public struct SoundEffect {
@@ -271,6 +270,7 @@ public class SoundManager : MonoBehaviour {
     /// <param name="fadeTime"></param>
     public void FadeOutCurrentLayer(float fadeTime) {
         StartCoroutine(FadeOut(currentLayer, fadeTime, true));
+        StartCoroutine(ResetMusic(fadeTime));
     }
 
     public void FadeOutSource(float fadeTime, SoundSource source) {
@@ -304,10 +304,10 @@ public class SoundManager : MonoBehaviour {
             yield return null;
         }
         audioSource.volume = 0;
-        if (resetLayers) {
-            ResetMusicLayers();
-        }
-        Debug.Log("Got here");
+    }
+    IEnumerator ResetMusic(float time) {
+        yield return new WaitForSeconds(time);
+        ResetMusicLayers();
     }
 
     /// <summary>
@@ -331,6 +331,7 @@ public class SoundManager : MonoBehaviour {
     /// Resets all music layers
     /// </summary>
     public void ResetMusicLayers() {
+        Debug.Log("Got here");
         for (int i = 0; i < musicSources.Count;) {
             Destroy(musicSources[i]);
             musicSources.RemoveAt(i);
