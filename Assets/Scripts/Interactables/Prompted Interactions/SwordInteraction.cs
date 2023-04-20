@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class SwordInteraction : PromptedInteraction
-{
-    [SerializeField]
-    private Tilemap tileMap;
-    [SerializeField]
-    private Vector3Int position;
+public class SwordInteraction : PromptedInteraction {
+    SpriteRenderer sr;
+
     new void Start() {
         base.Start();
+        sr = GetComponent<SpriteRenderer>();
         if (GameManager.Instance.GetProgressionFlag("Sword Unlocked")) {
-            tileMap.SetTile(position, null);
+            sr.enabled = false;
         }
     }
     /// <summary>
@@ -20,8 +18,7 @@ public class SwordInteraction : PromptedInteraction
     /// If the sword has been unlocked do a regular object interaction
     /// If not, do the prompted interaction
     /// </summary>
-    public override void OnInteract()
-    {
+    public override void OnInteract() {
         if (ValidatePlayerDirection()) {
             if (PlayerInfo.Instance.PlayerControl.AttackUnlocked == false) {
                 base.OnInteract();
@@ -36,11 +33,10 @@ public class SwordInteraction : PromptedInteraction
     /// Update the tile map and data within PlayerControl
     /// Show Interact text after yes
     /// </summary>
-    public override void OnYes()
-    {
+    public override void OnYes() {
         PlayerInfo.Instance.AttackUnlocked = true;
         //code to remove sword sprite from world
-        tileMap.SetTile(position, null);
+        sr.enabled = false;
         base.OnYes();
         UIManager.Instance.ActivateInteractText(base.AfterYesMessage);
         GameManager.Instance.SetProgressionFlag("Sword Unlocked", true);

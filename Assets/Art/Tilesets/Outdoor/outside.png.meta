@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -4621,13 +4621,13 @@ TextureImporter:
       outside_28: 810464047
       tile_sheet_62: 953917269
       tile_sheet_57: -1238466149
-      tile_sheet_16: 1032563616
-      tile_sheet_6: -105741515
+      tile_sheet_53: 409886439
+      tile_sheet_63: -1915231119
       outside_4: -1536448998
       outside_25: -977293050
-      tile_sheet_53: 409886439
+      tile_sheet_16: 1032563616
       tile_sheet_2: 375582854
-      tile_sheet_63: -1915231119
+      tile_sheet_6: -105741515
       outside_38: 180600975
       outside_63: 1856984577
       tile_sheet_97: 1004831896
