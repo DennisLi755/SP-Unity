@@ -531,30 +531,6 @@ GHOST DOG: tweat.
 SOMNI: Don't worry buddy we'll get you one soon.
 GHOST DOG: yay.
 ===
-
-title: Meet_FakeGuide
-tags:
-position: 12, -102
----
-//SOMNI enters the room
-SOMNI: Well, well, caught red-handed! I knew you weren't actually doing anything.
-GUIDE: ...
-SOMNI: What? Too embarrassed to speak?
-GUIDE: ...
-SOMNI: ...Hellooooo? GUIDE?
-//GUIDE fades in next to SOMNI
-GUIDE: UGH! I'm busy trying to stop your head from exploding! What do you- //Auto advance
-//fake GUIDE gurgling?
-SOMNI: What...? If you're you, then who is...
-GUIDE: That...that's not me.
-//screen shake
-//fake GUIDE turns around
-GUIDE: AH!
-GUIDE: I have to stabilize everything. Whatever this thing is, keep it in this room or kill it.
-//GUIDE fades out again
-===
-
-
 title: Goodbye_GhostDog
 tags:
 position: 12, -102
@@ -581,4 +557,42 @@ GUIDE: Listen, I know this process isn't easy, but I think it's important to rem
 //A hole appears below SOMNI, sucking him in.
 SOMNI: AHH! GUIDE!
 GUIDE: SOMNI!
+===
+
+title: Obtained_Treat_1
+tags:
+position: 12, -102
+---
+//variable set up
+Somni: Treat obtained!
+Somni: Hopefully that makes GHOST DOG happy.
+<<set_progression_flag "First Treat" true>>
+===
+
+title: Obtained_Treat_2
+tags:
+position: 12, -102
+---
+//variable set up
+Somni: Treat obtained!
+Somni: Hopefully that makes GHOST DOG happy.
+<<set_progression_flag "Second Treat" true>>
+===
+
+title: Obtained_Treat_3
+tags:
+position: 12, -102
+---
+//variable set up
+Somni: Treat obtained!
+Somni: Hopefully that makes GHOST DOG happy.
+<<set_progression_flag "Third Treat" true>>
+===
+
+title: Check_Treat
+tags:
+position: 12, -102
+---
+Somni: I should probably find the rest of the treats before moving on...
+
 ===
