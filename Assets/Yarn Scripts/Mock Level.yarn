@@ -105,6 +105,7 @@ SOMNI: What was that...?
 //fade from black
 <<fade_from_black>>
 <<instantiate "Guide Crash" 96.02 -38.73>>
+<<instantiate "Debris" 96.01 -38.95>>
 <<set_progression_flag "Second Awake" true>>
 ===
 
@@ -370,6 +371,7 @@ GUIDE: Now get over here. There's something I want to show you.
 //sound for fading
 <<fade_to_white>>
 <<wait 0.35>>
+<<set_anim_int Guide "direction" 1>>
 <<set_object_position Guide 160.47 -99.206>>
 <<fade_from_white>>
 <<object_layer house_door_2 10>>
