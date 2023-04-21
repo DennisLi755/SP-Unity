@@ -80,6 +80,7 @@ SOMNI: I'll just stay here...
 <<enable_textboxes false>>
 //fade to black
 <<fade_to_black>>
+<<set_light_intensity "Global Lighting", 0.5>>
 //wait
 <<wait 4>>
 //<<play_sound Explosion1>>
@@ -292,6 +293,7 @@ GUIDE: Are you ready to begin?
     //snap sound
     <<enable_textboxes false>>
     <<fade_to_white>>
+    <<set_light_intensity "Global Lighting" 1>>
     <<wait 0.35>>
     <<set_object_position Player 94.63 -38.77>>
     <<set_object_position Guide 97.49 -38.77>>

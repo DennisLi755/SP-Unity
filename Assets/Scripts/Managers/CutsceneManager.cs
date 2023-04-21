@@ -251,11 +251,7 @@ public class CutsceneManager : MonoBehaviour {
 
     [YarnCommand("set_light_intensity")]
     static void SetlightIntensity(string lightName, float intensity) {
-        GameObject light = GameObject.Find(lightName);
-        light.GetComponent<Light2D>().intensity = intensity;
-        if (light.TryGetComponent<LightFlickerEffect>(out LightFlickerEffect lfe)) {
-            lfe.flickerIntensity = false;
-        }
+        SceneLights.Instance.SetLightIntensity(lightName, intensity);
     }
 
     #region Player
