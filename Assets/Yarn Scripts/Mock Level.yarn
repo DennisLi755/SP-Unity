@@ -578,9 +578,11 @@ tags:
 position: 12, -102
 ---
 //variable set up
+<<set_int "$treatCounter" >>
 Somni: Treat obtained!
 Somni: Hopefully that makes GHOST DOG happy.
 <<set_progression_flag "First Treat" true>>
+<<destroy_object Treat1>>
 ===
 
 title: Obtained_Treat_2
@@ -591,6 +593,7 @@ position: 12, -102
 Somni: Treat obtained!
 Somni: Hopefully that makes GHOST DOG happy.
 <<set_progression_flag "Second Treat" true>>
+<<destroy_object Treat2>>
 ===
 
 title: Obtained_Treat_3
@@ -601,6 +604,7 @@ position: 12, -102
 Somni: Treat obtained!
 Somni: Hopefully that makes GHOST DOG happy.
 <<set_progression_flag "Third Treat" true>>
+<<destroy_object Treat3>>
 ===
 
 title: Check_Treat
@@ -608,5 +612,7 @@ tags:
 position: 12, -102
 ---
 Somni: I should probably find the rest of the treats before moving on...
-
+<<enable_textboxes false>>
+<<move_player 0 -1 0.5>>
+<<wait 0.5>>
 ===
