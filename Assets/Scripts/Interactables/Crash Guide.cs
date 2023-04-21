@@ -12,7 +12,9 @@ public class CrashGuide : InteractableObject {
     }
 
     public override void OnInteract() {
-        if (GameManager.Instance.GetProgressionFlag("Leave House First Time")) {
+        if (GameManager.Instance.GetProgressionFlag("Second Outside")) {
+            DialogueManager.Instance.StartDialogue("Gravestone_Interact");
+        } else if (GameManager.Instance.GetProgressionFlag("Leave House First Time")) {
             DialogueManager.Instance.StartDialogue("Guide_Interact_After_Boss");
         } else if (GameManager.Instance.GetProgressionFlag("Not Ready")) {
             DialogueManager.Instance.StartDialogue("Are_You_Ready");

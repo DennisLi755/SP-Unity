@@ -345,7 +345,6 @@ position: 12, -102
 <<wait 1>>
 //move SOMNI to new room
 <<set_object_position Player 152.52 -95.15>>
-<<set_anim_int Guide "direction" 1>>
 <<set_object_position Guide 152.52 -99>>
 //wait
 <<wait 0.5>>
@@ -458,6 +457,9 @@ SOMNI: All right. Cool.
 GHOST DOG: tweat.
 SOMNI: Okay, let's see if I have anything for you in the kitchen.
 GHOST DOG: yay.
+<<move_object GhostDog 0 1 1>>
+<<fade_object GhostDog 0 1>>
+<<wait 1.2>>
 <<set_progression_flag "Met Ghost Dog" true>>
 ===
 
