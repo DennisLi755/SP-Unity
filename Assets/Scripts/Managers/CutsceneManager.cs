@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.Universal;
+using UnityEditor.TerrainTools;
 
 [Serializable]
 public struct Objs {
@@ -54,9 +55,12 @@ public class CutsceneManager : MonoBehaviour {
             if (!GameManager.Instance.GetProgressionFlag("Watched Opening")) {
                 OpeningScene();
             }
-            else if (GameManager.Instance.GetProgressionFlag("Second Awake")) {
+            else if (GameManager.Instance.GetProgressionFlag("Second Awake") && !GameManager.Instance.GetProgressionFlag("Leave House First Time")) {
                 GameObject guide = Instantiate(objs["Guide Crash"], new Vector3(96.02f, -38.73f, 0.0f), Quaternion.identity);
+                GameObject debris = Instantiate(objs["Debris"], new Vector3(96.01f, -38.95f, 0.0f), Quaternion.identity);
+                SceneLights.Instance.SetLightIntensity("Crash Guide Spotlight", 1);
                 guide.name = guide.name.Replace("(Clone)", "").Trim();
+                debris.name = debris.name.Replace("(Clone)", "").Trim();
             }
         }
     }
