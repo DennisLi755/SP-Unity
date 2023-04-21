@@ -11,6 +11,7 @@ public class StrongEnemyTrigger : Trigger {
                 ad.Activate();
             }
         }
+        PlayerInfo.Instance.Heal(99);
         strongEnemy.Activate();
         base.OnTrigger();
     }
