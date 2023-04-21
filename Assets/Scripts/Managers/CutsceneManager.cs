@@ -63,6 +63,7 @@ public class CutsceneManager : MonoBehaviour {
                 debris.name = debris.name.Replace("(Clone)", "").Trim();
             }
         }
+        SceneManager.sceneLoaded -= OpeningScene;
     }
 
     public void OpeningScene() {
