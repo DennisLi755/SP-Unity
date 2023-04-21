@@ -13,7 +13,7 @@ public class LightFlickerEffect : MonoBehaviour {
     [SerializeField]
     private float timeMax;
     [SerializeField]
-    private bool flickerIntensity;
+    public bool flickerIntensity;
     private float baseIntensity;
 
     public void Start() {

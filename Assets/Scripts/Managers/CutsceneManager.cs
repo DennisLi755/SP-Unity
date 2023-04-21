@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
 
 [Serializable]
 public struct Objs {
@@ -248,6 +249,14 @@ public class CutsceneManager : MonoBehaviour {
         obj.GetComponent<SpriteRenderer>().sortingOrder = layer;
     }
 
+    [YarnCommand("set_light_intensity")]
+    static void SetlightIntensity(string lightName, float intensity) {
+        GameObject light = GameObject.Find(lightName);
+        light.GetComponent<Light2D>().intensity = intensity;
+        if (light.TryGetComponent<LightFlickerEffect>(out LightFlickerEffect lfe)) {
+            lfe.flickerIntensity = false;
+        }
+    }
 
     #region Player
     /// <summary>

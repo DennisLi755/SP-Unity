@@ -106,6 +106,7 @@ SOMNI: What was that...?
 <<fade_from_black>>
 <<instantiate "Guide Crash" 96.02 -38.73>>
 <<instantiate "Debris" 96.01 -38.95>>
+<<set_light_intensity "Crash Guide Spotlight" 1>>
 <<set_progression_flag "Second Awake" true>>
 ===
 
@@ -165,6 +166,7 @@ GUIDE: I'm...gonna...KILL YOU! //"KILL YOU" is in shaking red text
 <<reset_all_anim_triggers Guide>>
 <<set_anim_bool Guide "Idle" false>>
 <<change_music_layer>>
+<<set_light_intensity "Fireplace Glow" 0>>
 //wait
 //<<set_progression_flag "Guide Interact" true>>
 ===
@@ -175,6 +177,8 @@ position: 12, -102
 ---
 <<declare $choice = "" as string>>
 //fade to white
+<<set_light_intensity "Crash Guide Spotlight" 0>>
+<<destroy_object Debris>>
 <<destroy_object GuideBoss>>
 <<clear_bullets>>
 <<enable_textboxes false>>

@@ -3598,8 +3598,10 @@ MonoBehaviour:
     obj: {fileID: 2965275641473399047, guid: 8012b36c670d50c4fa99f5290e6b62cd, type: 3}
   - name: Guide Boss
     obj: {fileID: 772907965599314198, guid: dbcd4fefb281c4f4bade455adbee238e, type: 3}
+  - name: Debris
+    obj: {fileID: 3326243358593255048, guid: 25eff6ef11607aa429d8b44dc2f59ac9, type: 3}
   openingProject: {fileID: 7545569452688597077, guid: 3cd8b111bfa309749badf8f3462e7e0e, type: 3}
-  playOpening: 1
+  playOpening: 0
 --- !u!1 &3695494055635458146
 GameObject:
   m_ObjectHideFlags: 0
