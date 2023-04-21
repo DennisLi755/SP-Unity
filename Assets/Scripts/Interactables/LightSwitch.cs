@@ -4,14 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LightSwitch : TextboxInteraction {
-
-    private bool lightOn;
-    [SerializeField]
-    private GameObject lightObject;
-
     private new void Start() {
         base.Start();
-        lightOn = lightObject.activeSelf;
     }
     /// <summary>
     /// OnInteract() for light switch
@@ -22,9 +16,9 @@ public class LightSwitch : TextboxInteraction {
             if (GameManager.Instance.GetProgressionFlag("Second Awake")) {
                 base.OnInteract();
             } else {
-                lightOn = !lightOn;
-                lightObject.SetActive(lightOn);
-                if (lightOn) {
+                bool turnLightOn = !(SceneLights.Instance.GetLightIntensity("Global Lighting") == 1);
+                SceneLights.Instance.SetLightIntensity("Global Lighting", turnLightOn? 1 : 0.5f);
+                if (turnLightOn) {
                     SoundManager.Instance.PlaySoundEffect("LightSwitch1", SoundSource.environment);
                 } else {
                     SoundManager.Instance.PlaySoundEffect("LightSwitch2", SoundSource.environment);
