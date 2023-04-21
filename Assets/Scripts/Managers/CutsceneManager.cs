@@ -485,4 +485,9 @@ public class CutsceneManager : MonoBehaviour {
         go.GetComponent<Animator>().SetInteger(number, value);
     }
     #endregion
+    #region Data Control
+    //static void SetInt(string name, int value) {
+    //    DialogueRunner.UpdateIntValue(name, value);
+    //}
+    #endregion
 }
