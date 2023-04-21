@@ -8,7 +8,7 @@ public class TextboxInteraction : InteractableObject {
     [SerializeField]
     private bool isChild = false;
 
-    public List<string> Message { get => message; }
+    public List<string> Message { get => message; set => message = value; }
 
     new void Start() {
         base.Start();
