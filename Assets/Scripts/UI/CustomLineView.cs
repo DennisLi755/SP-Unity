@@ -140,6 +140,7 @@ public class CustomLineView : DialogueViewBase {
     [SerializeField]
     [Min(0)]
     private float typewriterEffectSpeed = 0f;
+    public float TypewriterEffectSpeed { get => typewriterEffectSpeed; set => typewriterEffectSpeed = value; }
 
     /// <summary>
     /// The game object that represents an on-screen button that the user
@@ -164,6 +165,7 @@ public class CustomLineView : DialogueViewBase {
     [SerializeField]
     [Min(0)]
     private float holdTime = 1f;
+    public float HoldTime { get => holdTime; set => holdTime = value; }
 
     /// <summary>
     /// Controls whether this Line View will wait for user input before

@@ -220,4 +220,20 @@ public class DialogueManager : MonoBehaviour {
     public void ToggleCharacterNamePlate(bool isEnabled) {
         dialogueCanvas.transform.GetChild(3).gameObject.SetActive(isEnabled);
     }
+
+    public void SkipDialogue() {
+        ToggleAutoAdvance(true);
+        CustomLineView lineView = (CustomLineView)dialogueRunner.dialogueViews[0];
+        lineView.TypewriterEffectSpeed = 240;
+        lineView.HoldTime = 0.0f;
+        lineView.UserRequestedViewAdvancement();
+        dialogueRunner.onDialogueComplete.AddListener(ResetDialogueSettings);
+
+        void ResetDialogueSettings() {
+            ToggleAutoAdvance(false);
+            lineView.TypewriterEffectSpeed = 30;
+            lineView.HoldTime = 1.0f;
+            dialogueRunner.onDialogueComplete.RemoveListener(ResetDialogueSettings);
+        }
+    }
 }

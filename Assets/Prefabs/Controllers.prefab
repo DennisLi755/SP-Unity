@@ -3601,7 +3601,7 @@ MonoBehaviour:
   - name: Debris
     obj: {fileID: 3326243358593255048, guid: 25eff6ef11607aa429d8b44dc2f59ac9, type: 3}
   openingProject: {fileID: 7545569452688597077, guid: 3cd8b111bfa309749badf8f3462e7e0e, type: 3}
-  playOpening: 0
+  playOpening: 1
 --- !u!1 &3695494055635458146
 GameObject:
   m_ObjectHideFlags: 0
@@ -9443,10 +9443,58 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4741413982962906318, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2014270445}
   m_SourcePrefab: {fileID: 100100000, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+--- !u!114 &460442409448026073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2239633610328587439, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+  m_PrefabInstance: {fileID: 1834960702813868918}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0cafceb6bf4ac42a762017bcc846bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2261990288044545483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 437732240005449405, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
   m_PrefabInstance: {fileID: 1834960702813868918}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6393974494231750584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4741413982962906318, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+  m_PrefabInstance: {fileID: 1834960702813868918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2014270445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393974494231750584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 16
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 460442409448026073}
+          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+          m_MethodName: SkipDialogue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
