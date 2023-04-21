@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &772907965599314202
 SpriteRenderer:
@@ -258,16 +258,16 @@ MonoBehaviour:
   currentPhase: 0
   usesNodeMovement: 1
   movementNodes:
-  - {x: -6.45, y: -0.5, z: 0}
-  - {x: -3.49, y: -0.5, z: 0}
-  - {x: 0, y: -0.5, z: 0}
-  - {x: 3.5, y: -0.5, z: 0}
-  - {x: 6.56, y: -0.5, z: 0}
-  - {x: -6.56, y: -4.42, z: 0}
-  - {x: -3.49, y: -4.42, z: 0}
-  - {x: 0, y: -4.42, z: 0}
-  - {x: 3.49, y: -4.42, z: 0}
-  - {x: 6.56, y: -4.42, z: 0}
+  - {x: -5.54, y: -1.62, z: 0}
+  - {x: -2.77, y: -1.62, z: 0}
+  - {x: 0, y: -1.62, z: 0}
+  - {x: 2.77, y: -1.62, z: 0}
+  - {x: 5.54, y: -1.62, z: 0}
+  - {x: -5.54, y: -5, z: 0}
+  - {x: -2.77, y: -5, z: 0}
+  - {x: 0, y: -5, z: 0}
+  - {x: 2.77, y: -5, z: 0}
+  - {x: 5.54, y: -5, z: 0}
   nodeColumnCount: 5
   nodeRowCount: 2
   nodeOffsets: {x: 0, y: 0}
