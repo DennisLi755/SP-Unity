@@ -604,7 +604,6 @@ position: 12, -102
 Somni: Treat obtained!
 Somni: Hopefully that makes GHOST DOG happy.
 <<set_progression_flag "Third Treat" true>>
-<<destroy_object Treat3>>
 ===
 
 title: Check_Treat
