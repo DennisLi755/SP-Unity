@@ -327,6 +327,11 @@ public class CutsceneManager : MonoBehaviour {
         PlayerInfo.Instance.EnableTutorialText("Use the arrow keys to move & SPACE to interact",
             "Use the the left stick to move & A to interact");
     }
+    [YarnCommand("show_dash_text")]
+    static void ShowDashText() {
+        PlayerInfo.Instance.EnableTutorialText("Use [X] to dash",
+            "Use [B] to dash");
+    }
 
     /// <summary>
     /// Fades the screen to black
