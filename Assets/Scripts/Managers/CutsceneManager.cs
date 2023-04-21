@@ -229,8 +229,8 @@ public class CutsceneManager : MonoBehaviour {
     /// </summary>
     /// <param name="obj">GameObject to destroy</param>
     [YarnCommand("destroy_object")]
-    static void DestroyObject(GameObject obj) {
-        Destroy(obj);
+    static void DestroyObject(string objectName) {
+        Destroy(GameObject.Find(objectName));
     }
 
     /// <summary>
@@ -242,8 +242,9 @@ public class CutsceneManager : MonoBehaviour {
     [YarnCommand("instantiate")]
     static void MakeObject(string name, float x, float y) {
         GameObject obj = Instantiate(objs[name], new Vector3(x, y, 0f), Quaternion.identity);
-        obj.name = "Guide";
+        obj.name = obj.name.Replace("(Clone)", "");
     }
+
     /// <summary>
     /// Sets a new value for the Sorting Order property of a GameObjects Sprite Renderer
     /// </summary>
