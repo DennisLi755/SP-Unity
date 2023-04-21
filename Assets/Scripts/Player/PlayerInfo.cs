@@ -25,6 +25,8 @@ public class PlayerInfo : MonoBehaviour {
     /// True for the standard health bar in the top left, false for the SP style 
     /// </summary>
     private bool healthBarStyle = true;
+    [SerializeField]
+    private GameObject arrow;
 
     private SpriteRenderer sr;
 
@@ -62,6 +64,7 @@ public class PlayerInfo : MonoBehaviour {
         }
     }
     private const int startingMana = 100;
+    private bool firstCombat = false;
 
     [SerializeField]
     private bool attackUnlocked = false;
@@ -233,6 +236,10 @@ public class PlayerInfo : MonoBehaviour {
     /// Enteres the player into combat, enabling their hitbox and any other combat related UI or restrictions
     /// </summary>
     public void EnterCombat() {
+        if (!firstCombat) {
+            HitBoxText();
+            firstCombat = false;
+        }
         inCombat = true;
         Hitbox.SetActive(true);
         UIManager.Instance.EnableCombatUI(true);
@@ -257,9 +264,15 @@ public class PlayerInfo : MonoBehaviour {
         healthBarStyle = !healthBarStyle;
     }
 
-    public void EnableTutorialText(string text) {
+    public void EnableTutorialText(string text, bool bottom = false) {
         GameObject canvas = transform.GetChild(2).gameObject;
-        canvas.GetComponentInChildren<TMP_Text>().text = text;
+        if (bottom) {
+            canvas.transform.GetChild(1).gameObject.SetActive(true);
+            canvas.GetComponentsInChildren<TMP_Text>()[1].text = text;
+            //canvas.transform.GetChild(0).gameObject.SetActive(false);
+        } else {
+            canvas.GetComponentInChildren<TMP_Text>().text = text;
+        }
         canvas.SetActive(true);
     }
 
@@ -278,5 +291,11 @@ public class PlayerInfo : MonoBehaviour {
 
     public void DisableTutorialText() {
         transform.GetChild(2).gameObject.SetActive(false);
+        arrow.SetActive(false);
+    }
+
+    public void HitBoxText() {
+        EnableTutorialText("Your HitBox", true);
+        arrow.SetActive(true);
     }
 }

@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarBorder: {fileID: 21300000, guid: 3de227437c6d81746a897d6e895844ef, type: 3}
-  maxHealth: 25
+  maxHealth: 20
   phasesStruct:
   - attackCycle:
     - m_PersistentCalls:

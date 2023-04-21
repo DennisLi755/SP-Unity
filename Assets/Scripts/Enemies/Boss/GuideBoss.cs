@@ -69,14 +69,14 @@ public class GuideBoss : Boss
     /// Guide changes to phases 1 and 2 at <= 20 health and <= 15 health respectively
     /// </summary>
     public override bool ChangePhase() {
-        if (currentHealth <= 20 && currentPhase < 1) {
+        if (currentHealth <= 15 && currentPhase < 1) {
             currentPhase = 1;
             totalAds = 2;
             return true;
-        } else if (currentHealth <= 15 && currentPhase < 2) {
+        } else if (currentHealth <= 10 && currentPhase < 2) {
             SoundManager.Instance.ChangeMusicLayer(3f);
             currentPhase = 2;
-            totalAds = 4;
+            totalAds = 3;
             return true;
         }
         return false;
