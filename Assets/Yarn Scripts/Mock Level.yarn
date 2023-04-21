@@ -590,14 +590,15 @@ tags:
 position: 12, -102
 ---
 <<if $treatCount < 3>>
-    GHOST DOG: We need more treats!
-    GHOST DOG: About {3 - $treatCount} more should do.
+    GHOST DOG: moar treats.
+    SOMNI: How many?
+    GHOST DOG: {3 - $treatCount}.
     <<enable_textboxes false>>
     <<move_player 0 -1 0.5>>
     <<wait 0.5>>
 <<else>>
     <<destroy_object "Treat Trigger">>
-    GHOST DOG: We have enough treats!
+    GHOST DOG: have enough. tenks.
     <<enable_textboxes false>>
     <<fade_object "Ghost Dog - Treat Check" 0 0.5>>
     <<wait 0.6>>
