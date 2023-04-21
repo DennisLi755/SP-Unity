@@ -15,12 +15,12 @@ public class SceneLights : MonoBehaviour {
             Destroy(instance.gameObject);
         }
         instance = this;
-    }
-
-    private void Start() {
         foreach (Light2D l in transform.GetComponentsInChildren<Light2D>()) {
             lights.Add(l.gameObject.name, l);
         }
+    }
+
+    private void Start() {
     }
 
     public void SetLightIntensity(string lightName, float intensity) {
