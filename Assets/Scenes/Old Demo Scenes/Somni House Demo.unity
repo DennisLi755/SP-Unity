@@ -168,13 +168,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 3
   message:
   - ...
   - ...Nah, too tired to play right now
-  direction: 3
   isChild: 0
 --- !u!61 &14858629
 BoxCollider2D:
@@ -273,7 +273,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -499,7 +499,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -811,7 +811,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1021,7 +1021,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1231,7 +1231,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1525,7 +1525,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -1620,12 +1620,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - You open the oven and it's...filled with pans...?
-  direction: 0
   isChild: 0
 --- !u!61 &236433537
 BoxCollider2D:
@@ -1717,12 +1717,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49cf08d6e7bb28f4aad1d7f9fb87f4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - Take a shower?
-  direction: 0
   isChild: 0
   afterYesMessage:
   - You feel refreshed!
@@ -2076,7 +2076,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -2286,7 +2286,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -2535,7 +2535,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -2808,6 +2808,8 @@ MonoBehaviour:
         m_CallState: 2
   losesAggro: 1
   aggroLossTime: 5
+  shootOffscreen: 0
+  isActive: 1
 --- !u!212 &472322140
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2828,7 +2830,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2905,11 +2907,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  message: []
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   direction: 0
+  message: []
   isChild: 1
 --- !u!61 &492322922
 BoxCollider2D:
@@ -3150,7 +3152,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -3287,7 +3289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfba386f99df0543990cd71fc58f1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldFollowPlayer: 0
+  shouldFollowTarget: 1
 --- !u!114 &535714913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3513,6 +3515,8 @@ MonoBehaviour:
         m_CallState: 2
   losesAggro: 1
   aggroLossTime: 5
+  shootOffscreen: 0
+  isActive: 1
   moveBulletsWithEnemy: 0
   nodes:
   - {x: 0, y: 0, z: 0}
@@ -3540,7 +3544,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3617,14 +3621,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
-  direction: 0
   isChild: 0
 --- !u!61 &581567649
 BoxCollider2D:
@@ -3865,7 +3869,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4075,7 +4079,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4285,7 +4289,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -4390,7 +4394,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4574,18 +4578,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cb95711ce61a945ae5bcc7597d2b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - You find a...sword on a coffee table. Pick it up?
-  direction: 0
   isChild: 0
   afterYesMessage:
   - You pick up the sword.
   - It feels...surprisingly perfect for you.
-  tileMap: {fileID: 1874718440}
-  position: {x: 95, y: -36, z: 0}
 --- !u!1 &669121856
 GameObject:
   m_ObjectHideFlags: 0
@@ -4632,12 +4634,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - Wow! This salted pork sure looks yummy!
-  direction: 0
   isChild: 0
 --- !u!61 &669121859
 BoxCollider2D:
@@ -4778,11 +4780,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  message: []
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   direction: 2
+  message: []
   isChild: 1
 --- !u!61 &721575757
 BoxCollider2D:
@@ -4874,15 +4876,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - You find piano sheet music in the drawer.
   - You know how to play all of them already.
   - Although..
   - You don't remember practicing any of them.
-  direction: 0
   isChild: 0
 --- !u!61 &722426615
 BoxCollider2D:
@@ -5123,7 +5125,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -5409,7 +5411,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -5470,14 +5472,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
-  direction: 0
   isChild: 0
 --- !u!61 &779050805
 BoxCollider2D:
@@ -5693,9 +5695,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b542bd3f479465b41a489aed7a080422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
+  message: []
+  isChild: 0
   lightObject: {fileID: 774145393}
 --- !u!61 &817733469
 BoxCollider2D:
@@ -5936,7 +5941,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -6062,13 +6067,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 2
   message:
   - Your bed.
   - You resist the urge to go back to bed immediately...
-  direction: 2
   isChild: 0
 --- !u!61 &907367893
 BoxCollider2D:
@@ -6341,13 +6346,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 1
   message:
   - Ah yes...
   - The obligartory house plant near the door.
-  direction: 1
   isChild: 0
 --- !u!61 &1006361296
 BoxCollider2D:
@@ -6473,9 +6478,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b542bd3f479465b41a489aed7a080422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
+  message: []
+  isChild: 0
   lightObject: {fileID: 774145393}
 --- !u!61 &1021695806
 BoxCollider2D:
@@ -6721,7 +6729,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -6931,7 +6939,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19634,7 +19642,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19883,7 +19891,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -19944,14 +19952,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
-  direction: 0
   isChild: 0
 --- !u!61 &1154895450
 BoxCollider2D:
@@ -20236,7 +20244,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20446,7 +20454,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20656,7 +20664,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20900,7 +20908,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -20968,7 +20976,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21182,12 +21190,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 1
   message:
   - Careful! This knife is kind of sharp..
-  direction: 1
   isChild: 0
 --- !u!61 &1450522197
 BoxCollider2D:
@@ -21279,14 +21287,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
-  direction: 0
   isChild: 0
 --- !u!61 &1451680117
 BoxCollider2D:
@@ -55052,7 +55060,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -55319,11 +55327,10 @@ MonoBehaviour:
   movementNodes: []
   nodeColumnCount: 1
   nodeRowCount: 1
-  nodeBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+  nodeOffsets: {x: 0, y: 0}
   afterImage: {fileID: 0}
   whiteMaterial: {fileID: 0}
+  walls: []
   ad: {fileID: 0}
 --- !u!61 &1526993018
 BoxCollider2D:
@@ -55390,7 +55397,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -55467,13 +55474,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - You open the fridge see a single bottle of water, celery, seltzer cans, tomatoes,
     pork, and...salt?
-  direction: 0
   isChild: 0
 --- !u!61 &1532620535
 BoxCollider2D:
@@ -55927,7 +55934,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -56151,6 +56158,8 @@ MonoBehaviour:
         m_CallState: 2
   losesAggro: 1
   aggroLossTime: 5
+  shootOffscreen: 0
+  isActive: 1
 --- !u!212 &1599561575
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -56171,7 +56180,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -56397,7 +56406,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -56458,11 +56467,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  message: []
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   direction: 3
+  message: []
   isChild: 1
 --- !u!61 &1644873000
 BoxCollider2D:
@@ -56565,13 +56574,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 3
   message:
   - This plant is really dehydrated!
   - You guess it's because water near the piano isn't good...
-  direction: 3
   isChild: 0
 --- !u!61 &1663025879
 BoxCollider2D:
@@ -56697,14 +56706,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
-  direction: 0
   isChild: 0
 --- !u!61 &1712600064
 BoxCollider2D:
@@ -56796,13 +56805,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - After picking up a plate, you realize it's just a paper plate that's painted
     to LOOK like a ceramic plate.
-  direction: 0
   isChild: 0
 --- !u!61 &1733335503
 BoxCollider2D:
@@ -57122,7 +57131,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -57332,7 +57341,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -57427,11 +57436,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  message: []
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   direction: 3
+  message: []
   isChild: 1
 --- !u!61 &1865889975
 BoxCollider2D:
@@ -57478,11 +57487,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.29684448, y: 1.3039875}
   m_EdgeRadius: 0
---- !u!1839735485 &1874718440 stripped
-Tilemap:
-  m_CorrespondingSourceObject: {fileID: 6576200297817246317, guid: 4b586072df540d044865462ab8def2b9, type: 3}
-  m_PrefabInstance: {fileID: 1452959619}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1890121960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69669,7 +69673,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -79760,13 +79764,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - You open the drawer to...shards of broken glass.
   - That...is definitely a safety hazard.
-  direction: 0
   isChild: 0
 --- !u!61 &1994934585
 BoxCollider2D:
@@ -79858,12 +79862,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - It's locked.
-  direction: 0
   isChild: 0
 --- !u!61 &2007346333
 BoxCollider2D:
@@ -80104,7 +80108,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -80165,14 +80169,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e47181b0017f4474db4f275ff939c7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  triggerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  direction: 0
   message:
   - A bookshelf full of books.
   - The titles all sound vaguely familiar, but the contents of the books are just
     empty pages...
-  direction: 0
   isChild: 0
 --- !u!61 &2037433398
 BoxCollider2D:
@@ -80524,7 +80528,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
