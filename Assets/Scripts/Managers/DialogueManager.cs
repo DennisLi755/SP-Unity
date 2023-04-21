@@ -236,4 +236,8 @@ public class DialogueManager : MonoBehaviour {
             dialogueRunner.onDialogueComplete.RemoveListener(ResetDialogueSettings);
         }
     }
+
+    public void SetInt(string name, int value) {
+        dialogueRunner.VariableStorage.SetValue(name, value);
+    }
 }

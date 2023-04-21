@@ -578,6 +578,7 @@ tags:
 position: 12, -102
 ---
 //variable set up
+<<set_int "$treatCounter" >>
 Somni: Treat obtained!
 Somni: Hopefully that makes GHOST DOG happy.
 <<set_progression_flag "First Treat" true>>

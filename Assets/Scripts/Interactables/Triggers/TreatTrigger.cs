@@ -6,8 +6,8 @@ public class TreatTrigger : CutsceneTrigger
 {
     protected override void OnTrigger()
     {
-        if (!GameManager.Instance.GetProgressionFlag("First Treat") &&
-        !GameManager.Instance.GetProgressionFlag("Second Treat") &&
+        if (!GameManager.Instance.GetProgressionFlag("First Treat") ||
+        !GameManager.Instance.GetProgressionFlag("Second Treat") ||
         !GameManager.Instance.GetProgressionFlag("Third Treat")) {
             base.OnTrigger();
         }

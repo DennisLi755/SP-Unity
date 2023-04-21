@@ -486,8 +486,9 @@ public class CutsceneManager : MonoBehaviour {
     }
     #endregion
     #region Data Control
-    //static void SetInt(string name, int value) {
-    //    DialogueRunner.UpdateIntValue(name, value);
-    //}
+    [YarnCommand("set_int")]
+    static void SetInt(string name, int value) {
+        DialogueManager.Instance.SetInt(name, value);
+    }
     #endregion
 }
