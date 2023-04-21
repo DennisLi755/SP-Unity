@@ -42,7 +42,9 @@ public class StrongEnemy : MonoBehaviour {
         }
         if (ads.Length != 0) {
             foreach (StaticEnemy ad in ads) {
-                ad.gameObject.SetActive(false);
+                if (ad != null) {
+                    ad.gameObject.SetActive(false);
+                }
             }
         }
         PlayerInfo.Instance?.Heal(99);
