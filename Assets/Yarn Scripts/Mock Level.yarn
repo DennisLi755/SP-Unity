@@ -573,45 +573,33 @@ SOMNI: AHH! GUIDE!
 GUIDE: SOMNI!
 ===
 
-title: Obtained_Treat_1
+title: Obtained_Treat
 tags:
 position: 12, -102
 ---
 //variable set up
-<<set_int "$treatCounter" >>
-Somni: Treat obtained!
-Somni: Hopefully that makes GHOST DOG happy.
-<<set_progression_flag "First Treat" true>>
-<<destroy_object Treat1>>
-===
-
-title: Obtained_Treat_2
-tags:
-position: 12, -102
----
-//variable set up
-Somni: Treat obtained!
-Somni: Hopefully that makes GHOST DOG happy.
-<<set_progression_flag "Second Treat" true>>
-<<destroy_object Treat2>>
-===
-
-title: Obtained_Treat_3
-tags:
-position: 12, -102
----
-//variable set up
-Somni: Treat obtained!
-Somni: Hopefully that makes GHOST DOG happy.
-<<set_progression_flag "Third Treat" true>>
+<<declare $treatCount = 0 as number>>
+<<set $treatCount = $treatCount + 1>>
+SOMNI: Treat obtained!
+SOMNI: Hopefully that makes GHOST DOG happy.
 ===
 
 title: Check_Treat
 tags:
 position: 12, -102
 ---
-Somni: I should probably find the rest of the treats before moving on...
-<<enable_textboxes false>>
-<<move_player 0 -1 0.5>>
-<<wait 0.5>>
+<<if $treatCount < 3>>
+    GHOST DOG: We need more treats!
+    GHOST DOG: About {3 - $treatCount} more should do.
+    <<enable_textboxes false>>
+    <<move_player 0 -1 0.5>>
+    <<wait 0.5>>
+<<else>>
+    <<destroy_object "Treat Trigger">>
+    GHOST DOG: We have enough treats!
+    <<enable_textboxes false>>
+    <<fade_object "Ghost Dog - Treat Check" 0 0.5>>
+    <<wait 0.6>>
+    <<destroy_object "Ghost Dog - Treat Check">>
+<<endif>>
 ===

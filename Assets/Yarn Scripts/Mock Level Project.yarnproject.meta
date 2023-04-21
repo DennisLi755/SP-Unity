@@ -10,7 +10,13 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: 053561912b1654d80a424bb0696a74ae, type: 3}
   sourceScripts:
   - {fileID: 6391573757903218779, guid: 4867c77e079fc3848a2ea795a9579a9c, type: 3}
-  compileErrors: []
+  compileErrors:
+  - '581:0: Error: $treatCount has already been declared in Assets/Yarn Scripts/Mock
+    Level Project.yarnproject, line 2
+
+    <<declare $treatCount = 0 as number>>
+
+'
   serializedDeclarations: []
   defaultLanguage: en-US
   languagesToSourceAssets: []
