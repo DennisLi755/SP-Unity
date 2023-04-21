@@ -80,9 +80,9 @@ SOMNI: I'll just stay here...
 <<enable_textboxes false>>
 //fade to black
 <<fade_to_black>>
-<<set_light_intensity "Global Lighting", 0.5>>
 //wait
 <<wait 4>>
+<<set_light_intensity "Global Lighting" 0.5>>
 //<<play_sound Explosion1>>
 <<play_sound Explosion1>>
 //end black
@@ -463,9 +463,13 @@ SOMNI: All right. Cool.
 GHOST DOG: tweat.
 SOMNI: Okay, let's see if I have anything for you in the kitchen.
 GHOST DOG: yay.
+<<enable_textboxes false>>
 <<move_object GhostDog 0 1 1>>
 <<fade_object GhostDog 0 1>>
 <<wait 1.2>>
+<<enable_textboxes true>>
+SOMNI: What's up with everyone disappearing on me...
+<<enable_textboxes false>>
 <<set_progression_flag "Met Ghost Dog" true>>
 ===
 
