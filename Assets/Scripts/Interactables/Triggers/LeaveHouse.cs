@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class LeaveHouse : Trigger {
     private Room containingRoom;
+    private readonly List<string> beforeSwordMessages = new List<string>() {
+        "Weirdly enough, the door is locked and needs a key to open it from the inside.",
+        "You last remember remember seeing the key on the coffee table"
+    };
 
     new void Start() {
         base.Start();
@@ -18,7 +22,7 @@ public class LeaveHouse : Trigger {
             UIManager.Instance.ActivateInteractText(new List<string> { "You refuse to open the door." });
         }
         else if (!PlayerInfo.Instance.AttackUnlocked) {
-            UIManager.Instance.ActivateInteractText(new List<string> { "Weirdly enough, the door is locked and needs a key to open it from the inside." });
+            UIManager.Instance.ActivateInteractText(beforeSwordMessages);
         }
         else {
             containingRoom.onExit?.Invoke();
