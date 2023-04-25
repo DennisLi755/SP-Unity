@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
-using UnityEngine.Rendering.Universal;
-using UnityEditor.TerrainTools;
 
 [Serializable]
 public struct Objs {

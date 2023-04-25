@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
     private GameObject fileButtons;
     private PlayerSaveData[] saveFiles = new PlayerSaveData[3];
     void Start() {
+        SoundManager.Instance.SetUpMusicLayers(new string[]{"spdemo2"});
         for (int i = 0; i < fileButtons.transform.childCount-1; i++) {
             int x = i;
             Transform currButton = fileButtons.transform.GetChild(i);
@@ -55,10 +56,12 @@ public class MainMenu : MonoBehaviour
         //start a new game
         if (saveFiles[index] == null) {
             GameManager.Instance.LoadPlayerSaveData(index, new PlayerSaveData());
+            SoundManager.Instance.FadeOutCurrentLayer(0.1f);
         }
         //load an existing save
         else {
             GameManager.Instance.LoadPlayerSaveData(index, saveFiles[index]);
+            SoundManager.Instance.FadeOutCurrentLayer(0.1f);
         }
     }
 

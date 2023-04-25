@@ -81,7 +81,8 @@ public class PlayerInfo : MonoBehaviour {
 
     private Dictionary<string, bool> tutorialTexts = new Dictionary<string, bool>() {
         {"movement",  false},
-        {"attacking", false }
+        {"attacking", false },
+        {"dashing", false}
     };
     public Dictionary<string, bool> Tutorials => tutorialTexts;
 

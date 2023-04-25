@@ -591,6 +591,8 @@ MonoBehaviour:
     soundEffect: {fileID: 8300000, guid: e409d4390ca30db4689f73a5127fdc2a, type: 3}
   - name: UI Select
     soundEffect: {fileID: 8300000, guid: 9303defcce373d54f951b3deb9ab8665, type: 3}
+  - name: spdemo2
+    soundEffect: {fileID: 8300000, guid: aaadc4e1c3b91ee4d9c9f7260bd95672, type: 3}
 --- !u!82 &1730145336581991216
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3601,7 +3603,7 @@ MonoBehaviour:
   - name: Debris
     obj: {fileID: 3326243358593255048, guid: 25eff6ef11607aa429d8b44dc2f59ac9, type: 3}
   openingProject: {fileID: 7545569452688597077, guid: 3cd8b111bfa309749badf8f3462e7e0e, type: 3}
-  playOpening: 1
+  playOpening: 0
 --- !u!1 &3695494055635458146
 GameObject:
   m_ObjectHideFlags: 0
