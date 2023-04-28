@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Yarn.Unity;
 
@@ -12,6 +13,8 @@ public class DialogueManager : MonoBehaviour {
 
     private DialogueRunner dialogueRunner;
     private GameObject dialogueCanvas;
+    private GameObject skipPrompt;
+    private EventSystem es;
 
     [SerializeField]
     private Color activeSpeakerColor;
@@ -49,6 +52,8 @@ public class DialogueManager : MonoBehaviour {
     void Start() {
         dialogueRunner = GetComponent<DialogueRunner>();
         dialogueCanvas = transform.GetChild(0).gameObject;
+        skipPrompt = dialogueCanvas.transform.GetChild(dialogueCanvas.transform.childCount - 2).gameObject;
+        es = dialogueCanvas.transform.GetChild(dialogueCanvas.transform.childCount - 1).GetComponent<EventSystem>();
 
         ResetTalkingPortraits();
 
@@ -224,6 +229,7 @@ public class DialogueManager : MonoBehaviour {
     }
 
     public void SkipDialogue() {
+        skipPrompt.SetActive(false);
         ToggleAutoAdvance(true);
         CustomLineView lineView = (CustomLineView)dialogueRunner.dialogueViews[0];
         lineView.TypewriterEffectSpeed = 240;
@@ -237,6 +243,20 @@ public class DialogueManager : MonoBehaviour {
             lineView.HoldTime = 1.0f;
             dialogueRunner.onDialogueComplete.RemoveListener(ResetDialogueSettings);
         }
+    }
+
+    public void PromptSkipDialogue() {
+        //enable prompt overlay
+        skipPrompt.SetActive(true);
+        //set the yes button as the selected object
+        es.SetSelectedGameObject(skipPrompt.transform.GetChild(1).GetChild(1).GetChild(0).gameObject);
+    }
+
+    public void CancelSkipPrompt() {
+        //disable prompt overlay
+        skipPrompt.SetActive(false);
+        //set the continue dialogue button as the selected object
+        es.SetSelectedGameObject(dialogueCanvas.transform.GetChild(4).gameObject);
     }
 
     public void SetInt(string name, int value) {
