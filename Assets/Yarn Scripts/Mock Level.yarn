@@ -326,7 +326,7 @@ GUIDE: Are you ready to begin?
     <<set_progression_flag "Leave House First Time" true>>
 <<elseif $choice2 == "B">>
     SOMNI: Just need a little more time to get my bearings.
-    GUIDE: All right. Just let me know when you're ready!
+    GUIDE: All right. Just let me know when you're ready.
     <<set_progression_flag "Not Ready" true>>
 <<endif>>
 ===
@@ -394,7 +394,7 @@ GUIDE: Hey! Where are you going?
 SOMNI: ...I can go outside if I want. It is MY mind after all.
 GUIDE: Uhhhh...no can do. Get back over here.
 <<enable_textboxes false>>
-<<move_player 0 1 0.5>>
+<<move_player 152.52 -100 0.5 false>>
 <<wait 0.5>>
 <<set_anim_int Guide "direction" 1>>
 ===
@@ -494,6 +494,7 @@ position: 12, -102
 <<wait 1>>
 //move SOMNI to new room
 <<set_object_position Player -55.5 -267.78>>
+<<set_object_position MainCamera -55.5 -267.78>>
 <<set_anim_int Guide "direction" 1>>
 <<set_object_position Guide -55.5 -264.89>>
 //wait
@@ -518,7 +519,7 @@ GUIDE: Oh yeah...
 GUIDE: Soooo...because everything seems to be randomly moving itself around, I'm gonna need you to <color=green>SAVE</color> your progress periodically in case I need to reset.
 SOMNI: Reset?
 GUIDE: Don't worry about it! I've got it under control.
-GUIDE: Go find your dog a treat! I'll be back.
+GUIDE: Go find your dog some treats! I'll be back.
 <<enable_textboxes false>>
 //GUIDE fades out again
 <<fade_to_white>>
@@ -532,9 +533,9 @@ GUIDE: Go find your dog a treat! I'll be back.
 SOMNI: I hate it when she does that. I know I've only seen her do it twice, but I hate it.
 SOMNI: What is she even doing? How hard could it possibly be to build an entire world in another person's mind?
 GHOST DOG: tweat.
-SOMNI: Hey, GHOST DOG. What sound does a bird make?
-GHOST DOG: tweat.
-SOMNI: Great. Thanks.
+SOMNI: How many treats do you want?
+GHOST DOG: 3.
+SOMNI: Okay...We can take a look around.
 <<set_progression_flag "Started Level" true>>
 ===
 
@@ -542,9 +543,9 @@ title: GhostDog_Interact
 tags:
 position: 12, -102
 ---
+SOMNI: Hey, GHOST DOG. What sound does a bird make?
 GHOST DOG: tweat.
-SOMNI: Don't worry buddy we'll get you one soon.
-GHOST DOG: yay.
+SOMNI: Great. Thanks.
 ===
 title: Goodbye_GhostDog
 tags:
