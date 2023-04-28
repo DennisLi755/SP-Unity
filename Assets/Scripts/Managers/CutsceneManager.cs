@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 
 [Serializable]
 public struct Objs {
@@ -62,7 +64,7 @@ public class CutsceneManager : MonoBehaviour {
                 debris.name = debris.name.Replace("(Clone)", "").Trim();
             }
         }
-        SceneManager.sceneLoaded -= OpeningScene;
+        //SceneManager.sceneLoaded -= OpeningScene;
 #if UNITY_EDITOR
         EditorSceneManager.sceneLoaded -= OpeningScene;
 #endif
@@ -317,7 +319,7 @@ public class CutsceneManager : MonoBehaviour {
     #region UI Control
 
     [ContextMenu("Movement Text")]
-    public void MoveMentText() {
+    public void MovementText() {
         ShowMovementText();
     }
 
@@ -331,6 +333,7 @@ public class CutsceneManager : MonoBehaviour {
     }
     [YarnCommand("show_dash_text")]
     static void ShowDashText() {
+        PlayerInfo.Instance.Tutorials["dashing"] = false;
         PlayerInfo.Instance.EnableTutorialText("Use [X] to dash",
             "Use [B] to dash");
     }
