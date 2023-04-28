@@ -464,9 +464,14 @@ public class PlayerControl : MonoBehaviour {
                 //resolving depends on layer (or further on tag)
                 switch (LayerMask.LayerToName(hitObject.layer)) {
                     case "Enemy":
-                        hitObject.GetComponent<IDamageable>().Hurt(1);
+                        if (hitObject.TryGetComponent<IDamageable>(out IDamageable damageable)) {
+                            damageable.Hurt(1);
+                        }
+                        else {
+                            Debug.LogWarning("Player attacked an enemy that wasn't setup properly");
+                        }
                         break;
-                    case "Bullet":
+                    /*case "Bullet":
                         Bullet bullet = hitObject.GetComponent<Bullet>();
                         if (bullet.BulletType == BulletType.Deflectable) {
                             if (InDirectionRange(bullet.Angle)) {
@@ -478,7 +483,7 @@ public class PlayerControl : MonoBehaviour {
                             }
                             bullet.Speed *= 2;
                         }
-                        break;
+                        break;*/
                     default:
                         Debug.LogError($"Player attack has not been setup for layer: {LayerMask.LayerToName(hit.transform.gameObject.layer)}" +
                             $"\nThis was actived by hitting {hitObject} at {hitObject.transform.position}" +
