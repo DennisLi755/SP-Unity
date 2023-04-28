@@ -9,7 +9,9 @@ public class CutsceneInteractable : InteractableObject {
     private string checkForProgressionFlag;
 
     public override void OnInteract() {
-        if (ValidatePlayerDirection() && (checkForProgressionFlag != null && !GameManager.Instance.GetProgressionFlag(checkForProgressionFlag) || checkForProgressionFlag == null)) {
+        Debug.Log("Here");
+        if (ValidatePlayerDirection() && 
+        (checkForProgressionFlag != null && !GameManager.Instance.GetProgressionFlag(checkForProgressionFlag) || checkForProgressionFlag == "")) {
             DialogueManager.Instance.StartDialogue(cutsceneName);
         }
     }
