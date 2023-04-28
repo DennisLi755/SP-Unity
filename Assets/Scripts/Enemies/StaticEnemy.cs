@@ -217,17 +217,18 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     /// </summary>
     /// <param name="amount"></param>
     public void Hurt(int amount) {
-        if (isDamageable) {
-            currentHealth -= amount;
-            //flash white to indicate the enemy took damage
-            sr.material = whiteMaterial;
-            StartCoroutine(TurnColorBack());
-            //kill the enemy
-            if (currentHealth <= 0) {
-                gameObject.SetActive(false);
-                if (healthDropChance > 0) {
-                    SpawnPickup(healthDropChance);
-                }
+        if (!isDamageable || !this.enabled) {
+            return;
+        }
+        currentHealth -= amount;
+        //flash white to indicate the enemy took damage
+        sr.material = whiteMaterial;
+        StartCoroutine(TurnColorBack());
+        //kill the enemy
+        if (currentHealth <= 0) {
+            gameObject.SetActive(false);
+            if (healthDropChance > 0) {
+                SpawnPickup(healthDropChance);
             }
         }
 
