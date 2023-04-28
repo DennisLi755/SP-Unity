@@ -35,7 +35,7 @@ public class SoundManager : MonoBehaviour {
     private List<AudioSource> musicSources = new List<AudioSource>();
     private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
-    private AudioSource UISource;
+    private List<AudioSource> UISources = new List<AudioSource>();
     private List<AudioSource> environmentSources = new List<AudioSource>();
 
     [Range(0, 1)]
@@ -70,7 +70,6 @@ public class SoundManager : MonoBehaviour {
         foreach (SoundEffect se in soundEffectsArray) {
             soundEffects.Add(se.name, se.soundEffect);
         }
-        UISource.volume = soundEffectVolume;
     }
 
     private void Update() {
@@ -117,7 +116,19 @@ public class SoundManager : MonoBehaviour {
                 return null;
 
             case SoundSource.UI:
-                return UISource;
+                if (UISources.Count == 0) {
+                    MakeSource(UISources);
+                }
+                for (int i = 0; i < UISources.Count; i++) {
+                    if (!UISources[i].isPlaying) {
+                        return UISources[i];
+                    }
+                    else if (i == UISources.Count - 1) {
+                        MakeSource(UISources);
+                    }
+                }
+                Debug.LogError($"No Available UI SoundSource");
+                return null;
 
             case SoundSource.environment:
                 if (environmentSources.Count == 0) {
@@ -163,9 +174,14 @@ public class SoundManager : MonoBehaviour {
                 return false;
 
             case SoundSource.UI:
-                audioSource = UISource;
-                return true;
-
+                for (int i = 0; i < UISources.Count; i++) {
+                    if (UISources[i].isPlaying) {
+                        audioSource = UISources[i];
+                        return true;
+                    }
+                }
+                Debug.LogError($"No Playing UI SoundSource");
+                return false;
             case SoundSource.environment:
                 for (int i = 0; i < environmentSources.Count; i++) {
                     if (environmentSources[i].isPlaying) {
@@ -192,6 +208,10 @@ public class SoundManager : MonoBehaviour {
         sources.Add(audioSource);
     }
 
+    public void PlayUISound(string sound) {
+        PlaySoundEffect(sound, SoundSource.UI);
+    }
+
     /// <summary>
     /// Plays the given sound effect through an audio source coresponding to the given sound source
     /// </summary>
@@ -208,19 +228,13 @@ public class SoundManager : MonoBehaviour {
                 yield return null;
             }
 
-            if (source == SoundSource.player) {
-                Destroy(audioSource);
-                playerSources.Remove(audioSource);
+            switch (source) {
+                case SoundSource.player: playerSources.Remove(audioSource); break;
+                case SoundSource.environment: environmentSources.Remove(audioSource); break;
+                case SoundSource.UI: UISources.Remove(audioSource); break;
             }
+            Destroy(audioSource);
         }
-    }
-
-    /// <summary>
-    /// Plays the given sound effect through the UI sound source
-    /// </summary>
-    /// <param name="effectName"></param>
-    public void PlayUISoundEffect(string effectName) {
-        PlaySoundEffect(effectName, SoundSource.UI);
     }
 
     public void StopSoundSource(SoundSource source) {

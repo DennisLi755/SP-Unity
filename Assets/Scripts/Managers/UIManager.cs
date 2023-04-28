@@ -191,7 +191,7 @@ public class UIManager : MonoBehaviour {
         while (interactText.maxVisibleCharacters < characterCount) {
             while (time >= secondsPerCharacter) {
                 interactText.maxVisibleCharacters++;
-                SoundManager.Instance.PlayUISoundEffect("Text Type");
+                SoundManager.Instance.PlaySoundEffect("Text Type", SoundSource.UI);
                 time -= secondsPerCharacter;
             }
 
