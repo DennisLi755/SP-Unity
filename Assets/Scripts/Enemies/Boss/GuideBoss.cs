@@ -13,6 +13,7 @@ public class GuideBoss : Boss
     private int totalAds = 2;
     private Coroutine spawnEnemyCoroutine;
     private Dictionary<GameObject, int> adNodeIndicies = new Dictionary<GameObject, int>();
+    private bool firstEnemy = true;
     private new void Start() {
         base.Start();
         //string[] musicLayers = new string[] {"spdemo1_novocals", "spdemo1_full"}; 
@@ -49,6 +50,11 @@ public class GuideBoss : Boss
     IEnumerator SpawnEnemy() {
         yield return new WaitForSeconds(UnityEngine.Random.Range(1.0f, 2.0f));
         GameObject newAd = Instantiate(ad, transform.position, Quaternion.identity);
+        if (firstEnemy) {
+            newAd.transform.GetChild(0).gameObject.SetActive(true);
+            newAd.GetComponent<StaticEnemy>().HealthDropChance = 100;
+            firstEnemy = false;
+        }
         int targetIndex = GetRandomNodeIndex();
         blacklistNodeIndices.Add(targetIndex);
         //used to keep track of what movementNode index an ad was at when it comes time to remove it when it dies

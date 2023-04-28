@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &604929478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +360,7 @@ Transform:
   - {fileID: 604929477}
   - {fileID: 4717000938743125843}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4047285249303267164
 SpriteRenderer:
@@ -723,6 +723,7 @@ MonoBehaviour:
   - {fileID: 3286163911610860551, guid: e8c6b68406091aa4087a441112644d8b, type: 3}
   - {fileID: 3286163911610860551, guid: b6f4db0b9367b8e4b880e892167d0d6d, type: 3}
   - {fileID: 21300000, guid: 8dedfc82c28741548bdfd3ac6b2face0, type: 3}
+  arrow: {fileID: 0}
   attackUnlocked: 0
 --- !u!1 &4047285250310632639
 GameObject:
