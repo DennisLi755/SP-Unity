@@ -56,13 +56,12 @@ public class MainMenu : MonoBehaviour
         //start a new game
         if (saveFiles[index] == null) {
             GameManager.Instance.LoadPlayerSaveData(index, new PlayerSaveData());
-            SoundManager.Instance.FadeOutCurrentLayer(0.1f);
         }
         //load an existing save
         else {
             GameManager.Instance.LoadPlayerSaveData(index, saveFiles[index]);
-            SoundManager.Instance.FadeOutCurrentLayer(0.1f);
         }
+        SoundManager.Instance.FadeOutCurrentLayer(0.1f);
     }
 
     public void OptionsMenu() {

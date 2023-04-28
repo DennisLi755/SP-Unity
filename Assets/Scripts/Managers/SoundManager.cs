@@ -278,7 +278,6 @@ public class SoundManager : MonoBehaviour {
     /// <param name="fadeTime"></param>
     public void FadeOutCurrentLayer(float fadeTime) {
         StartCoroutine(FadeOut(currentLayer, fadeTime, true));
-        //StartCoroutine(ResetMusic(fadeTime));
     }
 
     public void FadeOutSource(float fadeTime, SoundSource source) {
@@ -313,7 +312,7 @@ public class SoundManager : MonoBehaviour {
         }
         float startVolume = audioSource.volume;
 
-        while (audioSource.volume >= 0) {
+        while (audioSource.volume > 0) {
             audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
             yield return null;
         }
@@ -321,10 +320,6 @@ public class SoundManager : MonoBehaviour {
         if (resetLayers) {
             ResetMusicLayers();
         }
-    }
-    IEnumerator ResetMusic(float time) {
-        yield return new WaitForSeconds(time);
-        ResetMusicLayers();
     }
 
     /// <summary>
@@ -334,7 +329,7 @@ public class SoundManager : MonoBehaviour {
     /// <param name="fadeTime"></param>
     /// <returns></returns>
     IEnumerator FadeIn(int layer, float fadeTime) {
-        AudioSource audioSource = musicSources[currentLayer + 1];
+        AudioSource audioSource = musicSources[layer + 1];
         float endVolume = musicVolume;
         while (audioSource.volume < endVolume) {
             audioSource.volume += endVolume * Time.deltaTime / fadeTime;
