@@ -53,6 +53,14 @@ public class MainMenu : MonoBehaviour
     }
 
     public void LoadSaveFile(int index) {
+        UIManager.Instance.FadeToBlackLong();
+        StartCoroutine(LoadData(3.0f, index));
+        es.gameObject.SetActive(false);
+        SoundManager.Instance.FadeOutCurrentLayer(2.5f);
+    }
+
+    IEnumerator LoadData(float time, int index) {
+        yield return new WaitForSeconds(time);
         //start a new game
         if (saveFiles[index] == null) {
             GameManager.Instance.LoadPlayerSaveData(index, new PlayerSaveData());
@@ -61,7 +69,10 @@ public class MainMenu : MonoBehaviour
         else {
             GameManager.Instance.LoadPlayerSaveData(index, saveFiles[index]);
         }
-        SoundManager.Instance.FadeOutCurrentLayer(0.1f);
+    }
+
+    public void PlayUISound(string effect) {
+        SoundManager.Instance.PlaySoundEffect(effect, SoundSource.UI);
     }
 
     public void OptionsMenu() {

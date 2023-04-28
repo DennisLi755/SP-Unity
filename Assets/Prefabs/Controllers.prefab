@@ -4125,7 +4125,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1198661328790108914}
           m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-          m_MethodName: PlayUISoundEffect
+          m_MethodName: PlayUISound
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4956,7 +4956,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1198661328790108914}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: PlayUISoundEffect
+        m_MethodName: PlayUISound
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5001,7 +5001,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1198661328790108914}
           m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-          m_MethodName: PlayUISoundEffect
+          m_MethodName: PlayUISound
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -9342,6 +9342,26 @@ PrefabInstance:
       propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1198661328790108914}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayTextSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SoundManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Text Type
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985969225167727949, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: onCharacterTyped.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

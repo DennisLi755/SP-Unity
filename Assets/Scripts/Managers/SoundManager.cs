@@ -70,6 +70,9 @@ public class SoundManager : MonoBehaviour {
         foreach (SoundEffect se in soundEffectsArray) {
             soundEffects.Add(se.name, se.soundEffect);
         }
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.volume = soundEffectVolume;
+        UISources.Add(audioSource);
     }
 
     private void Update() {
@@ -120,7 +123,7 @@ public class SoundManager : MonoBehaviour {
                     MakeSource(UISources);
                 }
                 for (int i = 0; i < UISources.Count; i++) {
-                    if (!UISources[i].isPlaying) {
+                    if (!UISources[i].isPlaying && i != 0) {
                         return UISources[i];
                     }
                     else if (i == UISources.Count - 1) {
@@ -206,6 +209,11 @@ public class SoundManager : MonoBehaviour {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.volume = soundEffectVolume;
         sources.Add(audioSource);
+    }
+
+    public void PlayTextSound(string sound) {
+        UISources[0].clip = soundEffects[sound];
+        UISources[0].Play();
     }
 
     public void PlayUISound(string sound) {
