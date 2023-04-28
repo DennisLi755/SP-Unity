@@ -33,6 +33,7 @@ public class SoundManager : MonoBehaviour {
     private AudioSource enemySource;
     [SerializeField]
     private List<AudioSource> musicSources = new List<AudioSource>();
+    [SerializeField]
     private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
     private List<AudioSource> UISources = new List<AudioSource>();
@@ -91,43 +92,33 @@ public class SoundManager : MonoBehaviour {
         switch (source) {
             case SoundSource.player:
                 if (playerSources.Count == 0) {
-                    MakeSource(playerSources);
+                    return MakeSource(playerSources);
                 }
                 for (int i = 0; i < playerSources.Count; i++) {
                     if (!playerSources[i].isPlaying) {
                         return playerSources[i];
                     }
                     else if (i == playerSources.Count - 1) {
-                        MakeSource(playerSources);
+                        return MakeSource(playerSources);
                     }
                 }
                 Debug.LogError($"No Available Player SoundSource");
                 return null;
             case SoundSource.cutscene:
-                if (cutsceneSources.Count == 0) {
-                    MakeSource(cutsceneSources);
-                }
-                for (int i = 0; i < cutsceneSources.Count; i++) {
-                    if (!cutsceneSources[i].isPlaying) {
-                        return cutsceneSources[i];
-                    }
-                    else if (i == cutsceneSources.Count - 1) {
-                        MakeSource(cutsceneSources);
-                    }
-                }
+                return MakeSource(cutsceneSources);
                 Debug.LogError($"No Available Cutscene SoundSource");
                 return null;
 
             case SoundSource.UI:
                 if (UISources.Count == 0) {
-                    MakeSource(UISources);
+                    return MakeSource(UISources);
                 }
                 for (int i = 0; i < UISources.Count; i++) {
                     if (!UISources[i].isPlaying && i != 0) {
                         return UISources[i];
                     }
                     else if (i == UISources.Count - 1) {
-                        MakeSource(UISources);
+                        return MakeSource(UISources);
                     }
                 }
                 Debug.LogError($"No Available UI SoundSource");
@@ -135,14 +126,14 @@ public class SoundManager : MonoBehaviour {
 
             case SoundSource.environment:
                 if (environmentSources.Count == 0) {
-                    MakeSource(environmentSources);
+                    return MakeSource(environmentSources);
                 }
                 for (int i = 0; i < environmentSources.Count; i++) {
                     if (!environmentSources[i].isPlaying) {
                         return environmentSources[i];
                     }
                     else if (i == environmentSources.Count - 1) {
-                        MakeSource(environmentSources);
+                        return MakeSource(environmentSources);
                     }
                 }
                 Debug.LogError($"No Available Environment SoundSource");
@@ -205,10 +196,11 @@ public class SoundManager : MonoBehaviour {
     /// Attaches a new audio source to the GameObject
     /// </summary>
     /// <param name="sources"></param>
-    public void MakeSource(List<AudioSource> sources) {
+    public AudioSource MakeSource(List<AudioSource> sources) {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.volume = soundEffectVolume;
         sources.Add(audioSource);
+        return audioSource;
     }
 
     public void PlayTextSound(string sound) {
@@ -351,7 +343,7 @@ public class SoundManager : MonoBehaviour {
     /// <param name="fadeTime"></param>
     /// <returns></returns>
     IEnumerator FadeIn(int layer, float fadeTime) {
-        AudioSource audioSource = musicSources[layer + 1];
+        AudioSource audioSource = musicSources[layer];
         float endVolume = musicVolume;
         while (audioSource.volume < endVolume) {
             audioSource.volume += endVolume * Time.deltaTime / fadeTime;
