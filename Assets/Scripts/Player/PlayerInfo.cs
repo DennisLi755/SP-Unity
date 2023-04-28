@@ -293,6 +293,7 @@ public class PlayerInfo : MonoBehaviour {
 
     public void DisableTutorialText() {
         transform.GetChild(2).gameObject.SetActive(false);
+        arrow.SetActive(false);
     }
 
     IEnumerator DisableBottomText(float time) {

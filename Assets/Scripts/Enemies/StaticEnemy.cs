@@ -23,6 +23,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     [Range(0,100)]
     [SerializeField]
     private float healthDropChance;
+    public float HealthDropChance { get => healthDropChance; set => healthDropChance = value; }
     [SerializeField]
     private GameObject healthDrop;
     [SerializeField]
