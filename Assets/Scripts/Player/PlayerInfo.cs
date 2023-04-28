@@ -239,6 +239,7 @@ public class PlayerInfo : MonoBehaviour {
     public void EnterCombat() {
         if (!firstCombat) {
             HitBoxText();
+            StartCoroutine(DisableBottomText(5));
             firstCombat = false;
         }
         inCombat = true;
@@ -292,6 +293,12 @@ public class PlayerInfo : MonoBehaviour {
 
     public void DisableTutorialText() {
         transform.GetChild(2).gameObject.SetActive(false);
+    }
+
+    IEnumerator DisableBottomText(float time) {
+        yield return new WaitForSeconds(time);
+        GameObject canvas = transform.GetChild(2).gameObject;
+        canvas.transform.GetChild(1).gameObject.SetActive(false);
         arrow.SetActive(false);
     }
 
