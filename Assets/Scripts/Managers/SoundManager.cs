@@ -88,63 +88,6 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    public AudioSource FindSource(SoundSource source) {
-        switch (source) {
-            case SoundSource.player:
-                if (playerSources.Count == 0) {
-                    return MakeSource(playerSources);
-                }
-                for (int i = 0; i < playerSources.Count; i++) {
-                    if (!playerSources[i].isPlaying) {
-                        return playerSources[i];
-                    }
-                    else if (i == playerSources.Count - 1) {
-                        return MakeSource(playerSources);
-                    }
-                }
-                Debug.LogError($"No Available Player SoundSource");
-                return null;
-            case SoundSource.cutscene:
-                return MakeSource(cutsceneSources);
-                Debug.LogError($"No Available Cutscene SoundSource");
-                return null;
-
-            case SoundSource.UI:
-                if (UISources.Count == 0) {
-                    return MakeSource(UISources);
-                }
-                for (int i = 0; i < UISources.Count; i++) {
-                    if (!UISources[i].isPlaying && i != 0) {
-                        return UISources[i];
-                    }
-                    else if (i == UISources.Count - 1) {
-                        return MakeSource(UISources);
-                    }
-                }
-                Debug.LogError($"No Available UI SoundSource");
-                return null;
-
-            case SoundSource.environment:
-                if (environmentSources.Count == 0) {
-                    return MakeSource(environmentSources);
-                }
-                for (int i = 0; i < environmentSources.Count; i++) {
-                    if (!environmentSources[i].isPlaying) {
-                        return environmentSources[i];
-                    }
-                    else if (i == environmentSources.Count - 1) {
-                        return MakeSource(environmentSources);
-                    }
-                }
-                Debug.LogError($"No Available Environment SoundSource");
-                return null;
-
-            default:
-                Debug.LogError($"The case for SoundSource {source} has not been setup yet");
-                return null;
-        }
-    }
-
     public bool FindPlayingSource(SoundSource source, out AudioSource audioSource) {
         audioSource = null;
         switch (source) {
@@ -218,7 +161,15 @@ public class SoundManager : MonoBehaviour {
     /// <param name="effectName"></param>
     /// <param name="source"></param>
     public void PlaySoundEffect(string effectName, SoundSource source) {
-        AudioSource audioSource = FindSource(source);
+        List<AudioSource> currentSource = new List<AudioSource>();
+        switch (source) {
+            case SoundSource.player: currentSource = playerSources; break;
+            case SoundSource.environment: currentSource = environmentSources; break;
+            case SoundSource.cutscene: currentSource = cutsceneSources; break;
+            case SoundSource.UI: currentSource = UISources; break;
+        }
+
+        AudioSource audioSource = MakeSource(currentSource);
         audioSource.clip = soundEffects[effectName];
         audioSource.Play();
         StartCoroutine(WaitForSoundToEnd());
