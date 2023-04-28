@@ -547,7 +547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySource: {fileID: 0}
   musicSources: []
-  UISource: {fileID: 6074591319767599651}
+  UISources: []
   musicVolume: 0.5
   soundEffectVolume: 0.3
   soundEffectsArray:
@@ -3603,7 +3603,7 @@ MonoBehaviour:
   - name: Debris
     obj: {fileID: 3326243358593255048, guid: 25eff6ef11607aa429d8b44dc2f59ac9, type: 3}
   openingProject: {fileID: 7545569452688597077, guid: 3cd8b111bfa309749badf8f3462e7e0e, type: 3}
-  playOpening: 0
+  playOpening: 1
 --- !u!1 &3695494055635458146
 GameObject:
   m_ObjectHideFlags: 0
