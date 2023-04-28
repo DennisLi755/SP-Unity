@@ -41,4 +41,8 @@ public class LightFlickerEffect : MonoBehaviour {
             else yield return null;
         }
     }
+
+    private void OnDisable() {
+        StopAllCoroutines();
+    }
 }

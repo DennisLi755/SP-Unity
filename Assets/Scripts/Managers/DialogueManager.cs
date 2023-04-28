@@ -229,7 +229,7 @@ public class DialogueManager : MonoBehaviour {
     }
 
     public void SkipDialogue() {
-        skipPrompt.SetActive(false);
+        CancelSkipPrompt();
         ToggleAutoAdvance(true);
         CustomLineView lineView = (CustomLineView)dialogueRunner.dialogueViews[0];
         lineView.TypewriterEffectSpeed = 240;
