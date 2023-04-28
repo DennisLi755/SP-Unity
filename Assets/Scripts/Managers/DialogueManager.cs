@@ -79,6 +79,7 @@ public class DialogueManager : MonoBehaviour {
     public void DisableDialogueCanvas() {
         //CameraManager.Instance.SetNewTarget(PlayerInfo.Instance.transform);
         PlayerInfo.Instance.PlayerControl.CanCollide = true;
+        PlayerInfo.Instance.Invinicble = false;
         EnableDialogueCanvas(false);
         PlayerInfo.Instance.PlayerControl.UnFreeze();
         PlayerInfo.Instance.ChangeInputMap("Player");
@@ -201,6 +202,7 @@ public class DialogueManager : MonoBehaviour {
         ResetTalkingPortraits();
         PlayerInfo.Instance.PlayerControl.CanCollide = false;
         PlayerInfo.Instance.DisableTutorialText();
+        PlayerInfo.Instance.Invinicble = true;
         EnableDialogueCanvas();
         dialogueRunner.StartDialogue(startNode);
         PlayerInfo.Instance.ChangeInputMap("UI");
