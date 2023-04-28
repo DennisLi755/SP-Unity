@@ -114,13 +114,12 @@ public class MockBoss : Boss {
     public override bool ChangePhase() {
         switch (currentPhase) {
             case 0:
-                if (currentHealth <= 20) {
+                if (currentHealth <= 15) {
                     currentPhase++;
                     totalAds = 0;
                     StartCoroutine(MoveToTargetNode(specialNodes[1], () => {
-                        UIManager.Instance.UpdateTimeoutText(35);
                         UIManager.Instance.EnableTimeoutText(true);
-                        StartCoroutine(PhaseTimeOut(35));
+                        StartCoroutine(PhaseTimeOut(25));
                         timeoutAd =Instantiate(timeoutAd, transform.position, Quaternion.identity);
                         GetComponent<SpriteRenderer>().enabled = false;
                     }));
@@ -133,6 +132,7 @@ public class MockBoss : Boss {
     }
 
     IEnumerator PhaseTimeOut(float timeLeft) {
+        UIManager.Instance.UpdateTimeoutText(timeLeft);
         while (timeLeft >= 0) {
             timeLeft -= Time.deltaTime;
             UIManager.Instance.UpdateTimeoutText(timeLeft);
