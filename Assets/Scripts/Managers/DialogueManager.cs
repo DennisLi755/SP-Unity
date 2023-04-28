@@ -63,7 +63,7 @@ public class DialogueManager : MonoBehaviour {
         }
     }
 
-    private void ResetTalkingPortraits() {
+    public void ResetTalkingPortraits() {
         lastActiveSpeaker = true;
         leftCharacterImage = dialogueCanvas.transform.GetChild(0).GetComponent<Image>();
         leftCharacterImage.color = disabledColor;

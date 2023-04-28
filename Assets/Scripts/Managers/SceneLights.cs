@@ -26,6 +26,9 @@ public class SceneLights : MonoBehaviour {
     public void SetLightIntensity(string lightName, float intensity) {
         try {
             lights[lightName].intensity = intensity;
+            if (lights[lightName].TryGetComponent<LightFlickerEffect>(out LightFlickerEffect lef)) {
+                lef.enabled = intensity > 0;
+            }
         } catch (KeyNotFoundException) {
             Debug.LogError("Light " + lightName + " not found");
         }

@@ -368,6 +368,14 @@ public class CutsceneManager : MonoBehaviour {
     static void FadeFromWhite() {
         UIManager.Instance.FadeFromWhite();
     }
+
+    /// <summary>
+    /// Resets the talk portraits to empty
+    /// </summary>
+    [YarnCommand("clear_talk_portraits")]
+    static void ClearTalkPortraits() {
+        DialogueManager.Instance.ResetTalkingPortraits();
+    }
     #endregion
 
     #region Progression Control

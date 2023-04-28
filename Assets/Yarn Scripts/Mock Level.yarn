@@ -453,6 +453,7 @@ GUIDE: Good luck figuring this out!
 //GUIDE fades out
 <<fade_to_white>>
 <<wait 0.35>>
+<<clear_talk_portraits>>
 <<set_object_position Guide 10000 1000>>
 <<fade_from_white>>
 <<wait 0.3>>
@@ -467,6 +468,7 @@ GHOST DOG: yay.
 <<enable_textboxes false>>
 <<move_object GhostDog 0 1 1>>
 <<fade_object GhostDog 0 1>>
+<<clear_talk_portraits>>
 <<wait 1.2>>
 <<enable_textboxes true>>
 SOMNI: What's up with everyone disappearing on me...
