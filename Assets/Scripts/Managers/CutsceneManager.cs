@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
 using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
 
 [Serializable]
 public struct Objs {
@@ -62,6 +63,9 @@ public class CutsceneManager : MonoBehaviour {
             }
         }
         SceneManager.sceneLoaded -= OpeningScene;
+#if UNITY_EDITOR
+        EditorSceneManager.sceneLoaded -= OpeningScene;
+#endif
     }
 
     public void OpeningScene() {
