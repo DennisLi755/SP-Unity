@@ -132,6 +132,10 @@ public class UIManager : MonoBehaviour {
         Fade(false, "FadeFromWhite");
     }
 
+    public void FadeToBlackLong() {
+        Fade(true, "FadeToBlackLong");
+    }
+
     /// <summary>
     /// Controls whether the screen fades to or from black based on the paramter
     /// </summary>
@@ -191,7 +195,7 @@ public class UIManager : MonoBehaviour {
         while (interactText.maxVisibleCharacters < characterCount) {
             while (time >= secondsPerCharacter) {
                 interactText.maxVisibleCharacters++;
-                SoundManager.Instance.PlaySoundEffect("Text Type", SoundSource.UI);
+                SoundManager.Instance.PlayTextSound("Text Type");
                 time -= secondsPerCharacter;
             }
 

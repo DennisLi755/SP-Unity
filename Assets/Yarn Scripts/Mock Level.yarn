@@ -2,10 +2,10 @@
 tags:
 position: 12, -102
 ---
-//<<wait 1>>
 <<play_sound Clock "environment">>
 <<set_object_position Player -2.22 -22.2>>
 <<enable_textboxes false>>
+<<wait 2>>
 <<enable_textboxes true>>
 SOMNI: ...Where am I?
 <<enable_textboxes false>>
