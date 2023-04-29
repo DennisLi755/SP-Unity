@@ -217,8 +217,12 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
     /// </summary>
     /// <param name="amount"></param>
     public void Hurt(int amount) {
+        StartCoroutine(HurtCoroutine(amount));
+    }
+
+    IEnumerator HurtCoroutine(int amount) {
         if (!isDamageable || !this.enabled) {
-            return;
+            yield break;
         }
         currentHealth -= amount;
         //flash white to indicate the enemy took damage
@@ -237,6 +241,7 @@ public class StaticEnemy : MonoBehaviour, IDamageable {
             yield return new WaitForSeconds(0.2f);
             sr.material = spriteDefault;
         }
+        yield break;
     }
 
     /// <summary>
