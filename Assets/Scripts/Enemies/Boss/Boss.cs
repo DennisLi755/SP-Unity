@@ -190,6 +190,7 @@ public abstract class Boss : MonoBehaviour, IDamageable {
         }
     }
     public virtual void Death() {
+        PlayerInfo.Instance.Heal(99);
         gameObject.SetActive(false);
         UIManager.Instance.EnableBossHealthBar(false);
         PlayerInfo.Instance.CombatLock = false;
