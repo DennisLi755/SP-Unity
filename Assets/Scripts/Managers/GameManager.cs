@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Yarn.Unity;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 #endif
@@ -70,6 +71,9 @@ public class GameManager : MonoBehaviour {
     /// Toggles the game's pause state
     /// </summary>
     public void PauseGame() {
+        if (DialogueManager.Instance.IsDialogueRunning) {
+            return;
+        }
         isPaused = !isPaused;
         UIManager.Instance.ToggleMenu();
         //pausing the game
