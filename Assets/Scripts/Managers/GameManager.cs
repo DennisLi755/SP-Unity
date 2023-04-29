@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 
     private static GameManager instance;
     public static GameManager Instance => instance;
+    [SerializeField]
 
     private bool isPaused;
     public bool IsPaused => isPaused;
