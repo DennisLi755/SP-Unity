@@ -39,10 +39,10 @@ public class CutsceneManager : MonoBehaviour {
 
     void Start() {
         if (SceneManager.GetActiveScene().buildIndex == 0) {
-            SceneManager.sceneLoaded += OpeningScene;
+            SceneManager.sceneLoaded += SetupScene;
         }
         else if (playOpening) {
-            OpeningScene(new Scene(), 0);
+            SetupScene(new Scene(), 0);
         }
         
         objs = new Dictionary<string, GameObject>();
@@ -51,7 +51,7 @@ public class CutsceneManager : MonoBehaviour {
         }
     }
 
-    public void OpeningScene(Scene s, LoadSceneMode lsm) {
+    public void SetupScene(Scene s, LoadSceneMode lsm) {
         if (SceneManager.GetActiveScene().buildIndex == 1) {
             if (!GameManager.Instance.GetProgressionFlag("Watched Opening")) {
                 OpeningScene();
@@ -64,10 +64,6 @@ public class CutsceneManager : MonoBehaviour {
                 debris.name = debris.name.Replace("(Clone)", "").Trim();
             }
         }
-        //SceneManager.sceneLoaded -= OpeningScene;
-#if UNITY_EDITOR
-        EditorSceneManager.sceneLoaded -= OpeningScene;
-#endif
     }
 
     public void OpeningScene() {
