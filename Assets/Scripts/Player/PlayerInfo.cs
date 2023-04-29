@@ -241,7 +241,8 @@ public class PlayerInfo : MonoBehaviour {
     public void EnterCombat() {
         if (!tutorialTexts["hitbox"]) {
             HitBoxText();
-            PlayerInfo.Instance.Tutorials["dashing"] = false;
+            tutorialTexts["dashing"] = false;
+            tutorialTexts["hitbox"] = true;
             PlayerInfo.Instance.EnableTutorialText("Use [X] to dash",
                 "Use [B] to dash", false);
             StartCoroutine(DisableBottomText(5));
