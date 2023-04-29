@@ -56,6 +56,7 @@ public class MockBoss : Boss {
         for (int i = 0; i < specialNodes.Length; i++) {
             specialNodes[i] += transform.position;
         }
+        //PlayerInfo.Instance.EnableTutorialText("Hold Left Shift to focus", "Hold Right Trgger to focus");
     }
 
     private new void Update() {

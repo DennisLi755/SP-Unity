@@ -602,7 +602,10 @@ public class PlayerControl : MonoBehaviour {
     /// <param name="context"></param>
     public void Focus(InputAction.CallbackContext context) {
         if (context.performed) {
-            focusScalar = 0.7f;
+            if (pInfo.Tutorials.ContainsKey("focusing") && !pInfo.Tutorials["focusing"]) {
+                StartCoroutine(EndTutorial(() => pInfo.Tutorials["focusing"] = true, 2.0f));
+            }
+            focusScalar = 0.5f;
         }
         else if (context.canceled) {
             focusScalar = 1f;

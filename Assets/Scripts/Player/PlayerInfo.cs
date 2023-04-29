@@ -83,7 +83,8 @@ public class PlayerInfo : MonoBehaviour {
         {"movement",  false},
         {"attacking", false },
         {"dashing", false},
-        {"hitbox", false }
+        {"hitbox", false },
+        {"focusing", false }
     };
     public Dictionary<string, bool> Tutorials { get => tutorialTexts; set => tutorialTexts = value; }
 
