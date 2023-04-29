@@ -594,6 +594,8 @@ MonoBehaviour:
     soundEffect: {fileID: 8300000, guid: 9303defcce373d54f951b3deb9ab8665, type: 3}
   - name: spdemo2
     soundEffect: {fileID: 8300000, guid: aaadc4e1c3b91ee4d9c9f7260bd95672, type: 3}
+  - name: Main Menu Select
+    soundEffect: {fileID: 8300000, guid: 15c41267e37788e49bbe885f5fdad3fc, type: 3}
 --- !u!82 &1730145336581991216
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4228,6 +4230,7 @@ Animation:
   - {fileID: 7400000, guid: 4a57c57b8c64c5d45be4f998afb27cd6, type: 2}
   - {fileID: 7400000, guid: 4956765ed3428094a9a111cbbb61e06f, type: 2}
   - {fileID: 7400000, guid: 82a9c00231179d94b97511255b45ad54, type: 2}
+  - {fileID: 7400000, guid: 89f3c57522e737441ad84179a8809b71, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -4622,7 +4625,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &3695494056827148177
 MonoBehaviour:
@@ -4687,7 +4690,7 @@ MonoBehaviour:
   playerManaBar: {fileID: 2277659560164509073}
   bossHealthBar: {fileID: 5123104025104685245}
   timeoutText: {fileID: 3887744645878315386}
-  menu: {fileID: 3695494055635458146}
+  menu: {fileID: 6869733402800454551}
   defaultSubMenu: {fileID: 4442824715814530331}
   menuEventSystem: {fileID: 619219929400073137}
   skillSlots:
@@ -7103,6 +7106,42 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6869733402800454551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7943125969759495436}
+  m_Layer: 5
+  m_Name: Quit Submenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7943125969759495436
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6869733402800454551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7809570772334179145}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6905412534475597459
 GameObject:
   m_ObjectHideFlags: 0
@@ -8251,6 +8290,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 53537672948862459}
+  - {fileID: 7943125969759495436}
   m_Father: {fileID: 3695494055635458147}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9158,6 +9198,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 437732240005449405, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544867269322772849, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544867269322772849, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544867269322772849, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544867269322772849, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544867269322772849, guid: 8082eb47e4327194885d127b897e4a74, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 867282370832102595, guid: 8082eb47e4327194885d127b897e4a74, type: 3}

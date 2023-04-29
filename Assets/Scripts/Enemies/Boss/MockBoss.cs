@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,6 +21,8 @@ public class MockBoss : Boss {
     private Dictionary<int, bool> adAtNode = new Dictionary<int, bool>();
     [SerializeField]
     GameObject timeoutAd;
+    [SerializeField]
+    GameObject endingText;
 
 #if UNITY_EDITOR
     protected override void OnDrawGizmos() {
@@ -150,5 +153,9 @@ public class MockBoss : Boss {
     public override void MoveToNewNode() {
         base.MoveToNewNode();
         StartCoroutine(CreateAfterImages());
+    }
+
+    void OnDisable() {
+        endingText.SetActive(true);
     }
 }
