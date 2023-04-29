@@ -241,6 +241,9 @@ public class PlayerInfo : MonoBehaviour {
     public void EnterCombat() {
         if (!tutorialTexts["hitbox"]) {
             HitBoxText();
+            PlayerInfo.Instance.Tutorials["dashing"] = false;
+            PlayerInfo.Instance.EnableTutorialText("Use [X] to dash",
+                "Use [B] to dash", false);
             StartCoroutine(DisableBottomText(5));
         }
         inCombat = true;
@@ -267,13 +270,15 @@ public class PlayerInfo : MonoBehaviour {
         healthBarStyle = !healthBarStyle;
     }
 
-    public void EnableTutorialText(string text, bool bottom = false) {
+    public void EnableTutorialText(string text, bool bottom = false, bool disableOther = true) {
         GameObject canvas = transform.GetChild(2).gameObject;
         //get the index of which text box to enable
         int childIndex = bottom ? 1 : 0;
         canvas.transform.GetChild(childIndex).gameObject.SetActive(true);
-        canvas.transform.GetChild(Mathf.Abs(childIndex-1)).gameObject.SetActive(false);
-        canvas.GetComponentsInChildren<TMP_Text>()[childIndex].text = text;
+        if (disableOther) {
+            canvas.transform.GetChild(Mathf.Abs(childIndex - 1)).gameObject.SetActive(false);
+        }
+        canvas.transform.GetChild(childIndex).GetComponent<TMP_Text>().text = text;
 
         canvas.SetActive(true);
     }
@@ -282,12 +287,12 @@ public class PlayerInfo : MonoBehaviour {
         return GetComponent<PlayerInput>().currentControlScheme;
     }
 
-    public void EnableTutorialText(string keyboardText, string gamepadText) {
+    public void EnableTutorialText(string keyboardText, string gamepadText, bool disableOther = true) {
         if (GetControlScheme() == "Keyboard") {
-            EnableTutorialText(keyboardText);
+            EnableTutorialText(keyboardText, false, disableOther);
         }
         else {
-            EnableTutorialText(gamepadText);
+            EnableTutorialText(gamepadText, false, disableOther);
         }
     }
 
