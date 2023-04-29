@@ -190,7 +190,10 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.UpdatePlayerHealth(1.0f);
         //get the player
         PlayerControl player = PlayerInfo.Instance.PlayerControl;
-        PlayerInfo.Instance.Tutorials = saveData.GetTutorialFlags();
+        Dictionary<string, bool> tutorialFlags = saveData.GetTutorialFlags();
+        if (tutorialFlags.Count != 0) {
+            PlayerInfo.Instance.Tutorials = saveData.GetTutorialFlags();
+        }
         //unlock all skills listed in the save data
         foreach (int skillID in saveData.unlockedSkills) {
             player.UnlockSkill(skillID);

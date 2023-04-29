@@ -82,7 +82,8 @@ public class PlayerInfo : MonoBehaviour {
     private Dictionary<string, bool> tutorialTexts = new Dictionary<string, bool>() {
         {"movement",  false},
         {"attacking", false },
-        {"dashing", false}
+        {"dashing", false},
+        {"hitbox", false }
     };
     public Dictionary<string, bool> Tutorials { get => tutorialTexts; set => tutorialTexts = value; }
 
@@ -237,7 +238,7 @@ public class PlayerInfo : MonoBehaviour {
     /// Enteres the player into combat, enabling their hitbox and any other combat related UI or restrictions
     /// </summary>
     public void EnterCombat() {
-        if (!firstCombat) {
+        if (!tutorialTexts["hitbox"]) {
             HitBoxText();
             StartCoroutine(DisableBottomText(5));
         }
@@ -267,13 +268,12 @@ public class PlayerInfo : MonoBehaviour {
 
     public void EnableTutorialText(string text, bool bottom = false) {
         GameObject canvas = transform.GetChild(2).gameObject;
-        if (bottom) {
-            canvas.transform.GetChild(1).gameObject.SetActive(true);
-            canvas.GetComponentsInChildren<TMP_Text>()[1].text = text;
-            //canvas.transform.GetChild(0).gameObject.SetActive(false);
-        } else {
-            canvas.GetComponentInChildren<TMP_Text>().text = text;
-        }
+        //get the index of which text box to enable
+        int childIndex = bottom ? 1 : 0;
+        canvas.transform.GetChild(childIndex).gameObject.SetActive(true);
+        canvas.transform.GetChild(Mathf.Abs(childIndex-1)).gameObject.SetActive(false);
+        canvas.GetComponentsInChildren<TMP_Text>()[childIndex].text = text;
+
         canvas.SetActive(true);
     }
 

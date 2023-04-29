@@ -63,6 +63,9 @@ public class CutsceneManager : MonoBehaviour {
                 guide.name = guide.name.Replace("(Clone)", "").Trim();
                 debris.name = debris.name.Replace("(Clone)", "").Trim();
             }
+            else if (GameManager.Instance.GetProgressionFlag("Started Level")) {
+                SceneLights.Instance.SetLightIntensity("Global Lighting", 1);
+            }
         }
     }
 
