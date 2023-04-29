@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
+#if UNITY_EDITOR
         //Dev commands used for easy testing
         //Pauses the game without bringing up the menu so you can still see the current state of the scnree
         if (Input.GetKeyDown(KeyCode.P)) {
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour {
             file = JsonUtility.FromJson<PlayerSaveData>(System.IO.File.ReadAllText(filePath));
             LoadPlayerSaveData(playerSaveSlot, file);
         }
+#endif
     }
 
     /// <summary>
@@ -140,6 +142,7 @@ public class GameManager : MonoBehaviour {
         saveData.unlockedSkills = PlayerInfo.Instance.PlayerControl.UnlockedSkills;
         saveData.equippedSkills = PlayerInfo.Instance.PlayerControl.EquippedSkills;
         saveData.FillProgressionFlags(progressionFlags);
+        saveData.FillTutorialFlags(PlayerInfo.Instance.Tutorials);
         //write the data to a persistent file
         System.IO.File.WriteAllText(SaveFilePath, JsonUtility.ToJson(saveData));
         Debug.Log("Saved game!");
@@ -187,6 +190,7 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.UpdatePlayerHealth(1.0f);
         //get the player
         PlayerControl player = PlayerInfo.Instance.PlayerControl;
+        PlayerInfo.Instance.Tutorials = saveData.GetTutorialFlags();
         //unlock all skills listed in the save data
         foreach (int skillID in saveData.unlockedSkills) {
             player.UnlockSkill(skillID);

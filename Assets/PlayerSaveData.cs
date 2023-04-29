@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets {
     [Serializable]
@@ -15,7 +16,10 @@ namespace Assets {
         public string playerName = "Somni";
         public int[] unlockedSkills = new int[0];
         public int[] equippedSkills = new int[] { -1, -1 };
-        public ProgressionFlags[] progressionFlags;
+        [SerializeField]
+        private ProgressionFlags[] progressionFlags;
+        [SerializeField]
+        private ProgressionFlags[] tutorialFlags;
 
         /// <summary>
         /// Populates the save data's internal list of flags with structs representing the KVP of the given dictionary
@@ -25,9 +29,10 @@ namespace Assets {
             progressionFlags = new ProgressionFlags[flags.Count];
             int i = 0;
             foreach (KeyValuePair<string, bool> kvp in flags) {
-                ProgressionFlags flag = new ProgressionFlags();
-                flag.flagName = kvp.Key;
-                flag.flagActivated = kvp.Value;
+                ProgressionFlags flag = new ProgressionFlags {
+                    flagName = kvp.Key,
+                    flagActivated = kvp.Value
+                };
                 progressionFlags[i] = flag;
                 i++;
             }
@@ -43,6 +48,38 @@ namespace Assets {
                 return flags;
             }
             foreach (ProgressionFlags flag in progressionFlags) {
+                flags.Add(flag.flagName, flag.flagActivated);
+            }
+            return flags;
+        }
+
+        /// <summary>
+        /// Populates the save data's internal list of flags with structs representing the KVP of the given dictionary
+        /// </summary>
+        /// <param name="flags"></param>
+        public void FillTutorialFlags(Dictionary<string, bool> flags) {
+            tutorialFlags = new ProgressionFlags[flags.Count];
+            int i = 0;
+            foreach (KeyValuePair<string, bool> kvp in flags) {
+                ProgressionFlags flag = new ProgressionFlags {
+                    flagName = kvp.Key,
+                    flagActivated = kvp.Value
+                };
+                tutorialFlags[i] = flag;
+                i++;
+            }
+        }
+
+        /// <summary>
+        /// Creates a dictionary representation of the save data's internal list of flags
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, bool> GetTutorialFlags() {
+            Dictionary<string, bool> flags = new Dictionary<string, bool>();
+            if (tutorialFlags == null || tutorialFlags.Length == 0) {
+                return flags;
+            }
+            foreach (ProgressionFlags flag in tutorialFlags) {
                 flags.Add(flag.flagName, flag.flagActivated);
             }
             return flags;

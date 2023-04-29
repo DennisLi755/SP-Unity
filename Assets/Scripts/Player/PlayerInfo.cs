@@ -84,7 +84,7 @@ public class PlayerInfo : MonoBehaviour {
         {"attacking", false },
         {"dashing", false}
     };
-    public Dictionary<string, bool> Tutorials => tutorialTexts;
+    public Dictionary<string, bool> Tutorials { get => tutorialTexts; set => tutorialTexts = value; }
 
     private void Awake() {
         if (instance == null) {
@@ -240,7 +240,6 @@ public class PlayerInfo : MonoBehaviour {
         if (!firstCombat) {
             HitBoxText();
             StartCoroutine(DisableBottomText(5));
-            firstCombat = false;
         }
         inCombat = true;
         Hitbox.SetActive(true);
