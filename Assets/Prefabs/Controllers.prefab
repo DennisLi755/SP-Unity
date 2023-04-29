@@ -4690,8 +4690,8 @@ MonoBehaviour:
   playerManaBar: {fileID: 2277659560164509073}
   bossHealthBar: {fileID: 5123104025104685245}
   timeoutText: {fileID: 3887744645878315386}
-  menu: {fileID: 6869733402800454551}
-  defaultSubMenu: {fileID: 4442824715814530331}
+  menu: {fileID: 3695494055635458146}
+  defaultSubMenu: {fileID: 6869733402800454551}
   menuEventSystem: {fileID: 619219929400073137}
   skillSlots:
   - {fileID: 1132106429679193852}
@@ -4745,6 +4745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5800753389442c4aba16fddcf96f30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!1 &3695494057110364235
 GameObject:
   m_ObjectHideFlags: 0

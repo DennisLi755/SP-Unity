@@ -12,6 +12,7 @@ public class DialogueManager : MonoBehaviour {
     public static DialogueManager Instance => instance;
 
     private DialogueRunner dialogueRunner;
+    [SerializeField]
     public bool IsDialogueRunning => dialogueRunner.IsDialogueRunning;
     private GameObject dialogueCanvas;
     private GameObject skipPrompt;
