@@ -7,7 +7,7 @@ public class LeaveHouse : Trigger {
     private Room containingRoom;
     private readonly List<string> beforeSwordMessages = new List<string>() {
         "Weirdly enough, the door is locked and needs a key to open it from the inside.",
-        "You last remember seeing the key on the coffee table"
+        "You last remember seeing the key on the coffee table."
     };
 
     new void Start() {
