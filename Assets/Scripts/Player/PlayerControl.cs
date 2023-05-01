@@ -298,7 +298,7 @@ public class PlayerControl : MonoBehaviour {
     IEnumerator EndTutorial(Action onEnd, float waitTime) {
         yield return new WaitForSeconds(waitTime);
         onEnd();
-        pInfo.DisableTutorialText();
+        pInfo.DisableTopTutorialText();
     }
 
     #region Collisions & Raycasts

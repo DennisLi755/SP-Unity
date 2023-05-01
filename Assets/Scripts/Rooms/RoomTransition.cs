@@ -56,7 +56,7 @@ public class RoomTransition : MonoBehaviour {
 
         IEnumerator WaitForFade() {
             yield return new WaitForSecondsRealtime(1.0f);
-            PlayerInfo.Instance.DisableTutorialText();
+            PlayerInfo.Instance.DisableTopTutorialText();
             PlayerInfo.Instance.transform.position = transitionPartner.TransitionToLocation;
             transitionPartner.ContainingRoom.UpdateCameraFollow();
             transitionPartner.containingRoom.onEnter?.Invoke();

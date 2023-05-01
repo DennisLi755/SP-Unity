@@ -40,7 +40,7 @@ public class SwordInteraction : PromptedInteraction {
         base.OnYes();
         UIManager.Instance.ActivateInteractText(base.AfterYesMessage);
         GameManager.Instance.SetProgressionFlag("Sword Unlocked", true);
-        UIManager.Instance.EndInteractionEvent += () => { PlayerInfo.Instance.EnableTutorialText("Press Z to attack", "Press X to attack"); };
+        UIManager.Instance.EndInteractionEvent += () => { PlayerInfo.Instance.EnableTutorialText("Press <sprite name=\"Z Key\"> to attack", "Press <sprite name=\"Xbox West Face Button\"> to attack"); };
         GameObject.Find("Back door").GetComponent<TextboxInteraction>().Message.Add("The key you found doesn't fit the lock.");
     }
 }

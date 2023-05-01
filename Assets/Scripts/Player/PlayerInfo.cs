@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -243,9 +244,9 @@ public class PlayerInfo : MonoBehaviour {
             HitBoxText();
             tutorialTexts["dashing"] = false;
             tutorialTexts["hitbox"] = true;
-            PlayerInfo.Instance.EnableTutorialText("Use [X] to dash",
-                "Use [B] to dash", false);
-            StartCoroutine(DisableBottomText(5));
+            EnableTutorialText("Use <sprite name=\"X Key\"> to dash",
+                "Press <sprite name=\"Xbox East Face Button\" to dash>", false);
+            StartCoroutine(DisableBottomTutorialText(5));
         }
         inCombat = true;
         Hitbox.SetActive(true);
@@ -285,24 +286,35 @@ public class PlayerInfo : MonoBehaviour {
     }
 
     public string GetControlScheme() {
-        return GetComponent<PlayerInput>().currentControlScheme;
+        PlayerInput pi = GetComponent<PlayerInput>();
+        if (pi.currentControlScheme == "Keyboard") {
+            return pi.currentControlScheme;
+        }
+        if (pi.devices[0].description.manufacturer == "Sony Interactive Entertainment") {
+            return "PS Gamepad";
+        }
+        return "XInput Gamepad";
     }
 
     public void EnableTutorialText(string keyboardText, string gamepadText, bool disableOther = true) {
-        if (GetControlScheme() == "Keyboard") {
+        string controlScheme = GetControlScheme();
+        if (controlScheme == "Keyboard") {
             EnableTutorialText(keyboardText, false, disableOther);
         }
         else {
+            if (controlScheme == "PS Gamepad") {
+                gamepadText = gamepadText.Replace("Xbox", "PS");
+            }
             EnableTutorialText(gamepadText, false, disableOther);
         }
     }
 
-    public void DisableTutorialText() {
+    public void DisableTopTutorialText() {
         transform.GetChild(2).gameObject.SetActive(false);
         arrow.SetActive(false);
     }
 
-    IEnumerator DisableBottomText(float time) {
+    IEnumerator DisableBottomTutorialText(float time) {
         yield return new WaitForSeconds(time);
         GameObject canvas = transform.GetChild(2).gameObject;
         canvas.transform.GetChild(1).gameObject.SetActive(false);

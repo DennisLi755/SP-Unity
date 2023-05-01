@@ -24,6 +24,6 @@ public class SavePoint : InteractableObject {
 
     IEnumerator TurnOffSaveText() {
         yield return new WaitForSeconds(1.5f);
-        PlayerInfo.Instance.DisableTutorialText();
+        PlayerInfo.Instance.DisableTopTutorialText();
     }
 }
