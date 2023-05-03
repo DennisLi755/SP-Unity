@@ -273,6 +273,7 @@ public class PlayerInfo : MonoBehaviour {
     }
 
     public void EnableTutorialText(string text, bool bottom = false, bool disableOther = true) {
+        SoundManager.Instance.PlaySoundEffect("Click", SoundSource.UI);
         GameObject canvas = transform.GetChild(2).gameObject;
         //get the index of which text box to enable
         int childIndex = bottom ? 1 : 0;

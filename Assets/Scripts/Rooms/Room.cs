@@ -48,7 +48,7 @@ public class Room : MonoBehaviour {
         GameManager.MarkSceneDirty();
     }
     /// <summary>
-    /// Plays a Sound effect through the cutscene sound source
+    /// Plays a Sound effect through the environment sound source
     /// </summary>
     /// <param name="soundEffect"></param>
     public void PlaySoundEffect(string soundEffect) {
