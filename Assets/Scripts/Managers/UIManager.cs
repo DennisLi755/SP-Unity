@@ -369,9 +369,12 @@ public class UIManager : MonoBehaviour {
     /// Toggles the menu's visibility
     /// </summary>
     public void ToggleMenu() {
-        menu.SetActive(!menu.activeInHierarchy);
-        if (menu.activeInHierarchy) {
-            menuEventSystem.SetSelectedGameObject(defaultSubMenu.transform.parent.gameObject);
+        //set pause state to be opposite of what it is currently
+        bool paused = !menu.activeInHierarchy;
+        menu.SetActive(paused);
+        //ensure that the correct control scheme is used and if paused, the correct button is selected
+        if (paused) {
+            menuEventSystem.SetSelectedGameObject(defaultSubMenu.transform.GetChild(0).gameObject);
             PlayerInfo.Instance.ChangeInputMap("UI");
         }
         else {
@@ -424,6 +427,10 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void ReturnToLastSelected() {
         SetSelected(lastSelectedObject);
+    }
+
+    public void Test() {
+        Debug.Log("Test");
     }
 
     /// <summary>

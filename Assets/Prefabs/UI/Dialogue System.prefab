@@ -170,10 +170,10 @@ RectTransform:
   m_Father: {fileID: 544867270971391234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 266.69186, y: -43.9375}
-  m_SizeDelta: {x: 533.3837, y: 87.875}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 533.3837, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &544867269322772851
 CanvasRenderer:
@@ -497,7 +497,7 @@ Transform:
   m_Children:
   - {fileID: 5219341485943296695}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1987083661913734334
 MonoBehaviour:
@@ -803,6 +803,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayUISound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UI Select
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!111 &5094093358789773643
 Animation:
   m_ObjectHideFlags: 0
@@ -838,7 +850,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-          m_MethodName: PlayUISoundEffect
+          m_MethodName: PlayUISound
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1211,6 +1223,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayUISound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: UI Select
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!111 &1803594600942904396
 Animation:
   m_ObjectHideFlags: 0
@@ -1246,7 +1270,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-          m_MethodName: PlayUISoundEffect
+          m_MethodName: PlayUISound
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1489,7 +1513,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: PlayUISoundEffect
+        m_MethodName: PlayTextSound
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

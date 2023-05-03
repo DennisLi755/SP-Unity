@@ -245,7 +245,7 @@ public class PlayerInfo : MonoBehaviour {
             tutorialTexts["dashing"] = false;
             tutorialTexts["hitbox"] = true;
             EnableTutorialText("Use <sprite name=\"X Key\"> to dash",
-                "Press <sprite name=\"Xbox East Face Button\" to dash>", false);
+                "Press <sprite name=\"Xbox East Face Button\"> to dash", false);
             StartCoroutine(DisableBottomTutorialText(5));
         }
         inCombat = true;
