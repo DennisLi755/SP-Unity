@@ -38,6 +38,7 @@ public class MainMenu : MonoBehaviour
                 currButton.GetChild(2).GetComponent<TMP_Text>().text = saveFiles[i].saveLocation.Replace("Save Toilet - ", "");
             }
         }
+        es.SetSelectedGameObject(startButton.gameObject);
     }
 
     public void OpenLoadMenu() {

@@ -374,7 +374,9 @@ public class UIManager : MonoBehaviour {
         menu.SetActive(paused);
         //ensure that the correct control scheme is used and if paused, the correct button is selected
         if (paused) {
-            menuEventSystem.SetSelectedGameObject(defaultSubMenu.transform.GetChild(0).gameObject);
+            GameObject button = defaultSubMenu.transform.GetChild(0).gameObject;
+            menuEventSystem.firstSelectedGameObject = button;
+            menuEventSystem.SetSelectedGameObject(button);
             PlayerInfo.Instance.ChangeInputMap("UI");
         }
         else {
@@ -429,8 +431,8 @@ public class UIManager : MonoBehaviour {
         SetSelected(lastSelectedObject);
     }
 
-    public void Test() {
-        Debug.Log("Test");
+    public void Test(string str) {
+        Debug.Log(str);
     }
 
     /// <summary>

@@ -225,8 +225,8 @@ GameObject:
   - component: {fileID: 2246057587630945153}
   - component: {fileID: 2246057587630945154}
   - component: {fileID: 2246057587630945155}
-  - component: {fileID: 3198278363839503996}
   - component: {fileID: 7330301184924918245}
+  - component: {fileID: 7615348133568858975}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -311,7 +311,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -336,22 +336,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!111 &3198278363839503996
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2246057587630945157}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: aec43d9cd571f3f4792ba018bbc51d72, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: aec43d9cd571f3f4792ba018bbc51d72, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &7330301184924918245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,3 +365,23 @@ MonoBehaviour:
             m_StringArgument: UI Move
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!95 &7615348133568858975
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246057587630945157}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 410323b313f166a48ac1f42966ce361d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

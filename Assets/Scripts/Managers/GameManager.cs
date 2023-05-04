@@ -116,6 +116,11 @@ public class GameManager : MonoBehaviour {
         Application.Quit();
     }
 
+    public void ReturnToMainMenu() {
+        PauseGame();
+        SceneManager.LoadScene(0);
+    }
+
     public void EndFight() {
         StartCoroutine(EndDemoFight());
     }
