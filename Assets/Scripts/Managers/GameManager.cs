@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
     //Progression flags
     private Dictionary<string, bool> progressionFlags = new Dictionary<string, bool>();
+    public string LastProgressionFlag { get; set; }
 
     private void Awake() {
         if (instance == null) {

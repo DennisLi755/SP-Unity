@@ -48,6 +48,8 @@ public class RoomTransition : MonoBehaviour {
     /// Transitions the player to the transition partner transition
     /// </summary>
     public void Transition() {
+        containingRoom.UpdateEvents(GameManager.Instance.LastProgressionFlag);
+        transitionPartner.containingRoom.UpdateEvents(GameManager.Instance.LastProgressionFlag);
         //stop the player from moving and fade to blade
         PlayerInfo.Instance.PlayerControl.Freeze();
         UIManager.Instance.FadeToBlack();

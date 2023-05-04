@@ -1,5 +1,14 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+[Serializable]
+public struct FlagEvents {
+    public string flag;
+    public UnityEvent[] ev;
+    }
 
 public class Room : MonoBehaviour {
 
@@ -7,17 +16,31 @@ public class Room : MonoBehaviour {
     private bool staticCamera = false;
     [SerializeField]
     private Vector3 cameraPosition;
-    [SerializeField]
     public UnityEvent onEnter;
-    [SerializeField]
     public UnityEvent onExit;
 
+    [SerializeField]
+    private FlagEvents[] flagsArray;
+    private Dictionary<string, UnityEvent[]> flagsDictionary;
+
     void Start() {
+        flagsDictionary = new Dictionary<string, UnityEvent[]>();
+        foreach (FlagEvents flagEvents in flagsArray) {
+            flagsDictionary.Add(flagEvents.flag, flagEvents.ev);
+        }
+
         if (cameraPosition == Vector3.zero) {
             Debug.LogWarning($"{gameObject.name} has no camera position");
         }
     }
 
+    public void UpdateEvents(string lastProgressionFlag)
+    {
+        if (flagsDictionary.ContainsKey(lastProgressionFlag)) {
+            onEnter = flagsDictionary[lastProgressionFlag][0];
+            onExit = flagsDictionary[lastProgressionFlag][1];
+        }
+    }
     /// <summary>
     /// Called when the player is moved to the room; tells the camera whether it should follow the character and pre-positions the camera
     /// </summary>

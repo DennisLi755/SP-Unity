@@ -387,6 +387,7 @@ public class CutsceneManager : MonoBehaviour {
     [YarnCommand("set_progression_flag")]
     static void SetProgressionFlag(string flagName, bool value) {
         GameManager.Instance.SetProgressionFlag(flagName, value);
+        GameManager.Instance.LastProgressionFlag = flagName;
     }
 
     /// <summary>
