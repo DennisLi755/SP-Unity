@@ -397,13 +397,31 @@ public class PlayerControl : MonoBehaviour {
     public void Move(InputAction.CallbackContext context) {
         input = context.ReadValue<Vector2>().normalized;
         if (canMove) {
-            velocity = input;
+            if (pInfo.ControlType == ControlType.Keyboard) {
+                velocity = input;
+            }
+            else {
+                //account for the deadzone so the player doesn't default to moving right when not moving
+                if (input.magnitude == 0.0f) {
+                    velocity = Vector2.zero;
+                    return;
+                }
+                float angle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+                //correct the angle to be 0-360 instead of -pi-pi
+                angle = (180 - angle * -1 + 180) % 360;
+                int directionOctant = (int)((angle + 22.5f % 360) / 45);
+                float clampedAngle = directionOctant * 45 * Mathf.Deg2Rad;
+                velocity = new Vector2(Mathf.Cos(clampedAngle), Mathf.Sin(clampedAngle));
+            }
             //calculate the direction the player is facing based on their movement
+            //both the above 8 dir clamp for controller direction and below 4 dir clamp for facing direction
+            //are based on same generalized formula I derived which can be found and tested at: https://www.desmos.com/calculator/z7h3aaezti
             if (velocity.magnitude != 0.0f) {
                 float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
                 //correct the angle to be 0-360 instead of -pi-pi
                 angle = (180 - angle * -1 + 180) % 360;
-                int directionQuadrant = (int)((angle+45 % 360) / 90);
+                int directionQuadrant = (int)((angle + 45 % 360) / 90);
+                //note quite sure why this is needed but it is
                 facingDirection = (FacingDirection)(directionQuadrant % 4);
             }
             if (!pInfo.Tutorials["movement"]) {
@@ -525,9 +543,10 @@ public class PlayerControl : MonoBehaviour {
                 break;
         }
         currentDirection[1] = currentDirection[0] + 175;
-        if (angle+180 > currentDirection[0] && angle+180 < currentDirection[1]) {
+        if (angle + 180 > currentDirection[0] && angle + 180 < currentDirection[1]) {
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -636,7 +655,7 @@ public class PlayerControl : MonoBehaviour {
                 }
                 //player doesn't have enough mana
                 else {
-                Debug.Log($"Could not activate skill equipped in slot {skillSlot}: you do not have enough mana for that skill");
+                    Debug.Log($"Could not activate skill equipped in slot {skillSlot}: you do not have enough mana for that skill");
                 }
             }
             //skill is still on cooldown
@@ -725,7 +744,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     private bool Skill0() {
-        int skillSlot = (equippedSkills[0] == 0)? 0 : 1;
+        int skillSlot = (equippedSkills[0] == 0) ? 0 : 1;
         if (!IsShieldActive) {
             ToggleShield(true);
             StartCoroutine(CooldownSkill(skillSlot, () => isShieldActive));

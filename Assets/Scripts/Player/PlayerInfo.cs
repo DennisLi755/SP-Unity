@@ -5,6 +5,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum ControlType {
+    Keyboard,
+    PSController,
+    XboxController
+}
+
 public class PlayerInfo : MonoBehaviour {
 
     private static PlayerInfo instance;
@@ -19,6 +25,8 @@ public class PlayerInfo : MonoBehaviour {
 
     private PlayerControl pControl;
     public PlayerControl PlayerControl { get => pControl; }
+    private ControlType controlType;
+    public ControlType ControlType => controlType;
 
     [SerializeField]
     private Sprite[] playerHitboxSprites;
@@ -105,6 +113,8 @@ public class PlayerInfo : MonoBehaviour {
 
         currentHealth = startingHealth;
         currentMana = startingMana;
+
+        UpdateControlScheme();
     }
 
     private void Update() {
@@ -286,27 +296,35 @@ public class PlayerInfo : MonoBehaviour {
         canvas.SetActive(true);
     }
 
-    public string GetControlScheme() {
-        PlayerInput pi = GetComponent<PlayerInput>();
+    public void UpdateControlScheme() {
+        UpdateControlScheme(GetComponent<PlayerInput>());
+    }
+
+    public void UpdateControlScheme(PlayerInput pi) {
         if (pi.currentControlScheme == "Keyboard") {
-            return pi.currentControlScheme;
+            controlType = ControlType.Keyboard;
         }
-        if (pi.devices[0].description.manufacturer == "Sony Interactive Entertainment") {
-            return "PS Gamepad";
+        else if (pi.devices[0].description.manufacturer == "Sony Interactive Entertainment") {
+            controlType = ControlType.PSController;
         }
-        return "XInput Gamepad";
+        else {
+            controlType = ControlType.XboxController;
+        }
+        Debug.Log($"Swapped control type to {controlType}");
     }
 
     public void EnableTutorialText(string keyboardText, string gamepadText, bool disableOther = true) {
-        string controlScheme = GetControlScheme();
-        if (controlScheme == "Keyboard") {
-            EnableTutorialText(keyboardText, false, disableOther);
-        }
-        else {
-            if (controlScheme == "PS Gamepad") {
+        switch (controlType) {
+            case ControlType.Keyboard:
+                EnableTutorialText(keyboardText, false, disableOther);
+                break;
+            case ControlType.PSController:
                 gamepadText = gamepadText.Replace("Xbox", "PS");
-            }
-            EnableTutorialText(gamepadText, false, disableOther);
+                EnableTutorialText(gamepadText, false, disableOther);
+                break;
+            case ControlType.XboxController:
+                EnableTutorialText(gamepadText, false, disableOther);
+                break;
         }
     }
 
