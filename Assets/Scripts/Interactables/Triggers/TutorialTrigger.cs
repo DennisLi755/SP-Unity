@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialTrigger : Trigger {
+    [SerializeField]
+    private string keyboardText;
+    [SerializeField]
+    private string controllerText;
+    [SerializeField]
+    private string tutorialKey;
     protected override void OnTrigger() {
-        PlayerInfo.Instance.EnableTutorialText(
-            "Press X to dodge through enemy bullets",
-            "Press B to dodge through enemy bullets"
-            );
-        PlayerInfo.Instance.Tutorials.Add("dashing", false);
+        PlayerInfo.Instance.EnableTutorialText(keyboardText, controllerText);
+        PlayerInfo.Instance.Tutorials[tutorialKey] = false;
         base.OnTrigger();
     }
 }
