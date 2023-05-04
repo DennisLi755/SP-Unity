@@ -118,6 +118,7 @@ public class GameManager : MonoBehaviour {
 
     public void ReturnToMainMenu() {
         PauseGame();
+        EndDemoFight();
         SceneManager.LoadScene(0);
     }
 

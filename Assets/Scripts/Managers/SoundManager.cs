@@ -37,6 +37,7 @@ public class SoundManager : MonoBehaviour {
     private List<AudioSource> cutsceneSources = new List<AudioSource>();
     [SerializeField]
     private List<AudioSource> UISources = new List<AudioSource>();
+    [SerializeField]
     private List<AudioSource> environmentSources = new List<AudioSource>();
 
     [Range(0, 1)]
