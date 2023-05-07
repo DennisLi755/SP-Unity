@@ -83,4 +83,8 @@ public class Room : MonoBehaviour {
     public void StopSound() {
         SoundManager.Instance.StopSoundSource(SoundSource.environment);
     }
+
+    public void ChangeMusicVolume(float scalar) {
+        SoundManager.Instance.ChangeMusicVolScalar(2.0f, scalar);
+    }
 }

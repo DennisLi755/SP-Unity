@@ -216,9 +216,9 @@ public class SoundManager : MonoBehaviour {
     /// Sets up a music audio source for each item in the array to use for layer blending
     /// </summary>
     /// <param name="names"></param>
-    public void SetUpMusicLayers(string[] names) {
+    public void SetUpMusicLayers(string[] names, float volScalar = 1) {
         currentLayer = 0;
-        float volume = musicVolume;
+        float volume = musicVolume * volScalar;
         for (int i = 0; i < names.Length; i++) {
             musicSources.Add(gameObject.AddComponent<AudioSource>());
             musicSources[i].clip = soundEffects[names[i]];
@@ -313,5 +313,35 @@ public class SoundManager : MonoBehaviour {
             Destroy(musicSources[i]);
             musicSources.RemoveAt(i);
         }
+    }
+
+    public void ChangeMusicVolScalar(float fadeTime, float scalar) {
+        StartCoroutine(ChangeVolume(fadeTime, scalar));
+    }
+
+    IEnumerator ChangeVolume(float fadeTime, float volume) {
+        AudioSource audioSource = musicSources[currentLayer];
+        if (audioSource == null) {
+            yield break;
+        }
+        float endVolume = musicVolume * volume;
+        Debug.Log("End Volume: " + endVolume);
+
+        bool exit;
+        if (audioSource.volume < endVolume) {
+            while (audioSource.volume < endVolume) {
+                audioSource.volume += endVolume * Time.deltaTime / fadeTime;
+                Debug.Log(audioSource.volume);
+                yield return null;
+            }
+        } else {
+            while (audioSource.volume > endVolume) {
+                audioSource.volume -= endVolume * Time.deltaTime / fadeTime;
+                Debug.Log(audioSource.volume);
+                yield return null;
+            }
+        }
+
+        audioSource.volume = endVolume;
     }
 }

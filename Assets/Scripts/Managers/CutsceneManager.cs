@@ -62,6 +62,7 @@ public class CutsceneManager : MonoBehaviour {
                 SceneLights.Instance.SetLightIntensity("Crash Guide Spotlight", 1);
                 guide.name = guide.name.Replace("(Clone)", "").Trim();
                 debris.name = debris.name.Replace("(Clone)", "").Trim();
+                SoundManager.Instance.SetUpMusicLayers(new string[]{"spdemo1_quiet"}, 0.6f);
             }
             else if (GameManager.Instance.GetProgressionFlag("Started Level")) {
                 SceneLights.Instance.SetLightIntensity("Global Lighting", 1);
@@ -109,9 +110,9 @@ public class CutsceneManager : MonoBehaviour {
     /// </summary>
     /// <param name="layers">the string of layers for spliting</param>
     [YarnCommand("music_layers")]
-    static void SetUpMusicLayers(string layers) {
+    static void SetUpMusicLayers(string layers, float volumeScalar = 1) {
         string[] musicLayers = layers.Split(',');
-        SoundManager.Instance.SetUpMusicLayers(musicLayers);
+        SoundManager.Instance.SetUpMusicLayers(musicLayers, volumeScalar);
     }
 
     /// <summary>
@@ -144,7 +145,16 @@ public class CutsceneManager : MonoBehaviour {
         }
         SoundManager.Instance.FadeOutSource(time, soundSource);
     }
-
+    [YarnCommand("stop_source")]
+    static void StopSource(string source) {
+        SoundSource soundSource = SoundSource.cutscene;
+        switch (source) {
+            case "environment":
+                soundSource = SoundSource.environment;
+                break;
+        }
+        SoundManager.Instance.StopSoundSource(soundSource);
+    }
 
     #endregion
 
