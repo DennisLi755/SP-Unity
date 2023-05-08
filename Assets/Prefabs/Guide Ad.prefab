@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8242832947928035325}
   - component: {fileID: 8779909142517629354}
   - component: {fileID: 1055414598680960722}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 43629331698702214}
   - component: {fileID: 2788018279310027723}
   - component: {fileID: 2690710513636621759}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Hit Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 5142461910104336488}
   - component: {fileID: 2928530389994337223}
   - component: {fileID: 1910332601483145322}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Guide Ad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7503953173959933805}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

@@ -7,12 +7,16 @@ public class GuideAd : RailEnemy {
     [SerializeField]
     protected GameObject afterImage;
 
+    private void Awake() {
+        GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.layer = 0;
+    }
+
     new void Start() {
         base.Start();
         StartCoroutine(WaitForArrive());
         canContinueAttack = false;
         canAttack = true;
-        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     /// <summary>
@@ -28,5 +32,6 @@ public class GuideAd : RailEnemy {
 
         GetComponent<BoxCollider2D>().enabled = true;
         canContinueAttack = true;
+        gameObject.layer = 9;
     }
 }
