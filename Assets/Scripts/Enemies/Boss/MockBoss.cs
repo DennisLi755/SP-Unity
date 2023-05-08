@@ -50,8 +50,7 @@ public class MockBoss : Boss {
 
     private new void Start() {
         base.Start();
-        string[] musicLayers = new string[] { "spdemo1_novocals", "spdemo1_full" };
-        SoundManager.Instance.SetUpMusicLayers(musicLayers);
+        SoundManager.Instance.ChangeMusicLayer(3f);
         for (int i = 0; i < adNodes.Length; i++) {
             adNodes[i] += transform.position;
             adAtNode.Add(i, false);
@@ -127,6 +126,7 @@ public class MockBoss : Boss {
                         timeoutAd =Instantiate(timeoutAd, transform.position, Quaternion.identity);
                         GetComponent<SpriteRenderer>().enabled = false;
                     }));
+                    SoundManager.Instance.ChangeMusicLayer(3f);
                     return true;
                 }
                 break;

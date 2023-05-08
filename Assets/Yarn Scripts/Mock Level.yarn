@@ -542,6 +542,11 @@ GHOST DOG: tweat.
 SOMNI: How many treats do you want?
 GHOST DOG: 3.
 SOMNI: Okay...We can take a look around.
+<<enable_textboxes false>>
+<<fade_to_black>>
+<<wait 2>>
+<<music_layers "spdemo1_medium,spdemo1_novocals,spdemo1_full">>
+<<fade_from_black>>
 <<set_progression_flag "Started Level" true>>
 ===
 

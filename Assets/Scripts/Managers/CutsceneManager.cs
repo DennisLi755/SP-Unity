@@ -65,6 +65,7 @@ public class CutsceneManager : MonoBehaviour {
                 SoundManager.Instance.SetUpMusicLayers(new string[]{"spdemo1_quiet"}, 0.6f);
             }
             else if (GameManager.Instance.GetProgressionFlag("Started Level")) {
+                SoundManager.Instance.SetUpMusicLayers(new string[]{"spdemo1_medium","spdemo1_novocals","spdemo1_full"});
                 SceneLights.Instance.SetLightIntensity("Global Lighting", 1);
             }
         }
