@@ -39,6 +39,7 @@ public class MainMenu : MonoBehaviour
             }
         }
         es.SetSelectedGameObject(startButton.gameObject);
+        UIManager.Instance.EnableCombatUI(false);
     }
 
     public void OpenLoadMenu() {
